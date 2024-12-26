@@ -1,5 +1,5 @@
 {
-  description = "Example Darwin system flake";
+  description = "Camille Darwin system config for MacBook Air ";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -32,25 +32,28 @@
 
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
-      environment.systemPackages =
-        [ pkgs.mailsy
-          pkgs.mkalias
-          pkgs.yt-dlp
-          pkgs.neofetch
-          pkgs.imagemagick
-          pkgs.ffmpeg
-          pkgs.htop
-          pkgs.screen
-          pkgs.github-cli
-          pkgs.audacity # Gui
-          pkgs.gimp
-          #pkgs.kid3  
+      environment.systemPackages = with pkgs; 
+        [ mailsy
+          mkalias
+          yt-dlp
+          neofetch
+          imagemagick
+          ffmpeg
+          htop
+          screen
+          github-cli
+          openjdk8
+          openjdk17
+          openjdk23
+          #audacity # Gui
+          gimp
+          #kid3  
         ];
       
       homebrew = {
         enable = true;
         casks = [
-        "macfuse"
+        #"macfuse"
         "firefox"
         "vlc"
         "iina"
@@ -60,22 +63,26 @@
         "Stats"
         "Raycast"
         "kid3"
+        "multimc"
+        "audacity"
+        "whisky"
         ];
         brews = [
-        "ext4fuse-mac"
-        "sshfs-mac"
-        "ntfs-3g-mac"
+        #"ext4fuse-mac"
+        #"sshfs-mac"
+        #"ntfs-3g-mac"
         "mas"
         ]; 
         masApps = {
-        #Ferromagnetic = 1546537151;
-        #AppleConfigurator = 1037126344;
+        Ferromagnetic = 1546537151;
+        AppleConfigurator = 1037126344;
+        Pdf-Gear = 6469021132;
         #Copyclip = 595191960;
         Dropover = 1355679052;
         }; 
         onActivation.cleanup = "zap";
-        #onActivation.autoUpdate = true;
-        #onActivation.upgrade = true;
+        onActivation.autoUpdate = true;
+        onActivation.upgrade = true;
       };
 
       
@@ -87,31 +94,32 @@
         "/Applications/About This Hack.app"
         "/System/Applications/Utilities/Terminal.app"
         "/System/Applications/Utilities/Activity Monitor.app"
-        "/System/Applications/Utilities/Console.app"
+        #"/System/Applications/Utilities/Console.app"
         "/System/Applications/Utilities/Disk Utility.app"
         "/System/Volumes/Data/Applications/Xcode.app"
         "/System/Volumes/Data/Applications/Visual Studio Code.app"
-        "/System/Applications/Shortcuts.app"
-        "/System/Applications/Utilities/Screen Sharing.app"
+        #"/System/Applications/Shortcuts.app"
+        #"/System/Applications/Utilities/Screen Sharing.app"
         "/System/Applications/Passwords.app"
         "/System/Volumes/Data/Applications/Firefox.app"
         "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app"
         "/Users/camille/Applications/YouTube.app"
-        #"/Applications/Mini Motorways.app"
+        "/Applications/Whisky.app/"
+        "/Applications/MultiMC.app/"
         "/System/Applications/Messages.app"
         "/System/Applications/FaceTime.app"
-        "/System/Applications/Contacts.app"
+        #"/System/Applications/Contacts.app"
         "/System/Applications/Mail.app"
         "/System/Applications/Calendar.app"
-        "/System/Applications/Calculator.app"
+        #"/System/Applications/Calculator.app"
         "/System/Applications/Reminders.app"
         "/System/Applications/Maps.app"
-        "/System/Applications/Freeform.app"
+        #"/System/Applications/Freeform.app"
         "/System/Applications/Photos.app"
         "/System/Applications/Music.app"
         "/System/Volumes/Data/Applications/Ferromagnetic.app"
         #"/System/Volumes/Data/Applications/Wondershare Filmora X.app"
-        "${pkgs.audacity}/Applications/Audacity.app"
+        "/Applications/Audacity.app"
         "/Applications/VLC.app"
         "/System/Volumes/Data/Applications/Microsoft Word.app"
         "/System/Volumes/Data/Applications/Microsoft PowerPoint.app" 
@@ -175,7 +183,7 @@
       system.stateVersion = 5;
 
       # The platform the configuration will be used on.
-      nixpkgs.hostPlatform = "x86_64-darwin";
+      nixpkgs.hostPlatform = "aarch64-darwin";
       
       #nixpkgs.config.allowUnsupportedSystem = true;
       #nixpkgs.config.allowBroken = true;
@@ -184,7 +192,7 @@
   {
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#simple
-    darwinConfigurations."MacMiniCam" = nix-darwin.lib.darwinSystem {
+    darwinConfigurations."MacOSCam" = nix-darwin.lib.darwinSystem {
       modules = [ 
         configuration
         nix-homebrew.darwinModules.nix-homebrew
@@ -193,7 +201,7 @@
             
             enable = true; # Install Homebrew under the default prefix
 
-            enableRosetta = false; # Apple Silicon Only: Also install Homebrew under the default Intel prefix for Rosetta 2
+            enableRosetta = true; # Apple Silicon Only: Also install Homebrew under the default Intel prefix for Rosetta 2
 
             user = "camille"; # User owning the Homebrew prefix
 
@@ -215,6 +223,6 @@
     };
 
     # Expose the package set, including overlays, for convenience.
-    darwinPackages = self.darwinConfigurations."MacMiniCam".pkgs;
+    darwinPackages = self.darwinConfigurations."MacOSCam".pkgs;
   };
 }
