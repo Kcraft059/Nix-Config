@@ -26,34 +26,55 @@
 
   outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew, homebrew-core, homebrew-cask, homebrew-bundle, homebrew-fuse, ... }:
   let
+
+  # Define architectures
+  pkgsX86 = import nixpkgs {
+    system = "x86_64-darwin";
+  };
+
+  pkgsArm = import nixpkgs {
+    system = "aarch64-darwin";
+  };
+
     configuration = { pkgs, config, ... }: {
 
       nixpkgs.config.allowUnfree = true ;
 
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
-      environment.systemPackages = with pkgs; 
-        [ mailsy
-          mkalias
-          yt-dlp
-          neofetch
-          imagemagick
-          ffmpeg
-          htop
-          screen
-          github-cli
-          openjdk8
-          openjdk17
-          openjdk23
-          #audacity # Gui
-          gimp
-          #kid3  
+
+
+      environment.systemPackages =
+        [ pkgs.mailsy
+          pkgs.mkalias
+          pkgs.yt-dlp
+          pkgs.neofetch
+          pkgs.imagemagick
+          pkgs.ffmpeg
+          pkgs.htop
+          pkgs.screen
+          pkgs.github-cli
+          pkgs.openjdk8
+          pkgs.php
+          pkgs.neovim
+          #pkgs.oh-my-zsh
+          #pkgs.zsh-powerlevel10k
+          pkgsX86.openjdk17
+          pkgs.openjdk23
+          pkgs.alacritty # Gui
+          pkgs.discord
+          pkgs.gimp
         ];
+
+      fonts.packages = [
+          pkgs.nerd-fonts.jetbrains-mono
+          pkgs.monocraft
+      ];
       
       homebrew = {
         enable = true;
         casks = [
-        #"macfuse"
+        "macfuse"
         "firefox"
         "vlc"
         "iina"
@@ -66,19 +87,31 @@
         "multimc"
         "audacity"
         "whisky"
+        "hex-fiend"
+        "lulu"
+        "disk-inventory-x"
+        "sf-symbols"
+        #"notchnook"
+        "chatgpt"
         ];
         brews = [
+        "powerlevel10k"
         #"ext4fuse-mac"
-        #"sshfs-mac"
-        #"ntfs-3g-mac"
+        "sshfs-mac"
+        "ntfs-3g-mac"
         "mas"
         ]; 
         masApps = {
+        actions = 1586435171;
         Ferromagnetic = 1546537151;
         AppleConfigurator = 1037126344;
         Pdf-Gear = 6469021132;
-        #Copyclip = 595191960;
-        Dropover = 1355679052;
+        amphetamine = 937984704;
+        #whatsapp = 310633997;
+        #Copyclip = 595191960
+        Testflight = 899247664;
+        #Dropover = 1355679052;
+        #ColorFolder = 1570945548;
         }; 
         onActivation.cleanup = "zap";
         onActivation.autoUpdate = true;
@@ -135,7 +168,7 @@
         finder.ShowPathbar = true; #Finder
         finder.QuitMenuItem = true; #Finder
         finder.FXDefaultSearchScope = "SCcf";
-        finder.AppleShowAllFiles = true; 
+        #finder.AppleShowAllFiles = true; 
       };
       
       /*
