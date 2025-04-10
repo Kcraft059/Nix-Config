@@ -1,5 +1,5 @@
 {
-  description = "Camille Darwin system config for MacBook Air ";
+  description = "MacBook Air M3 personnal config • Kcraft059";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -46,12 +46,14 @@
 
       environment.systemPackages =
         [ pkgs.mailsy
+          pkgs.bat
           pkgs.mkalias
           pkgs.yt-dlp
-          pkgs.neofetch
+          pkgs.fastfetch
           pkgs.imagemagick
           pkgs.ffmpeg
           pkgs.htop
+          pkgs.btop
           pkgs.screen
           pkgs.github-cli
           pkgs.openjdk8
@@ -61,9 +63,8 @@
           #pkgs.zsh-powerlevel10k
           pkgsX86.openjdk17
           pkgs.openjdk23
-          pkgs.alacritty # Gui
-          pkgs.discord
-          pkgs.gimp
+          pkgs.tree
+          #pkgs.alacritty # GUI
         ];
 
       fonts.packages = [
@@ -74,48 +75,69 @@
       homebrew = {
         enable = true;
         casks = [
-        "macfuse"
-        "firefox"
-        "vlc"
-        "iina"
-        "visual-studio-code"
-        "the-unarchiver"
-        "BetterDisplay"
-        "Stats"
-        "Raycast"
-        "kid3"
-        "multimc"
-        "audacity"
-        "whisky"
-        "hex-fiend"
-        "lulu"
-        "disk-inventory-x"
-        "sf-symbols"
-        #"notchnook"
-        "chatgpt"
+          "macfuse"
+          "firefox"
+          "vlc"
+          "iina"
+          "visual-studio-code"
+          "the-unarchiver"
+          "BetterDisplay"
+          "Stats"
+          "Raycast"
+          "kid3"
+          "multimc"
+          "prismlauncher"
+          "audacity"
+          "whisky"
+          "hex-fiend"
+          "lulu"
+          "disk-inventory-x"
+          "sf-symbols"
+          "knockknock"
+          "chatgpt"
+          "discord"
+          "gimp"
+          #"alacritty"
+          "ghostty"
+          "Alcove"
+          "suspicious-package"
+          #"binary-ninja-free"
         ];
         brews = [
-        "powerlevel10k"
-        #"ext4fuse-mac"
-        "sshfs-mac"
-        "ntfs-3g-mac"
-        "mas"
+          #"tree"
+          #"imagemagick"
+          "powerlevel10k"
+          "mas"
+          #"tmux"
+
+          "ext4fuse-mac" 
+          # sudo ext4fuse <diskXsX> <mountPoint> -o allow_other
+          "sshfs-mac" /* dependencies -> declare to prevent uninstall */ "ca-certificates" "libunistring" "gettext" "mpdecimal" "openssl@3" "pcre2" "python-packaging" "readline" "sqlite" "xz" "python@3.13" "glib"
+          # sshfs <user>@<host>:<dir> <mountPoint> -o identityFile=<pathToSSH-Key> 
+          "ntfs-3g-mac" /* "libunistring" "gettext" */
         ]; 
         masApps = {
-        actions = 1586435171;
-        Ferromagnetic = 1546537151;
-        AppleConfigurator = 1037126344;
-        Pdf-Gear = 6469021132;
-        amphetamine = 937984704;
-        #whatsapp = 310633997;
-        #Copyclip = 595191960
-        Testflight = 899247664;
-        #Dropover = 1355679052;
-        #ColorFolder = 1570945548;
+          actions = 1586435171;
+          Ferromagnetic = 1546537151;
+          AppleConfigurator = 1037126344;
+          Pdf-Gear = 6469021132;
+          amphetamine = 937984704;
+          Testflight = 899247664;
+          prettyJsonSafari = 1445328303;
+          #whatsapp = 310633997;
+          #Copyclip = 595191960
+          #Dropover = 1355679052;
+          #ColorFolder = 1570945548;
         }; 
-        onActivation.cleanup = "zap";
+        taps = [
+          "homebrew/homebrew-cask"
+          "homebrew/homebrew-core"
+          "homebrew/homebrew-bundle"
+          "gromgit/homebrew-fuse"
+        ];
         onActivation.autoUpdate = true;
         onActivation.upgrade = true;
+        onActivation.cleanup = "zap";
       };
 
       
@@ -126,6 +148,7 @@
         "/System/Applications/App Store.app"
         "/Applications/About This Hack.app"
         "/System/Applications/Utilities/Terminal.app"
+        "/Applications/Ghostty.app"
         "/System/Applications/Utilities/Activity Monitor.app"
         #"/System/Applications/Utilities/Console.app"
         "/System/Applications/Utilities/Disk Utility.app"
@@ -137,8 +160,8 @@
         "/System/Volumes/Data/Applications/Firefox.app"
         "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app"
         "/Users/camille/Applications/YouTube.app"
+        "/Applications/Prism Launcher.app/"
         "/Applications/Whisky.app/"
-        "/Applications/MultiMC.app/"
         "/System/Applications/Messages.app"
         "/System/Applications/FaceTime.app"
         #"/System/Applications/Contacts.app"
@@ -171,12 +194,13 @@
         #finder.AppleShowAllFiles = true; 
       };
       
-      /*
-      system.activationScripts.script.text = ''
-        echo Test
+      system.activationScripts.postActivation.text = pkgs.lib.mkForce ''
+        echo -ne "\033[38;5;5mrunning postActivation scripts…\033[0m " >&2
+        ln -sf ${pkgs.openjdk23}/zulu-23.jdk /Library/Java/JavaVirtualMachines
+        ln -sf ${pkgsX86.openjdk17}/zulu-17.jdk /Library/Java/JavaVirtualMachines
+        ln -sf ${pkgs.openjdk8}/zulu-8.jdk /Library/Java/JavaVirtualMachines
       '';
-      */
-      
+
       system.activationScripts.applications.text = let
          env = pkgs.buildEnv {
           name = "system-applications";
@@ -198,7 +222,7 @@
       '';
 
       # Auto upgrade nix package and the daemon service.
-      services.nix-daemon.enable = true;
+      # services.nix-daemon.enable = true;
       # nix.package = pkgs.nix;
 
       # Necessary for using flakes on this system.
@@ -220,6 +244,13 @@
       
       #nixpkgs.config.allowUnsupportedSystem = true;
       #nixpkgs.config.allowBroken = true;
+
+      nix.gc = {
+        automatic = true;
+        interval = { Weekday = 0; Hour = 0; Minute = 0; };
+        options = "--delete-older-than 30d";
+      };
+      
     };
   in
   {
