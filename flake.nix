@@ -44,32 +44,29 @@
       ...
     }:
     let
-      nixpkgsConfig = {
-        config = {
-          allowUnfree = true;
-          hostPlatform = "aarch64-darwin";
-        };
+      system = "aarch64-darwin";
+      overlays = [
+        (import ./overlays/mas.nix)
+      ];
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = overlays;
+        config.allowUnfree = true;
       };
     in
     {
       darwinConfigurations = {
         "MacOSCam" = nix-darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
           specialArgs = {
-            inherit
-              self
-              ;
+            inherit self;
+            inherit pkgs;
           };
           modules = [
             ./configuration.nix
-            {
-              nixpkgs = nixpkgsConfig;
-            }
             ./packages.nix
             ./homebrew.nix
             home-manager.darwinModules.home-manager
             {
-              nixpkgs = nixpkgsConfig;
               # `home-manager` config
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;

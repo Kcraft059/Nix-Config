@@ -93,6 +93,10 @@ in
     dock = {
       autohide = true; # Dock
       show-recents = false;
+      wvous-bl-corner = 2; # Mission Control
+      wvous-tr-corner = 14; # Quick Note
+      wvous-tl-corner = 5; # Screen Saver
+      wvous-br-corner = 4; # Desktop
       persistent-apps = [
         "/System/Applications/System Settings.app"
         "/System/Applications/App Store.app"
@@ -131,13 +135,13 @@ in
         "/System/Applications/Notes.app"
         "/System/Volumes/Data/Applications/PDFgear.app"
       ];
-      /*
-        persistent-others = [
-          "/Applications/More Apps…"
-          "~/"
-          "~/Downloads"
-        ];
-      */
+
+      persistent-others = [
+        "/Applications/More Apps…"
+        "${config.users.users.camille.home}/"
+        "${config.users.users.camille.home}/Downloads"
+      ];
+
     };
   };
 

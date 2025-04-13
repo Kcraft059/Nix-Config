@@ -2,9 +2,10 @@
   pkgs,
   config,
   self,
+  fetchurl,
   ...
 }:
-{
+{ 
   homebrew = {
     enable = true;
     casks = [
