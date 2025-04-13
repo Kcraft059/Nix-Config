@@ -2,6 +2,7 @@
   pkgs,
   config,
   self,
+  lib,
   ...
 }:
 let
@@ -15,69 +16,137 @@ let
   };
 in
 {
+  # Auto upgrade nix package and the daemon service.
+  # services.nix-daemon.enable = true;
+  # nix.package = pkgs.nix;
+  nix = {
+    settings = {
+      experimental-features = "nix-command flakes";
+    };
+    extraOptions = lib.optionalString (pkgs.system == "aarch64-darwin") ''
+      extra-platforms = x86_64-darwin aarch64-darwin
+    '';
+    optimise = {
+      automatic = true;
+      interval = {
+        #Weekday = 1;
+        Hour = 6;
+        #Minute = 0;
+      };
+    };
+    gc = {
+      automatic = true;
+      interval = {
+        #Weekday = 1;
+        Hour = 6;
+        #Minute = 0;
+      };
+      options = "--delete-older-than 15d";
+    };
+  };
+
+  nixpkgs.hostPlatform = "aarch64-darwin";
+  #nixpkgs.config.allowUnsupportedSystem = true;
+  #nixpkgs.config.allowBroken = true;
+
+  # Create /etc/zshrc that loads the nix-darwin environment.
+  programs.zsh.enable = true;
+  # Set Git commit hash for darwin-version.
+  system.configurationRevision = self.rev or self.dirtyRev or null;
+  # Used for backwards compatibility, please read the changelog before changing.
+  # $ darwin-rebuild changelog
+  system.stateVersion = 5;
+
+  # Macos System defaults and Extras
+
   users.users.camille = {
+    # Needed For Home-Manager
     name = "camille";
     home = "/Users/camille";
   };
 
+  security.pam.services.sudo_local.touchIdAuth = true;
+
   system.defaults = {
-    dock.autohide = true; # Dock
-    dock.persistent-apps = [
-      "/System/Applications/System Settings.app"
-      "/System/Applications/App Store.app"
-      "/Applications/About This Hack.app"
-      #"/System/Applications/Utilities/Terminal.app"
-      "/Applications/Ghostty.app"
-      "/System/Applications/Utilities/Activity Monitor.app"
-      #"/System/Applications/Utilities/Console.app"
-      "/System/Applications/Utilities/Disk Utility.app"
-      "/System/Volumes/Data/Applications/Xcode.app"
-      "/System/Volumes/Data/Applications/Visual Studio Code.app"
-      #"/System/Applications/Shortcuts.app"
-      #"/System/Applications/Utilities/Screen Sharing.app"
-      "/System/Applications/Passwords.app"
-      "/System/Volumes/Data/Applications/Firefox.app"
-      "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app"
-      "/Users/camille/Applications/YouTube.app"
-      "/Applications/Prism Launcher.app/"
-      "/Applications/Whisky.app/"
-      "/System/Applications/Messages.app"
-      "/System/Applications/FaceTime.app"
-      #"/System/Applications/Contacts.app"
-      "/System/Applications/Mail.app"
-      "/System/Applications/Calendar.app"
-      #"/System/Applications/Calculator.app"
-      "/System/Applications/Reminders.app"
-      "/System/Applications/Maps.app"
-      #"/System/Applications/Freeform.app"
-      "/System/Applications/Photos.app"
-      "/System/Applications/Music.app"
-      "/System/Volumes/Data/Applications/Ferromagnetic.app"
-      #"/System/Volumes/Data/Applications/Wondershare Filmora X.app"
-      "/Applications/Audacity.app"
-      "/Applications/VLC.app"
-      "/System/Volumes/Data/Applications/Microsoft Word.app"
-      "/System/Volumes/Data/Applications/Microsoft PowerPoint.app"
-      "/System/Volumes/Data/Applications/Microsoft Excel.app"
-      "/System/Applications/Notes.app"
-      "/System/Applications/TextEdit.app"
-      "/System/Volumes/Data/Applications/PDFgear.app"
-    ];
+    # Behaviour
+    loginwindow.DisableConsoleAccess = false;
+    finder = {
+      ShowPathbar = true; # Finder
+      QuitMenuItem = true; # Finder
+      FXDefaultSearchScope = "SCcf";
+      ShowExternalHardDrivesOnDesktop = true;
+      ShowHardDrivesOnDesktop = true;
+      ShowMountedServersOnDesktop = true;
+      ShowRemovableMediaOnDesktop = true;
+      NewWindowTarget = "Home";
+      FXEnableExtensionChangeWarning = false;
+      # AppleShowAllFiles = true;
+    };
     WindowManager.EnableStandardClickToShowDesktop = false;
     loginwindow.GuestEnabled = false;
-    NSGlobalDomain.AppleICUForce24HourTime = true;
-    NSGlobalDomain.AppleInterfaceStyle = "Dark";
-    finder.ShowPathbar = true; # Finder
-    finder.QuitMenuItem = true; # Finder
-    finder.FXDefaultSearchScope = "SCcf";
-    #finder.AppleShowAllFiles = true;
+    SoftwareUpdate.AutomaticallyInstallMacOSUpdates = false;
+    # Appearance
+    NSGlobalDomain = {
+      AppleICUForce24HourTime = true;
+      AppleInterfaceStyle = "Dark";
+    };
+    dock = {
+      autohide = true; # Dock
+      show-recents = false;
+      persistent-apps = [
+        "/System/Applications/System Settings.app"
+        "/System/Applications/App Store.app"
+        "/Applications/About This Hack.app"
+        "/System/Applications/Utilities/Disk Utility.app"
+        "/Applications/Ghostty.app"
+        "/System/Volumes/Data/Applications/Visual Studio Code.app"
+        "/System/Applications/TextEdit.app"
+        {
+          spacer = {
+            small = true;
+          };
+        }
+        "/System/Applications/Passwords.app"
+        "/System/Volumes/Data/Applications/Firefox.app"
+        "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app"
+        "/Users/camille/Applications/YouTube.app"
+        "/Applications/Prism Launcher.app/"
+        "/Applications/Whisky.app/"
+        "/System/Applications/Messages.app"
+        "/System/Applications/Mail.app"
+        "/System/Applications/Calendar.app"
+        "/System/Applications/Reminders.app"
+        {
+          spacer = {
+            small = true;
+          };
+        }
+        "/System/Applications/Photos.app"
+        "/System/Applications/Music.app"
+        "/Applications/Audacity.app"
+        "/Applications/VLC.app"
+        "/System/Volumes/Data/Applications/Microsoft Word.app"
+        "/System/Volumes/Data/Applications/Microsoft PowerPoint.app"
+        "/System/Volumes/Data/Applications/Microsoft Excel.app"
+        "/System/Applications/Notes.app"
+        "/System/Volumes/Data/Applications/PDFgear.app"
+      ];
+      /*
+        persistent-others = [
+          "/Applications/More Apps…"
+          "~/"
+          "~/Downloads"
+        ];
+      */
+    };
   };
 
-  system.activationScripts.postActivation.text = pkgs.lib.mkForce ''
+  system.activationScripts.postActivation.text = pkgs.lib.mkAfter ''
     echo -ne "\033[38;5;5mrunning postActivation scripts…\033[0m " >&2
     ln -sf ${pkgs.openjdk23}/zulu-23.jdk /Library/Java/JavaVirtualMachines
     ln -sf ${pkgsX86.openjdk17}/zulu-17.jdk /Library/Java/JavaVirtualMachines
     ln -sf ${pkgs.openjdk8}/zulu-8.jdk /Library/Java/JavaVirtualMachines
+    ln -sf ${pkgs.ffmpeg.lib}/lib/* /usr/local/lib/ 
   '';
 
   system.activationScripts.applications.text =
@@ -100,38 +169,4 @@ in
         ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
       done
     '';
-
-  # Auto upgrade nix package and the daemon service.
-  # services.nix-daemon.enable = true;
-  # nix.package = pkgs.nix;
-
-  # Necessary for using flakes on this system.
-  nix.settings.experimental-features = "nix-command flakes";
-
-  # Create /etc/zshrc that loads the nix-darwin environment.
-  programs.zsh.enable = true; # default shell on catalina
-  # programs.fish.enable = true;
-
-  # Set Git commit hash for darwin-version.
-  system.configurationRevision = self.rev or self.dirtyRev or null;
-
-  # Used for backwards compatibility, please read the changelog before changing.
-  # $ darwin-rebuild changelog
-  system.stateVersion = 5;
-
-  # The platform the configuration will be used on.
-  nixpkgs.hostPlatform = "aarch64-darwin";
-
-  #nixpkgs.config.allowUnsupportedSystem = true;
-  #nixpkgs.config.allowBroken = true;
-
-  nix.gc = {
-    automatic = true;
-    interval = {
-      Weekday = 0;
-      Hour = 0;
-      Minute = 0;
-    };
-    options = "--delete-older-than 30d";
-  };
 }

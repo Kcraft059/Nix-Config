@@ -37,7 +37,7 @@
     ];
     brews = [
       "powerlevel10k"
-      #"mas"
+      "mas"
       "ext4fuse-mac"
       # sudo ext4fuse <diskXsX> <mountPoint> -o allow_other
       "sshfs-mac" # dependencies -> declare to prevent uninstall
@@ -56,8 +56,10 @@
       # sshfs <user>@<host>:<dir> <mountPoint> -o identityFile=<pathToSSH-Key>
       "ntfs-3g-mac" # "libunistring" "gettext"
     ];
+
     /*
-      masApps = { # Broken
+      masApps = {
+        # Broken as of Mas 1.90.0 fix in 2.0
         actions = 1586435171;
         Ferromagnetic = 1546537151;
         AppleConfigurator = 1037126344;
@@ -71,6 +73,7 @@
         #ColorFolder = 1570945548;
       };
     */
+
     taps = [
       "homebrew/homebrew-cask"
       "homebrew/homebrew-core"
