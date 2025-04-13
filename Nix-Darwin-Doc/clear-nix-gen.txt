@@ -1,8 +1,0 @@
-nix profile history --profile /nix/var/nix/profiles/system
-cd /nix/var/nix/profiles/
-rm -rf system-x-link
-nix store gc
-#su -
-#cd /boot/loader/entries/
-#rm -rf nixos-gen-x.conf
-reboot
