@@ -5,13 +5,15 @@
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-    nix-darwin.url = "github:LnL7/nix-darwin";
+    nix-darwin.url = "github:nix-darwin/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew"; # Nix homebrew
+    nix-homebrew.inputs.nixpkgs.follows = "nixpkgs";
+
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
       flake = false;
@@ -46,11 +48,11 @@
     let
       system = "aarch64-darwin";
       overlays = [
-        (import ./overlays/mas.nix)
+        #(import ./overlays/mas.nix)
+        (import ./overlays/fancy-folder.nix)
       ];
       pkgs = import nixpkgs {
-        inherit system;
-        overlays = overlays;
+        inherit system overlays;
         config.allowUnfree = true;
       };
     in

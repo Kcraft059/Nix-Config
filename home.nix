@@ -21,6 +21,9 @@ in
     pkgs.m-cli
     #pkgs.btop
     pkgs.htop
+    # -- GUI --
+    pkgs.fancyfolder
+
   ];
 
   /*
