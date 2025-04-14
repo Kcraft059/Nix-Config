@@ -33,7 +33,7 @@
   };
 
   outputs =
-    inputs@{
+    {
       self,
       nixpkgs,
       nix-darwin,
@@ -44,7 +44,7 @@
       homebrew-bundle,
       homebrew-fuse,
       ...
-    }:
+    }@inputs: # Allow for access to optionnal inputs with inputs.optionnalInput
     let
       system = "aarch64-darwin";
       overlays = [
@@ -61,8 +61,7 @@
       darwinConfigurations = {
         "MacOSCam" = nix-darwin.lib.darwinSystem {
           specialArgs = {
-            inherit self;
-            inherit pkgs;
+            inherit self pkgs;
           };
           modules = [
             ./configuration.nix
@@ -70,10 +69,15 @@
             ./homebrew.nix
             home-manager.darwinModules.home-manager
             {
-              # `home-manager` config
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.camille = import ./home.nix;
+              home-manager.users.camille = { # {...} can be replaced by import ./path/to/module.nix
+                imports = [
+                  ./home.nix
+                  #./test-if-module/default.nix # Testing Stage
+                ];
+                #btop.enable = false;
+              };
             }
             nix-homebrew.darwinModules.nix-homebrew
             {

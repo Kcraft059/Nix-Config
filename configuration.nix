@@ -42,7 +42,7 @@ in
         Hour = 6;
         #Minute = 0;
       };
-      options = "--delete-older-than 15d";
+      options = "-d --delete-older-than 15d";
     };
   };
 
