@@ -20,6 +20,7 @@ in
   # services.nix-daemon.enable = true;
   # nix.package = pkgs.nix;
   nix = {
+    enable = true;
     settings = {
       experimental-features = "nix-command flakes";
     };
@@ -151,6 +152,7 @@ in
     ln -sf ${pkgsX86.openjdk17}/zulu-17.jdk /Library/Java/JavaVirtualMachines
     ln -sf ${pkgs.openjdk8}/zulu-8.jdk /Library/Java/JavaVirtualMachines
     ln -sf ${pkgs.ffmpeg.lib}/lib/* /usr/local/lib/ 
+    #ln -sf ${pkgs.mas}/bin/mas /opt/homebrew/bin/mas
   '';
 
   system.activationScripts.applications.text =

@@ -2,15 +2,13 @@
   pkgs,
   config,
   self,
-  fetchurl,
   ...
 }:
-{ 
+{
   homebrew = {
     enable = true;
     casks = [
       "macfuse"
-      "firefox"
       "vlc"
       "iina"
       "visual-studio-code"
@@ -34,6 +32,8 @@
       "ghostty"
       "Alcove"
       "suspicious-package"
+      "firefox"
+      "google-chrome" # Ewww… WebHID Only
       #"binary-ninja-free"
     ];
     brews = [
@@ -58,22 +58,16 @@
       "ntfs-3g-mac" # "libunistring" "gettext"
     ];
 
-    /*
-      masApps = {
-        # Broken as of Mas 1.90.0 fix in 2.0
-        actions = 1586435171;
-        Ferromagnetic = 1546537151;
-        AppleConfigurator = 1037126344;
-        Pdf-Gear = 6469021132;
-        amphetamine = 937984704;
-        #Testflight = 899247664;
-        prettyJsonSafari = 1445328303;
-        #whatsapp = 310633997;
-        #Copyclip = 595191960
-        #Dropover = 1355679052;
-        #ColorFolder = 1570945548;
-      };
-    */
+    masApps = {
+      actions = 1586435171;
+      Ferromagnetic = 1546537151;
+      AppleConfigurator = 1037126344;
+      Pdf-Gear = 6469021132;
+      amphetamine = 937984704;
+      Testflight = 899247664;
+      prettyJsonSafari = 1445328303;
+      whatsapp = 310633997;
+    };
 
     taps = [
       "homebrew/homebrew-cask"

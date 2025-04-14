@@ -16,6 +16,8 @@ let
 in
 {
   environment.systemPackages = [
+    #pkgs.mas
+    #pkgs.fancyfolder
     pkgs.mkalias
     pkgs.ffmpeg
     pkgs.screen
@@ -27,6 +29,7 @@ in
     pkgsX86.openjdk17
     pkgs.openjdk23
     #pkgs.alacritty # GUI
+
   ];
 
   fonts.packages = [
