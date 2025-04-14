@@ -39,9 +39,11 @@
     brews = [
       "powerlevel10k"
       "mas"
-      "ext4fuse-mac"
-      # sudo ext4fuse <diskXsX> <mountPoint> -o allow_other
-      "sshfs-mac" # dependencies -> declare to prevent uninstall
+      "ext4fuse-mac" # sudo ext4fuse <diskXsX> <mountPoint> -o allow_other
+      "ntfs-3g-mac" # "libunistring" "gettext"
+      "sshfs-mac" # sshfs <user>@<host>:<dir> <mountPoint> -o identityFile=<pathToSSH-Key>
+
+      # dependencies -> declare to prevent uninstall
       "ca-certificates"
       "libunistring"
       "gettext"
@@ -54,8 +56,6 @@
       "xz"
       "python@3.13"
       "glib"
-      # sshfs <user>@<host>:<dir> <mountPoint> -o identityFile=<pathToSSH-Key>
-      "ntfs-3g-mac" # "libunistring" "gettext"
     ];
 
     masApps = {
