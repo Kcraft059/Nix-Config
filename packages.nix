@@ -29,7 +29,7 @@ in
     pkgsX86.openjdk17
     pkgs.openjdk23
     #pkgs.alacritty # GUI
-
+    pkgs.battery-toolkit
   ];
 
   fonts.packages = [

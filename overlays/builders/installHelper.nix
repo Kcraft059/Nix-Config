@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 {
-  instDMGapp =
+  installMacApp =
     {
       name,
       appname ? name,
@@ -35,7 +35,7 @@
       meta = with lib; {
         description = description;
         homepage = homepage;
-        maintainers = with maintainers; [ kfreitag1 ];
+        maintainers = with maintainers; [ Kcraft059 ];
         platforms = platforms.darwin;
       };
     };

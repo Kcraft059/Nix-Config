@@ -6,7 +6,7 @@ let
   };
 in
 {
-  fancyfolder = packageHelper.instDMGapp rec {
+  fancyfolder = packageHelper.installMacApp rec {
     name = "fancyfolder";
     appname = "Fancy Folder";
     version = "2.0";
