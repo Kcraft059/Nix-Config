@@ -50,6 +50,7 @@
       overlays = [
         #(import ./overlays/mas.nix)
         (import ./overlays/fancy-folder.nix)
+        (import ./overlays/battery-toolkit.nix)
       ];
       pkgs = import nixpkgs {
         inherit system overlays;
