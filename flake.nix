@@ -64,19 +64,25 @@
             inherit self pkgs;
           };
           modules = [
-            ./configuration.nix
-            ./packages.nix
-            ./homebrew.nix
+            ./config/default.nix
+            {
+              darwin-system.enable = true;
+            }
+            ./packages/default.nix
+            {
+              HMB.masApps.enable = true;
+              NIXPKG.darwinApps.enable = true;
+            }
             home-manager.darwinModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.camille = { # {...} can be replaced by import ./path/to/module.nix
+              home-manager.users.camille = {
+                # {...} can be replaced by import ./path/to/module.nix
                 imports = [
-                  ./home.nix
-                  #./test-if-module/default.nix # Testing Stage
+                  ./home/default.nix
                 ];
-                #btop.enable = false;
+                home-config.darwinApps.enable = true;
               };
             }
             nix-homebrew.darwinModules.nix-homebrew

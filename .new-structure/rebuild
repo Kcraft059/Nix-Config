@@ -1,2 +1,0 @@
-#!/bin/bash
-darwin-rebuild switch --flake $(dirname $0)#MacOSCam
