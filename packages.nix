@@ -1,9 +1,4 @@
-{
-  pkgs,
-  config,
-  self,
-  ...
-}:
+{ pkgs, config, ... }:
 let
   pkgsX86 = import pkgs.path {
     system = "x86_64-darwin";
