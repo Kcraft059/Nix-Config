@@ -1,6 +1,6 @@
 self: super:
 let
-  packageHelper = import ./builders/installHelper.nix {
+  packageHelper = import ./utils/app-install.nix {
     pkgs = super;
     lib = super.lib;
   };

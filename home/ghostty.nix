@@ -3,7 +3,7 @@ let
   inherit (lib.generators) toKeyValue mkKeyValueDefault;
 in
 {
-  home.packages = home.packages ++ [ pkgs.ghostty ];
+  # home.packages = [ pkgs.ghostty ];
   home.file.".config/ghostty/config".text = toKeyValue { mkKeyValue = mkKeyValueDefault { } " = "; } {
     theme = "dark:rose-pine-moon,light:rose-pine-dawn";
     background-blur = 15;

@@ -1,16 +1,22 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 {
   options.home-config = {
     darwinApps.enable = lib.mkEnableOption "Install Mac-Apps ?";
   };
-  config = {
 
-    import = [
-      ./fastfetch.nix
-      ./ghostty.nix
-      ./git.nix
-      ./btop.nix
-    ];
+  imports = [
+    ./fastfetch.nix
+    ./ghostty.nix
+    ./git.nix
+    ./btop.nix
+  ];
+
+  config = {
 
     home.stateVersion = "24.11";
 
@@ -24,7 +30,7 @@
         pkgs.tree
         pkgs.htop
       ]
-      ++ lib.optionnals config.home-config.darwin-Apps [
+      ++ lib.optionals config.home-config.darwinApps.enable [
         pkgs.fancyfolder
         pkgs.m-cli
       ];
