@@ -18,6 +18,7 @@ in
   config = {
     environment.systemPackages =
       [
+        pkgs.mas
         pkgs.mkalias
         pkgs.ffmpeg
         pkgs.screen
