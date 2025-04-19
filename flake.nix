@@ -70,7 +70,7 @@
             }
             ./packages/default.nix
             {
-              HMB.masApps.enable = true;
+              HMB.masApps.enable = true; # mdutil #check for spotlight indexing
               NIXPKG.darwinApps.enable = true;
             }
             home-manager.darwinModules.home-manager
