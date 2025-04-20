@@ -70,6 +70,7 @@
               ./config/default.nix
               {
                 darwin-system.enable = true;
+                nixos-system.enable = false;
               }
               ./packages/default.nix
               {
