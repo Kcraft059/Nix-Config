@@ -41,7 +41,7 @@
       };
     };
 
-    nixpkgs.hostPlatform = "aarch64-darwin";
+    #nixpkgs.hostPlatform = "aarch64-darwin"; # Already specified dynamically
     #nixpkgs.config.allowUnsupportedSystem = true;
     #nixpkgs.config.allowBroken = true;
 
