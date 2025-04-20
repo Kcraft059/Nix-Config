@@ -3,6 +3,7 @@
   config,
   self,
   lib,
+  system,
   ...
 }:
 {
@@ -41,7 +42,8 @@
       };
     };
 
-    nixpkgs.hostPlatform = "aarch64-darwin";
+    nixpkgs.hostPlatform = system;
+    nixpkgs.config.allowUnfree = true;
     #nixpkgs.config.allowUnsupportedSystem = true;
     #nixpkgs.config.allowBroken = true;
 
