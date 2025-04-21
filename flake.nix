@@ -128,7 +128,7 @@
                   home-config.linuxApps.enable = true;
                 };
               }
-              inputs.stylix.nixosModules.stylixx
+              inputs.stylix.nixosModules.stylix
             ];
           };
         };
