@@ -115,7 +115,7 @@
           };
         in
         {
-          "NixOSCAm" = {
+          "NixOSCAm" = nixpkgs.lib.nixosSystem {
             specialArgs = {
               inherit self pkgs system;
             };
