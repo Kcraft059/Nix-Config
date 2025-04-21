@@ -10,9 +10,9 @@
   };
 
   imports = [
-      # Include the results of the hardware scan.
-      /etc/nixos/hardware-configuration.nix
-    ];
+    # Include the results of the hardware scan.
+    /etc/nixos/hardware-configuration.nix
+  ];
 
   config = lib.mkIf config.nixos-system.enable {
 
@@ -68,6 +68,9 @@
     # Enable CUPS to print documents.
     services.printing.enable = true;
 
+    # Enable Bluetooth
+    services.blueman.enable = true;
+
     # Enable sound with pipewire.
     services.pulseaudio.enable = false;
     security.rtkit.enable = true;
@@ -87,6 +90,11 @@
     # Enable touchpad support (enabled default in most desktopManager).
     # services.xserver.libinput.enable = true;
 
+    # Makes Z-Shell the default user shell
+
+    programs.zsh.enable = true;
+    users.defaultUserShell = pkgs.zsh;
+    
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.camille = {
       isNormalUser = true;
