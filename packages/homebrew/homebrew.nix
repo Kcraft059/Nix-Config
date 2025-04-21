@@ -41,6 +41,7 @@
         "Alcove"
         "suspicious-package"
         "firefox"
+        "balenaetcher"
         "google-chrome" # Ewww… WebHID Only
         #"binary-ninja-free"
       ];

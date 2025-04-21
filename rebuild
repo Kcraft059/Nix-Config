@@ -1,2 +1,2 @@
 #!/bin/bash
-darwin-rebuild switch --flake $(dirname $0)#MacOSCam
+darwin-rebuild switch --flake $(dirname $0)#MacBookAirCam-M3
