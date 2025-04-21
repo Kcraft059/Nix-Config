@@ -14,4 +14,5 @@
   nixos-system.enable = lib.mkDefault true;
   nixos-system.stylix.enable = lib.mkDefault false;
   nixos-system.plasma6.enable = lib.mkDefault true;
+  nixos-system.hyprland.enable = lib.mkDefault false;
 }

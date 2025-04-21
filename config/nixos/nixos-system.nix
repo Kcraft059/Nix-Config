@@ -8,6 +8,7 @@
   options = {
     nixos-system.enable = lib.mkEnableOption "Whether to enable the Nixos-Config";
     nixos-system.plasma6.enable = lib.mkEnableOption "Whether to enable the Nixos-Config";
+    nixos-system.hyprland.enable = lib.mkEnableOption "Whether to enable the Nixos-Config";
   };
 
   imports = [
@@ -56,6 +57,30 @@
     # Enable the KDE Plasma Desktop Environment.
     services.displayManager.sddm.enable = config.nixos-system.plasma6.enable;
     services.desktopManager.plasma6.enable = config.nixos-system.plasma6.enable;
+
+    # Hyprland test
+
+    programs.hyprland = {
+      enable = config.nixos-system.hyprland.enable;
+      nvidiaPatches = true;
+      xwayland = {
+        hidpi = true;
+        enable = true;
+      };
+    };
+    programs.waybar = {
+      enable = config.nixos-system.hyprland.enable;
+      package = pkgs.waybar.overrideAttrs (oldAttrs: {
+        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+      });
+    };
+    programs.thunar = {
+      enable = config.nixos-system.hyprland.enable;
+      plugins = with pkgs.xfce; [
+        thunar-archive-plugin
+        thunar-volman
+      ];
+    };
 
     # Configure keymap in X11
     services.xserver.xkb = {
