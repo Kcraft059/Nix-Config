@@ -38,7 +38,7 @@
         pkgs.fancyfolder
         pkgs.m-cli
       ]
-      ++ lib.optionals config.home-config.darwinApps.enable [
+      ++ lib.optionals config.home-config.linuxApps.enable [
         pkgs.ghostty
       ];
   };
