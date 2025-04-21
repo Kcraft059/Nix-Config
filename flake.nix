@@ -62,7 +62,7 @@
           };
         in
         {
-          "MacOSCam" = nix-darwin.lib.darwinSystem {
+          "MacBookAirCam-M3" = nix-darwin.lib.darwinSystem {
             specialArgs = {
               inherit self pkgs system;
             };
@@ -118,7 +118,7 @@
           };
         in
         {
-          "NixOSCam" = nixpkgs.lib.nixosSystem {
+          "NixLaptop" = nixpkgs.lib.nixosSystem {
             specialArgs = {
               inherit self pkgs system;
             };
