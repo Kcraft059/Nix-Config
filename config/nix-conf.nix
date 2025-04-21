@@ -47,8 +47,6 @@
     #nixpkgs.config.allowUnsupportedSystem = true;
     #nixpkgs.config.allowBroken = true;
 
-    # Create /etc/zshrc that loads the nix-darwin environment.
-    programs.zsh.enable = true;
     # Set Git commit hash for darwin-version.
     system.configurationRevision = self.rev or self.dirtyRev or null;
     # Used for backwards compatibility, please read the changelog before changing.
