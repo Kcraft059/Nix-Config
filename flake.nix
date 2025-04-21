@@ -89,6 +89,7 @@
                     ./home/default.nix
                   ];
                   home-config.darwinApps.enable = true;
+                  user-zsh.enable = true;
                 };
               }
               nix-homebrew.darwinModules.nix-homebrew
