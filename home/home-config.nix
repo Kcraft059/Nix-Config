@@ -7,6 +7,7 @@
 {
   options.home-config = {
     darwinApps.enable = lib.mkEnableOption "Install Mac-Apps ?";
+    linuxApps.enable = lib.mkEnableOption "Install Linux-Apps ?";
   };
 
   imports = [
@@ -36,6 +37,9 @@
       ++ lib.optionals config.home-config.darwinApps.enable [
         pkgs.fancyfolder
         pkgs.m-cli
+      ]
+      ++ lib.optionals config.home-config.darwinApps.enable [
+        pkgs.ghostty
       ];
   };
 }
