@@ -45,26 +45,15 @@
       homebrew-fuse,
       ...
     }@inputs: # Allow for access to optionnal inputs with inputs.optionnalInput
-    let
-      overlays = [
-        #(import ./overlays/mas.nix)
-        (import ./overlays/fancy-folder.nix)
-        (import ./overlays/battery-toolkit.nix)
-      ];
-    in
     {
       darwinConfigurations =
         let
           system = "aarch64-darwin";
-          pkgs = import nixpkgs {
-            inherit system overlays;
-            # config.allowUnfree = true; # Not working, need more investigation
-          };
         in
         {
           "MacBookAirCam-M3" = nix-darwin.lib.darwinSystem {
             specialArgs = {
-              inherit self pkgs system;
+              inherit self system;
             };
             modules = [
               ./config/darwin/default.nix
@@ -113,15 +102,11 @@
       nixosConfigurations =
         let
           system = "x86_64-linux";
-          pkgs = import nixpkgs {
-            inherit system overlays;
-            config.allowUnfree = true;
-          };
         in
         {
           "NixLaptop" = nixpkgs.lib.nixosSystem {
             specialArgs = {
-              inherit self pkgs system;
+              inherit self system;
             };
             modules = [
               ./config/nixos/default.nix
