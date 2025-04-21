@@ -125,6 +125,9 @@
             modules = [
               ./config/nixos/default.nix
               ./packages/nix/default.nix
+              {
+                NIXPKG.linuxApps.enable = true;
+              }
               home-manager.nixosModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;
