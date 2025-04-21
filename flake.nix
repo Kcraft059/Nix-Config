@@ -115,6 +115,7 @@
               {
                 nixos-system.stylix.enable = false;
                 nixos-system.plasma6.enable = false;
+                nixos-system.hyprland.enable = true;
               }
               ./packages/nix/default.nix
               {
