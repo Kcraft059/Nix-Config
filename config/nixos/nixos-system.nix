@@ -69,7 +69,8 @@
     services.printing.enable = true;
 
     # Enable Bluetooth
-    services.blueman.enable = true;
+    hardware.bluetooth.enable = true; # enables support for Bluetooth
+    hardware.bluetooth.powerOnBoot = true;
 
     # Enable sound with pipewire.
     services.pulseaudio.enable = false;
@@ -94,7 +95,7 @@
 
     programs.zsh.enable = true;
     users.defaultUserShell = pkgs.zsh;
-    
+
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.camille = {
       isNormalUser = true;
@@ -103,10 +104,12 @@
         "networkmanager"
         "wheel"
       ];
-      /* packages = with pkgs; [ Use Home-manager
-        kdePackages.kate
-        #  thunderbird
-      ]; */
+      /*
+        packages = with pkgs; [ Use Home-manager
+          kdePackages.kate
+          #  thunderbird
+        ];
+      */
     };
 
     # Install firefox.
