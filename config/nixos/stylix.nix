@@ -9,7 +9,7 @@
     nixos-system.stylix.enable = lib.mkEnableOption ''Desktop manager wide theme'';
   };
 
-  config = lib.mkIf nixos-system.stylix.enable {
+  config = lib.mkIf config.nixos-system.stylix.enable {
     stylix.enable = true;
     stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine-moon.yaml";
     stylix.image = ../../ressources/ign_colorful.png;
