@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-    ./../nix-conf.nix
+    ./nix-conf.nix
     ./darwin-system.nix
   ];
   darwin-system.enable = lib.mkDefault true;
