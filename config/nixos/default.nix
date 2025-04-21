@@ -9,7 +9,8 @@
     ./nix-conf.nix #
     ./nixos-system.nix
   ];
-  nixos-system.enable = lib.mkDefault true;
   nix-conf.garbage-collect.enable = lib.mkDefault true;
-  stylix.enable = lib.mkDefault false;
+  nixos-system.enable = lib.mkDefault true;
+  nixos-system.stylix.enable = lib.mkDefault false;
+  nixos-system.plasma6.enable = lib.mkDefault true;
 }

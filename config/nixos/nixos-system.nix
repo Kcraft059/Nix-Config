@@ -7,6 +7,7 @@
 {
   options.nixos-system = {
     enable = lib.mkEnableOption "Whether to enable the Nixos-Config";
+    plasma6.enable = lib.mkEnableOption "Whether to enable the Nixos-Config";
   };
 
   imports = [
@@ -53,8 +54,8 @@
     services.xserver.enable = true;
 
     # Enable the KDE Plasma Desktop Environment.
-    services.displayManager.sddm.enable = true;
-    services.desktopManager.plasma6.enable = true;
+    services.displayManager.sddm.enable = config.nixos-system.plasma6.enable;
+    services.desktopManager.plasma6.enable = config.nixos-system.plasma6.enable;
 
     # Configure keymap in X11
     services.xserver.xkb = {
