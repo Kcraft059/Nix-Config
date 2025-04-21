@@ -5,9 +5,9 @@
   ...
 }:
 {
-  options.nixos-system = {
-    enable = lib.mkEnableOption "Whether to enable the Nixos-Config";
-    plasma6.enable = lib.mkEnableOption "Whether to enable the Nixos-Config";
+  options = {
+    nixos-system.enable = lib.mkEnableOption "Whether to enable the Nixos-Config";
+    nixos-system.plasma6.enable = lib.mkEnableOption "Whether to enable the Nixos-Config";
   };
 
   imports = [
