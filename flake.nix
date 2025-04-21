@@ -114,7 +114,7 @@
               ./config/nixos/default.nix
               {
                 nixos-system.stylix.enable = true;
-                nixos-system.plasma6.enable = false;
+                #nixos-system.plasma6.enable = false;
               }
               ./packages/nix/default.nix
               {

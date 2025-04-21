@@ -8,6 +8,7 @@
   imports = [
     ./nix-conf.nix #
     ./nixos-system.nix
+    ./stylix.nix
   ];
   nix-conf.garbage-collect.enable = lib.mkDefault true;
   nixos-system.enable = lib.mkDefault true;
