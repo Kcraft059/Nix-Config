@@ -58,19 +58,18 @@
           system = "aarch64-darwin";
           pkgs = import nixpkgs {
             inherit system overlays;
-            config.allowUnfree = true;
+            # config.allowUnfree = true; # Not working, need more investigation
           };
         in
         {
           "MacOSCam" = nix-darwin.lib.darwinSystem {
             specialArgs = {
-              inherit self pkgs;
+              inherit self pkgs system;
             };
             modules = [
-              ./config/default.nix
+              ./config/darwin/default.nix
               {
-                darwin-system.enable = true;
-                nixos-system.enable = false;
+                darwin-system.defaults.dock.enable = true;
               }
               ./packages/default.nix
               {
@@ -118,14 +117,16 @@
         {
           "NixOSCAm" = {
             specialArgs = {
-              inherit self pkgs;
+              inherit self pkgs system;
             };
             modules = [
-              ./config/default.nix
-              ./packages/default.nix {
+              ./config/nixos/default.nix
+              ./packages/default.nix
+              {
                 HMB.enable = false;
               }
-              home-manager.nixosModules.home-manager {
+              home-manager.nixosModules.home-manager
+              {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
               }

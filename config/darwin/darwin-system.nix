@@ -28,6 +28,9 @@ in
       name = "camille";
       home = "/Users/camille";
     };
+
+    programs.zsh.enable = true;
+
     security.pam.services.sudo_local.touchIdAuth = true;
 
     system.defaults = lib.mkIf config.darwin-system.defaults.enable {
