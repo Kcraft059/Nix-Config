@@ -40,7 +40,7 @@
       ]
       ++ lib.optionals config.home-config.linuxApps.enable [
         pkgs.ghostty
-        pkgs.alcritty
+        pkgs.alacritty
         pkgs.vscode
       ];
   };
