@@ -4,16 +4,6 @@
   lib,
   ...
 }:
-let
-  pkgsX86 = import pkgs.path {
-    system = "x86_64-darwin";
-    config = pkgs.config;
-  };
-  pkgsArm = import pkgs.path {
-    system = "aarch64-darwin";
-    config = pkgs.config;
-  };
-in
 {
   options.nixos-system = {
     enable = lib.mkEnableOption "Whether to enable the Nixos-Config";
@@ -79,7 +69,7 @@ in
     services.printing.enable = true;
 
     # Enable sound with pipewire.
-    hardware.pulseaudio.enable = false;
+    services.pulseaudio.enable = false;
     security.rtkit.enable = true;
     services.pipewire = {
       enable = true;

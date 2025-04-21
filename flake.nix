@@ -132,6 +132,13 @@
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
+                home-manager.users.camille = {
+                  # {...} can be replaced by import ./path/to/module.nix
+                  imports = [
+                    ./home/default.nix
+                  ];
+                  home-config.linuxApps.enable = true;
+                };
               }
             ];
           };
