@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-    ./../nix-conf.nix
+    ./nix-conf.nix #
     ./nixos-system.nix
   ];
   nixos-system.enable = lib.mkDefault true;
