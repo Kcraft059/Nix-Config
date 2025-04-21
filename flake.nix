@@ -14,6 +14,8 @@
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew"; # Nix homebrew
     nix-homebrew.inputs.nixpkgs.follows = "nixpkgs";
 
+    stylix.url = "github:danth/stylix";
+
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
       flake = false;
@@ -126,6 +128,7 @@
                   home-config.linuxApps.enable = true;
                 };
               }
+              inputs.stylix.nixosModules.stylixx
             ];
           };
         };
