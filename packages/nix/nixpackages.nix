@@ -26,7 +26,6 @@ in
   config = {
     environment.systemPackages =
       [
-        pkgs.mkalias
         pkgs.ffmpeg
         pkgs.screen
         pkgs.php
@@ -41,6 +40,7 @@ in
       ]
       ++ lib.optionals config.NIXPKG.darwinApps.enable [
         # Darwin Apps
+        pkgs.mkalias
         pkgs.mas
         pkgs.battery-toolkit
       ]
