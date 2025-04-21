@@ -112,6 +112,10 @@
             };
             modules = [
               ./config/nixos/default.nix
+              {
+                stylix.enable = true;
+
+              }
               ./packages/nix/default.nix
               {
                 NIXPKG.linuxApps.enable = true;
