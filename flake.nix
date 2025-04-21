@@ -115,7 +115,7 @@
           };
         in
         {
-          "NixOSCAm" = nixpkgs.lib.nixosSystem {
+          "NixOSCam" = nixpkgs.lib.nixosSystem {
             specialArgs = {
               inherit self pkgs system;
             };
@@ -129,6 +129,12 @@
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
+              }
+              nix-homebrew.darwinModules.nix-homebrew
+              {
+                nix-homebrew = {
+                  enable = true;
+                };
               }
             ];
           };
