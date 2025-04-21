@@ -103,13 +103,14 @@
         "networkmanager"
         "wheel"
       ];
-      packages = with pkgs; [
+      /* packages = with pkgs; [ Use Home-manager
         kdePackages.kate
         #  thunderbird
-      ];
+      ]; */
     };
 
     # Install firefox.
+    programs.firefox.enable = true;
 
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.

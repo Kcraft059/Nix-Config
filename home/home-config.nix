@@ -40,6 +40,7 @@
       ]
       ++ lib.optionals config.home-config.linuxApps.enable [
         pkgs.ghostty
+        pkgs.vscode
       ];
   };
 }
