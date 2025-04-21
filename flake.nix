@@ -71,10 +71,13 @@
               {
                 darwin-system.defaults.dock.enable = true;
               }
-              ./packages/default.nix
+              ./packages/nix/default.nix
+              {
+                NIXPKG.darwinApps.enable = true;
+              }
+              ./packages/homebrew/default.nix
               {
                 HMB.masApps.enable = true; # mdutil #check for spotlight indexing
-                NIXPKG.darwinApps.enable = true;
               }
               home-manager.darwinModules.home-manager
               {
@@ -121,20 +124,11 @@
             };
             modules = [
               ./config/nixos/default.nix
-              ./packages/default.nix
-              {
-                HMB.enable = false;
-              }
+              ./packages/nix/default.nix
               home-manager.nixosModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
-              }
-              nix-homebrew.darwinModules.nix-homebrew
-              {
-                nix-homebrew = {
-                  enable = true;
-                };
               }
             ];
           };
