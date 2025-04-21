@@ -6,7 +6,7 @@
 }:
 {
   options = {
-    nixos-system.stylix.enable = mkEnableOption ''Desktop manager wide theme'';
+    nixos-system.stylix.enable = lib.mkEnableOption ''Desktop manager wide theme'';
   };
 
   config = {
