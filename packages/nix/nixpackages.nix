@@ -26,6 +26,7 @@ in
   config = {
     environment.systemPackages =
       [
+        pkgs.git
         pkgs.ffmpeg
         pkgs.screen
         pkgs.php
