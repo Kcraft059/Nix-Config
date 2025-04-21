@@ -113,8 +113,8 @@
             modules = [
               ./config/nixos/default.nix
               {
-                stylix.enable = true;
-
+                nixos-system.stylix.enable = true;
+                nixos-system.plasma6.enable = false;
               }
               ./packages/nix/default.nix
               {
