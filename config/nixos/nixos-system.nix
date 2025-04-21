@@ -62,7 +62,7 @@
 
     programs.hyprland = {
       enable = config.nixos-system.hyprland.enable;
-      nvidiaPatches = true;
+      #nvidiaPatches = true;
       xwayland = {
         hidpi = true;
         enable = true;
