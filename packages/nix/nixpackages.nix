@@ -46,7 +46,7 @@ in
         pkgs.battery-toolkit
       ]
       ++ lib.optionals config.NIXPKG.linuxApps.enable [
-
+        pkgs.sshfs
       ];
 
     fonts.packages = [
