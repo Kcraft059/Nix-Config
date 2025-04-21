@@ -19,12 +19,13 @@ in
     enable = lib.mkEnableOption "Whether to enable the Nixos-Config";
   };
 
-  config = lib.mkIf config.nixos-system.enable {
-
-    imports = [
+  imports = [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
+
+  config = lib.mkIf config.nixos-system.enable {
+
     # Bootloader.
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
