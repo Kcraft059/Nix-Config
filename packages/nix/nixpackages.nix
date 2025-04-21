@@ -6,13 +6,14 @@
   ...
 }:
 let
-  pkgsX86 = if system == "aarch64-darwin" then
-    import pkgs.path {
-      system = "x86_64-darwin";
-      config = pkgs.config;
-    }
-  else
-    null;
+  pkgsX86 =
+    if system == "aarch64-darwin" then
+      import pkgs.path {
+        system = "x86_64-darwin";
+        config = pkgs.config;
+      }
+    else
+      null;
 
   effectivePkgsX86 = if pkgsX86 != null then pkgsX86 else pkgs;
 in
@@ -24,6 +25,15 @@ in
   };
 
   config = {
+
+    nixpkgs.overlays = [
+      # Currently Empty
+    ] ++ lib.optionals config.NIXPKG.darwinApps.enable [
+      #(import ./overlays/mas.nix)
+      (import ../../overlays/fancy-folder.nix)
+      (import ../../overlays/battery-toolkit.nix)
+    ] ;
+
     environment.systemPackages =
       [
         pkgs.git
