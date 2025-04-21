@@ -11,7 +11,7 @@
     garbage-collect.enable = lib.mkEnableOption "Whether to enable GC & OPTIMISE periodically";
   };
 
-  import = [
+  imports = [
     ./../common/nix-conf.nix
   ];
 
