@@ -11,4 +11,5 @@
   ];
   nixos-system.enable = lib.mkDefault true;
   nix-conf.garbage-collect.enable = lib.mkDefault true;
+  stylix.enable = lib.mkDefault false;
 }
