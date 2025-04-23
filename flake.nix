@@ -127,6 +127,7 @@
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
+                home-manager.backupFileExtension = "bak";
                 home-manager.users.camille = {
                   # {...} can be replaced by import ./path/to/module.nix
                   imports = [
