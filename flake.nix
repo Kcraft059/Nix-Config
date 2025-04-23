@@ -77,10 +77,9 @@
                 home-manager.users.camille = {
                   # {...} can be replaced by import ./path/to/module.nix
                   imports = [
-                    ./home/default.nix
+                    ./home/darwin/default.nix
                   ];
-                  home-config.darwinApps.enable = true;
-                  user-zsh.enable = true;
+                  home-config.GUIapps.enable = true;
                 };
               }
               nix-homebrew.darwinModules.nix-homebrew
@@ -128,9 +127,9 @@
                 home-manager.users.camille = {
                   # {...} can be replaced by import ./path/to/module.nix
                   imports = [
-                    ./home/default.nix
+                    ./home/linux/default.nix
                   ];
-                  home-config.linuxApps.enable = true;
+                  home-config.GUIapps.enable = true;
                 };
               }
               inputs.stylix.nixosModules.stylix

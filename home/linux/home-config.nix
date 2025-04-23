@@ -5,28 +5,27 @@
   ...
 }:
 {
+  options.home-config = {
+    GUIapps.enable = lib.mkEnableOption "Install GUI-Apps ?";
+  };
 
   imports = [
-    ./fastfetch.nix
-    ./git.nix
-    ./btop.nix
-    ./atuin.nix
+    ./ghostty.nix
+    ./zsh.nix
   ];
 
   config = {
 
-    home.packages = [
-      # pkgs.atuin
-      pkgs.nixfmt-rfc-style
-      pkgs.imagemagick
-      pkgs.yt-dlp
-      pkgs.bat
-      pkgs.mailsy
-      pkgs.tree
-      pkgs.htop
-    ] ++ lib.optionals config.home-config.GUIapps.enable [
-      pkgs.alacritty
-    ];
+    home.stateVersion = "24.11";
+
+    home.packages =
+      [
+      ]
+      ++ lib.optionals config.home-config.GUIapps.enable [
+        pkgs.ghostty
+        pkgs.vscode
+        pkgs.fancyfolder
+      ];
   };
 }
 /*
