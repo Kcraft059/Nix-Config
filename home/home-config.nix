@@ -14,7 +14,7 @@
   ];
 
   config = {
-
+    home-manager.backupFileExtension = "back";
     home.packages = [
       # pkgs.atuin
       pkgs.nixfmt-rfc-style
