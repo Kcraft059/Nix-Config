@@ -29,8 +29,10 @@
       wayland.windowManager.hyprland = {
         enable = true;
         settings = {
-          exec-once = ''${startupScript}/bin/start'';
-          exec-once = "$terminal";
+          exec-once = [
+            ''${startupScript}/bin/start''
+            "$terminal"
+          ];
           "$terminal" = ghostty;
           "$fileManager" = thunar;
           source = "~/.config/hypr/rose-pine-moon.conf";
@@ -75,9 +77,11 @@
               workspace_swipe = true;
             };
             "$mainMod" = SUPER;
-            bind = "$mainMod, Q, exec, $terminal";
-            bind = "$mainMod, C, killactive,";
-            bind = "$mainMod, M, exit,";
+            bind = [
+              "$mainMod, Q, exec, $terminal"
+              "$mainMod, C, killactive,"
+              "$mainMod, M, exit,"
+            ];
           };
         };
       };
