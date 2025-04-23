@@ -5,7 +5,7 @@ in
 {
   # home.packages = [ pkgs.ghostty ];
   home.file.".config/ghostty/config".text = toKeyValue { mkKeyValue = mkKeyValueDefault { } " = "; } {
-    theme = "dark:rose-pine-moon,light:rose-pine-dawn";
+    theme = "rose-pine-moon";
     background-blur = 15;
     background-opacity = 0.85;
     window-step-resize = true;
