@@ -62,27 +62,27 @@
               passes = 3;
               vibrancy = 0.1696;
             };
-            dwindle = {
-              pseudotile = true;
-              preserve_split = true;
-            };
-            input = {
-              kb_layout = "fr";
-              follow_mouse = 1;
-              touchpad = {
-                natural_scroll = false;
-              };
-            };
-            gestures = {
-              workspace_swipe = true;
-            };
-            "$mainMod" = "SUPER";
-            bind = [
-              "$mainMod, Q, exec, $terminal"
-              "$mainMod, C, killactive,"
-              "$mainMod, M, exit,"
-            ];
           };
+          dwindle = {
+            pseudotile = true;
+            preserve_split = true;
+          };
+          input = {
+            kb_layout = "fr";
+            follow_mouse = 1;
+            touchpad = {
+              natural_scroll = false;
+            };
+          };
+          gestures = {
+            workspace_swipe = true;
+          };
+          "$mainMod" = "SUPER";
+          bind = [
+            "$mainMod, Q, exec, $terminal"
+            "$mainMod, C, killactive,"
+            "$mainMod, M, exit,"
+          ];
         };
       };
 
