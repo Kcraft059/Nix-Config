@@ -11,7 +11,7 @@
 
   config =
     let
-      startupScript = pkgs.pkgs.writteShellScriptBin "start" ''
+      startupScript = pkgs.writeShellScriptBin "start" ''
         ${pkgs.waybar}/bin/waybar &
         ${pkgs.swww}/bin/swww-daemon & 
 
