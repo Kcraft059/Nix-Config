@@ -33,8 +33,8 @@
             ''${startupScript}/bin/start''
             "$terminal"
           ];
-          "$terminal" = ghostty;
-          "$fileManager" = thunar;
+          "$terminal" = pkgs.ghostty;
+          "$fileManager" = "thunar";
           source = "~/.config/hypr/rose-pine-moon.conf";
           general = {
             gaps_in = 5;
