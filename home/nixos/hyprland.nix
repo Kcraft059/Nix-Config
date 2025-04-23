@@ -22,7 +22,7 @@
       '';
 
     in
-    lib.mkIf config.hyprland.enable {
+    lib.mkIf config.home-config.hyprland.enable {
 
       # HyprLand
 
