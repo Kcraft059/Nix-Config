@@ -24,7 +24,6 @@
       ++ lib.optionals config.home-config.GUIapps.enable [
         pkgs.ghostty
         pkgs.vscode
-        pkgs.fancyfolder
       ];
   };
 }
