@@ -6,7 +6,7 @@
 }:
 {
   options = {
-    hyprland.enable = lib.mkEnableOption ''Enable Hyprland and its plugins'';
+    home-config.hyprland.enable = lib.mkEnableOption ''Enable Hyprland and its plugins'';
   };
 
   config =
