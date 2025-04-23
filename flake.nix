@@ -133,6 +133,7 @@
                     ./home/nixos/default.nix
                   ];
                   home-config.GUIapps.enable = true;
+                  home-config.hyprland.enable = true;
                 };
               }
               inputs.stylix.nixosModules.stylix
