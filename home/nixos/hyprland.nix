@@ -14,11 +14,8 @@
       startupScript = pkgs.writeShellScriptBin "start" ''
         ${pkgs.waybar}/bin/waybar &
         ${pkgs.swww}/bin/swww-daemon & 
-
         sleep 1
-
         ${pkgs.swww}/bin/swww img ${../../ressources/ign_colorful.png} &
-
       '';
 
     in
