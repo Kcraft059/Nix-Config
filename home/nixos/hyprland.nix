@@ -36,7 +36,7 @@
       # Hyprpaper
 
       home.packages = [
-        swww
+        pkgs.swww
       ];
       /*
         services.hyprpaper = {
