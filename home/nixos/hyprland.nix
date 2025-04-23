@@ -13,24 +13,24 @@
 
     # HyprLand
 
-    wayland.windowManager.hyprland = {
+    /* wayland.windowManager.hyprland = {
       enable = true;
-    };
+    }; */
 
     # Hyprpaper
-    services.hyprpaper = {
+    /* services.hyprpaper = {
       enable = true;
       settings = {
         preload = [ "/home/camille/.config/hypr/ign_colorful.png" ];
         wallpaper = [ "monitor,/home/camille/.config/hypr/ign_colorful.png" ];
       };
-    };
+    }; */
 
     home.file.".config/hypr/ign_coloful.png".source = ../../ressources/ign_colorful.png;
 
     # Plugins / gui programs/menus
 
-    programs.waybar = {
+    /* programs.waybar = {
       enable = true;
       package = pkgs.waybar.overrideAttrs (oldAttrs: {
         mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
@@ -42,6 +42,6 @@
         thunar-archive-plugin
         thunar-volman
       ];
-    };
+    }; */
   };
 }
