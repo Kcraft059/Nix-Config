@@ -17,7 +17,7 @@
 
         sleep 1
 
-        ${pkgs.swww}/bin/swww img ${../../ressources/ign_colorful.png};
+        ${pkgs.swww}/bin/swww img ${../../ressources/ign_colorful.png} &
 
       '';
 
