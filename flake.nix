@@ -113,8 +113,8 @@
               ./config/nixos/default.nix
               {
                 nixos-system.stylix.enable = false;
-                nixos-system.plasma6.enable = true;
-                nixos-system.hyprland.enable = false;
+                nixos-system.plasma6.enable = false;
+                nixos-system.hyprland.enable = true;
               }
               ./packages/nix/default.nix
               {
