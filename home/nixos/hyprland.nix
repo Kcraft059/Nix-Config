@@ -22,7 +22,7 @@
       enable = true;
       settings = {
         preload = [ "/home/camille/.config/hypr/ign_colorful.png" ];
-        wallpaper = [ "monitor,/share/wallpapers/buttons.png" ];
+        wallpaper = [ "monitor,/home/camille/.config/hypr/ign_colorful.png" ];
       };
     };
 
