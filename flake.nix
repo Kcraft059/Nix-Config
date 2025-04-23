@@ -58,7 +58,7 @@
         {
           "MacBookAirCam-M3" = nix-darwin.lib.darwinSystem {
             specialArgs = {
-              inherit self system;
+              inherit self system inputs;
             };
             modules = [
               ./config/darwin/default.nix
@@ -110,7 +110,7 @@
         {
           "NixLaptop" = nixpkgs.lib.nixosSystem {
             specialArgs = {
-              inherit self system;
+              inherit self system inputs;
             };
             modules = [
               ./config/nixos/default.nix
