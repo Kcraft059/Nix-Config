@@ -7,6 +7,7 @@
 {
   options.home-config = {
     GUIapps.enable = lib.mkEnableOption "Install GUI-Apps ?";
+    hyprland.enable = lib.mkEnableOption "Configure and use hyprland";
   };
 
   imports = [
