@@ -40,8 +40,8 @@
             gaps_in = 5;
             gaps_out = 15;
             border_size = 2;
-            col.active_border = "$pine $iris 45deg";
-            ol.inactive_border = "$muted";
+            "col.active_border" = "$pine $iris 45deg";
+            "ol.inactive_border" = "$muted";
             resize_on_border = true;
             layout = "dwindle";
           };
