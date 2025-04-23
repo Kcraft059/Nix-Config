@@ -30,7 +30,7 @@
 
     # Plugins / gui programs/menus
 
-    /* programs.waybar = {
+    programs.waybar = {
       enable = true;
       package = pkgs.waybar.overrideAttrs (oldAttrs: {
         mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
@@ -42,6 +42,6 @@
         thunar-archive-plugin
         thunar-volman
       ];
-    }; */
+    };
   };
 }
