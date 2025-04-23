@@ -76,7 +76,7 @@
             gestures = {
               workspace_swipe = true;
             };
-            "$mainMod" = SUPER;
+            "$mainMod" = "SUPER";
             bind = [
               "$mainMod, Q, exec, $terminal"
               "$mainMod, C, killactive,"
