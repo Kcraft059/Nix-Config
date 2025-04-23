@@ -11,6 +11,7 @@
   };
 
   imports = [
+    ./hyprland.nix
     ./ghostty.nix
     ./zsh.nix
   ];
