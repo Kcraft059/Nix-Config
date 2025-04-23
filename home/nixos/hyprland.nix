@@ -30,10 +30,10 @@
         enable = true;
         settings = {
           exec-once = [
-            ''${startupScript}/bin/start''
+            "${startupScript}/bin/start"
             "$terminal"
           ];
-          "$terminal" = pkgs.ghostty;
+          "$terminal" = "ghostty";
           "$fileManager" = "thunar";
           source = "~/.config/hypr/rose-pine-moon.conf";
           general = {
