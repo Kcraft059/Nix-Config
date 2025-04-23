@@ -32,6 +32,9 @@
       url = "github:gromgit/homebrew-fuse";
       flake = false;
     };
+
+    hyprland.url = "github: hyprwm/Hyprland";
+    
   };
 
   outputs =
@@ -127,7 +130,7 @@
                 home-manager.users.camille = {
                   # {...} can be replaced by import ./path/to/module.nix
                   imports = [
-                    ./home/linux/default.nix
+                    ./home/nixos/default.nix
                   ];
                   home-config.GUIapps.enable = true;
                 };

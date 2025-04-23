@@ -62,26 +62,31 @@
 
     programs.hyprland = {
       enable = config.nixos-system.hyprland.enable;
+      package = inputs.hyprland.packages."${pkgs.system}".hyprland;
       xwayland.enable = true;
       #nvidiaPatches = true;
-      /* xwayland = {
-        hidpi = true;
-        enable = true;
-      }; */
+      /*
+        xwayland = {
+          hidpi = true;
+          enable = true;
+        };
+      */
     };
-    programs.waybar = {
-      enable = config.nixos-system.hyprland.enable;
-      package = pkgs.waybar.overrideAttrs (oldAttrs: {
-        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-      });
-    };
-    programs.thunar = {
-      enable = config.nixos-system.hyprland.enable;
-      plugins = with pkgs.xfce; [
-        thunar-archive-plugin
-        thunar-volman
-      ];
-    };
+    /*
+      programs.waybar = {
+        enable = config.nixos-system.hyprland.enable;
+        package = pkgs.waybar.overrideAttrs (oldAttrs: {
+          mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+        });
+      };
+      programs.thunar = {
+        enable = config.nixos-system.hyprland.enable;
+        plugins = with pkgs.xfce; [
+          thunar-archive-plugin
+          thunar-volman
+        ];
+      };
+    */
 
     # Configure keymap in X11
     services.xserver.xkb = {
