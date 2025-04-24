@@ -323,7 +323,7 @@
           show = "drun";
           prompt = "Search";
           height = 400;
-          term = "ghostty";
+          term = "${pkgs.ghostty}/bin/ghostty";
           hide_scroll = true;
           print_command = true;
           insensitive = true;
