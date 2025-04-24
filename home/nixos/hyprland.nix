@@ -52,7 +52,7 @@
               enabled = true;
               range = 4;
               render_power = 5;
-              color = "rgba(1a1a1aee)";
+              color = lib.mkDefault "rgba(1a1a1aee)";
             };
             blur = {
               enabled = true;
