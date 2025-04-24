@@ -80,7 +80,7 @@
             "$mainMod, Q, exec, $terminal "
             "$mainMod, C, killactive,"
             "$mainMod, M, exit,"
-            "$mainMod, SPACE, exec, $applauncher -show drun"
+            "$mainMod, SPACE, exec, $applauncher"
           ];
           animations = {
             enabled = "yes";
