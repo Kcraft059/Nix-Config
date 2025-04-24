@@ -31,6 +31,7 @@
             "$terminal"
           ];
           "$terminal" = "ghostty";
+          "$applauncher" = "rofi";
           "$fileManager" = "thunar";
           source = "~/.config/hypr/rose-pine-moon.conf";
           general = {
@@ -79,6 +80,7 @@
             "$mainMod, Q, exec, $terminal"
             "$mainMod, C, killactive,"
             "$mainMod, M, exit,"
+            "$mainMod, SPACE, exec, $applauncher"
           ];
           animations = {
             enabled = "yes";
@@ -150,7 +152,7 @@
       programs.rofi = {
         enable = true;
       };
-      
+
       programs.wofi = {
         enable = true;
       };
