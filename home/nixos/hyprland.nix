@@ -77,10 +77,10 @@
           };
           "$mainMod" = "SUPER";
           bind = [
-            "$mainMod, Q, exec, $terminal --show drun"
+            "$mainMod, Q, exec, $terminal "
             "$mainMod, C, killactive,"
             "$mainMod, M, exit,"
-            "$mainMod, SPACE, exec, $applauncher"
+            "$mainMod, SPACE, exec, $applauncher -show drun"
           ];
           animations = {
             enabled = "yes";
