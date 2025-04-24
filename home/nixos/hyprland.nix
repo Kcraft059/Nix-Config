@@ -154,7 +154,7 @@
         package = pkgs.waybar.overrideAttrs (oldAttrs: {
           mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
         });
-        style = lib.mkForce builtins.readFile ../configs/waybar-style.css;
+        style = lib.mkForce (builtins.readFile ../configs/waybar-style.css);
         settings = {
           mainBar = {
             layer = "bottom";
