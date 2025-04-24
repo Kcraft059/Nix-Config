@@ -192,7 +192,7 @@
             };
 
             "hyprland/workspaces" = {
-              icon-size = 22;
+              icon-size = 15;
               spacing = 16;
               on-scroll-up = "hyprctl dispatch workspace r+1";
               on-scroll-down = "hyprctl dispatch workspace r-1";
@@ -238,7 +238,7 @@
 
             "wlr/taskbar" = {
               format = "{icon} {title:.17}";
-              icon-size = 28;
+              icon-size = 15;
               spacing = 3;
               on-click-middle = "close";
               tooltip-format = "{title}";
@@ -247,7 +247,7 @@
             };
 
             tray = {
-              icon-size = 18;
+              icon-size = 13;
               spacing = 3;
             };
 
