@@ -38,8 +38,8 @@
             gaps_in = 5;
             gaps_out = 15;
             border_size = 2;
-            "col.active_border" = "$pine $iris 45deg";
-            "col.inactive_border" = "$muted";
+            "col.active_border" = lib.mkDefault "$pine $iris 45deg";
+            "col.inactive_border" = lib.mkDefault "$muted";
             resize_on_border = true;
             layout = "dwindle";
           };
