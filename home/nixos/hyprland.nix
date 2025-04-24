@@ -154,7 +154,7 @@
         package = pkgs.waybar.overrideAttrs (oldAttrs: {
           mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
         });
-        style = ''
+        style = lib.mkForce ''
 
           /*base background color*/
           @define-color bg_main rgba(25, 25, 25, 0.65);
