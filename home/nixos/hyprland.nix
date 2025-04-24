@@ -77,7 +77,7 @@
           };
           "$mainMod" = "SUPER";
           bind = [
-            "$mainMod, Q, exec, $terminal"
+            "$mainMod, Q, exec, $terminal --show drun"
             "$mainMod, C, killactive,"
             "$mainMod, M, exit,"
             "$mainMod, SPACE, exec, $applauncher"
