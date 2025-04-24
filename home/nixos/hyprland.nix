@@ -13,9 +13,9 @@
     let
       startupScript = pkgs.writeShellScriptBin "start" ''
         ${pkgs.waybar}/bin/waybar &
-        ${pkgs.swww}/bin/swww-daemon & 
-        sleep 1
-        ${pkgs.swww}/bin/swww img ${../../ressources/ign_colorful.png} &
+        #${pkgs.swww}/bin/swww-daemon & 
+        #sleep 1
+        #${pkgs.swww}/bin/swww img ${../../ressources/ign_colorful.png} &
       '';
 
     in
@@ -130,22 +130,15 @@
       '';
       home.file.".config/hypr/ign_coloful.png".source = ../../ressources/ign_colorful.png;
 
-      # Hyprpaper
+      # Plugins and Menu Items
 
-      home.packages = [
-        pkgs.swww
-      ];
-      /*
-        services.hyprpaper = {
-          enable = true;
-          settings = {
-            preload = [ "/home/camille/.config/hypr/ign_colorful.png" ];
-            wallpaper = [ "monitor,/home/camille/.config/hypr/ign_colorful.png" ];
-          };
+      services.hyprpaper = {
+        enable = true;
+        settings = {
+          preload = [ "/home/camille/.config/hypr/ign_colorful.png" ];
+          wallpaper = [ "monitor,/home/camille/.config/hypr/ign_colorful.png" ];
         };
-      */
-
-      # Plugins / gui programs/menus
+      };
 
       programs.waybar = {
         enable = true;
@@ -153,6 +146,18 @@
           mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
         });
       };
+      
+      programs.rofi = {
+        enable = true;
+      };
+      
+      programs.wofi = {
+        enable = true;
+      };
+
+      home.packages = [
+        pkgs.swww
+      ];
       /*
         programs.thunar = {
           enable = true;
