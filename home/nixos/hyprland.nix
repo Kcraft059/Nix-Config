@@ -109,27 +109,34 @@
               "workspacesIn, 1, 1.21, almostLinear, fade"
               "workspacesOut, 1, 1.94, almostLinear, fade"
             ];
+            layerrule = [
+              "blur, waybar" # Add blur to waybar
+              "blurpopups, waybar" # Blur waybar popups too!
+              "ignorealpha 0.2, waybar" # Make it so transparent parts are ignored
+            ];
           };
         };
       };
 
-      home.file.".config/hypr/rose-pine-moon.conf".text = ''
-        $base	        = 0xff232136
-        $surface        = 0xff2a273f
-        $overlay        = 0xff393552
-        $muted          = 0xff6e6a86
-        $subtle         = 0xff908caa
-        $text           = 0xffe0def4
-        $love           = 0xffeb6f92
-        $gold           = 0xfff6c177
-        $rose           = 0xffea9a97
-        $pine           = 0xff3e8fb0
-        $foam           = 0xff9ccfd8
-        $iris           = 0xffc4a7e7
-        $highlightLow   = 0xff2a283e
-        $highlightMed   = 0xff44415a
-        $highlightHigh  = 0xff56526e
-      '';
+      /*
+        home.file.".config/hypr/rose-pine-moon.conf".text = ''
+          $base	        = 0xff232136
+          $surface        = 0xff2a273f
+          $overlay        = 0xff393552
+          $muted          = 0xff6e6a86
+          $subtle         = 0xff908caa
+          $text           = 0xffe0def4
+          $love           = 0xffeb6f92
+          $gold           = 0xfff6c177
+          $rose           = 0xffea9a97
+          $pine           = 0xff3e8fb0
+          $foam           = 0xff9ccfd8
+          $iris           = 0xffc4a7e7
+          $highlightLow   = 0xff2a283e
+          $highlightMed   = 0xff44415a
+          $highlightHigh  = 0xff56526e
+        '';
+      */
       home.file.".config/hypr/ign_coloful.png".source = ../../ressources/ign_colorful.png;
 
       # Plugins and Menu Items
@@ -147,8 +154,44 @@
         package = pkgs.waybar.overrideAttrs (oldAttrs: {
           mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
         });
+        style = ''
+          @define-color bg_main rgba(25, 25, 25, 0.65);
+          @define-color border_main rgba(255, 255, 255, 0.2);
+          @define-color content_main white;
+
+          * {
+          	text-shadow: none;
+          	box-shadow: none;
+            border: none;
+            border-radius: 0;
+          	font-family: "Segoe UI", "Ubuntu";
+            font-weight: 600;
+            font-size: 12.7px;
+          }
+
+          window#waybar {
+            background:  @bg_main;
+            border-top: 1px solid @border_main;
+            color: @content_main;
+          }
+        '';
+        settings = {
+          layer = "bottom";
+          position = "bottom";
+          mod = "dock";
+          exclusive = true;
+          gtk-layer-shell = true;
+          margin-bottom = -1;
+          passthrough = false;
+          height = 41;
+          modules-left = [
+            "custom/os_button"
+            "hyprland/workspaces"
+            "wlr/taskbar"
+          ];
+        };
       };
-      
+
       programs.rofi = {
         enable = true;
       };
@@ -157,9 +200,11 @@
         enable = true;
       };
 
-      home.packages = [
-        pkgs.swww
-      ];
+      /*
+        home.packages = [
+          pkgs.swww
+        ];
+      */
       /*
         programs.thunar = {
           enable = true;
