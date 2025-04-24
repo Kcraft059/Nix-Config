@@ -167,11 +167,11 @@
             height = 30;
             modules-left = [
               "custom/os_button"
+              "clock"
               "hyprland/workspaces"
             ];
             "modules-center" = [
               "wlr/taskbar"
-              "clock"
              ];
             "modules-right" = [
               "cpu"
