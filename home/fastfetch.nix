@@ -6,18 +6,18 @@
 }:
 {
   options = {
-    home-config.fastfetch.logo = mkOption {
-      type = string.type;
+    home-config.fastfetch.logo = lib.mkOption {
+      type = lib.types.str;
       default = "";
-      example = literalExpression '''';
+      example = lib.literalExpression '''';
       description = ''
         Configure the logo type
       '';
     };
-    home-config.fastfetch.osString = mkOption {
-      type = string.type;
+    home-config.fastfetch.osString = lib.mkOption {
+      type = lib.types.str;
       default = "OS";
-      example = literalExpression '''';
+      example = lib.literalExpression '' /\\/\\acOS'';
       description = ''
         Configure the OSstring
       '';
@@ -59,12 +59,12 @@
           };
           separator = " │ ";
           constants = [
-            ">───────────<Ø>─────────────────────────────────────────────<"
-            ">───────────<Ø>───┤\u001b[1;38;5;7mBase System\u001b[0;38;5;8m├─────────────────────────────<"
-            ">───────────<Ø>───┤\u001b[1;38;5;7mEnvironnement\u001b[0;38;5;8m├───────────────────────────<"
-            ">───────────<Ø>───┤\u001b[1;38;5;7mNetworking\u001b[0;38;5;8m├──────────────────────────────<"
-            ">───────────<Ø>───┤\u001b[1;38;5;7mHardware\u001b[0;38;5;8m├────────────────────────────────<"
-            "          >─<%>─<"
+            ''>───────────<Ø>─────────────────────────────────────────────<''
+            ''>───────────<Ø>───┤Base System├─────────────────────────────<''
+            ''>───────────<Ø>───┤Environnement├───────────────────────────<''
+            ''>───────────<Ø>───┤Networking├──────────────────────────────<''
+            ''>───────────<Ø>───┤Hardware├────────────────────────────────<''
+            ''>───────────<%>─<''
           ];
         };
         modules = [
@@ -86,7 +86,7 @@
           }
           {
             type = "os";
-            key = "   " ++ home-config.fastfetch.osString;
+            key = "   ${config.home-config.fastfetch.osString}";
             keyColor = "magenta";
             format = "{?pretty-name}{pretty-name}{?}{/pretty-name}{name}{/} {codename}  {#2}[v{version}] [{arch}]";
           }
@@ -236,10 +236,10 @@
 
       };
     };
-    home.file.".config/fastfetch/logo.txt".source = ./configs/fastfetch-logo.txt;
-    home.file.".config/fastfetch/config.jsonc".source = ./configs/fastfetch.jsonc;
-    #home.packages = [ pkgs.fastfetch ];
+    home.file.".config/fastfetch/darwin.txt".source = ./configs/fastfetch-logo.txt;
 
+    #home.file.".config/fastfetch/config.jsonc".source = ./configs/fastfetch.jsonc;
+    #home.packages = [ pkgs.fastfetch ];
   };
 
 }
