@@ -176,19 +176,21 @@
           }
         '';
         settings = {
-          layer = "bottom";
-          position = "bottom";
-          mod = "dock";
-          exclusive = true;
-          gtk-layer-shell = true;
-          margin-bottom = -1;
-          passthrough = false;
-          height = 41;
-          modules-left = [
-            "custom/os_button"
-            "hyprland/workspaces"
-            "wlr/taskbar"
-          ];
+          mainBar = {
+            layer = "bottom";
+            position = "bottom";
+            mod = "dock";
+            exclusive = true;
+            gtk-layer-shell = true;
+            margin-bottom = -1;
+            passthrough = false;
+            height = 41;
+            modules-left = [
+              "custom/os_button"
+              "hyprland/workspaces"
+              "wlr/taskbar"
+            ];
+          };
         };
       };
 
