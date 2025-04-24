@@ -154,24 +154,25 @@
         package = pkgs.waybar.overrideAttrs (oldAttrs: {
           mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
         });
-        style = lib.mkForce (builtins.readFile ../configs/waybar-style.css);
+        style = lib.mkForce (builtins.readFile ../configs/waybar-style.css); # Using mkForce for stylix
         settings = {
           mainBar = {
-            layer = "bottom";
-            position = "bottom";
+            layer = "top";
+            position = "top";
             mod = "dock";
             exclusive = true;
             gtk-layer-shell = true;
             margin-bottom = -1;
             passthrough = false;
-            height = 41;
+            height = 30;
             modules-left = [
               "custom/os_button"
               "hyprland/workspaces"
-              "wlr/taskbar"
             ];
-
-            "modules-center" = [ ];
+            "modules-center" = [
+              "wlr/taskbar"
+              "clock"
+             ];
             "modules-right" = [
               "cpu"
               "temperature"
@@ -182,7 +183,6 @@
               "network"
               "battery"
               "hyprland/language"
-              "clock"
             ];
 
             "hyprland/language" = {
@@ -192,7 +192,7 @@
             };
 
             "hyprland/workspaces" = {
-              icon-size = 32;
+              icon-size = 22;
               spacing = 16;
               on-scroll-up = "hyprctl dispatch workspace r+1";
               on-scroll-down = "hyprctl dispatch workspace r-1";
@@ -252,7 +252,7 @@
             };
 
             clock = {
-              format = "      {:%R\n %d.%m.%Y}";
+              format = "{:%R %d.%m.%Y}";
               tooltip-format = "<tt><small>{calendar}</small></tt>";
               calendar = {
                 mode = "year";
