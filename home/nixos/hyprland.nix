@@ -31,6 +31,7 @@
             "$terminal"
           ];
           "$terminal" = "ghostty";
+          "$logout" = "wlogout";
           "$applauncher" = "wofi";
           "$fileManager" = "dolphin";
           #source = "~/.config/hypr/rose-pine-moon.conf";
@@ -124,7 +125,8 @@
             [
               "$mainMod, Q, exec, $terminal "
               "$mainMod, C, killactive,"
-              "$mainMod, M, exit,"
+              "$mainMod SHIFT, M, exit,"
+              "$mainMod, M, exec, $logout"
               "$mainMod, SPACE, exec, $applauncher --show drun"
               "$mainMod, E, exec, $fileManager"
               "$mainMod, J, togglesplit,"
