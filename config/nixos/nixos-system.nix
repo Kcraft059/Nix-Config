@@ -121,6 +121,8 @@
       #media-session.enable = true;
     };
 
+    environment.systemPackages = [ pkgs.brightnessctl ];
+
     # Enable touchpad support (enabled default in most desktopManager).
     # services.xserver.libinput.enable = true;
 

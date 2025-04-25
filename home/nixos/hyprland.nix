@@ -80,7 +80,26 @@
             "$mainMod, Q, exec, $terminal "
             "$mainMod, C, killactive,"
             "$mainMod, M, exit,"
-            "$mainMod, SPACE, exec, $applauncher"
+            "$mainMod, SPACE, exec, $applauncher --show drun"
+            "$mainMod, E, exec, $fileManager"
+            "$mainMod, J, togglesplit,"
+            "$mainMod, V, togglefloating,"
+            "$mainMod, right, workspace, e+1"
+            "$mainMod, left, workspace, e-1"
+            "$mainMod, SHIFT, right, movetoworkspace, e+1"
+            "$mainMod, SHIFT, left, movetoworkspace, e-1"
+          ];
+          bindm = [
+            "$mainMod, mouse:272, movewindow"
+            "$mainMod, mouse:273, resizewindow"
+          ];
+          bindel = [
+            ",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+            ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+            ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+            ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+            ",XF86MonBrightnessUp, exec, brightnessctl s 10%+"
+            ",XF86MonBrightnessDown, exec, brightnessctl s 10%-"
           ];
           animations = {
             enabled = "yes";
@@ -331,6 +350,26 @@
           no_actions = true;
         };
       };
+
+      /*
+        home.file.".config/hypr/rose-pine-moon.conf".text = ''
+          $base	        = 0xff232136
+          $surface        = 0xff2a273f
+          $overlay        = 0xff393552
+          $muted          = 0xff6e6a86
+          $subtle         = 0xff908caa
+          $text           = 0xffe0def4
+          $love           = 0xffeb6f92
+          $gold           = 0xfff6c177
+          $rose           = 0xffea9a97
+          $pine           = 0xff3e8fb0
+          $foam           = 0xff9ccfd8
+          $iris           = 0xffc4a7e7
+          $highlightLow   = 0xff2a283e
+          $highlightMed   = 0xff44415a
+          $highlightHigh  = 0xff56526e
+        '';
+      */
 
       /*
         home.packages = [
