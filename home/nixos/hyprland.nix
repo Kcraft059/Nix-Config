@@ -32,7 +32,7 @@
           ];
           "$terminal" = "ghostty";
           "$applauncher" = "wofi";
-          "$fileManager" = "thunar";
+          "$fileManager" = "dolphin";
           #source = "~/.config/hypr/rose-pine-moon.conf";
           general = {
             gaps_in = 5;
