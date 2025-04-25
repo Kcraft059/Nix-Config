@@ -24,14 +24,16 @@
       ]
       ++ lib.optionals config.home-config.GUIapps.enable [
         pkgs.ghostty
-        pkgs.vscode
+        #pkgs.vscode
       ];
-  };
-}
-/*
+
       programs.vscode = {
         enable = true;
       };
+  };
+}
+/*
+      
 
       ".config/fastfetch/logo.txt".text = (builtins.readFile ./logo.txt);
 
