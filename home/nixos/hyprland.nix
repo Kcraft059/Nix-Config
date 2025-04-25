@@ -400,7 +400,7 @@
 
       programs.wlogout = {
         enable = true;
-      }
+      };
 
       /*
         home.file.".config/hypr/rose-pine-moon.conf".text = ''
