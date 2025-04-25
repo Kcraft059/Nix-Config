@@ -47,7 +47,7 @@ in
       ]
       ++ lib.optionals config.NIXPKG.GUIapps.enable [
         # Gui Apps
-        pkgs.dolphin # GUI Prefer Home-Manager
+        pkgs.kdePackages.dolphin # GUI Prefer Home-Manager
       ]
       ++ lib.optionals config.NIXPKG.darwinApps.enable [
         # Darwin Apps
