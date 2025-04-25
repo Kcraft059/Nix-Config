@@ -76,19 +76,66 @@
             workspace_swipe = true;
           };
           "$mainMod" = "SUPER";
-          bind = [
-            "$mainMod, Q, exec, $terminal "
-            "$mainMod, C, killactive,"
-            "$mainMod, M, exit,"
-            "$mainMod, SPACE, exec, $applauncher --show drun"
-            "$mainMod, E, exec, $fileManager"
-            "$mainMod, J, togglesplit,"
-            "$mainMod, V, togglefloating,"
-            "$mainMod, right, workspace, e+1"
-            "$mainMod, left, workspace, e-1"
-            "$mainMod, SHIFT, right, movetoworkspace, e+1"
-            "$mainMod, SHIFT, left, movetoworkspace, e-1"
-          ];
+          bind =
+            let
+              wbinds = [
+                {
+                  s = "ampersand";
+                  w = "1";
+                }
+                {
+                  s = "eacute";
+                  w = "2";
+                }
+                {
+                  s = "quotedbl";
+                  w = "3";
+                }
+                {
+                  s = "apostrophe";
+                  w = "4";
+                }
+                {
+                  s = "parenleft";
+                  w = "5";
+                }
+                {
+                  s = "minus";
+                  w = "6";
+                }
+                {
+                  s = "egrave";
+                  w = "7";
+                }
+                {
+                  s = "underscore";
+                  w = "8";
+                }
+                {
+                  s = "ccedilla";
+                  w = "9";
+                }
+                {
+                  s = "agrave";
+                  w = "10";
+                }
+              ];
+            in
+            [
+              "$mainMod, Q, exec, $terminal "
+              "$mainMod, C, killactive,"
+              "$mainMod, M, exit,"
+              "$mainMod, SPACE, exec, $applauncher --show drun"
+              "$mainMod, E, exec, $fileManager"
+              "$mainMod, J, togglesplit,"
+              "$mainMod, V, togglefloating,"
+              "$mainMod, right, workspace, e+1"
+              "$mainMod, left, workspace, e-1"
+              "$mainMod SHIFT, right, movetoworkspace, e+1"
+              "$mainMod SHIFT, left, movetoworkspace, e-1"
+            ]
+            ++ (builtins.map (x: "$mainMod, ${x.s}, workspace, ${x.w}") wbinds)
+            ++ (builtins.map (x: "$mainMod SHIFT, ${x.s}, movetoworkspace, ${x.w}") wbinds);
           bindm = [
             "$mainMod, mouse:272, movewindow"
             "$mainMod, mouse:273, resizewindow"
