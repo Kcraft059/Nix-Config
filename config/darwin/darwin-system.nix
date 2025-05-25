@@ -115,6 +115,7 @@ in
       lib.mkAfter ''
         echo -ne "\033[38;5;5mrunning postActivation scripts…\033[0m " >&2
         ln -sf ${pkgs.openjdk23}/zulu-23.jdk /Library/Java/JavaVirtualMachines
+        ln -sf ${pkgs.openjdk21}/zulu-21.jdk /Library/Java/JavaVirtualMachines
         ln -sf ${pkgsX86.openjdk17}/zulu-17.jdk /Library/Java/JavaVirtualMachines
         ln -sf ${pkgs.openjdk8}/zulu-8.jdk /Library/Java/JavaVirtualMachines
         ln -sf ${pkgs.ffmpeg.lib}/lib/* /usr/local/lib/ 

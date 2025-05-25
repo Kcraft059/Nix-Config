@@ -48,7 +48,7 @@
       brews =
         lib.optionals config.HMB.brews.enable [
           "powerlevel10k"
-          "ext4fuse-mac" # sudo ext4fuse <diskXsX> <mountPoint> -o allow_other
+          "ext4fuse-mac" # sudo ext4fuse <diskXsX> <mountPoint> -o allow_other -o umask=000
           "ntfs-3g-mac" # "libunistring" "gettext"
           "sshfs-mac" # sshfs <user>@<host>:<dir> <mountPoint> -o identityFile=<pathToSSH-Key>
 
@@ -77,6 +77,7 @@
         Testflight = 899247664;
         prettyJsonSafari = 1445328303;
         whatsapp = 310633997;
+        Usage = 1561788435;
       };
 
       taps = [

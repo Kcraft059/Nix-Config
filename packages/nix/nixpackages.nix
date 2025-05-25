@@ -43,11 +43,11 @@ in
         pkgs.neovim
         pkgs.openjdk8
         effectivePkgsX86.openjdk17
+        pkgs.openjdk21
         pkgs.openjdk23
       ]
       ++ lib.optionals config.NIXPKG.GUIapps.enable [
         # Gui Apps
-        pkgs.kdePackages.dolphin # GUI Prefer Home-Manager
       ]
       ++ lib.optionals config.NIXPKG.darwinApps.enable [
         # Darwin Apps
@@ -57,6 +57,7 @@ in
       ]
       ++ lib.optionals config.NIXPKG.linuxApps.enable [
         pkgs.sshfs
+        pkgs.kdePackages.dolphin # GUI Prefer Home-Manager
       ];
 
     fonts.packages = [
