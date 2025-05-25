@@ -11,6 +11,7 @@
     ./git.nix
     ./btop.nix
     ./atuin.nix
+    ./alacritty.nix
   ];
 
   config = {
@@ -24,7 +25,7 @@
       pkgs.tree
       pkgs.htop
     ] ++ lib.optionals config.home-config.GUIapps.enable [
-      pkgs.alacritty
+      #pkgs.alacritty
     ];
   };
 }

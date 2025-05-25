@@ -21,6 +21,7 @@
     home.packages =
       [
         pkgs.m-cli
+        pkgs.macmon
       ]
       ++ lib.optionals config.home-config.GUIapps.enable [
         pkgs.fancyfolder

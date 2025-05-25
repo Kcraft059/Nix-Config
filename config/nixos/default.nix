@@ -8,11 +8,11 @@
   imports = [
     ./nix-conf.nix #
     ./nixos-system.nix
-    ./stylix.nix
+    ../common/stylix.nix
   ];
-  nix-conf.garbage-collect.enable = lib.mkDefault true;
   nixos-system.enable = lib.mkDefault true;
-  nixos-system.stylix.enable = lib.mkDefault false;
   nixos-system.plasma6.enable = lib.mkDefault true;
   nixos-system.hyprland.enable = lib.mkDefault false;
+  nix-conf.garbage-collect.enable = lib.mkDefault true;
+  common.stylix.enable = lib.mkDefault false;
 }

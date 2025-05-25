@@ -48,6 +48,7 @@
       homebrew-cask,
       homebrew-bundle,
       homebrew-fuse,
+      stylix,
       ...
     }@inputs: # Allow for access to optionnal inputs with inputs.optionnalInput
     {
@@ -100,6 +101,7 @@
                   };
                 };
               }
+              stylix.darwinModules.stylix
             ];
           };
         };
@@ -137,7 +139,7 @@
                   home-config.hyprland.enable = true;
                 };
               }
-              inputs.stylix.nixosModules.stylix
+              stylix.nixosModules.stylix
             ];
           };
         };
