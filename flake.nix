@@ -64,6 +64,7 @@
             modules = [
               ./config/darwin/default.nix
               {
+                darwin-system.window-man.enable = true;
                 darwin-system.defaults.dock.enable = true;
               }
               ./packages/nix/default.nix
@@ -84,6 +85,56 @@
                     ./home/darwin/default.nix
                   ];
                   home-config.GUIapps.enable = true;
+                };
+              }
+              nix-homebrew.darwinModules.nix-homebrew
+              {
+                nix-homebrew = {
+                  enable = true;
+                  enableRosetta = true;
+                  user = "camille";
+                  mutableTaps = false;
+                  taps = {
+                    "homebrew/homebrew-core" = homebrew-core;
+                    "homebrew/homebrew-cask" = homebrew-cask;
+                    "homebrew/homebrew-bundle" = homebrew-bundle;
+                    "gromgit/homebrew-fuse" = homebrew-fuse;
+                  };
+                };
+              }
+              stylix.darwinModules.stylix
+            ];
+          };
+          "MacBookAirCam-M3-Test" = nix-darwin.lib.darwinSystem {
+            specialArgs = {
+              inherit self system inputs;
+            };
+            modules = [
+              ./config/darwin/default.nix
+              {
+                common.stylix.enable = false;
+                darwin-system.window-man.enable = true;
+              }
+              ./packages/nix/default.nix
+              {
+                NIXPKG.additionnals.enable = false;
+                NIXPKG.GUIapps.enable = false;
+              }
+              ./packages/homebrew/default.nix
+              {
+                HMB.brews.enable = false;
+                HMB.casks.enable = false;
+              }
+              home-manager.darwinModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users.camille = {
+                  # {...} can be replaced by import ./path/to/module.nix
+                  imports = [
+                    ./home/darwin/default.nix
+                  ];
+                  home-config.GUIapps.enable = false;
                 };
               }
               nix-homebrew.darwinModules.nix-homebrew

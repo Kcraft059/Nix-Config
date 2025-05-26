@@ -8,7 +8,7 @@ in
     theme = "dark:rose-pine-moon,light:rose-pine-dawn";
     background-blur = 15;
     background-opacity = 0.85;
-    window-step-resize = true;
+    #window-step-resize = true;
     window-height = 30;
     window-width = 109;
     window-padding-x = 5;
@@ -20,5 +20,6 @@ in
     keybind = "global:cmd+opt+ctrl+space=toggle_quick_terminal";
     quick-terminal-position = "center";
     auto-update = "download";
+    term = "xterm-256color";
   };
 }

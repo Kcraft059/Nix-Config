@@ -19,6 +19,8 @@ let
 in
 {
   options.NIXPKG = {
+    coreUtils = lib.mkEnableOption "Install core utilities ?";
+    additionnals.enable = lib.mkEnableOption "Install packages ?";
     GUIapps.enable = lib.mkEnableOption "Enable Install of GUI apps";
     darwinApps.enable = lib.mkEnableOption "Install Mac-Apps ?";
     linuxApps.enable = lib.mkEnableOption "Install linux-Apps ?";
@@ -26,25 +28,28 @@ in
 
   config = {
 
-    nixpkgs.overlays = [
-      # Currently Empty
-    ] ++ lib.optionals config.NIXPKG.darwinApps.enable [
-      #(import ./overlays/mas.nix)
-      (import ../../overlays/fancy-folder.nix)
-      (import ../../overlays/battery-toolkit.nix)
-    ] ;
+    nixpkgs.overlays =
+      [
+        # Currently Empty
+      ]
+      ++ lib.optionals config.NIXPKG.darwinApps.enable [
+        #(import ./overlays/mas.nix)
+        (import ../../overlays/fancy-folder.nix)
+        (import ../../overlays/battery-toolkit.nix)
+      ];
 
     environment.systemPackages =
-      [
+      lib.optionals config.NIXPKG.coreUtils [
         pkgs.git
-        pkgs.ffmpeg
         pkgs.screen
-        pkgs.php
         pkgs.neovim
+      ] ++ lib.optionals config.NIXPKG.additionnals.enable [
+        pkgs.php
+        pkgs.ffmpeg
         pkgs.openjdk8
-        effectivePkgsX86.openjdk17
-        pkgs.openjdk21
         pkgs.openjdk23
+        pkgs.openjdk21
+        effectivePkgsX86.openjdk17
       ]
       ++ lib.optionals config.NIXPKG.GUIapps.enable [
         # Gui Apps
@@ -60,7 +65,7 @@ in
         pkgs.kdePackages.dolphin # GUI Prefer Home-Manager
       ];
 
-    fonts.packages = [
+    fonts.packages = lib.optionals config.NIXPKG.coreUtils [
       pkgs.nerd-fonts.jetbrains-mono
       pkgs.monocraft
     ];
