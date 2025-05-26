@@ -38,6 +38,12 @@
         window_gap = 8;
       };
       extraConfig = ''
+        yabai -m rule --add app="^System Settings$" manage=off
+        yabai -m rule --add app="^Ice$" manage=off
+        yabai -m rule --add app="^wine64 pre-loader$" manage=off
+        yabai -m rule --add app="^LuLu$" manage=off
+        yabai -m rule --add app="^Fancy Folder$" manage=off
+        yabai -m rule --add app="^Alcove$" manage=off
         yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
         sudo yabai --load-sa
       '';
@@ -45,7 +51,7 @@
     services.skhd = lib.mkIf config.darwin-system.window-man.enable {
       enable = true;
       skhdConfig = ''
-        ctrl + ralt - up : sh -c 'yabai -m space --create; yabai -m space --focus last'
+        ctrl + ralt - up : sh -c 'yabai -m space --create; yabai -m space --focus "$(yabai -m query --spaces | jq "[.[] | select(.display == ($(yabai -m query --displays --display | jq .index))) ] | max_by(.index).index")"'
         ctrl + ralt - down : yabai -m space --destroy
         ctrl + ralt - right : yabai -m space --move next
         ctrl + ralt - left : yabai -m space --move prev
@@ -61,6 +67,8 @@
         shift + ralt - return : yabai -m window --toggle sticky
         cmd + ralt - j : yabai -m space --rotate 270
         cmd + ralt - k : yabai -m space --rotate 90
+        cmd + ralt - m : yabai -m space --layout bsp
+        cmd + ralt - f : yabai -m space --layout float
         ralt - up : yabai -m window --focus north
         ralt - down : yabai -m window --focus south
         ralt - right : yabai -m window --focus east
