@@ -7,45 +7,50 @@
 {
   options.HMB = {
     enable = lib.mkEnableOption "Whether to enable the whole homebrew module";
+    coreUtils = lib.mkEnableOption "Core utilities ?";
     brews.enable = lib.mkEnableOption "Whether to enable brews";
     casks.enable = lib.mkEnableOption "Whether to enable casks";
     masApps.enable = lib.mkEnableOption "Whether to enable masApps";
   };
 
-  config = lib.mkIf config.HMB.enable {
+  config = {
     homebrew = {
-      enable = true;
-      casks = lib.optionals config.HMB.casks.enable [
-        "macfuse"
-        "vlc"
-        "iina"
-        "visual-studio-code"
-        "the-unarchiver"
-        "BetterDisplay"
-        "Stats"
-        "Raycast"
-        "kid3"
-        "multimc"
-        "prismlauncher"
-        "audacity"
-        "whisky"
-        "hex-fiend"
-        "lulu"
-        "disk-inventory-x"
-        "sf-symbols"
-        "knockknock"
-        "chatgpt"
-        "discord"
-        "gimp"
-        "ghostty"
-        "Alcove"
-        "suspicious-package"
-        "firefox"
-        "balenaetcher"
-        "google-chrome" # Ewww… WebHID Only
-        #"binary-ninja-free"
-      ];
+      enable = config.HMB.enable;
+      casks =
+        lib.optionals config.HMB.coreUtils [
+          "hex-fiend"
+          "visual-studio-code"
+          "ghostty"
+        ]
+        ++ lib.optionals config.HMB.casks.enable [
+          "macfuse"
+          "vlc"
+          "iina"
+          "the-unarchiver"
+          "BetterDisplay"
+          "Stats"
+          "Raycast"
+          "kid3"
+          "multimc"
+          "prismlauncher"
+          "audacity"
+          "whisky"
+          "lulu"
+          "disk-inventory-x"
+          "sf-symbols"
+          "knockknock"
+          "chatgpt"
+          "discord"
+          "gimp"
+          "Alcove"
+          "suspicious-package"
+          "firefox"
+          "balenaetcher"
+          "google-chrome" # Ewww… WebHID Only
+          #"binary-ninja-free"
+        ];
       brews =
+        #lib.optionals config.HMB.coreUtils [ ] ++
         lib.optionals config.HMB.brews.enable [
           "powerlevel10k"
           "ext4fuse-mac" # sudo ext4fuse <diskXsX> <mountPoint> -o allow_other -o umask=000
@@ -68,17 +73,19 @@
         ]
         ++ lib.optionals config.HMB.masApps.enable [ "mas" ];
 
-      masApps = lib.mkIf config.HMB.masApps.enable {
-        actions = 1586435171;
-        Ferromagnetic = 1546537151;
-        AppleConfigurator = 1037126344;
-        Pdf-Gear = 6469021132;
-        amphetamine = 937984704;
-        Testflight = 899247664;
-        prettyJsonSafari = 1445328303;
-        whatsapp = 310633997;
-        Usage = 1561788435;
-      };
+      masApps =
+        #lib.mkIf config.HMB.coreUtils { } //
+        lib.mkIf config.HMB.masApps.enable {
+          actions = 1586435171;
+          Ferromagnetic = 1546537151;
+          AppleConfigurator = 1037126344;
+          Pdf-Gear = 6469021132;
+          amphetamine = 937984704;
+          Testflight = 899247664;
+          prettyJsonSafari = 1445328303;
+          whatsapp = 310633997;
+          Usage = 1561788435;
+        };
 
       taps = [
         "homebrew/homebrew-cask"

@@ -1,0 +1,164 @@
+# !/bin/bash
+
+export BASE_MOON=0xff232136
+export SURFACE_MOON=0xff2a273f
+export OVERLAY_MOON=0xff393552
+export MUTED_MOON=0xff6e6a86
+export SUBTLE_MOON=0xff908caa
+export TEXT_MOON=0xffe0def4
+export LOVE_MOON=0xffeb6f92
+export GOLD_MOON=0xfff6c177
+export ROSE_MOON=0xffea9a97
+export PINE_MOON=0xff3e8fb0
+export FOAM_MOON=0xff9ccfd8
+export IRIS_MOON=0xffc4a7e7
+export HIGH-LOW_MOON=0xff2a283e
+export HIGH-MED_MOON=0xff44415a
+export HIGH-HIGH_MOON=0xff56526e
+
+export BLACK=0xff181926
+export TRANSPARENT=0x00000000
+
+# General bar colors
+export BAR_COLOR=0xa024273a
+export ICON_COLOR=$TEXT_MOON # Color of all icons
+export LABEL_COLOR=$TEXT_MOON # Color of all labels
+export BACKGROUND_1=0x903c3e4f
+export BACKGROUND_2=0x90494d64
+
+export POPUP_BACKGROUND_COLOR=0xbe232136
+export POPUP_BORDER_COLOR=$OVERLAY_MOON
+
+export SHADOW_COLOR=$BLACK
+
+# General Icons
+LOADING=􀖇
+APPLE=􀣺
+PREFERENCES=􀺽
+ACTIVITY=􀒓
+LOCK=􀒳
+BELL=􀋚
+BELL_DOT=􀝗
+
+# Git Icons
+GIT_ISSUE=􀍷
+GIT_DISCUSSION=􀒤
+GIT_PULL_REQUEST=􀙡
+GIT_COMMIT=􀡚
+GIT_INDICATOR=􀂓
+
+# Spotify Icons
+SPOTIFY_BACK=􀊎
+SPOTIFY_PLAY_PAUSE=􀊈
+SPOTIFY_NEXT=􀊐
+SPOTIFY_SHUFFLE=􀊝
+SPOTIFY_REPEAT=􀊞
+
+# Yabai Icons
+YABAI_STACK=􀏭
+YABAI_FULLSCREEN_ZOOM=􀏜
+YABAI_PARENT_ZOOM=􀥃
+YABAI_FLOAT=􀢌
+YABAI_GRID=􀧍
+
+# Battery Icons
+BATTERY_100=􀛨
+BATTERY_75=􀺸
+BATTERY_50=􀺶
+BATTERY_25=􀛩
+BATTERY_0=􀛪
+BATTERY_CHARGING=􀢋
+
+# Volume Icons
+VOLUME_100=􀊩
+VOLUME_66=􀊧
+VOLUME_33=􀊥
+VOLUME_10=􀊡
+VOLUME_0=􀊣
+
+FONT="SF Pro"
+PADDINGS=3
+
+bar=(
+  height=30
+  color=$BAR_COLOR
+  shadow=on
+  position=top
+  sticky=on
+  padding_right=10
+  padding_left=10
+  corner_radius=13
+  y_offset=6
+  margin=6
+  blur_radius=20
+  notch_width=0
+)
+
+sketchybar --bar "${bar[@]}"
+
+defaults=(
+  updates=when_shown
+  icon.font="$FONT:Bold:14.0"
+  icon.color=$ICON_COLOR
+  icon.padding_left=$PADDINGS
+  icon.padding_right=$PADDINGS
+  label.font="$FONT:Semibold:13.0"
+  label.color=$LABEL_COLOR
+  label.padding_left=$PADDINGS
+  label.padding_right=$PADDINGS
+  padding_right=$PADDINGS
+  padding_left=$PADDINGS
+  background.height=30
+  background.corner_radius=9
+  popup.y_offset=4
+  popup.background.border_width=1
+  popup.background.corner_radius=5
+  popup.background.border_color=$POPUP_BORDER_COLOR
+  popup.background.color=$POPUP_BACKGROUND_COLOR
+  popup.blur_radius=20
+  popup.background.shadow.drawing=on
+)
+
+sketchybar --default "${defaults[@]}"
+
+POPUP_OFF="sketchybar --set apple.logo popup.drawing=off"
+POPUP_CLICK_SCRIPT="sketchybar --set \$NAME popup.drawing=toggle"
+
+apple_logo=(
+  icon=$APPLE
+  icon.font="$FONT:Black:16.0"
+  icon.color=$PINE_MOON
+  padding_right=15
+  label.drawing=off
+  click_script="$POPUP_CLICK_SCRIPT"
+)
+
+apple_prefs=(
+  icon=$PREFERENCES
+  label="Preferences"
+  click_script="open -a 'System Preferences'; $POPUP_OFF"
+)
+
+apple_activity=(
+  icon=$ACTIVITY
+  label="Activity"
+  click_script="open -a 'Activity Monitor'; $POPUP_OFF"
+)
+
+apple_lock=(
+  icon=$LOCK
+  label="Lock Screen"
+  click_script="pmset displaysleepnow; $POPUP_OFF"
+)
+
+sketchybar --add item apple.logo left                  \
+           --set apple.logo "${apple_logo[@]}"         \
+                                                       \
+           --add item apple.prefs popup.apple.logo     \
+           --set apple.prefs "${apple_prefs[@]}"       \
+                                                       \
+           --add item apple.activity popup.apple.logo  \
+           --set apple.activity "${apple_activity[@]}" \
+                                                       \
+           --add item apple.lock popup.apple.logo      \
+           --set apple.lock "${apple_lock[@]}"
