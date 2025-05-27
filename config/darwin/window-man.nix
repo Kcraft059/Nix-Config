@@ -30,7 +30,7 @@
         normal_window_border_color = "0xff2a2f38";
 
         menubar_opacity = 0.75;
-        external_bar = lib.optionalString config.services.sketchybar.enable "all:36:0"; # Only add if sketchy_bar
+        external_bar = lib.optionalString config.services.sketchybar.enable "all:36:0"; # Only add if sketchybar
         top_padding = 8;
         bottom_padding = 8;
         left_padding = 8;
@@ -77,7 +77,9 @@
     };
     services.sketchybar = lib.mkIf config.darwin-system.status-bar.enable {
       enable = true;
-      config = (builtins.readFile ./configs/sketchybarrc);
+      config = builtins.concatStringsSep "\n" [
+        (builtins.readFile ./configs/sketchybarrc)
+      ];
     };
     fonts.packages = lib.optionals config.services.sketchybar.enable [
       pkgs.sketchybar-app-font
