@@ -12,15 +12,16 @@ export ROSE_MOON=0xffea9a97
 export PINE_MOON=0xff3e8fb0
 export FOAM_MOON=0xff9ccfd8
 export IRIS_MOON=0xffc4a7e7
-export HIGH-LOW_MOON=0xff2a283e
-export HIGH-MED_MOON=0xff44415a
-export HIGH-HIGH_MOON=0xff56526e
+export HIGH_LOW_MOON=0xff2a283e
+export HIGH_MED_MOON=0xff44415a
+export HIGH_HIGH_MOON=0xff56526e
 
 export BLACK=0xff181926
 export TRANSPARENT=0x00000000
 
 # General bar colors
-export BAR_COLOR=0xa024273a
+export BAR_COLOR=0xD9232136
+export BORDER_COLOR=$OVERLAY_MOON
 export ICON_COLOR=$TEXT_MOON # Color of all icons
 export LABEL_COLOR=$TEXT_MOON # Color of all labels
 export BACKGROUND_1=0x903c3e4f
@@ -31,134 +32,387 @@ export POPUP_BORDER_COLOR=$OVERLAY_MOON
 
 export SHADOW_COLOR=$BLACK
 
-# General Icons
-LOADING=􀖇
-APPLE=􀣺
-PREFERENCES=􀺽
-ACTIVITY=􀒓
-LOCK=􀒳
-BELL=􀋚
-BELL_DOT=􀝗
-
-# Git Icons
-GIT_ISSUE=􀍷
-GIT_DISCUSSION=􀒤
-GIT_PULL_REQUEST=􀙡
-GIT_COMMIT=􀡚
-GIT_INDICATOR=􀂓
-
-# Spotify Icons
-SPOTIFY_BACK=􀊎
-SPOTIFY_PLAY_PAUSE=􀊈
-SPOTIFY_NEXT=􀊐
-SPOTIFY_SHUFFLE=􀊝
-SPOTIFY_REPEAT=􀊞
-
-# Yabai Icons
-YABAI_STACK=􀏭
-YABAI_FULLSCREEN_ZOOM=􀏜
-YABAI_PARENT_ZOOM=􀥃
-YABAI_FLOAT=􀢌
-YABAI_GRID=􀧍
-
-# Battery Icons
-BATTERY_100=􀛨
-BATTERY_75=􀺸
-BATTERY_50=􀺶
-BATTERY_25=􀛩
-BATTERY_0=􀛪
-BATTERY_CHARGING=􀢋
-
-# Volume Icons
-VOLUME_100=􀊩
-VOLUME_66=􀊧
-VOLUME_33=􀊥
-VOLUME_10=􀊡
-VOLUME_0=􀊣
+# Vars
 
 FONT="SF Pro"
-PADDINGS=3
+OUTER_PADDINGS=10
+INNER_PADDINGS=5
+X_BAR_PADDING=12
+BAR_HEIGHT=34
+
+# Bar Properties
 
 bar=(
-  height=30
-  color=$BAR_COLOR
-  shadow=on
-  position=top
-  sticky=on
-  padding_right=10
-  padding_left=10
-  corner_radius=13
-  y_offset=6
-  margin=6
-  blur_radius=20
-  notch_width=0
+    height=$BAR_HEIGHT
+    y_offset=4
+    margin=5
+    shadow=on
+    padding_left=$X_BAR_PADDING
+    padding_right=$X_BAR_PADDING
+    color=$BAR_COLOR
+    border_width=1
+    border_color=$BORDER_COLOR
+    corner_radius=12
+    blur_radius=20
+    #notch_width=80
 )
 
 sketchybar --bar "${bar[@]}"
 
+# Defaults
+
 defaults=(
-  updates=when_shown
-  icon.font="$FONT:Bold:14.0"
-  icon.color=$ICON_COLOR
-  icon.padding_left=$PADDINGS
-  icon.padding_right=$PADDINGS
-  label.font="$FONT:Semibold:13.0"
-  label.color=$LABEL_COLOR
-  label.padding_left=$PADDINGS
-  label.padding_right=$PADDINGS
-  padding_right=$PADDINGS
-  padding_left=$PADDINGS
-  background.height=30
-  background.corner_radius=9
-  popup.y_offset=4
-  popup.background.border_width=1
-  popup.background.corner_radius=5
-  popup.background.border_color=$POPUP_BORDER_COLOR
-  popup.background.color=$POPUP_BACKGROUND_COLOR
-  popup.blur_radius=20
-  popup.background.shadow.drawing=on
+    updates=when_shown
+    icon.font="$FONT:Bold:14.0"
+    icon.color=$ICON_COLOR
+    icon.padding_left=$OUTER_PADDINGS
+    icon.padding_right=$INNER_PADDINGS
+    label.font="$FONT:Semibold:13.0"
+    label.color=$LABEL_COLOR
+    label.padding_left=$INNER_PADDINGS
+    label.padding_right=$OUTER_PADDINGS
+    popup.y_offset=4
+    popup.background.border_width=1
+    popup.background.corner_radius=6
+    popup.background.border_color=$POPUP_BORDER_COLOR
+    popup.background.color=$POPUP_BACKGROUND_COLOR
+    popup.blur_radius=20
+    popup.background.shadow.drawing=on
 )
 
 sketchybar --default "${defaults[@]}"
 
-POPUP_OFF="sketchybar --set apple.logo popup.drawing=off"
-POPUP_CLICK_SCRIPT="sketchybar --set \$NAME popup.drawing=toggle"
-
-apple_logo=(
-  icon=$APPLE
-  icon.font="$FONT:Black:16.0"
-  icon.color=$PINE_MOON
-  padding_right=15
-  label.drawing=off
-  click_script="$POPUP_CLICK_SCRIPT"
+zones=(
+    background.height=$(($BAR_HEIGHT - 8))
+    background.border_width=2
+    background.border_color=$HIGH_MED_MOON
+    background.color=$OVERLAY_MOON
+    background.corner_radius=8
+    blur_radius=20
 )
 
-apple_prefs=(
+# ---- Right ----
+read -r SCRIPT_POPUP_TOGGLE << EOM
+sketchybar --set \$NAME popup.drawing=toggle
+EOM
+
+logo=(
+    icon=􀣺
+    icon.font="$FONT:Black:16.0"
+    icon.color=$LOVE_MOON
+    icon.padding_left=4
+    click_script="$SCRIPT_POPUP_TOGGLE"
+    #label.font="$FONT:Heavy:13.0"
+    #label=Ghostty
+)
+
+prefs=(
   icon=$PREFERENCES
   label="Preferences"
   click_script="open -a 'System Preferences'; $POPUP_OFF"
 )
 
-apple_activity=(
-  icon=$ACTIVITY
-  label="Activity"
-  click_script="open -a 'Activity Monitor'; $POPUP_OFF"
+sketchybar --add item logo left                 \
+           --set logo "${logo[@]}"              \
+           --add item logo.prefs popup.logo     \
+           --set logo.prefs "${prefs[@]}"       \
+
+# Spaces
+
+SCRIPT_SPACES="$(cat <<'EOM'
+update() {
+  WIDTH="dynamic"
+  if [ "$SELECTED" = "true" ]; then
+    WIDTH="0"
+  fi
+
+  sketchybar --animate tanh 20 --set $NAME icon.highlight=$SELECTED label.width=$WIDTH
+}
+
+mouse_clicked() {
+  if [ "$BUTTON" = "right" ]; then
+    yabai -m space --destroy $SID
+    sketchybar --trigger space_change --trigger windows_on_spaces
+  else
+    yabai -m space --focus $SID 2>/dev/null
+  fi
+}
+
+case "$SENDER" in
+  "mouse.clicked") mouse_clicked
+  ;;
+  *) update
+  ;;
+esac
+EOM
+)"
+
+SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13" "14" "15")
+
+# Destroy space on right click, focus space on left click.
+# New space by left clicking separator (>)
+
+sid=0
+spaces=()
+for i in "${!SPACE_ICONS[@]}"
+do
+  sid=$(($i+1))
+
+  space=(
+    associated_space=$sid
+    icon=${SPACE_ICONS[i]}
+    icon.padding_left=10
+    icon.padding_right=15
+    padding_left=2
+    padding_right=2
+    label.padding_right=20
+    icon.highlight_color=$LOVE_MOON
+    label.font="sketchybar-app-font:Regular:16.0"
+    label.background.height=26
+    label.background.drawing=on
+    label.background.color=$SURFACE_MOON
+    label.background.corner_radius=8
+    label.drawing=off
+    script="$SCRIPT_SPACES"
+  )
+
+  sketchybar --add space space.$sid left    \
+             --set space.$sid "${space[@]}" \
+             --subscribe space.$sid mouse.clicked
+done
+
+separator=(
+  icon=􀆊
+  icon.font="$FONT:Heavy:14.0"
+  padding_left=15
+  padding_right=15
+  label.drawing=off
+  associated_display=active
+  click_script='yabai -m space --create && sketchybar --trigger space_change'
+  icon.color=$TEXT_MOON
 )
 
-apple_lock=(
-  icon=$LOCK
-  label="Lock Screen"
-  click_script="pmset displaysleepnow; $POPUP_OFF"
+sketchybar --add bracket spaces '/space\..*/' \
+           --set spaces "${zones[@]}"        \
+                                              \
+           --add item separator left          \
+           --set separator "${separator[@]}"
+
+# ---- Left ----
+# Calendar
+SCRIPT_CALENDAR="$(cat <<'EOM'
+sketchybar --set $NAME icon="$(date '+%a %d. %b')" label="$(date '+%H:%M:%S')"
+EOM
+)"
+
+calendar=(
+  icon.font="$FONT:Black:12.0"
+  icon.padding_right=0
+  label.width=65
+  label.align=center
+  label.padding_right=0
+  update_freq=1
+  script="$SCRIPT_CALENDAR"
+  #click_script="sketchybar --set \$NAME icon=\"\$(date '+%a %d. %b')\" label=\"\$(date '+%H:%M:%S')\""
 )
 
-sketchybar --add item apple.logo left                  \
-           --set apple.logo "${apple_logo[@]}"         \
-                                                       \
-           --add item apple.prefs popup.apple.logo     \
-           --set apple.prefs "${apple_prefs[@]}"       \
-                                                       \
-           --add item apple.activity popup.apple.logo  \
-           --set apple.activity "${apple_activity[@]}" \
-                                                       \
-           --add item apple.lock popup.apple.logo      \
-           --set apple.lock "${apple_lock[@]}"
+sketchybar --add item calendar right       \
+           --set calendar "${calendar[@]}" \
+           --subscribe calendar system_woke
+
+# Better Display
+
+# better_display=(
+#     alias.color=$ROSE_MOON
+#     click_script="osascript -e 'tell application \"System Events\" to tell process \"BetterDisplay\" to perform action \"AXPress\" of menu bar item 5 of menu bar 1'"
+# )
+
+# sketchybar --add alias "SystemUIServer,Siri" right \
+#            --set "SystemUIServer,Siri" "${better_display[@]}"
+
+# Battery
+SCRIPT_BATTERY="$(cat <<EOM
+TEXT_MOON=$TEXT_MOON
+PINE_MOON=$PINE_MOON
+FOAM_MOON=$FOAM_MOON
+GOLD_MOON=$GOLD_MOON
+ROSE_MOON=$ROSE_MOON
+LOVE_MOON=$LOVE_MOON
+EOM
+) $(cat <<'EOM'
+PERCENTAGE=$(pmset -g batt | grep -Eo "[0-9]+%" | cut -d% -f1)
+CHARGING=$(pmset -g batt | grep 'AC Power')
+
+if [ -z "$PERCENTAGE" ]; then
+  exit 0
+fi
+
+DRAWING=on
+COLOR=$TEXT_MOON
+case ${PERCENTAGE} in
+  9[0-9]|100) ICON=􀛨; COLOR=$FOAM_MOON
+  ;;
+  [6-8][0-9]) ICON=􀺸
+  ;;
+  [3-5][0-9]) ICON=􀺶; COLOR=$GOLD_MOON
+  ;;
+  [1-2][0-9]) ICON=􀛩; COLOR=$ROSE_MOON
+  ;;
+  *) ICON=􀛪; COLOR=$LOVE_MOON
+esac
+
+if [[ $CHARGING != "" ]]; then
+  ICON=􀢋
+  COLOR=$PINE_MOON
+fi
+
+sketchybar --set $NAME icon="$ICON" icon.color=$COLOR label="$PERCENTAGE %"
+EOM
+)"
+
+battery=(
+    script="$SCRIPT_BATTERY"
+    #icon=􀺸
+    icon.font="$FONT:Regular:14.0"
+    icon.padding_left=$(($OUTER_PADDINGS - 4))
+    icon.padding_right=0
+    label.font="$FONT:Semibold:11.0"
+    label="100%"
+    label.padding_left=$INNER_PADDINGS
+    label.padding_right=$OUTER_PADDINGS
+    update_freq=120
+    updates=on
+)
+
+sketchybar --add item battery right      \
+           --set battery "${battery[@]}" \
+           --subscribe battery power_source_change system_woke
+
+# Sound icon
+SCRIPT_VOLUME_CLICK="$(cat <<'EOM'
+WIDTH=100
+
+detail_on() {
+  sketchybar --animate tanh 30 --set volume slider.width=$WIDTH
+}
+
+detail_off() {
+  sketchybar --animate tanh 30 --set volume slider.width=0
+}
+
+toggle_detail() {
+  INITIAL_WIDTH=$(sketchybar --query volume | grep '"slider": {' -A 20 | grep '"width":' | head -1 | sed 's/[^0-9]*\([0-9]*\).*/\1/')
+  if [ "$INITIAL_WIDTH" -eq "0" ]; then
+    detail_on
+  else
+    detail_off
+  fi
+}
+
+toggle_detail
+EOM
+)"
+
+SCRIPT_VOLUME="$(cat <<'EOM'
+WIDTH=100
+
+volume_change() {
+  case $INFO in
+    [6-9][0-9]|100) ICON=􀊩
+    ;;
+    [3-5][0-9]) ICON=􀊧
+    ;;
+    [1-2][0-9]) ICON=􀊥
+    ;;
+    [1-9]) ICON=􀊡
+    ;;
+    0) ICON=􀊣
+    ;;
+    *) ICON=􀊩
+  esac
+
+  sketchybar --set volume_icon icon=$ICON
+
+  sketchybar --set $NAME slider.percentage=$INFO \
+             --animate tanh 30 --set $NAME slider.width=$WIDTH 
+
+  sleep 2
+
+  # Check wether the volume was changed another time while sleeping
+  FINAL_PERCENTAGE=$(sketchybar --query $NAME | jq -r ".slider.percentage")
+  if [ "$FINAL_PERCENTAGE" -eq "$INFO" ]; then
+    sketchybar --animate tanh 30 --set $NAME slider.width=0
+  fi
+}
+
+mouse_clicked() {
+  osascript -e "set volume output volume $PERCENTAGE"
+}
+
+mouse_entered() {
+  sketchybar --set $NAME slider.knob.drawing=on
+}
+
+mouse_exited() {
+  sketchybar --set $NAME slider.knob.drawing=off
+}
+
+case "$SENDER" in
+  "volume_change") volume_change
+  ;;
+  "mouse.clicked") mouse_clicked
+  ;;
+  "mouse.entered") mouse_entered
+  ;;
+  "mouse.exited") mouse_exited
+  ;;
+esac
+EOM
+)"
+
+
+volume_slider=(
+  script="$SCRIPT_VOLUME"
+  updates=on
+  label.drawing=off
+  icon.drawing=off
+  slider.highlight_color=$PINE_MOON
+  slider.background.height=5
+  slider.background.corner_radius=3
+  slider.background.color=$MUTED_MOON
+  slider.knob=􀀁
+  slider.knob.drawing=off
+)
+
+volume_icon=(
+  click_script="$SCRIPT_VOLUME_CLICK"
+  icon.align=left
+  icon.padding_left=$OUTER_PADDINGS
+  icon.padding_right=$(($OUTER_PADDINGS - 4))
+  icon.font="$FONT:Regular:14.0"
+  icon.color=$IRIS_MOON
+  #label.width=32
+  label.padding_left=0
+  label.padding_right=0
+  label.align=left
+  label.font="$FONT:Regular:14.0"
+)
+
+sketchybar --add slider volume right            \
+           --set volume "${volume_slider[@]}"   \
+           --subscribe volume volume_change     \
+                              mouse.clicked     \
+                              mouse.entered     \
+                              mouse.exited      \
+                                                \
+           --add item volume_icon right         \
+           --set volume_icon "${volume_icon[@]}"
+
+# Control zone
+
+sketchybar --add bracket controls battery volume_icon \
+           --set controls "${zones[@]}"
+
+sketchybar --update
+
+echo "sketchybar configuation loaded.."

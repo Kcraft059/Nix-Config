@@ -79,5 +79,8 @@
       enable = true;
       config = (builtins.readFile ./configs/sketchybarrc);
     };
+    fonts.packages = lib.optionals config.services.sketchybar.enable [
+      pkgs.sketchybar-app-font
+    ];
   };
 }
