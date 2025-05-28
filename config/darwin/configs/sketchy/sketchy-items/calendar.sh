@@ -19,7 +19,7 @@ EOM
 calendar=(
   icon.font="$FONT:Black:12.0"
   icon.padding_right=0
-  label.width=45
+  label.width=50
   label.align=center
   label.padding_right=0
   update_freq=30

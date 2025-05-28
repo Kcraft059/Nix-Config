@@ -30,7 +30,7 @@
         normal_window_border_color = "0xff2a2f38";
 
         menubar_opacity = 0.75;
-        external_bar = /* lib.optionalString config.services.sketchybar.enable */ "all:36:0"; # Only add if sketchybar
+        external_bar = lib.optionalString config.services.sketchybar.enable "all:36:0"; # Only add if sketchybar
         top_padding = 8;
         bottom_padding = 6;
         left_padding = 6;
@@ -104,7 +104,7 @@
         (builtins.readFile ./configs/sketchy/sketchyset.sh)
       ];
     };
-    fonts.packages = /* lib.optionals config.services.sketchybar.enable */ [
+    fonts.packages = lib.optionals config.services.sketchybar.enable [
       pkgs.sketchybar-app-font
     ];
   };

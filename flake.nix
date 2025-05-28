@@ -106,7 +106,7 @@
               stylix.darwinModules.stylix
             ];
           };
-          "MacBookAirCam-M3-Test" = nix-darwin.lib.darwinSystem {
+          /* "MacBookAirCam-M3-Test" = nix-darwin.lib.darwinSystem {
             specialArgs = {
               inherit self system inputs;
             };
@@ -155,7 +155,7 @@
               }
               stylix.darwinModules.stylix
             ];
-          };
+          }; */
         };
       nixosConfigurations =
         let
