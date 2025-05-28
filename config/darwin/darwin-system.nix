@@ -57,6 +57,7 @@ in
       NSGlobalDomain = {
         AppleICUForce24HourTime = true;
         AppleInterfaceStyle = "Dark";
+        _HIHideMenuBar = lib.mkIf config.darwin-system.status-bar.enable true;
       };
       dock = lib.mkIf config.darwin-system.defaults.dock.enable {
         autohide = true; # Dock
