@@ -35,6 +35,7 @@ in
       ++ lib.optionals config.NIXPKG.darwinApps.enable [
         #(import ./overlays/mas.nix)
         (import ../../overlays/fancy-folder.nix)
+        (import ../../overlays/menubar-cli.nix)
         (import ../../overlays/battery-toolkit.nix)
       ];
 
@@ -43,6 +44,7 @@ in
         pkgs.git
         pkgs.screen
         pkgs.neovim
+        pkgs.jq
       ] ++ lib.optionals config.NIXPKG.additionnals.enable [
         pkgs.php
         pkgs.ffmpeg
@@ -56,6 +58,7 @@ in
       ]
       ++ lib.optionals config.NIXPKG.darwinApps.enable [
         # Darwin Apps
+        pkgs.menubar-cli
         pkgs.mkalias
         pkgs.mas
         pkgs.battery-toolkit

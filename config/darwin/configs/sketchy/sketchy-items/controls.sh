@@ -1,0 +1,1 @@
+# sketchybar --query default_menu_items
