@@ -30,11 +30,11 @@
         normal_window_border_color = "0xff2a2f38";
 
         menubar_opacity = 0.75;
-        external_bar = lib.optionalString config.services.sketchybar.enable "all:36:0"; # Only add if sketchybar
+        external_bar = /* lib.optionalString config.services.sketchybar.enable */ "all:36:0"; # Only add if sketchybar
         top_padding = 8;
-        bottom_padding = 8;
-        left_padding = 8;
-        right_padding = 8;
+        bottom_padding = 6;
+        left_padding = 6;
+        right_padding = 6;
         window_gap = 8;
       };
       extraConfig = ''
@@ -51,37 +51,60 @@
     services.skhd = lib.mkIf config.darwin-system.window-man.enable {
       enable = true;
       skhdConfig = ''
+        # Spaces Management 
         ctrl + ralt - up : sh -c 'yabai -m space --create; yabai -m space --focus "$(yabai -m query --spaces | jq "[.[] | select(.display == ($(yabai -m query --displays --display | jq .index))) ] | max_by(.index).index")"'
         ctrl + ralt - down : yabai -m space --destroy
         ctrl + ralt - right : yabai -m space --move next
         ctrl + ralt - left : yabai -m space --move prev
-        cmd + ralt - up : yabai -m window --swap north
-        cmd + ralt - down : yabai -m window --swap south
-        cmd + ralt - right : yabai -m window --swap east
-        cmd + ralt - left : yabai -m window --swap west
-        shift + ralt - up : yabai -m window --warp north
-        shift + ralt - down : yabai -m window --warp south
-        shift + ralt - right : yabai -m window --warp east
-        shift + ralt - left : yabai -m window --warp west
-        ralt - return : yabai -m window --toggle float
-        shift + ralt - return : yabai -m window --toggle sticky
-        cmd + ralt - j : yabai -m space --rotate 270
-        cmd + ralt - k : yabai -m space --rotate 90
-        cmd + ralt - m : yabai -m space --layout bsp
-        cmd + ralt - f : yabai -m space --layout float
+
+        # Window Management
         ralt - up : yabai -m window --focus north
         ralt - down : yabai -m window --focus south
         ralt - right : yabai -m window --focus east
         ralt - left : yabai -m window --focus west
+        # Swap
+        cmd + ralt - up : yabai -m window --swap north
+        cmd + ralt - down : yabai -m window --swap south
+        cmd + ralt - right : yabai -m window --swap east
+        cmd + ralt - left : yabai -m window --swap west
+        # Warp
+        shift + ralt - up : yabai -m window --warp north
+        shift + ralt - down : yabai -m window --warp south
+        shift + ralt - right : yabai -m window --warp east
+        shift + ralt - left : yabai -m window --warp west
+        # Toggles
+        ralt - return : yabai -m window --toggle float
+        shift + ralt - return : yabai -m window --toggle sticky
+        # Move to Spaces
+        shift + ctrl - right : sh -c 'yabai -m window --space next; yabai -m space --focus next'
+        shift + ctrl - left : sh -c 'yabai -m window --space prev; yabai -m space --focus prev'
+        shift + cmd + ctrl - right : sh -c 'yabai -m window --display east; yabai -m display --focus east'
+        shift + cmd + ctrl - left : sh -c 'yabai -m window --display west; yabai -m display --focus west'
+
+        # Current Space Management
+        cmd + ralt - j : yabai -m space --rotate 270
+        cmd + ralt - k : yabai -m space --rotate 90
+        cmd + ralt - m : yabai -m space --layout bsp
+        cmd + ralt - f : yabai -m space --layout float
       '';
     };
     services.sketchybar = lib.mkIf config.darwin-system.status-bar.enable {
       enable = true;
       config = builtins.concatStringsSep "\n" [
-        (builtins.readFile ./configs/sketchybarrc)
+        (builtins.readFile ./configs/sketchy/colors.sh)
+        (builtins.readFile ./configs/sketchy/icon_map.sh)
+        (builtins.readFile ./configs/sketchy/sketchybarrc)
+        (builtins.readFile ./configs/sketchy/sketchy-items/logo.sh)
+        (builtins.readFile ./configs/sketchy/sketchy-items/spaces.sh)
+        (builtins.readFile ./configs/sketchy/sketchy-items/frontapp.sh)
+        (builtins.readFile ./configs/sketchy/sketchy-items/menus.sh)
+        (builtins.readFile ./configs/sketchy/sketchy-items/calendar.sh)
+        (builtins.readFile ./configs/sketchy/sketchy-items/battery.sh)
+        (builtins.readFile ./configs/sketchy/sketchy-items/volume.sh)
+        (builtins.readFile ./configs/sketchy/sketchyset.sh)
       ];
     };
-    fonts.packages = lib.optionals config.services.sketchybar.enable [
+    fonts.packages = /* lib.optionals config.services.sketchybar.enable */ [
       pkgs.sketchybar-app-font
     ];
   };

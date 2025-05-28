@@ -21,6 +21,7 @@
           "hex-fiend"
           "visual-studio-code"
           "ghostty"
+          "font-sf-pro"
         ]
         ++ lib.optionals config.HMB.casks.enable [
           "macfuse"

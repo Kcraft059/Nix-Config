@@ -65,6 +65,7 @@
               ./config/darwin/default.nix
               {
                 darwin-system.window-man.enable = true;
+                darwin-system.status-bar.enable = true;
                 darwin-system.defaults.dock.enable = true;
               }
               ./packages/nix/default.nix
