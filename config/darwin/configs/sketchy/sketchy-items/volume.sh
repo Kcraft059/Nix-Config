@@ -1,4 +1,5 @@
-SCRIPT_VOLUME_CLICK="$(cat <<'EOM'
+SCRIPT_VOLUME_CLICK="$(
+  cat <<'EOM'
 WIDTH=100
 
 detail_on() {
@@ -10,34 +11,40 @@ detail_off() {
 }
 
 toggle_detail() {
-  INITIAL_WIDTH=$(sketchybar --query volume | sed 's/\\n/\\\\n/g; s/\\\$/$/g' | jq -r '.slider.width')
-  if [ "$INITIAL_WIDTH" -eq "0" ]; then
-    detail_on
+  if [ $BUTTON = "left" ]; then
+    INITIAL_WIDTH=$(sketchybar --query volume | sed 's/\\n/\\\\n/g; s/\\\$/$/g' | jq -r '.slider.width')
+    if [ "$INITIAL_WIDTH" -eq "0" ]; then
+      detail_on
+    else
+      detail_off
+    fi
   else
-    detail_off
+    menubar -s "Control Center,Sound"
   fi
 }
 
 toggle_detail
+
 EOM
 )"
 
-SCRIPT_VOLUME="$(cat <<'EOM'
+SCRIPT_VOLUME="$(
+  cat <<'EOM'
 WIDTH=100
-
+ICONS_VOLUME=(􀊣 􀊡 􀊥 􀊧 􀊩)
 volume_change() {
   case $INFO in
-    [6-9][0-9]|100) ICON=􀊩
+    [6-9][0-9]|100) ICON=${ICONS_VOLUME[4]}
     ;;
-    [3-5][0-9]) ICON=􀊧
+    [3-5][0-9]) ICON=${ICONS_VOLUME[3]}
     ;;
-    [1-2][0-9]) ICON=􀊥
+    [1-2][0-9]) ICON=${ICONS_VOLUME[2]}
     ;;
-    [1-9]) ICON=􀊡
+    [1-9]) ICON=${ICONS_VOLUME[1]}
     ;;
-    0) ICON=􀊣
+    0) ICON=${ICONS_VOLUME[0]}
     ;;
-    *) ICON=􀊩
+    *) ICON=${ICONS_VOLUME[4]}
   esac
 
   sketchybar --set volume_icon icon=$ICON
@@ -79,10 +86,11 @@ esac
 EOM
 )"
 
-
 volume_slider=(
   script="$SCRIPT_VOLUME"
   updates=on
+  padding_left=0
+  padding_right=0
   label.drawing=off
   icon.drawing=off
   slider.highlight_color=$PINE_MOON
@@ -96,8 +104,9 @@ volume_slider=(
 volume_icon=(
   click_script="$SCRIPT_VOLUME_CLICK"
   icon.align=left
-  icon.padding_left=$OUTER_PADDINGS
-  icon.padding_right=$(($OUTER_PADDINGS - 4))
+  icon.padding_left=$(($OUTER_PADDINGS - 3))
+  icon.padding_right=$OUTER_PADDINGS
+
   icon.color=$IRIS_MOON
   #label.width=32
   label.padding_left=0
@@ -106,12 +115,14 @@ volume_icon=(
   label.font="$FONT:Regular:14.0"
 )
 
-sketchybar --add slider volume right            \
-           --set volume "${volume_slider[@]}"   \
-           --subscribe volume volume_change     \
-                              mouse.clicked     \
-                              mouse.entered     \
-                              mouse.exited      \
-                                                \
-           --add item volume_icon right         \
-           --set volume_icon "${volume_icon[@]}"
+sketchybar --add slider volume right \
+  --set volume "${volume_slider[@]}" \
+  --subscribe volume volume_change \
+  mouse.clicked \
+  mouse.entered \
+  mouse.exited \
+  \
+  --add item volume_icon right \
+  --set volume_icon "${volume_icon[@]}"
+
+add_separator "1" "right"

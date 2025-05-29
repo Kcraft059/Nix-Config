@@ -280,6 +280,22 @@
         "type": "github"
       }
     },
+    "homebrew-betterdisplay": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1720532049,
+        "narHash": "sha256-bUoJnvqE7o8/VBFsFy4zjXZZD8lHLZE/DBvsKbLfKFc=",
+        "owner": "waydabber",
+        "repo": "homebrew-betterdisplay",
+        "rev": "ea6fa3d097a21a8394c33c3c55ea78362d0b6074",
+        "type": "github"
+      },
+      "original": {
+        "owner": "waydabber",
+        "repo": "homebrew-betterdisplay",
+        "type": "github"
+      }
+    },
     "homebrew-bundle": {
       "flake": false,
       "locked": {
@@ -475,6 +491,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "homebrew-betterdisplay": "homebrew-betterdisplay",
         "homebrew-bundle": "homebrew-bundle",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",

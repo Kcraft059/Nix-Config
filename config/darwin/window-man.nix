@@ -93,14 +93,18 @@
       config = builtins.concatStringsSep "\n" [
         (builtins.readFile ./configs/sketchy/colors.sh)
         (builtins.readFile ./configs/sketchy/icon_map.sh)
+        (builtins.readFile ./configs/sketchy/add_separator.sh)
         (builtins.readFile ./configs/sketchy/sketchybarrc)
         (builtins.readFile ./configs/sketchy/sketchy-items/logo.sh)
         (builtins.readFile ./configs/sketchy/sketchy-items/spaces.sh)
         (builtins.readFile ./configs/sketchy/sketchy-items/frontapp.sh)
         (builtins.readFile ./configs/sketchy/sketchy-items/menus.sh)
         (builtins.readFile ./configs/sketchy/sketchy-items/calendar.sh)
-        (builtins.readFile ./configs/sketchy/sketchy-items/battery.sh)
+        (builtins.readFile ./configs/sketchy/sketchy-items/mic.sh)
         (builtins.readFile ./configs/sketchy/sketchy-items/volume.sh)
+        (builtins.readFile ./configs/sketchy/sketchy-items/battery.sh)
+        (builtins.readFile ./configs/sketchy/sketchy-items/wifi.sh)
+        (builtins.readFile ./configs/sketchy/sketchy-items/controls.sh)
         (builtins.readFile ./configs/sketchy/sketchyset.sh)
       ];
     };

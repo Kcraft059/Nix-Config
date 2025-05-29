@@ -1,10 +1,12 @@
-SCRIPT_CALENDAR="$(cat <<'EOM'
+SCRIPT_CALENDAR="$(
+  cat <<'EOM'
 
 sketchybar --set $NAME icon="$(date '+%a %d. %b')" label="$(date '+%H:%M')"
 EOM
 )"
 
-SCRIPT_CLICK_CALENDAR="$(cat <<'EOM'
+SCRIPT_CLICK_CALENDAR="$(
+  cat <<'EOM'
 for (( i=0; i <= 5; ++i ))
 do
     sketchybar --set $NAME icon="$(date '+%a %d. %b')" label="$(date '+%H:%M:%S')" \
@@ -27,6 +29,7 @@ calendar=(
   click_script="$SCRIPT_CLICK_CALENDAR"
 )
 
-sketchybar --add item calendar right       \
-           --set calendar "${calendar[@]}" \
-           --subscribe calendar system_woke
+sketchybar --add item calendar right \
+  --set calendar "${calendar[@]}" \
+  --subscribe calendar system_woke
+add_separator "0" "right"

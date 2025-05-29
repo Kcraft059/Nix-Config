@@ -1,10 +1,12 @@
-SCRIPT_FRONT_APP="$SCRIPT_MAP_ICON $(cat <<'EOM'
+SCRIPT_FRONT_APP="$SCRIPT_MAP_ICON $(
+  cat <<'EOM'
 
 sketchybar --set $NAME label="$INFO" icon=$(map_skappicon "$INFO")
 EOM
 )"
 
-SCRIPT_CLICK_FRONT_APP="$(cat <<'EOM'
+SCRIPT_CLICK_FRONT_APP="$(
+  cat <<'EOM'
 yabai -m window --toggle float
 EOM
 )"
@@ -24,6 +26,6 @@ front_app=(
   associated_display=active
 )
 
-sketchybar --add item front_app left           \
-           --set front_app "${front_app[@]}"   \
-           --subscribe front_app front_app_switched system_wake
+sketchybar --add item front_app left \
+  --set front_app "${front_app[@]}" \
+  --subscribe front_app front_app_switched system_woke
