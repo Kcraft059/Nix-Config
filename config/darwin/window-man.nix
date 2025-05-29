@@ -104,6 +104,7 @@
         (builtins.readFile ./configs/sketchy/sketchy-items/volume.sh)
         (builtins.readFile ./configs/sketchy/sketchy-items/battery.sh)
         (builtins.readFile ./configs/sketchy/sketchy-items/wifi.sh)
+        (builtins.readFile ./configs/sketchy/sketchy-items/display.sh)
         (builtins.readFile ./configs/sketchy/sketchy-items/controls.sh)
         (builtins.readFile ./configs/sketchy/sketchyset.sh)
       ];
