@@ -1,6 +1,8 @@
+#!/run/current-system/sw/bin/bash
 # Program Vars
 DEV_MODE=false
 RELPATH=$(dirname $0)
+export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
 
 if [[ $DEV_MODE == true ]]; then source "$RELPATH/colors.sh"; fi
 if [[ $DEV_MODE == true ]]; then source "$RELPATH/icon_map.sh"; fi
@@ -77,6 +79,7 @@ if [[ $DEV_MODE == true ]]; then source "$RELPATH/sketchy-items/mic.sh"; fi
 if [[ $DEV_MODE == true ]]; then source "$RELPATH/sketchy-items/volume.sh"; fi
 if [[ $DEV_MODE == true ]]; then source "$RELPATH/sketchy-items/battery.sh"; fi
 if [[ $DEV_MODE == true ]]; then source "$RELPATH/sketchy-items/wifi.sh"; fi
+if [[ $DEV_MODE == true ]]; then source "$RELPATH/sketchy-items/display.sh"; fi
 if [[ $DEV_MODE == true ]]; then source "$RELPATH/sketchy-items/controls.sh"; fi
 
 if [[ $DEV_MODE == true ]]; then source "$RELPATH/sketchyset.sh"; fi

@@ -71,11 +71,11 @@ mic=(
   icon.color=$IRIS_MOON
   label.font="$FONT:Regular:14.0"
   padding_left=0
-  update_freq=10
+  #update_freq=10
   label.drawing=off
   script="$SCRIPT_MIC"
 )
 
 sketchybar --add item mic right \
   --set mic "${mic[@]}" \
-  --subscribe mic mouse.clicked
+  --subscribe mic mouse.clicked space_windows_change

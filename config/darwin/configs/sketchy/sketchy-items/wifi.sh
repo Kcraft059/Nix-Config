@@ -65,7 +65,7 @@ wifi=(
   label.font="$FONT:Semibold:10.0"
   scroll_texts=on
   #scroll_duration=100
-  update_freq=5
+  #update_freq=5
   padding_left=0
   padding_right=0
 )
