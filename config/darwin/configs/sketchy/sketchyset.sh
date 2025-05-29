@@ -1,5 +1,7 @@
-sketchybar --add bracket controls battery volume_icon \
-           --set controls "${zones[@]}"
+sketchybar --add bracket controls battery wifi "${menuitem[@]}" \
+  --set controls "${zones[@]}" \
+  --add bracket volume_controls volume_icon mic \
+  --set volume_controls "${zones[@]}"
 
 sketchybar --update
 

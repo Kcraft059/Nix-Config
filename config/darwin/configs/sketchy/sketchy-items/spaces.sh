@@ -1,4 +1,5 @@
-SCRIPT_SPACES="$(cat <<'EOM'
+SCRIPT_SPACES="$(
+  cat <<'EOM'
 update() {
   WIDTH="dynamic"
   BACKGROUND="on"
@@ -28,7 +29,8 @@ esac
 EOM
 )"
 
-SCRIPT_SPACE_WINDOWS="$SCRIPT_MAP_ICON $(cat <<'EOM'
+SCRIPT_SPACE_WINDOWS="$SCRIPT_MAP_ICON $(
+  cat <<'EOM'
 
 if [ "$SENDER" = "space_windows_change" ]; then
   space="$(echo "$INFO" | jq -r '.space')"
@@ -57,9 +59,8 @@ SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13" "14" "15")
 
 sid=0
 spaces=()
-for i in "${!SPACE_ICONS[@]}"
-do
-  sid=$(($i+1))
+for i in "${!SPACE_ICONS[@]}"; do
+  sid=$(($i + 1))
 
   space=(
     associated_space=$sid
@@ -85,22 +86,23 @@ do
     script="$SCRIPT_SPACES"
   )
 
-  sketchybar --add space space.$sid left    \
-             --set space.$sid "${space[@]}" \
-             --subscribe space.$sid mouse.clicked
+  sketchybar --add space space.$sid left \
+    --set space.$sid "${space[@]}" \
+    --subscribe space.$sid mouse.clicked
 done
 
 separator=(
   icon=􀆊
   label.drawing=off
+  icon.font="$FONT:Semibold:14.0"
   associated_display=active
   click_script='yabai -m space --create && sketchybar --trigger space_change'
-  icon.color=$TEXT_MOON
+  icon.color=$SUBTLE_MOON
   script="$SCRIPT_SPACE_WINDOWS"
 )
 
 sketchybar --add bracket spaces '/space\..*/' \
-           --set spaces "${zones[@]}"         \
-           --add item separator left          \
-           --set separator "${separator[@]}"  \
-           --subscribe separator space_windows_change
+  --set spaces "${zones[@]}" \
+  --add item separator left \
+  --set separator "${separator[@]}" \
+  --subscribe separator space_windows_change

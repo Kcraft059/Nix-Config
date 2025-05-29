@@ -1,4 +1,5 @@
-SCRIPT_MAP_ICON="$(cat <<'EOM'
+SCRIPT_MAP_ICON="$(
+  cat <<'EOM'
 map_skappicon() {
   case $1 in
   "Brave Browser")

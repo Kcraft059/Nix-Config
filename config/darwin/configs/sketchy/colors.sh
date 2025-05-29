@@ -20,9 +20,9 @@ export BLACK=0xff181926
 export TRANSPARENT=0x00000000
 
 # General bar colors
-export BAR_COLOR=0xD9232136 #393552
-export BORDER_COLOR=$OVERLAY_MOON
-export ICON_COLOR=$TEXT_MOON # Color of all icons
+export BAR_COLOR=0xB3414354 #0xD9232136
+export BORDER_COLOR=0xB34D525B
+export ICON_COLOR=$TEXT_MOON  # Color of all icons
 export LABEL_COLOR=$TEXT_MOON # Color of all labels
 
 export POPUP_BACKGROUND_COLOR=0xbe393552

@@ -32,6 +32,10 @@
       url = "github:gromgit/homebrew-fuse";
       flake = false;
     };
+    homebrew-betterdisplay = {
+      url = "github:waydabber/homebrew-betterdisplay";
+      flake = false;
+    };
 
     /* hyprland.url = "github:hyprwm/Hyprland"; */
 
@@ -44,10 +48,6 @@
       nix-darwin,
       home-manager,
       nix-homebrew,
-      homebrew-core,
-      homebrew-cask,
-      homebrew-bundle,
-      homebrew-fuse,
       stylix,
       ...
     }@inputs: # Allow for access to optionnal inputs with inputs.optionnalInput
@@ -96,10 +96,11 @@
                   user = "camille";
                   mutableTaps = false;
                   taps = {
-                    "homebrew/homebrew-core" = homebrew-core;
-                    "homebrew/homebrew-cask" = homebrew-cask;
-                    "homebrew/homebrew-bundle" = homebrew-bundle;
-                    "gromgit/homebrew-fuse" = homebrew-fuse;
+                    "homebrew/homebrew-core" = inputs.homebrew-core;
+                    "homebrew/homebrew-cask" = inputs.homebrew-cask;
+                    "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
+                    "gromgit/homebrew-fuse" = inputs.homebrew-fuse;
+                    "waydabber/homebrew-betterdisplay" = inputs.homebrew-betterdisplay;
                   };
                 };
               }

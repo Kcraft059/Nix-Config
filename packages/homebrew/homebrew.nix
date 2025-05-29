@@ -54,6 +54,7 @@
         #lib.optionals config.HMB.coreUtils [ ] ++
         lib.optionals config.HMB.brews.enable [
           "powerlevel10k"
+          "betterdisplaycli"
           "ext4fuse-mac" # sudo ext4fuse <diskXsX> <mountPoint> -o allow_other -o umask=000
           "ntfs-3g-mac" # "libunistring" "gettext"
           "sshfs-mac" # sshfs <user>@<host>:<dir> <mountPoint> -o identityFile=<pathToSSH-Key>
@@ -93,6 +94,7 @@
         "homebrew/homebrew-core"
         "homebrew/homebrew-bundle"
         "gromgit/homebrew-fuse"
+        "waydabber/homebrew-betterdisplay"
       ];
       onActivation.autoUpdate = true;
       onActivation.upgrade = true;
