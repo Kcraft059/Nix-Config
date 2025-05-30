@@ -58,7 +58,6 @@ in
       ]
       ++ lib.optionals config.NIXPKG.darwinApps.enable [
         # Darwin Apps
-        pkgs.menubar-cli
         pkgs.mkalias
         pkgs.mas
         pkgs.battery-toolkit
