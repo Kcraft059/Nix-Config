@@ -29,8 +29,8 @@ bar=(
   color=$BAR_COLOR
   border_width=1
   border_color=$BORDER_COLOR
-  corner_radius=12
-  blur_radius=24
+  corner_radius=14
+  blur_radius=40
   #notch_width=80
 )
 

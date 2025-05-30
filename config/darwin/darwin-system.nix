@@ -115,8 +115,12 @@ in
     };
 
     system.activationScripts.postActivation.text = # TODO see replace pkgs.lib with lib
+      let
+        wallpaper = ../../ressources/antelope-maverick.jpg;
+      in
       lib.mkAfter ''
         echo -ne "\033[38;5;5mrunning postActivation scripts…\033[0m " >&2
+        osascript -e 'tell application "System Events" to set picture of every desktop to "${wallpaper}"'
         ${lib.optionalString (builtins.elem pkgs.openjdk23 config.environment.systemPackages) ''ln -sf ${pkgs.openjdk23}/zulu-23.jdk /Library/Java/JavaVirtualMachines ''}
         ${lib.optionalString (builtins.elem pkgs.openjdk21 config.environment.systemPackages) ''ln -sf ${pkgs.openjdk21}/zulu-21.jdk /Library/Java/JavaVirtualMachines ''}
         ${lib.optionalString (builtins.elem pkgsX86.openjdk17 config.environment.systemPackages) ''ln -sf ${pkgsX86.openjdk17}/zulu-17.jdk /Library/Java/JavaVirtualMachines ''}
