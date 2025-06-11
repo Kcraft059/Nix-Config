@@ -30,12 +30,11 @@ in
 
     nixpkgs.overlays =
       [
-        # Currently Empty
+        (import ../../overlays/menubar-cli.nix)
       ]
       ++ lib.optionals config.NIXPKG.darwinApps.enable [
         #(import ./overlays/mas.nix)
         (import ../../overlays/fancy-folder.nix)
-        (import ../../overlays/menubar-cli.nix)
         (import ../../overlays/battery-toolkit.nix)
       ];
 

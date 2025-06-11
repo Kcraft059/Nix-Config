@@ -23,8 +23,10 @@
           "ghostty"
           "font-sf-pro"
         ]
-        ++ lib.optionals config.HMB.casks.enable [
+        ++ lib.optionals config.HMB.brews.enable [
           "macfuse"
+        ]
+        ++ lib.optionals config.HMB.casks.enable [
           "vlc"
           "iina"
           "the-unarchiver"
@@ -48,6 +50,8 @@
           "firefox"
           "balenaetcher"
           "google-chrome" # Ewww… WebHID Only
+          "steamcmd"
+          # "kegworks"
           #"binary-ninja-free"
         ];
       brews =
@@ -95,6 +99,7 @@
         "homebrew/homebrew-bundle"
         "gromgit/homebrew-fuse"
         "waydabber/homebrew-betterdisplay"
+        "Kegworks-App/homebrew-kegworks"
       ];
       onActivation.autoUpdate = true;
       onActivation.upgrade = true;

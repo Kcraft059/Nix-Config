@@ -12,7 +12,6 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew"; # Nix homebrew
-    nix-homebrew.inputs.nixpkgs.follows = "nixpkgs";
 
     stylix.url = "github:danth/stylix";
 
@@ -36,8 +35,12 @@
       url = "github:waydabber/homebrew-betterdisplay";
       flake = false;
     };
+    homebrew-kegworks = {
+      url = "github:Kegworks-App/homebrew-kegworks";
+      flake = false;
+    };
 
-    /* hyprland.url = "github:hyprwm/Hyprland"; */
+    # hyprland.url = "github:hyprwm/Hyprland";
 
   };
 
@@ -67,6 +70,7 @@
                 darwin-system.window-man.enable = true;
                 darwin-system.status-bar.enable = true;
                 darwin-system.defaults.dock.enable = true;
+                darwin-system.defaults.wallpaper = ./ressources/wallhaven.png;
               }
               ./packages/nix/default.nix
               {
@@ -101,13 +105,14 @@
                     "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
                     "gromgit/homebrew-fuse" = inputs.homebrew-fuse;
                     "waydabber/homebrew-betterdisplay" = inputs.homebrew-betterdisplay;
+                    "Kegworks-App/homebrew-kegworks" = inputs.homebrew-kegworks;
                   };
                 };
               }
               stylix.darwinModules.stylix
             ];
           };
-          /* "MacBookAirCam-M3-Test" = nix-darwin.lib.darwinSystem {
+          "MacBookAirCam-M3-Test" = nix-darwin.lib.darwinSystem {
             specialArgs = {
               inherit self system inputs;
             };
@@ -115,7 +120,8 @@
               ./config/darwin/default.nix
               {
                 common.stylix.enable = false;
-                darwin-system.window-man.enable = true;
+                darwin-system.window-man.enable = false;
+                darwin-system.status-bar.enable = false;
               }
               ./packages/nix/default.nix
               {
@@ -147,16 +153,18 @@
                   user = "camille";
                   mutableTaps = false;
                   taps = {
-                    "homebrew/homebrew-core" = homebrew-core;
-                    "homebrew/homebrew-cask" = homebrew-cask;
-                    "homebrew/homebrew-bundle" = homebrew-bundle;
-                    "gromgit/homebrew-fuse" = homebrew-fuse;
+                    "homebrew/homebrew-core" = inputs.homebrew-core;
+                    "homebrew/homebrew-cask" = inputs.homebrew-cask;
+                    "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
+                    "gromgit/homebrew-fuse" = inputs.homebrew-fuse;
+                    "waydabber/homebrew-betterdisplay" = inputs.homebrew-betterdisplay;
+                    "Kegworks-App/homebrew-kegworks" = inputs.homebrew-kegworks;
                   };
                 };
               }
               stylix.darwinModules.stylix
             ];
-          }; */
+          };
         };
       nixosConfigurations =
         let

@@ -9,7 +9,7 @@
     enable = true;
     # Load the default Powerlevel10k configuration
     # Different of initExtra by adding First, it will be the first entry to be added
-    initExtraFirst = # lib.optionalString builtins.elem "a"
+    initContent = lib.mkBefore# lib.optionalString builtins.elem "a"
       ''
         # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
         # Initialization code that may require console input (password prompts, [y/n]

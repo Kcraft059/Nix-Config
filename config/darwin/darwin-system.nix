@@ -21,6 +21,15 @@ in
     status-bar.enable = lib.mkEnableOption "Whether to enable the Custom Menu-Bar service Service";
     defaults.enable = lib.mkEnableOption "Whether to config of macos defaults";
     defaults.dock.enable = lib.mkEnableOption "Whether to config dock items";
+    defaults.wallpaper = lib.mkOption {
+      type = lib.types.path;
+      default = "";
+      example = lib.literalExpression ''/ressources/wallpaper.png'';
+      description = ''
+        Set the default wallpaper
+      '';
+    };
+
   };
 
   config = lib.mkIf config.darwin-system.enable {
@@ -30,6 +39,8 @@ in
       name = "camille";
       home = "/Users/camille";
     };
+
+    system.primaryUser = "camille";
 
     programs.zsh.enable = true;
 
@@ -114,18 +125,23 @@ in
       };
     };
 
-    system.activationScripts.postActivation.text = # TODO see replace pkgs.lib with lib
+    system.activationScripts.postActivation.text =
       let
-        wallpaper = ../../ressources/antelope-maverick.jpg;
+        wallpaper = config.darwin-system.defaults.wallpaper;
       in
       lib.mkAfter ''
-        echo -ne "\033[38;5;5mrunning postActivation scripts…\033[0m " >&2
-        osascript -e 'tell application "System Events" to set picture of every desktop to "${wallpaper}"'
+        echo -ne "\033[38;5;5mRunning postActivation scripts…\033[0m " >&2
+        ${lib.optionalString (wallpaper != "") ''osascript -e 'tell application "System Events" to set picture of every desktop to "${wallpaper}"' ''}
         ${lib.optionalString (builtins.elem pkgs.openjdk23 config.environment.systemPackages) ''ln -sf ${pkgs.openjdk23}/zulu-23.jdk /Library/Java/JavaVirtualMachines ''}
         ${lib.optionalString (builtins.elem pkgs.openjdk21 config.environment.systemPackages) ''ln -sf ${pkgs.openjdk21}/zulu-21.jdk /Library/Java/JavaVirtualMachines ''}
         ${lib.optionalString (builtins.elem pkgsX86.openjdk17 config.environment.systemPackages) ''ln -sf ${pkgsX86.openjdk17}/zulu-17.jdk /Library/Java/JavaVirtualMachines ''}
         ${lib.optionalString (builtins.elem pkgs.openjdk8 config.environment.systemPackages) ''ln -sf ${pkgs.openjdk8}/zulu-8.jdk /Library/Java/JavaVirtualMachines ''}
         ${lib.optionalString (builtins.elem pkgs.ffmpeg config.environment.systemPackages) ''ln -sf ${pkgs.ffmpeg.lib}/lib/* /usr/local/lib/ ''} 
+        ${lib.optionalString config.darwin-system.defaults.enable ''
+          defaults write -g NSColorSimulateHardwareAccent -bool YES 
+          defaults write -g NSColorSimulatedHardwareEnclosureNumber -int 7
+          killall Finder
+        ''}
         #ln -sf ${pkgs.mas}/bin/mas /opt/homebrew/bin/mas'';
 
     system.activationScripts.applications.text =

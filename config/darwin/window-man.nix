@@ -39,6 +39,7 @@
         yabai -m rule --add app="^LuLu$" manage=off
         yabai -m rule --add app="^Fancy Folder$" manage=off
         yabai -m rule --add app="^Alcove$" manage=off
+        yabai -m rule --add app="^Raycast$" manage=off
         yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
         #borders active_color=0xffc4a7e7 hidpi=on width=4.0 &
         sudo yabai --load-sa
@@ -78,8 +79,8 @@
         shift + cmd + ctrl - left : sh -c 'yabai -m window --display west; yabai -m display --focus west'
 
         # Current Space Management
-        cmd + ralt - j : yabai -m space --rotate 270
-        cmd + ralt - k : yabai -m space --rotate 90
+        cmd + ralt - k : yabai -m space --rotate 270
+        cmd + ralt - j : yabai -m space --rotate 90
         cmd + ralt - m : yabai -m space --layout bsp
         cmd + ralt - f : yabai -m space --layout float
       '';
