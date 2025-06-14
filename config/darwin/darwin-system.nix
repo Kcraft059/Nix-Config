@@ -140,7 +140,6 @@ in
         ${lib.optionalString config.darwin-system.defaults.enable ''
           defaults write -g NSColorSimulateHardwareAccent -bool YES 
           defaults write -g NSColorSimulatedHardwareEnclosureNumber -int 7
-          killall Finder
         ''}
         #ln -sf ${pkgs.mas}/bin/mas /opt/homebrew/bin/mas'';
 
