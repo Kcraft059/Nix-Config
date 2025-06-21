@@ -12,6 +12,7 @@
     ./btop.nix
     ./atuin.nix
     ./alacritty.nix
+    ./ssh.nix
   ];
 
   config = {
