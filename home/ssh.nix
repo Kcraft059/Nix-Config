@@ -11,7 +11,7 @@
       port = 22;
       hostname = "ftnetwork.duckdns.org";
       user = "server";
-      identityFile = builtins.readFile(./ressources/credentials);
+      identityFile = builtins.readFile(./ressources/credentials/FTN-ssh-key);
     };
   };
 }
