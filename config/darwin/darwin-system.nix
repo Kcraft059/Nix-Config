@@ -46,6 +46,19 @@ in
 
     security.pam.services.sudo_local.touchIdAuth = true;
 
+    # networking.computerName = hostName;
+
+    networking = {
+      knownNetworkServices = [
+        # networksetup -listallnetworkservices
+        "Wi-Fi"
+        "iPhone USB"
+        "USB 10/100/1000 LAN"
+      ];
+      dns = [ "8.8.8.8" ];
+      #computerName = hostName;
+    };
+
     system.defaults = lib.mkIf config.darwin-system.defaults.enable {
       # Behaviour
       loginwindow.DisableConsoleAccess = false;
@@ -131,7 +144,9 @@ in
       in
       lib.mkAfter ''
         echo -ne "\033[38;5;5mRunning postActivation scripts…\033[0m " >&2
-        ${lib.optionalString (wallpaper != "") ''osascript -e 'tell application "System Events" to set picture of every desktop to "${wallpaper}"' ''}
+        ${lib.optionalString (wallpaper != "")
+          ''osascript -e 'tell application "System Events" to set picture of every desktop to "${wallpaper}"' ''
+        }
         ${lib.optionalString (builtins.elem pkgs.openjdk23 config.environment.systemPackages) ''ln -sf ${pkgs.openjdk23}/zulu-23.jdk /Library/Java/JavaVirtualMachines ''}
         ${lib.optionalString (builtins.elem pkgs.openjdk21 config.environment.systemPackages) ''ln -sf ${pkgs.openjdk21}/zulu-21.jdk /Library/Java/JavaVirtualMachines ''}
         ${lib.optionalString (builtins.elem pkgsX86.openjdk17 config.environment.systemPackages) ''ln -sf ${pkgsX86.openjdk17}/zulu-17.jdk /Library/Java/JavaVirtualMachines ''}

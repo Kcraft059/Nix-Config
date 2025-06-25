@@ -236,7 +236,7 @@
 
       };
     };
-    home.file.".config/fastfetch/darwin.txt".source = ./configs/fastfetch-logo.txt;
+    #home.file.".config/fastfetch/darwin.txt".source = ./configs/fastfetch-logo.txt;
 
     #home.file.".config/fastfetch/config.jsonc".source = ./configs/fastfetch.jsonc;
     #home.packages = [ pkgs.fastfetch ];
