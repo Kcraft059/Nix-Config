@@ -55,7 +55,12 @@ in
         "iPhone USB"
         "USB 10/100/1000 LAN"
       ];
-      dns = [ "8.8.8.8" ];
+      dns = [
+        "1.1.1.1"
+        "8.8.8.8"
+        "89.2.0.1"
+        "89.2.0.2"
+      ];
       #computerName = hostName;
     };
 
