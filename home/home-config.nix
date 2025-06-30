@@ -25,6 +25,8 @@
       pkgs.mailsy
       pkgs.tree
       pkgs.htop
+      pkgs.speedtest-go
+      pkgs.mtr
     ] ++ lib.optionals config.home-config.GUIapps.enable [
       #pkgs.alacritty
     ];
