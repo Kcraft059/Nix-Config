@@ -29,11 +29,11 @@ in
   config = {
 
     nixpkgs.overlays =
-      [
-        (import ../../overlays/menubar-cli.nix)
-      ]
+      [ ]
       ++ lib.optionals config.NIXPKG.darwinApps.enable [
         #(import ./overlays/mas.nix)
+        (import ../../overlays/menubar-cli.nix)
+        (import ../../overlays/smc-cli.nix)
         (import ../../overlays/fancy-folder.nix)
         (import ../../overlays/battery-toolkit.nix)
       ];
@@ -44,7 +44,8 @@ in
         pkgs.screen
         pkgs.neovim
         pkgs.jq
-      ] ++ lib.optionals config.NIXPKG.additionnals.enable [
+      ]
+      ++ lib.optionals config.NIXPKG.additionnals.enable [
         pkgs.php
         pkgs.ffmpeg
         pkgs.openjdk8
