@@ -6,12 +6,16 @@
 }:
 {
   programs.vscode = {
-    #package = pkgs.vscode;
+    package = pkgs.vscode;
     enable = true;
     profiles.default = {
       userSettings = {
         "workbench.colorTheme" = lib.mkForce "Rosé Pine Moon";
-        "editor.fontSize" = lib.mkForce 12.0;
+        "editor.fontSize" = lib.mkForce 13.0;
+        "debug.console.fontSize" = lib.mkForce 13.0;
+        "markdown.preview.fontSize" = lib.mkForce 13.0;
+        "scm.inputFontSize" = lib.mkForce 13.0;
+        "terminal.integrated.fontSize" = lib.mkForce 13.0;
         "git.openRepositoryInParentFolders" = "always";
         "explorer.confirmDragAndDrop" = false;
         "git.confirmSync" = false;
@@ -20,11 +24,11 @@
         "editor.tabSize" = 2;
         "git.suggestSmartCommit" = true;
       };
-      extensions = [
+      extensions = with pkgs.vscode-marketplace; [
         # To use, needs to overlay inputs.nix-vscode-extensions.overlays.default
-        pkgs.vscode-marketplace.jnoortheen.nix-ide
-        pkgs.vscode-marketplace.mvllow.rose-pine
-        #pkgs.vscode-marketplace.dracula-theme.theme-dracula
+        jnoortheen.nix-ide
+        mvllow.rose-pine
+        bmewburn.vscode-intelephense-client
       ];
     };
   };
