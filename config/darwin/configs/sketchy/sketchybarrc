@@ -1,7 +1,7 @@
 #!/run/current-system/sw/bin/bash
 # Program Vars
 DEV_MODE=false
-RELPATH=$(dirname $0)
+RELPATH="$(dirname "$0")"
 export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
 
 if [[ $DEV_MODE == true ]]; then source "$RELPATH/colors.sh"; fi

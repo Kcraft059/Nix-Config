@@ -33,7 +33,7 @@ in
       ++ lib.optionals config.NIXPKG.darwinApps.enable [
         #(import ./overlays/mas.nix)
         (import ../../overlays/menubar-cli.nix)
-        (import ../../overlays/smc-cli.nix)
+        #(import ../../overlays/smc-cli.nix)
         (import ../../overlays/fancy-folder.nix)
         (import ../../overlays/battery-toolkit.nix)
       ];
@@ -58,6 +58,8 @@ in
       ]
       ++ lib.optionals config.NIXPKG.darwinApps.enable [
         # Darwin Apps
+        #pkgs.smc-cli
+        pkgs.smc-fuzzer
         pkgs.mkalias
         pkgs.mas
         pkgs.battery-toolkit
