@@ -19,7 +19,7 @@
       casks =
         lib.optionals config.HMB.coreUtils [
           "hex-fiend"
-          "visual-studio-code"
+          #"visual-studio-code"
           "ghostty"
           "font-sf-pro"
         ]

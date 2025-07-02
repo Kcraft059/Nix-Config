@@ -3,6 +3,7 @@
   config,
   lib,
   system,
+  inputs,
   ...
 }:
 let
@@ -36,6 +37,7 @@ in
         #(import ../../overlays/smc-cli.nix)
         (import ../../overlays/fancy-folder.nix)
         (import ../../overlays/battery-toolkit.nix)
+        inputs.nix-vscode-extensions.overlays.default
       ];
 
     environment.systemPackages =
@@ -54,6 +56,7 @@ in
         effectivePkgsX86.openjdk17
       ]
       ++ lib.optionals config.NIXPKG.GUIapps.enable [
+        pkgs.vscode
         # Gui Apps
       ]
       ++ lib.optionals config.NIXPKG.darwinApps.enable [
