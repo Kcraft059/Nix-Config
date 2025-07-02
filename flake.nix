@@ -11,9 +11,11 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew"; # Nix homebrew
-
     stylix.url = "github:danth/stylix";
+
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew"; # Nix homebrew
 
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
@@ -84,6 +86,7 @@
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
+                home-manager.backupFileExtension = "hmbackup";
                 home-manager.users.camille = {
                   # {...} can be replaced by import ./path/to/module.nix
                   imports = [
