@@ -101,7 +101,7 @@ in
           "/Applications/About This Hack.app"
           "/System/Applications/Utilities/Disk Utility.app"
           "/Applications/Ghostty.app"
-          "/System/Volumes/Data/Applications/Visual Studio Code.app"
+          "${pkgs.vscode}/Applications/Visual Studio Code.app"
           "/System/Applications/TextEdit.app"
           {
             spacer = {
