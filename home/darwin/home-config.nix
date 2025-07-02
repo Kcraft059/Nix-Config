@@ -22,6 +22,7 @@
       [
         pkgs.m-cli
         pkgs.macmon
+        pkgs.zsh-powerlevel10k
       ]
       ++ lib.optionals config.home-config.GUIapps.enable [
         pkgs.fancyfolder
