@@ -13,6 +13,7 @@
     ./atuin.nix
     ./alacritty.nix
     ./ssh.nix
+    ./vscode.nix
   ];
 
   config = {
