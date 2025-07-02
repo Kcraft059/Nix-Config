@@ -1,16 +1,19 @@
-self: super:
-{
-  menubar-cli = super.stdenv.mkDerivation {
+self: super: {
+  smc-cli = super.stdenv.mkDerivation rec {
     name = "smc-cli";
-    version = "2.6";
+    version = "master";
 
     src = super.fetchFromGitHub {
       owner = "hholtmann";
       repo = "smcFanControl";
       rev = version;
-      sha256 = "sha256-1z4h1izcr0bm48bc5y8cqq1c8bq02bhdlvi4lp53nbdsz09pxb9i="; # Replace this with the actual one
+      sha256 = "sha256-Ma1+E/i6LTvKpSRu2uASAC/EAsYM+cIWInWBzH4MkPw=";
     };
-    nativeBuildInputs = [ super.gcc ]; # or gcc if needed
+    nativeBuildInputs = [
+      super.gcc
+      super.darwin.apple_sdk.frameworks.IOKit
+      super.darwin.apple_sdk.frameworks.CoreFoundation
+    ];
 
     buildPhase = ''
       cd smc-command

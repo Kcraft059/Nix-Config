@@ -91,6 +91,7 @@
           prettyJsonSafari = 1445328303;
           whatsapp = 310633997;
           Usage = 1561788435;
+          KeyNote = 409183694;
         };
 
       taps = [
