@@ -209,6 +209,6 @@
           };
         };
       # Expose the package set, including overlays, for convenience.
-      darwinPackages = self.darwinConfigurations."MacOSCam".pkgs;
+      darwinPackages = self.darwinConfigurations."MacBookAirCam-M3".pkgs;
     };
 }

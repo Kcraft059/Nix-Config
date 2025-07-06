@@ -7,7 +7,7 @@
 {
   programs.vscode = {
     package = pkgs.vscode;
-    enable = true;
+    enable = config.home-config.GUIapps.enable ;
     profiles.default = {
       userSettings = {
         "workbench.colorTheme" = lib.mkForce "Rosé Pine Moon";
