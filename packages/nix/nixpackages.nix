@@ -48,7 +48,7 @@ in
         pkgs.jq
       ]
       ++ lib.optionals config.NIXPKG.additionnals.enable [
-        pkgs.php
+        #pkgs.php
         pkgs.ffmpeg
         pkgs.openjdk8
         pkgs.openjdk23
@@ -56,6 +56,7 @@ in
         effectivePkgsX86.openjdk17
       ]
       ++ lib.optionals config.NIXPKG.GUIapps.enable [
+        #pkgs.ghostty
         pkgs.vscode
         # Gui Apps
       ]
