@@ -146,7 +146,7 @@
                   imports = [
                     ./home/darwin/default.nix
                   ];
-                  home-config.GUIapps.enable = false;
+                  home-config.GUIapps.enable = true;
                 };
               }
               nix-homebrew.darwinModules.nix-homebrew

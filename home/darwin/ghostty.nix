@@ -10,7 +10,7 @@ in
 {
   # home.packages = [ pkgs.ghostty ];
   home.file.".config/ghostty/config".text =
-    lib.optionalString config.home-config.GUIapps.enable toKeyValue
+    lib.optionalString config.home-config.GUIapps.enable (toKeyValue
       { mkKeyValue = mkKeyValueDefault { } " = "; }
       {
         theme = "dark:rose-pine-moon,light:rose-pine-dawn";
@@ -29,5 +29,5 @@ in
         quick-terminal-position = "center";
         auto-update = "download";
         term = "xterm-256color";
-      };
+      });
 }

@@ -30,15 +30,16 @@ in
   config = {
 
     nixpkgs.overlays =
-      [ ]
+      [ 
+        inputs.nix-vscode-extensions.overlays.default
+        (import ../../overlays/fancy-folder.nix)
+      ]
       ++ lib.optionals config.NIXPKG.darwinApps.enable [
         #(import ./overlays/mas.nix)
         (import ../../overlays/menubar-cli.nix)
         (import ../../overlays/krita-mac.nix)
         #(import ../../overlays/smc-cli.nix)
-        (import ../../overlays/fancy-folder.nix)
         (import ../../overlays/battery-toolkit.nix)
-        inputs.nix-vscode-extensions.overlays.default
       ];
 
     environment.systemPackages =
