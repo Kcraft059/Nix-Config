@@ -18,16 +18,35 @@
       version = "${version}";
       src = src;
       buildInputs = [
-        _7zz # Use instead of undmg, for HFS and APFS
-        #unzip
+        unzip
       ];
       sourceRoot = sourceRoot;
       phases = [
         "unpackPhase"
         "installPhase"
       ];
-      unpackPhase = ''
-        7zz x -snld $src
+      unpackCmd = ''
+        echo "File to unpack: $curSrc"
+        if ! [[ "$curSrc" =~ \.dmg$ ]]; then return 1; fi
+        mnt=$(mktemp -d -t ci-XXXXXXXXXX)
+
+        function finish {
+          echo "Detaching $mnt"
+          /usr/bin/hdiutil detach $mnt -force
+          rm -rf $mnt
+        }
+        trap finish EXIT
+
+        echo "Attaching $mnt"
+        /usr/bin/hdiutil attach -nobrowse -readonly $src -mountpoint $mnt
+
+        echo "What's in the mount dir"?
+        ls -la $mnt/
+
+        echo "Copying contents"
+        shopt -s extglob
+        DEST="$PWD"
+        (cd "$mnt"; cp -a !(Applications) "$DEST/")
       '';
       installPhase =
         ''
