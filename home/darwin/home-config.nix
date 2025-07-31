@@ -23,6 +23,7 @@
         pkgs.m-cli
         pkgs.macmon
         pkgs.zsh-powerlevel10k
+        pkgs.krita-mac
       ]
       ++ lib.optionals config.home-config.GUIapps.enable [
         pkgs.fancyfolder
