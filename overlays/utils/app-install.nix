@@ -18,14 +18,17 @@
       version = "${version}";
       src = src;
       buildInputs = [
-        undmg
-        unzip
+        _7zz # Use instead of undmg, for HFS and APFS
+        #unzip
       ];
       sourceRoot = sourceRoot;
       phases = [
         "unpackPhase"
         "installPhase"
       ];
+      unpackPhase = ''
+        7zz x -snld $src
+      '';
       installPhase =
         ''
           mkdir -p "$out/Applications/${appname}.app"
