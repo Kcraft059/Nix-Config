@@ -6,8 +6,8 @@
 }:
 {
   config = {
-    services.yabai = lib.mkIf config.darwin-system.window-man.enable {
-      enable = true;
+    services.yabai = {
+      enable = config.darwin-system.window-man.enable;
       enableScriptingAddition = true; # `sudo nvram boot-args="-arm64e_preview_abi"`
       config = {
         layout = "bsp";
@@ -45,8 +45,8 @@
         sudo yabai --load-sa
       '';
     };
-    services.skhd = lib.mkIf config.darwin-system.window-man.enable {
-      enable = true;
+    services.skhd = {
+      enable = config.darwin-system.window-man.enable;
       skhdConfig = ''
         # Spaces Management 
         ctrl + ralt - up : sh -c 'yabai -m space --create; yabai -m space --focus "$(yabai -m query --spaces | jq "[.[] | select(.display == ($(yabai -m query --displays --display | jq .index))) ] | max_by(.index).index")"'
@@ -83,10 +83,13 @@
         cmd + ralt - j : yabai -m space --rotate 90
         cmd + ralt - m : yabai -m space --layout bsp
         cmd + ralt - f : yabai -m space --layout float
+
+        # App launch
+        ctrl + cmd + alt - t : open /Applications/Ghostty.app
       '';
     };
-    services.sketchybar = lib.mkIf config.darwin-system.status-bar.enable {
-      enable = true;
+    services.sketchybar = {
+      enable = config.darwin-system.status-bar.enable;
       config = builtins.concatStringsSep "\n" [
         (builtins.readFile ./configs/sketchy/colors.sh)
         (builtins.readFile ./configs/sketchy/icon_map.sh)
