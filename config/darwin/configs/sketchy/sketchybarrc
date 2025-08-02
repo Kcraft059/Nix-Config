@@ -1,5 +1,11 @@
 #!/run/current-system/sw/bin/bash
 # Program Vars
+
+#if [[ -z $(ls /Library/Fonts/Nix\ Fonts | grep 'sketchybar-app-font') ]]; then
+#  echo 'Sketchybarfont not found…'
+#  killall sketchybar
+#fi
+
 DEV_MODE=false
 RELPATH="$(dirname "$0")"
 export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH

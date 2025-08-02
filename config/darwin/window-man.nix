@@ -86,10 +86,21 @@
 
         # App launch
         ctrl + cmd + alt - t : open /Applications/Ghostty.app
+        ctrl + cmd + alt - q : ${(pkgs.writeShellScriptBin "all-apps-quit" ''
+          apps=$(osascript -e 'tell application "System Events" to get name of every application process whose background only is false' | sed 's/, /,/g')
+          IFS=',' read -r -A app_list <<< "$apps"
+          for app in "''${app_list[@]}"; do
+              if [[ "$app" != "Finder" ]]; then
+                  echo "Quitted $app"
+                  killall "$app"
+              fi
+          done
+        '')}
       '';
     };
-    services.sketchybar = {
-      enable = config.darwin-system.status-bar.enable;
+    services.sketchybar = lib.mkIf config.darwin-system.status-bar.enable {
+      # Keep as lib.mkIf enable option not working well.
+      enable = true;
       config = builtins.concatStringsSep "\n" [
         (builtins.readFile ./configs/sketchy/colors.sh)
         (builtins.readFile ./configs/sketchy/icon_map.sh)
@@ -121,5 +132,10 @@
     fonts.packages = lib.optionals config.services.sketchybar.enable [
       pkgs.sketchybar-app-font
     ];
+    /*
+      system.activationScripts.postActivation.text = lib.optionalString config.services.sketchybar.enable (
+        lib.mkAfter "${pkgs.sketchybar}/bin/sketchybar --reload"
+      );
+    */
   };
 }
