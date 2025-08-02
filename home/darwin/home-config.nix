@@ -12,6 +12,7 @@
   imports = [
     ./ghostty.nix
     ./zsh.nix
+    ./quick-actions.nix
   ];
 
   config = {
