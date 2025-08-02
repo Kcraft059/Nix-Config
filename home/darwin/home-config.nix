@@ -7,6 +7,7 @@
 {
   options.home-config = {
     GUIapps.enable = lib.mkEnableOption "Install GUI-Apps ?";
+    darwinApps.enable = lib.mkEnableOption "Install Darwin-Apps ?";
   };
 
   imports = [
@@ -24,9 +25,9 @@
         pkgs.m-cli
         pkgs.macmon
         pkgs.zsh-powerlevel10k
-        pkgs.krita-mac
       ]
-      ++ lib.optionals config.home-config.GUIapps.enable [
+      ++ lib.optionals (config.home-config.darwinApps.enable && config.home-config.GUIapps.enable) [
+        pkgs.krita-mac
         pkgs.fancyfolder
       ];
   };

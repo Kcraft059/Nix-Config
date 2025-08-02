@@ -93,6 +93,7 @@
                     ./home/darwin/default.nix
                   ];
                   home-config.GUIapps.enable = true;
+                  home-config.darwinApps.enable = true;
                 };
               }
               nix-homebrew.darwinModules.nix-homebrew
