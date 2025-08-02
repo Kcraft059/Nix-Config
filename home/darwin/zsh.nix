@@ -21,9 +21,8 @@
           [[ ! -f ${../configs/.p10k.zsh} ]] || source ${../configs/.p10k.zsh} 
         '';
     sessionVariables = {
-      EDITOR = "nvim";
+      EDITOR = "${pkgs.neovim}/bin/nvim";
     };
     
   };
-
 }

@@ -51,6 +51,7 @@
           "balenaetcher"
           "google-chrome" # Ewww… WebHID Only
           "steamcmd"
+          "gog-galaxy"
           # "kegworks"
           #"binary-ninja-free"
         ];

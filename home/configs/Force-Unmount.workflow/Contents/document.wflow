@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AMApplicationBuild</key>
+	<string>528</string>
+	<key>AMApplicationVersion</key>
+	<string>2.10</string>
+	<key>AMDocumentVersion</key>
+	<string>2</string>
+	<key>actions</key>
+	<array>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<true/>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>1.0.2</string>
+				<key>AMApplication</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>AMParameterProperties</key>
+				<dict>
+					<key>source</key>
+					<dict/>
+				</dict>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Run AppleScript.action</string>
+				<key>ActionName</key>
+				<string>Run AppleScript</string>
+				<key>ActionParameters</key>
+				<dict>
+					<key>source</key>
+					<string>on run {input, parameters}	-- Convert file paths to POSIX paths and quote them for shell	set quotedPaths to ""	repeat with f in input		set quotedPaths to quotedPaths &amp; " " &amp; quoted form of POSIX path of f	end repeat		-- Build the shell command string	set theCommand to "for f in" &amp; quotedPaths &amp; "; do umount -f \"$f\"; done"		-- Run the command with admin privileges	do shell script theCommand with administrator privileges		return inputend run</string>
+				</dict>
+				<key>BundleIdentifier</key>
+				<string>com.apple.Automator.RunScript</string>
+				<key>CFBundleVersion</key>
+				<string>1.0.2</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<false/>
+				<key>CanShowWhenRun</key>
+				<true/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryUtilities</string>
+				</array>
+				<key>Class Name</key>
+				<string>RunScriptAction</string>
+				<key>InputUUID</key>
+				<string>5E51AF5B-DA42-470C-8824-643558675D3C</string>
+				<key>Keywords</key>
+				<array>
+					<string>Run</string>
+				</array>
+				<key>OutputUUID</key>
+				<string>37EE3A3D-AB0C-40DC-A468-5AF295E7314D</string>
+				<key>UUID</key>
+				<string>1C4F5A26-0A59-4B72-BBA9-06421D7AFB78</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>arguments</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>default value</key>
+						<string>on run {input, parameters}
+	
+	(* Your script goes here *)
+	
+	return input
+end run</string>
+						<key>name</key>
+						<string>source</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>0</string>
+					</dict>
+				</dict>
+				<key>conversionLabel</key>
+				<integer>0</integer>
+				<key>isViewVisible</key>
+				<integer>1</integer>
+				<key>location</key>
+				<string>309.500000:485.000000</string>
+				<key>nibPath</key>
+				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/Base.lproj/main.nib</string>
+			</dict>
+			<key>isViewVisible</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>connectors</key>
+	<dict/>
+	<key>workflowMetaData</key>
+	<dict>
+		<key>applicationBundleID</key>
+		<string>com.apple.finder</string>
+		<key>applicationBundleIDsByPath</key>
+		<dict>
+			<key>/System/Library/CoreServices/Finder.app</key>
+			<string>com.apple.finder</string>
+		</dict>
+		<key>applicationPath</key>
+		<string>/System/Library/CoreServices/Finder.app</string>
+		<key>applicationPaths</key>
+		<array>
+			<string>/System/Library/CoreServices/Finder.app</string>
+		</array>
+		<key>customImageFileData</key>
+		<data>
+		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
+		PBL/t9e4kB9PqrWTiKTFOo3fOl5X8ICf80SJucUrHPV8XrXLuL6JRx2TwGrW
+		6vz42egD3rtwzFvCAhUuYgxVTOFyV8Ea5xp5RmCJ6UYWukrG83cAneTCBahi
+		rd4lH2ox3tnvTnknfls1/DwU3iIGUJwif5Os8OegZwGgjJ2uNj7DMvYwkbtT
+		DjPaaGa0ZyoW4zZpiXtbwfRQgFMpxnJZ5/dix6Bb61iW0w//Un4a91RJU8p2
+		CEMHaJS/+r/csYgnz2QO22n0No+a9F0R4R7kAeqC4HqmVVrO1hR7hX50gpmJ
+		z+R0HJtDPlkQ4232sIN9wc/xenceKtjMZYFvoIN6eTPuoYixrs/n8qsuznCM
+		Q3IuWwfJe0uX8HimdSGPjjI/8hOXWStpF07a+DrPB/Cwjzs+Obi9Lo3odO7j
+		4oy1O1jJk2F8fhc5MGgJs6inoteap9jCejlWaIC8AQNoEROYTA0jXNcd4XV2
+		8ceCHCwNF9iAD6CSwZTSySlapd1PHSsrKysrKysrKysrKysrKysrKysrKz/6
+		P+ZLEoYj12OFAAAARGVYSWZNTQAqAAAACAABh2kABAAAAAEAAAAaAAAAAAAD
+		oAEAAwAAAAEAAQAAoAIABAAAAAEAAAB9oAMABAAAAAEAAABVAAAAAMUdUtcA
+		AAAldEVYdGRhdGU6Y3JlYXRlADIwMjUtMDUtMjFUMTY6NTQ6NDMrMDA6MDDz
+		PzsqAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDI1LTA1LTIxVDE2OjUxOjMzKzAw
+		OjAwbo5BywAAACh0RVh0ZGF0ZTp0aW1lc3RhbXAAMjAyNS0wNS0yMVQxNjo1
+		NDo1OSswMDowML2t/ZkAAAARdEVYdGV4aWY6Q29sb3JTcGFjZQAxD5sCSQAA
+		ABJ0RVh0ZXhpZjpFeGlmT2Zmc2V0ADI2UxuiZQAAABh0RVh0ZXhpZjpQaXhl
+		bFhEaW1lbnNpb24AMTI1BG7WYAAAABd0RVh0ZXhpZjpQaXhlbFlEaW1lbnNp
+		b24AODUoqvL6AAAAAElFTkSuQmCC
+		</data>
+		<key>customImageFileExtension</key>
+		<string>png</string>
+		<key>inputTypeIdentifier</key>
+		<string>com.apple.Automator.fileSystemObject.folder</string>
+		<key>outputTypeIdentifier</key>
+		<string>com.apple.Automator.nothing</string>
+		<key>presentationMode</key>
+		<integer>15</integer>
+		<key>processesInput</key>
+		<false/>
+		<key>serviceApplicationBundleID</key>
+		<string>com.apple.finder</string>
+		<key>serviceApplicationPath</key>
+		<string>/System/Library/CoreServices/Finder.app</string>
+		<key>serviceInputTypeIdentifier</key>
+		<string>com.apple.Automator.fileSystemObject.folder</string>
+		<key>serviceOutputTypeIdentifier</key>
+		<string>com.apple.Automator.nothing</string>
+		<key>serviceProcessesInput</key>
+		<false/>
+		<key>useAutomaticInputType</key>
+		<false/>
+		<key>workflowTypeIdentifier</key>
+		<string>com.apple.Automator.servicesMenu</string>
+	</dict>
+</dict>
+</plist>
