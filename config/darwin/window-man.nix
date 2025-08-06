@@ -123,38 +123,18 @@
         (builtins.readFile ./configs/sketchy/sketchyset.sh)
       ];
     };
+
+    # Additionnal config dependencies
+
     environment.systemPackages =
-      /*
-        lib.optionals config.darwin-system.window-man.enable [
-          pkgs.jankyborders
-        ] ++
-      */
       lib.optionals config.services.sketchybar.enable [
         pkgs.menubar-cli
-        # See https://gist.github.com/SKaplanOfficial/f9f5bdd6455436203d0d318c078358de
-        #pkgs.nowplaying-cli
-        (pkgs.writeScriptBin "nowplaying" ''
-          #!/usr/bin/env osascript
-          use framework "AppKit"
-
-          on run
-          	set MediaRemote to current application's NSBundle's bundleWithPath:"/System/Library/PrivateFrameworks/MediaRemote.framework/"
-          	MediaRemote's load()
-
-          	set MRNowPlayingRequest to current application's NSClassFromString("MRNowPlayingRequest")
-
-          	set appName to MRNowPlayingRequest's localNowPlayingPlayerPath()'s client()'s displayName()
-          	set infoDict to MRNowPlayingRequest's localNowPlayingItem()'s nowPlayingInfo()
-
-          	set title to (infoDict's valueForKey:"kMRMediaRemoteNowPlayingInfoTitle") as text
-          	set album to (infoDict's valueForKey:"kMRMediaRemoteNowPlayingInfoAlbum") as text
-          	set artist to (infoDict's valueForKey:"kMRMediaRemoteNowPlayingInfoArtist") as text
-
-          	return "Title: " & title & "\nAlbum: " & album & "\nArtist: " & artist & "\nAppName: " & appName
-          end run
-        '')
-        # `grep '^Artist:' | awk -F': ' '{print $2}'`
       ];
+
+    homebrew.brews = lib.optionals config.services.sketchybar.enable [
+      "media-control"
+    ];
+
     fonts.packages = lib.optionals config.services.sketchybar.enable [
       pkgs.sketchybar-app-font
     ];
