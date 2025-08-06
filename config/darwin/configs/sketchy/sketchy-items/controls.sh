@@ -7,6 +7,11 @@ menuitem=(
   #"Control Center,Bluetooth"
 )
 
+for item in "${menucontrols[@]}"; do
+  new_item=$(echo "$item" | sed -e 's/__/ /g')
+  menuitem+=("$new_item")
+done
+
 for item in "${menuitem[@]}"; do
 
   SCRIPT_CLICK_MENU_ITEM="$(
@@ -16,9 +21,10 @@ EOM
   )"
 
   alias=(
+    drawing=off
     #background.color=0xffff0000
-    padding_left=0
-    padding_right=0
+    padding_left=-2
+    padding_right=-6
     #x_offset=20
     alias.color=$TEXT_MOON
     label.drawing=off

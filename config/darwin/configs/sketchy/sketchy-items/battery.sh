@@ -1,7 +1,10 @@
 SCRIPT_CLICK_BATTERY="$(
   cat <<'EOM'
-#menubar -s "Battery Toolkit,Item-0"
-menubar -s "Control Center,Battery"
+if [ $BUTTON = "right" ]; then 
+  menubar -s "Control Center,Battery"
+else 
+  menubar -s "Battery Toolkit,Item-0"
+fi
 EOM
 )"
 SCRIPT_BATTERY="$(

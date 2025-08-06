@@ -57,6 +57,8 @@ toggle_menu() {
     elif [ $STATE = "on" ]; then
       menu_off
     fi
+  elif [ $MODIFIER = "shift" ]; then
+    sketchybar --reload
   else
     if [ $STATE = "off" ]; then
       /System/Applications/Mission\ Control.app/Contents/MacOS/Mission\ Control

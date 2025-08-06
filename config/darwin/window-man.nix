@@ -87,15 +87,16 @@
         # App launch
         ctrl + cmd + alt - t : open /Applications/Ghostty.app
         ctrl + cmd + alt - q : ${(pkgs.writeShellScriptBin "all-apps-quit" ''
+          #!bin/bash
           apps=$(osascript -e 'tell application "System Events" to get name of every application process whose background only is false' | sed 's/, /,/g')
-          IFS=',' read -r -A app_list <<< "$apps"
+          IFS=',' read -r -a app_list <<< "$apps"
           for app in "''${app_list[@]}"; do
               if [[ "$app" != "Finder" ]]; then
                   echo "Quitted $app"
                   killall "$app"
               fi
           done
-        '')}
+        '')}/bin/all-apps-quit
       '';
     };
     services.sketchybar = lib.mkIf config.darwin-system.status-bar.enable {
@@ -116,6 +117,8 @@
         (builtins.readFile ./configs/sketchy/sketchy-items/battery.sh)
         (builtins.readFile ./configs/sketchy/sketchy-items/wifi.sh)
         (builtins.readFile ./configs/sketchy/sketchy-items/display.sh)
+        (builtins.readFile ./configs/sketchy/sketchy-items/more-menu.sh)
+        (builtins.readFile ./configs/sketchy/sketchy-items/packages.sh)
         (builtins.readFile ./configs/sketchy/sketchy-items/controls.sh)
         (builtins.readFile ./configs/sketchy/sketchyset.sh)
       ];
