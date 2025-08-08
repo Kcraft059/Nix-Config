@@ -14,11 +14,16 @@ EOF
 pids=$(ps -p $(pgrep sh) | grep '#SKETCHYBAR_MEDIASTREAM#' | awk '{print $1}')
 
 if [[ -n "$pids" ]]; then
-  #echo killing $pids
+  pids+=" $(cat ${TMPDIR}/sketchybar/pids)"
+  echo killing "#SKETCHYBAR_MEDIASTREAM# pids:" $pids
   kill -9 $pids
 fi
 
 media-control stream | grep --line-buffered 'data' | while IFS= read -r line; do
+
+  if ps -p $$>/dev/null; then 
+    pgrep -P $$ >${TMPDIR}/sketchybar/pids
+  fi
 
   if ! { 
    [[ "$(echo $line | jq -r .payload)" == '{}' ]] || 
