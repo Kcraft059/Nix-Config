@@ -5,6 +5,7 @@ INFO_WIDTH=80
 SCRIPT_MUSIC="$(cat <<EOF
 ARTWORK_MARGIN=$ARTWORK_MARGIN
 BAR_HEIGHT=$BAR_HEIGHT
+PATH=$PATH
 
 EOF
 ) $(cat <<'EOF'
@@ -126,7 +127,11 @@ done
 EOF
 )"
 
-SCRIPT_CLICK_MUSIC_ARTWORK="$(cat <<'EOF'
+SCRIPT_CLICK_MUSIC_ARTWORK="$(cat <<EOF
+PATH=$PATH
+
+EOF
+) $(cat <<'EOF'
 media-control toggle-play-pause
 EOF
 )"
