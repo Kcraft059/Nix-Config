@@ -19,6 +19,8 @@
           fi
           source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
           [[ ! -f ${../configs/.p10k.zsh} ]] || source ${../configs/.p10k.zsh} 
+
+          setopt interactivecomments
         '';
     sessionVariables = {
       EDITOR = "${pkgs.neovim}/bin/nvim";

@@ -40,7 +40,8 @@ pkgs=(
   label.font="$FONT:Semibold:10.0"
   label.padding_left=$INNER_PADDINGS
   label.padding_right=$OUTER_PADDINGS
-  updates=off
+  update_freq=120
+  updates=when_shown
 )
 
 sketchybar --add item moremenu.pkgs right \
