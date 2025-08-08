@@ -120,6 +120,7 @@
         (builtins.readFile ./configs/sketchy/sketchy-items/more-menu.sh)
         (builtins.readFile ./configs/sketchy/sketchy-items/packages.sh)
         (builtins.readFile ./configs/sketchy/sketchy-items/controls.sh)
+        (builtins.readFile ./configs/sketchy/sketchy-items/music.sh)
         (builtins.readFile ./configs/sketchy/sketchyset.sh)
       ];
     };
