@@ -130,6 +130,7 @@
     environment.systemPackages =
       lib.optionals config.services.sketchybar.enable [
         pkgs.menubar-cli
+        pkgs.imagemagick
       ];
 
     homebrew.brews = lib.optionals config.services.sketchybar.enable [
