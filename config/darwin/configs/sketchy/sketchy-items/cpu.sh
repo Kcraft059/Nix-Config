@@ -44,8 +44,13 @@ esac
 
 sketchybar --push $NAME $graphpoint \
            --set $NAME.percent label="$(printf "%.0f" $graphpercent)%" \
-           --set $NAME graph.color=$COLOR \
-           --set $NAME.label label="$graphlabel" label.color="$LABEL_COLOR"
+           --set $NAME graph.color=$COLOR 
+
+systempower=$(macmon pipe -s 1 -i 1 | jq -r .sys_power)
+graphlabel="${topprog_percent}% - $topprog [$topprog_pid] | $(printf '%.2f' $systempower)W"
+
+
+sketchybar --set $NAME.label label="$graphlabel" label.color="$LABEL_COLOR"
 
 EOF
 )"
