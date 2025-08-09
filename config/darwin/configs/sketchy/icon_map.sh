@@ -62,7 +62,7 @@ map_skappicon() {
   "DEVONthink 3")
     icon_result=":devonthink3:"
     ;;
-  "GitHub Desktop")
+  "GitHub Desktop" | "GitHub")
     icon_result=":git_hub:"
     ;;
   "App Store")

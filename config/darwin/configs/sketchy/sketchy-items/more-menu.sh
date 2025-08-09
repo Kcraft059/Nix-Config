@@ -18,6 +18,8 @@ EOM
 ) $(cat <<'EOF'
 
 ICON_VALUE="$(sketchybar --query $NAME | sed 's/\\n//g; s/\\\$//g; s/\\ //g' | jq -r '.icon.value')"
+GRAPHSTATE="$(sketchybar --query graph | sed 's/\\n//g; s/\\\$//g; s/\\ //g' | jq -r '.geometry.drawing')"
+
 if [[ $ICON_VALUE = "􀯶" ]]; then
   STATE=off
 else
@@ -40,29 +42,40 @@ menu_set() {
     sketchybar --trigger more-menu-update
   fi
 }
-if [ $STATE = "on" ]; then
-  menu_set "off"
-  separator=(
-    icon="􀯶"
-    icon.font="$FONT:Semibold:14.0"
-    icon.padding_left=$INNER_PADDINGS
-    icon.padding_right=$INNER_PADDINGS
-  )
-  sketchybar --set $NAME icon.y_offset=0 \
-             --animate tanh 15 \
-             --set $NAME "${separator[@]}"
+
+if [ $MODIFIER = "alt" ];then 
+  if [ $GRAPHSTATE = "on" ]; then
+    sketchybar --set '/graph.*/' drawing=off
+  else
+    sketchybar --set '/graph.*/' drawing=on
+  fi
+
 else
-  menu_set "on"
-  separator=(
-    icon="|"
-    icon.font="$FONT:Bold:16.0"
-    icon.padding_left=0
-    icon.padding_right=0
-  )
-  sketchybar --set $NAME icon.y_offset=2 \
-             --animate tanh 15 \
-             --set $NAME "${separator[@]}"
+  if [ $STATE = "on" ]; then
+    menu_set "off"
+    separator=(
+      icon="􀯶"
+      icon.font="$FONT:Semibold:14.0"
+      icon.padding_left=$INNER_PADDINGS
+      icon.padding_right=$INNER_PADDINGS
+    )
+    sketchybar --set $NAME icon.y_offset=0 \
+               --animate tanh 15 \
+               --set $NAME "${separator[@]}"
+  else
+    menu_set "on"
+    separator=(
+      icon="|"
+      icon.font="$FONT:Bold:16.0"
+      icon.padding_left=0
+      icon.padding_right=0
+    )
+    sketchybar --set $NAME icon.y_offset=2 \
+               --animate tanh 15 \
+               --set $NAME "${separator[@]}"
+  fi
 fi
+
 EOF
 )"
 
@@ -70,7 +83,7 @@ separator=(
   icon=􀯶
   label.drawing=off
   icon.font="$FONT:Semibold:14.0"
-  click_script='yabai -m space --create && sketchybar --trigger space_change'
+  #click_script='yabai -m space --create && sketchybar --trigger space_change'
   icon.color=$SUBTLE_MOON
   click_script="$SCRIPT_CLICK_SEPARATOR_MORE"
 )

@@ -21,7 +21,7 @@ fi
 
 media-control stream | grep --line-buffered 'data' | while IFS= read -r line; do
 
-  if ps -p $$>/dev/null; then 
+  if ps -p $$>/dev/null; then # list childs to prevent multiple background process remaining
     pgrep -P $$ >${TMPDIR}/sketchybar/pids
   fi
 
@@ -168,7 +168,7 @@ music_artwork=(
   background.image.padding_right=1
   update_freq=0
   padding_left=0
-  padding_right=4
+  padding_right=8
 )
 
 music_title=(
@@ -177,7 +177,8 @@ music_title=(
   click_script="$SCRIPT_CLICK_MUSIC_TITLE"
   label.color=$TEXT_MOON
   icon.drawing=off
-  background.height=8
+  #background.color=0xff0000ff
+  #background.height=8
   label.align=right
   label.width=$INFO_WIDTH
   label.max_chars=13
@@ -195,7 +196,7 @@ music_subtitle=(
   label.color=$SUBTLE_MOON
   icon.drawing=off
   #background.color=0xffff0000
-  background.height=8
+  #background.height=8
   label.align=right
   label.width=$INFO_WIDTH
   label.max_chars=14
@@ -207,11 +208,14 @@ music_subtitle=(
   y_offset=$(( - ($BAR_HEIGHT / 2) + $TITLE_MARGIN))
 )
 
-sketchybar --add item music right \
+add_separator center center
+
+sketchybar --add item music q \
   --set music "${music_artwork[@]}" \
-  --add item music.title right \
+  --add item music.title q \
   --set music.title "${music_title[@]}" \
-  --add item music.subtitle right \
+  --add item music.subtitle q \
   --set music.subtitle "${music_subtitle[@]}" #\
+
   #--subscribe music-player media_change
   #--add event mediachange MPMusicPlayerControllerNowPlayingItemDidChange \

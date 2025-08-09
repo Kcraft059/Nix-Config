@@ -1,7 +1,9 @@
 SCRIPT_FRONT_APP="$SCRIPT_MAP_ICON $(
   cat <<'EOM'
 
-sketchybar --set $NAME label="$INFO" icon=$(map_skappicon "$INFO")
+if [[ -n "$INFO" ]];then
+  sketchybar --set $NAME label="$INFO" icon=$(map_skappicon "$INFO")
+fi
 EOM
 )"
 
@@ -28,4 +30,4 @@ front_app=(
 
 sketchybar --add item front_app left \
   --set front_app "${front_app[@]}" \
-  --subscribe front_app front_app_switched system_woke
+  --subscribe front_app system_woke front_app_switched
