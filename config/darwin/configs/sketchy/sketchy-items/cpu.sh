@@ -12,6 +12,7 @@ SUBTLE_MOON=$SUBTLE_MOON
 EOF
 ) $(cat <<'EOF'
 
+systempower=$(macmon pipe -s 1 -i 1 | jq -r .sys_power)
 probe=$(/bin/ps -Aceo pid,pcpu,comm -r | awk 'NR==2')
 
 topprog_percent=$(echo "$probe" | awk '{print $2}')
@@ -46,7 +47,6 @@ sketchybar --push $NAME $graphpoint \
            --set $NAME.percent label="$(printf "%.0f" $graphpercent)%" \
            --set $NAME graph.color=$COLOR 
 
-systempower=$(macmon pipe -s 1 -i 1 | jq -r .sys_power)
 graphlabel="${topprog_percent}% - $topprog [$topprog_pid] | $(printf '%.2f' $systempower)W"
 
 
