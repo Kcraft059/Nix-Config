@@ -18,6 +18,12 @@ topprog_percent=$(echo "$probe" | awk '{print $2}')
 topprog=$(echo "$probe" | awk '{print $3}')
 topprog_pid=$(echo "$probe" | awk '{print $1}')
 
+if [ $(printf "%.0f" $topprog_percent) -gt 100 ]; then
+  LABEL_COLOR=$LOVE_MOON
+else
+  LABEL_COLOR=$SUBTLE_MOON
+fi
+
 graphlabel="${topprog_percent}% - $topprog [$topprog_pid]"
 
 #graphpercent=$(awk -v min=0 -v max=100 'BEGIN{srand(); print int(min+rand()*(max-min+1))}')
@@ -31,7 +37,7 @@ case $(printf "%.0f" $graphpercent) in
   ;;
   [3-5][0-9] | 2[5-9] ) COLOR=$GOLD_MOON
   ;;
-  [4-9] | 1[0-9] | 2[0-4]) COLOR=$PINE_MOON
+  [5-9] | 1[0-9] | 2[0-4]) COLOR=$PINE_MOON
   ;;
   *) COLOR=$SUBTLE_MOON
 esac
@@ -39,13 +45,13 @@ esac
 sketchybar --push $NAME $graphpoint \
            --set $NAME.percent label="$(printf "%.0f" $graphpercent)%" \
            --set $NAME graph.color=$COLOR \
-           --set $NAME.label label="$graphlabel"
+           --set $NAME.label label="$graphlabel" label.color="$LABEL_COLOR"
 
 EOF
 )"
 
 graph=(
-  #graph.color=$GOLD_MOON
+  graph.color=$SUBTLE_MOON
   drawing=off
   y_offset=$((- $BAR_HEIGHT / 2 + $GRAPH_MARGIN + 7 ))
   padding_left=0
