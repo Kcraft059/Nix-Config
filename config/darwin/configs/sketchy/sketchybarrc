@@ -38,7 +38,7 @@ bar=(
   border_color=$BORDER_COLOR
   corner_radius=14
   blur_radius=40
-  #notch_width=80
+  notch_width=180
 )
 
 defaults=(
@@ -92,5 +92,6 @@ if [[ $DEV_MODE == true ]]; then source "$RELPATH/sketchy-items/packages.sh"; fi
 if [[ $DEV_MODE == true ]]; then source "$RELPATH/sketchy-items/controls.sh"; fi
 
 if [[ $DEV_MODE == true ]]; then source "$RELPATH/sketchy-items/music.sh"; fi
+if [[ $DEV_MODE == true ]]; then source "$RELPATH/sketchy-items/cpu.sh"; fi
 
 if [[ $DEV_MODE == true ]]; then source "$RELPATH/sketchyset.sh"; fi
