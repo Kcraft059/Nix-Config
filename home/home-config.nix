@@ -28,6 +28,7 @@
       pkgs.htop
       pkgs.speedtest-go
       pkgs.mtr
+      pkgs.eza
     ] ++ lib.optionals config.home-config.GUIapps.enable [
       #pkgs.alacritty
     ];

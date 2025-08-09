@@ -21,6 +21,8 @@
           [[ ! -f ${../configs/.p10k.zsh} ]] || source ${../configs/.p10k.zsh} 
 
           setopt interactivecomments
+          
+          alias ll='eza --long --header --git --icons=auto'
         '';
     sessionVariables = {
       EDITOR = "${pkgs.neovim}/bin/nvim";
