@@ -20,10 +20,10 @@ EOM
 ICON_VALUE="$(sketchybar --query $NAME | sed 's/\\n//g; s/\\\$//g; s/\\ //g' | jq -r '.icon.value')"
 GRAPHSTATE="$(sketchybar --query graph | sed 's/\\n//g; s/\\\$//g; s/\\ //g' | jq -r '.geometry.drawing')"
 
-if [[ $ICON_VALUE = "􀯶" ]]; then
-  STATE=off
-else
+if [[ $ICON_VALUE = '|' ]]; then
   STATE=on
+else
+  STATE=off
 fi
 
 menu_set() {
@@ -43,26 +43,24 @@ menu_set() {
   fi
 }
 
-if [ $MODIFIER = "alt" ];then 
-  if [ $GRAPHSTATE = "on" ]; then
-    sketchybar --set '/graph.*/' drawing=off
-  else
-    sketchybar --set '/graph.*/' drawing=on
-  fi
+#echo $STATE $GRAPHSTATE $MODIFIER
 
-else
-  if [ $STATE = "on" ]; then
-    menu_set "off"
-    separator=(
-      icon="􀯶"
-      icon.font="$FONT:Semibold:14.0"
-      icon.padding_left=$INNER_PADDINGS
-      icon.padding_right=$INNER_PADDINGS
-    )
-    sketchybar --set $NAME icon.y_offset=0 \
-               --animate tanh 15 \
-               --set $NAME "${separator[@]}"
-  else
+if [ "$STATE" = "off" ]; then
+  if [ "$MODIFIER" = "alt" ] && [ "$GRAPHSTATE" = "off" ];then 
+    sketchybar --set '/graph.*/' drawing=on \
+               --set $NAME icon=􀫰 \
+               --trigger activities_update
+
+  elif [ $GRAPHSTATE = "on" ];then 
+    sketchybar --set '/graph.*/' drawing=off \
+               --set $NAME icon=􀯶 \
+               --trigger activities_update
+
+    for (( i=0; i <= 140; ++i )); do
+      sketchybar --push graph 0.0
+    done
+
+  else 
     menu_set "on"
     separator=(
       icon="|"
@@ -74,8 +72,18 @@ else
                --animate tanh 15 \
                --set $NAME "${separator[@]}"
   fi
+else
+  menu_set "off"
+  separator=(
+    icon="􀯶"
+    icon.font="$FONT:Semibold:14.0"
+    icon.padding_left=$INNER_PADDINGS
+    icon.padding_right=$INNER_PADDINGS
+  )
+  sketchybar --set $NAME icon.y_offset=0 \
+             --animate tanh 15 \
+             --set $NAME "${separator[@]}"
 fi
-
 EOF
 )"
 

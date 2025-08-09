@@ -117,13 +117,17 @@ media-control stream | grep --line-buffered 'data' | while IFS= read -r line; do
 
     sketchybar --set $NAME drawing=on \
                --set $NAME.title drawing=on \
-               --set $NAME.subtitle drawing=on
+               --set $NAME.subtitle drawing=on \
+               --trigger activities_update
+    
 
   else
 
     sketchybar --set $NAME drawing=off \
              --set $NAME.title drawing=off \
-             --set $NAME.subtitle drawing=off
+             --set $NAME.subtitle drawing=off \
+             --trigger activities_update
+
     lastAppPID=""
 
   fi
@@ -143,6 +147,24 @@ EOF
 
 SCRIPT_CLICK_MUSIC_TITLE="$(cat <<'EOF'
 menubar -s "Control Center,NowPlaying"
+EOF
+)"
+
+SCRIPT_CENTER_SEP="$(cat <<'EOF'
+GRAPHSTATE="$(sketchybar --query graph | sed 's/\\n//g; s/\\\$//g; s/\\ //g' | jq -r '.geometry.drawing')"
+MUSICSTATE="$(sketchybar --query music | sed 's/\\n//g; s/\\\$//g; s/\\ //g' | jq -r '.geometry.drawing')"
+
+activitycount=0
+
+if [ "$GRAPHSTATE" = "on" ]; then ((activitycount++)); fi
+if [ "$MUSICSTATE" = "on" ]; then ((activitycount++)); fi
+
+if [ $activitycount -gt 0 ]; then
+  sketchybar --set separator_center drawing=on
+else
+  sketchybar --set separator_center drawing=off
+fi
+
 EOF
 )"
 
@@ -208,7 +230,23 @@ music_subtitle=(
   y_offset=$(( - ($BAR_HEIGHT / 2) + $TITLE_MARGIN))
 )
 
-add_separator center center
+center_separator=(
+  icon="|"
+  script="$SCRIPT_CENTER_SEP"
+  icon.color=$SUBTLE_MOON
+  icon.font="$FONT:Bold:16.0"
+  icon.y_offset=2
+  label.drawing=off
+  icon.padding_left=0
+  icon.padding_right=0
+  update_freq=0
+  updates=on
+)
+
+sketchybar --add item separator_center center \
+           --set separator_center "${center_separator[@]}" \
+           --add event activities_update #\
+sketchybar --subscribe separator_center activities_update
 
 sketchybar --add item music q \
   --set music "${music_artwork[@]}" \
