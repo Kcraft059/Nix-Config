@@ -10,7 +10,7 @@ EOM
 ) $(
   cat <<'EOM'
 WIFI_PORT=$(networksetup -listallhardwareports | awk '/Hardware Port: Wi-Fi/{getline; print $2}')
-WIFI=$(ipconfig getsummary $WIFI_PORT | awk -F': ' '/ SSID : / {print $2}')
+WIFI=$(system_profiler SPAirPortDataType | awk '/Current Network/ {getline;$1=$1; gsub(":",""); print;exit}') #$(ipconfig getsummary $WIFI_PORT | awk -F': ' '/ SSID : / {print $2}')
 HOTSPOT=$(ipconfig getsummary $WIFI_PORT | grep sname | awk '{print $3}')
 IP_ADDRESS=$(scutil --nwi | grep address | sed 's/.*://' | tr -d ' ' | head -1)
 
@@ -60,6 +60,9 @@ EOM
 wifi=(
   script="$SCRIPT_WIFI"
   click_script="$SCRIPT_CLICK_WIFI"
+  label="Searching…"
+  icon=􀙥
+  icon.color=$SUBTLE_MOON
   icon.padding_right=0
   label.max_chars=10
   label.font="$FONT:Semibold:10.0"
