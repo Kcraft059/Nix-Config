@@ -92,17 +92,19 @@ media-control stream | grep --line-buffered 'data' | while IFS= read -r line; do
 
     if [[ $playing != "null" && $(echo $line | jq -r .diff) == "true" ]];then
       case $playing in
-        "true") sketchybar --animate tanh 5 \
-                           --set $NAME icon="􀊆." \
-                                       icon.drawing=on
+        "true") sketchybar --set $NAME icon.padding_left=-3 \
+                           --animate tanh 5 \
+                           --set $NAME icon="􀊆" \
+                                       icon.drawing=on 
         {
           sleep 5
           sketchybar --animate tanh 45 --set $NAME icon.drawing=false
         } &
         ;;
-        "false") sketchybar --animate tanh 5 \
+        "false") sketchybar --set $NAME icon.padding_left=0 \
+                            --animate tanh 5 \
                             --set $NAME icon="􀊄" \
-                                        icon.drawing=on
+                                        icon.drawing=on 
         {
           sleep 5
           sketchybar --animate tanh 45 --set $NAME icon.drawing=false
@@ -172,16 +174,16 @@ music_artwork=(
   drawing=off
   script="$SCRIPT_MUSIC"
   click_script="$SCRIPT_CLICK_MUSIC_ARTWORK"
-  icon="􀊆."
+  icon="􀊆"
   icon.drawing=off
-  icon.color=$IRIS_MOON
+  icon.color=$HIGH_MED_MOON
   icon.shadow.drawing=on
   icon.shadow.color=$BAR_COLOR
   icon.shadow.distance=3
   icon.align=center
   label.drawing=off
   icon.padding_right=0
-  icon.padding_left=0
+  icon.padding_left=-3
   background.drawing=on
   background.height=$(($BAR_HEIGHT - $ARTWORK_MARGIN * 2))
   background.image.border_color=$MUTED_MOON
