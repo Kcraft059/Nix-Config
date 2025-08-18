@@ -26,6 +26,12 @@ map_skappicon() {
   "Tweetbot" | "Twitter")
     icon_result=":twitter:"
     ;;
+  "Maps")
+    icon_result=":maps:"
+    ;;
+  "ChatGPT")
+    icon_result=":openai:"
+    ;;
   "ClickUp")
     icon_result=":click_up:"
     ;;
@@ -77,7 +83,7 @@ map_skappicon() {
   "MoneyMoney")
     icon_result=":bank:"
     ;;
-  "Color Picker")
+  "Color Picker" | "Digital Color Meter")
     icon_result=":color_picker:"
     ;;
   "Microsoft Word")
@@ -97,6 +103,9 @@ map_skappicon() {
     ;;
   "Sublime Text")
     icon_result=":sublime_text:"
+    ;;
+  "TextEdit")
+    icon_result=":textedit:"
     ;;
   "PomoDone App")
     icon_result=":pomodone:"
@@ -178,6 +187,9 @@ map_skappicon() {
     ;;
   "Android Studio")
     icon_result=":android_studio:"
+    ;;
+  "Calculator")
+    icon_result=":calculator:"
     ;;
   "Xcode")
     icon_result=":xcode:"
@@ -332,8 +344,23 @@ map_skappicon() {
   "1Password 7")
     icon_result=":one_password:"
     ;;
+  "Passwords")
+    icon_result=":password:"
+    ;;
+  "SF Symbols")
+    icon_result=":sf_symbols:"
+    ;;
+  "Shortcuts")
+    icon_result=":shortcuts:"
+    ;;
   "Code" | "Code - Insiders")
     icon_result=":code:"
+    ;;
+  "Steam" )
+    icon_result=":steam:"
+    ;;
+  "Weather" )
+    icon_result=":weather:"
     ;;
   "VSCodium")
     icon_result=":vscodium:"
@@ -365,6 +392,9 @@ map_skappicon() {
   "Alacritty" | "Hyper" | "iTerm2" | "kitty" | "Terminal" | "WezTerm" | "Ghostty")
     icon_result=":terminal:"
     ;;
+  "Activity Monitor")
+    icon_result=":activity_monitor:"
+    ;;
   "Tor Browser")
     icon_result=":tor_browser:"
     ;;
@@ -379,6 +409,9 @@ map_skappicon() {
     ;;
   "Sequel Ace")
     icon_result=":sequel_ace:"
+    ;;
+  "Youtube")
+    icon_result=":youtube:"
     ;;
   *)
     icon_result=":default:"
