@@ -22,15 +22,15 @@
 
     nix.optimise.automatic = lib.optionals config.nix-conf.garbage-collect.enable true;
     nix.optimise.interval = lib.mkIf config.nix-conf.garbage-collect.enable {
-      #Weekday = 1;
-      Hour = 6;
+      Weekday = 1;
+      #Hour = 6;
       #Minute = 0;
     };
 
     nix.gc.automatic = lib.optionals config.nix-conf.garbage-collect.enable true;
     nix.gc.interval = lib.mkIf config.nix-conf.garbage-collect.enable {
-      #Weekday = 1;
-      Hour = 6;
+      Weekday = 1;
+      #Hour = 6;
       #Minute = 0;
     };
     #nix.gc.options = "--delete-older-than 5d"; #Already setup in common 

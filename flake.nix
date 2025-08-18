@@ -125,7 +125,7 @@
               {
                 common.stylix.enable = false;
                 darwin-system.window-man.enable = false;
-                darwin-system.status-bar.enable = false;
+                darwin-system.status-bar.enable = true;
                 darwin-system.defaults.wallpaper = ./ressources/wallhaven.png;
               }
               ./packages/nix/default.nix

@@ -149,6 +149,8 @@ in
       in
       lib.mkAfter ''
         echo -ne "\033[38;5;5mRunning postActivation scripts…\033[0m " >&2
+        mdutil -i off -V /nix # Ensure spotlight is turned off for nix-store
+
         ${lib.optionalString (wallpaper != "")
           ''osascript -e 'tell application "System Events" to set picture of every desktop to "${wallpaper}"' ''
         }
