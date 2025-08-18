@@ -63,6 +63,10 @@
           "ext4fuse-mac" # sudo ext4fuse <diskXsX> <mountPoint> -o allow_other -o umask=000
           "ntfs-3g-mac" # "libunistring" "gettext"
           "sshfs-mac" # sshfs <user>@<host>:<dir> <mountPoint> -o identityFile=<pathToSSH-Key>
+          /* { # https://nix-darwin.github.io/nix-darwin/manual/#opt-homebrew.brews._.restart_service
+            name = "batt";
+            restart_service = "changed"; # maybe see environment.launchDaemons.<name>.enable instead 
+          } */
 
           # dependencies -> declare to prevent uninstall
           "ca-certificates"

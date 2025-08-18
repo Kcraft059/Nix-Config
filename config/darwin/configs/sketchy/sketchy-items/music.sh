@@ -9,6 +9,7 @@ PATH=$PATH
 
 EOF
 ) $(cat <<'EOF'
+
 #SKETCHYBAR_MEDIASTREAM#
 
 pids=$(ps -p $(pgrep sh) | grep '#SKETCHYBAR_MEDIASTREAM#' | awk '{print $1}')
@@ -26,8 +27,8 @@ media-control stream | grep --line-buffered 'data' | while IFS= read -r line; do
   fi
 
   if ! { 
-   [[ "$(echo $line | jq -r .payload)" == '{}' ]] || 
-   { [[ -n "$lastAppPID" ]] && ! ps -p "$lastAppPID" > /dev/null; }; 
+    [[ "$(echo $line | jq -r .payload)" == '{}' ]] || 
+    { [[ -n "$lastAppPID" ]] && ! ps -p "$lastAppPID" > /dev/null; }; 
   }; then
 
     artworkData=$(echo $line | jq -r .payload.artworkData)
@@ -65,8 +66,8 @@ media-control stream | grep --line-buffered 'data' | while IFS= read -r line; do
       ")
 
       sketchybar --set $NAME background.image=$tmpfile.$ext \
-                             background.image.scale=$scale \
-                             icon.width=$(printf "%.0f" $icon_width)
+                              background.image.scale=$scale \
+                              icon.width=$(printf "%.0f" $icon_width)
 
       rm -f $tmpfile*
     fi
@@ -78,14 +79,14 @@ media-control stream | grep --line-buffered 'data' | while IFS= read -r line; do
       title_label="$(echo $line | jq -r .payload.title)"
       artist=$(echo "$line" | jq -r .payload.artist)
       album=$(echo "$line" | jq -r .payload.album)
-      
+
       subtitle_label="$artist"
       if [[ -n "$album" ]]; then
         subtitle_label+=" • $album"
       fi
 
       sketchybar --set $NAME.title label="$title_label" \
-                 --set $NAME.subtitle label="$subtitle_label"
+                  --set $NAME.subtitle label="$subtitle_label"
     fi
 
     # Set Playing state indicator
@@ -93,9 +94,9 @@ media-control stream | grep --line-buffered 'data' | while IFS= read -r line; do
     if [[ $playing != "null" && $(echo $line | jq -r .diff) == "true" ]];then
       case $playing in
         "true") sketchybar --set $NAME icon.padding_left=-3 \
-                           --animate tanh 5 \
-                           --set $NAME icon="􀊆" \
-                                       icon.drawing=on 
+                            --animate tanh 5 \
+                            --set $NAME icon="􀊆" \
+                                        icon.drawing=on 
         {
           sleep 5
           sketchybar --animate tanh 45 --set $NAME icon.drawing=false
@@ -118,17 +119,17 @@ media-control stream | grep --line-buffered 'data' | while IFS= read -r line; do
     fi
 
     sketchybar --set $NAME drawing=on \
-               --set $NAME.title drawing=on \
-               --set $NAME.subtitle drawing=on \
-               --trigger activities_update
-    
+                --set $NAME.title drawing=on \
+                --set $NAME.subtitle drawing=on \
+                --trigger activities_update
+
 
   else
 
     sketchybar --set $NAME drawing=off \
-             --set $NAME.title drawing=off \
-             --set $NAME.subtitle drawing=off \
-             --trigger activities_update
+              --set $NAME.title drawing=off \
+              --set $NAME.subtitle drawing=off \
+              --trigger activities_update
 
     lastAppPID=""
 
@@ -144,6 +145,33 @@ PATH=$PATH
 EOF
 ) $(cat <<'EOF'
 media-control toggle-play-pause
+EOF
+)"
+
+SCRIPT_MUSIC_TITLE="$(cat <<'EOF'
+setscroll() {
+  STATE="$(sketchybar --query "music.title" | sed 's/\\n//g; s/\\\$//g; s/\\ //g' | jq -r '.geometry.scroll_texts')"
+
+  case "$1" in
+    "on") target="off"
+    ;;
+    "off") target="on"
+    ;;
+  esac
+
+  if [[ "$STATE" == "$target" ]]; then
+    sketchybar --set "music.title" scroll_texts=$1
+    sketchybar --set "music.subtitle" scroll_texts=$1
+  fi
+
+}
+
+case "$SENDER" in
+  "mouse.entered") setscroll on 
+  ;;
+  "mouse.exited") setscroll off
+  ;;
+esac
 EOF
 )"
 
@@ -198,6 +226,7 @@ music_artwork=(
 music_title=(
   label=Title
   drawing=off
+  script="$SCRIPT_MUSIC_TITLE"
   click_script="$SCRIPT_CLICK_MUSIC_TITLE"
   label.color=$TEXT_MOON
   icon.drawing=off
@@ -207,7 +236,7 @@ music_title=(
   label.width=$INFO_WIDTH
   label.max_chars=13
   label.font="$FONT:Semibold:10.0"
-  scroll_texts=on
+  scroll_texts=off
   padding_left=-$INFO_WIDTH
   padding_right=0
   y_offset=$(($BAR_HEIGHT / 2 - $TITLE_MARGIN))
@@ -216,6 +245,7 @@ music_title=(
 music_subtitle=(
   label=SubTitle
   drawing=off
+  script="$SCRIPT_MUSIC_TITLE"
   click_script="$SCRIPT_CLICK_MUSIC_TITLE"
   label.color=$SUBTLE_MOON
   icon.drawing=off
@@ -225,7 +255,7 @@ music_subtitle=(
   label.width=$INFO_WIDTH
   label.max_chars=14
   label.font="$FONT:Semibold:9.0"
-  scroll_texts=on
+  scroll_texts=off
   #scroll_duration=10
   padding_left=0
   padding_right=0
@@ -255,7 +285,8 @@ sketchybar --add item music q \
   --add item music.title q \
   --set music.title "${music_title[@]}" \
   --add item music.subtitle q \
-  --set music.subtitle "${music_subtitle[@]}" #\
+  --set music.subtitle "${music_subtitle[@]}" \
+  --subscribe music.title mouse.entered mouse.exited \
+  --subscribe music.subtitle mouse.entered mouse.exited
 
-  #--subscribe music-player media_change
   #--add event mediachange MPMusicPlayerControllerNowPlayingItemDidChange \

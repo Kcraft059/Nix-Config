@@ -9,36 +9,65 @@ ICON_WIFI_OFF=􀙈
 EOM
 ) $(
   cat <<'EOM'
-WIFI_PORT=$(networksetup -listallhardwareports | awk '/Hardware Port: Wi-Fi/{getline; print $2}')
-WIFI=$(system_profiler SPAirPortDataType | awk '/Current Network/ {getline;$1=$1; gsub(":",""); print;exit}') #$(ipconfig getsummary $WIFI_PORT | awk -F': ' '/ SSID : / {print $2}')
-HOTSPOT=$(ipconfig getsummary $WIFI_PORT | grep sname | awk '{print $3}')
-IP_ADDRESS=$(scutil --nwi | grep address | sed 's/.*://' | tr -d ' ' | head -1)
 
-if [[ $HOTSPOT != "" ]]; then
-  ICON=$ICON_HOTSPOT
-  ICON_COLOR=$FOAM_MOON
-  LABEL=$HOTSPOT
-elif [[ $WIFI != "" ]]; then
-  ICON=$ICON_WIFI
-  ICON_COLOR=$PINE_MOON
-  LABEL=$WIFI
-elif [[ $IP_ADDRESS != "" ]]; then
-  ICON=$ICON_WIFI
-  ICON_COLOR=$ROSE_MOON
-  LABEL="on"
-else
-  ICON=$ICON_WIFI_OFF
-  ICON_COLOR=$LOVE_MOON
-  LABEL="off"
-fi
+getname() {
+  WIFI_PORT=$(networksetup -listallhardwareports | awk '/Hardware Port: Wi-Fi/{getline; print $2}')
+  WIFI=$(system_profiler SPAirPortDataType | awk '/Current Network/ {getline;$1=$1; gsub(":",""); print;exit}') #$(ipconfig getsummary $WIFI_PORT | awk -F': ' '/ SSID : / {print $2}')
+  HOTSPOT=$(ipconfig getsummary $WIFI_PORT | grep sname | awk '{print $3}')
+  IP_ADDRESS=$(scutil --nwi | grep address | sed 's/.*://' | tr -d ' ' | head -1)
 
-wifi=(
-  icon=$ICON
-  label=$LABEL
-  icon.color=$ICON_COLOR
-)
+  if [[ $HOTSPOT != "" ]]; then
+    ICON=$ICON_HOTSPOT
+    ICON_COLOR=$FOAM_MOON
+    LABEL=$HOTSPOT
+  elif [[ $WIFI != "" ]]; then
+    ICON=$ICON_WIFI
+    ICON_COLOR=$PINE_MOON
+    LABEL=$WIFI
+  elif [[ $IP_ADDRESS != "" ]]; then
+    ICON=$ICON_WIFI
+    ICON_COLOR=$ROSE_MOON
+    LABEL="on"
+  else
+    ICON=$ICON_WIFI_OFF
+    ICON_COLOR=$LOVE_MOON
+    LABEL="off"
+  fi
 
-sketchybar --set $NAME "${wifi[@]}"
+  wifi=(
+    icon=$ICON
+    label=$LABEL
+    icon.color=$ICON_COLOR
+  )
+
+  sketchybar --set $NAME "${wifi[@]}"
+}
+
+setscroll() {
+  STATE="$(sketchybar --query $NAME | sed 's/\\n//g; s/\\\$//g; s/\\ //g' | jq -r '.geometry.scroll_texts')"
+
+  case "$1" in
+    "on") target="off"
+    ;;
+    "off") target="on"
+    ;;
+  esac
+
+  if [[ "$STATE" == "$target" ]]; then
+    sketchybar --set "$NAME" scroll_texts=$1
+  fi
+
+}
+
+case "$SENDER" in
+  "mouse.entered") setscroll on 
+  ;;
+  "mouse.exited") setscroll off
+  ;;
+  *) getname
+  ;;
+esac
+
 EOM
 )"
 
@@ -66,7 +95,7 @@ wifi=(
   icon.padding_right=0
   label.max_chars=10
   label.font="$FONT:Semibold:10.0"
-  scroll_texts=on
+  #scroll_texts=on
   #scroll_duration=100
   #update_freq=5
   padding_left=0
@@ -74,4 +103,4 @@ wifi=(
 )
 sketchybar --add item wifi right \
   --set wifi "${wifi[@]}" \
-  --subscribe wifi wifi_change
+  --subscribe wifi wifi_change mouse.entered mouse.exited \
