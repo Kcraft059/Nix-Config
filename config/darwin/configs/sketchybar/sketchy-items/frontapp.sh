@@ -1,3 +1,4 @@
+#!/bin/bash
 SCRIPT_FRONT_APP=$RELPATH/plugins/frontapp/script.sh
 
 SCRIPT_CLICK_FRONT_APP="$(

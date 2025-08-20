@@ -1,3 +1,4 @@
+#!/bin/bash
 SCRIPT_MIC=$RELPATH/plugins/mic/script.sh
 
 mic=(

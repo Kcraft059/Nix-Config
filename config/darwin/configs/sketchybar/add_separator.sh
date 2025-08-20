@@ -1,3 +1,4 @@
+#!/bin/bash
 add_separator() {
   separator=(
     icon="|"

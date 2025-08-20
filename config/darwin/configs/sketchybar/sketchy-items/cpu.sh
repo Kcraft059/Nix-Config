@@ -1,3 +1,4 @@
+#!/bin/bash
 # See : https://github.com/FelixKratz/dotfiles/blob/e6288b3f4220ca1ac64a68e60fced2d4c3e3e20b/.config/sketchybar/helper/cpu.h
 GRAPH_MARGIN=4
 GRAPH_WIDTH=140

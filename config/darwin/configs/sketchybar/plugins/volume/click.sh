@@ -18,7 +18,7 @@ toggle_detail() {
       detail_off
     fi
   else
-    ~/.config/sketchybar/menubar -s "Control Center,Sound"
+    $RELPATH/menubar -s "Control Center,Sound"
   fi
 }
 

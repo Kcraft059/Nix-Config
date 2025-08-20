@@ -1,3 +1,4 @@
+#!/bin/bash
 SCRIPT_CALENDAR=$RELPATH/plugins/calendar/script.sh
 
 SCRIPT_CLICK_CALENDAR=$RELPATH/plugins/calendar/click.sh

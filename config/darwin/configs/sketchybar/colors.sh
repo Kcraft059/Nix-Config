@@ -1,4 +1,4 @@
-#!/run/current-system/sw/bin/bash
+#!/bin/bash
 # Definition Of Standard colors for the bar
 
 export BASE_MOON=0xff232136

@@ -1,2 +1,3 @@
 #!/bin/bash
+export PATH=/opt/homebrew/bin/:$PATH;
 betterdisplaycli toggle --appmenu

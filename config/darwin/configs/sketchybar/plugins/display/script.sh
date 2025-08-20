@@ -1,4 +1,6 @@
 #!/bin/bash
+export PATH=/opt/homebrew/bin/:$PATH;
+
 displaygroups=(
   "Built-in"
   "Built-in + External"
