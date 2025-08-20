@@ -1,4 +1,5 @@
 #!/bin/bash
+export RELPATH=$(dirname $0)/../..;
 WIDTH=100
 
 detail_on() {
