@@ -60,7 +60,7 @@ toggle_menu() {
     if [ $STATE = "off" ]; then
       /System/Applications/Mission\ Control.app/Contents/MacOS/Mission\ Control
     elif [ $STATE = "on" ]; then
-      ~/.config/sketchybar/menubar -s 0
+      $RELPATH/menubar -s 0
     fi
   fi
 }
@@ -70,7 +70,7 @@ update_menus() {
   while IFS= read -r menu; do
     sketchybar --set menu.$mid icon="$menu" drawing=on
     mid=$(($mid + 1))
-  done < <(~/.config/sketchybar/menubar -l)
+  done < <($RELPATH/menubar -l)
   while [ $mid -le 10 ]; do
     sketchybar --set menu.$mid drawing=off
     mid=$((mid + 1))

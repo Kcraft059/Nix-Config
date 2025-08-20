@@ -1,3 +1,4 @@
+#!/bin/bash
 SCRIPT_CLICK_DISPLAY=$RELPATH/plugins/display/click.sh
 SCRIPT_DISPLAY=$RELPATH/plugins/display/script.sh
 

@@ -1,3 +1,4 @@
+#!/bin/bash
 SCRIPT_SPACES="$RELPATH/plugins/spaces/script.sh"
 
 SCRIPT_SPACE_WINDOWS="$RELPATH/plugins/spaces/script-windows.sh"

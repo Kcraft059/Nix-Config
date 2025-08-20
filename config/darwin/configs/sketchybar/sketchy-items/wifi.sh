@@ -1,3 +1,4 @@
+#!/bin/bash
 SCRIPT_WIFI="$RELPATH/plugins/wifi/script.sh"
 
 SCRIPT_CLICK_WIFI="$RELPATH/plugins/wifi/click.sh"

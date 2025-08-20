@@ -1,3 +1,4 @@
+#!/bin/bash
 SCRIPT_CLICK_MENUS=$RELPATH/plugins/menus/click.sh
 
 mid=0

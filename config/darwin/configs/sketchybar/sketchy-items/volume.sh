@@ -1,3 +1,4 @@
+#!/bin/bash
 SCRIPT_VOLUME_CLICK="$RELPATH/plugins/volume/click.sh"
 
 SCRIPT_VOLUME="$RELPATH/plugins/volume/script.sh"

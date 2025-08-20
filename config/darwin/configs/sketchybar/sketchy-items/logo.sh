@@ -1,3 +1,4 @@
+#!/bin/bash
 SCRIPT_POPUP_TOGGLE="$RELPATH/plugins/logo/script.sh \"$FONT\" $X_BAR_PADDING"
 
 logo=(

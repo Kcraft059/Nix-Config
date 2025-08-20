@@ -1,3 +1,4 @@
+#!/bin/bash
 # sketchybar --query default_menu_items
 menucontrols=(
   "Control__Center,UserSwitcher"

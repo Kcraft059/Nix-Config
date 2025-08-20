@@ -1,3 +1,4 @@
+#!/bin/bash
 SCRIPT_CLICK_BATTERY=$RELPATH/plugins/battery/click.sh
 SCRIPT_BATTERY=$RELPATH/plugins/battery/script.sh
 
