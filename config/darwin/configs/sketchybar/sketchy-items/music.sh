@@ -1,11 +1,10 @@
 #!/bin/bash
-export RELPATH=$(dirname $0)/../..;
 
 ARTWORK_MARGIN=5
 TITLE_MARGIN=11
 INFO_WIDTH=80
 
-if which menubar;then
+if which menubar 2>/dev/null 1>&2;then
   menubar=$(which menubar)
 else
   menubar=$RELPATH/menubar

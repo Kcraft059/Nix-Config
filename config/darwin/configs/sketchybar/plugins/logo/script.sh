@@ -2,7 +2,7 @@
 export RELPATH=$(dirname $0)/../..;
 source $RELPATH/colors.sh
 
-if which menubar;then
+if which menubar 2>/dev/null 1>&2;then
   menubar=$(which menubar)
 else
   menubar=$RELPATH/menubar
