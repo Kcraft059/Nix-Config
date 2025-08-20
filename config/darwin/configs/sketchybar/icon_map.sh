@@ -1,5 +1,4 @@
-SCRIPT_MAP_ICON="$(
-  cat <<'EOM'
+#!/bin/bash
 map_skappicon() {
   case $1 in
   "Brave Browser")
@@ -419,5 +418,3 @@ map_skappicon() {
   esac
   echo $icon_result
 }
-EOM
-)"

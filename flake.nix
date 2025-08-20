@@ -1,6 +1,8 @@
 {
   description = "Polyglot Nix-system config for all my devices - Kcraft059";
 
+  # Note : on macos uninstalled nix-2.25.3 from nix-env
+
   inputs = {
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";

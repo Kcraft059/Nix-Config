@@ -102,8 +102,11 @@
     services.sketchybar = lib.mkIf config.darwin-system.status-bar.enable {
       # Keep as lib.mkIf enable option not working well.
       enable = true;
-      config = builtins.concatStringsSep "\n" [
-        (builtins.readFile ./configs/sketchy/colors.sh)
+      config = let 
+        path = ./configs/sketchybar;
+      in builtins.concatStringsSep "\n" [
+        ${path}/sketchybarrc
+        /* (builtins.readFile ./configs/sketchy/colors.sh)
         (builtins.readFile ./configs/sketchy/icon_map.sh)
         (builtins.readFile ./configs/sketchy/add_separator.sh)
         (builtins.readFile ./configs/sketchy/sketchybarrc)
@@ -122,7 +125,7 @@
         (builtins.readFile ./configs/sketchy/sketchy-items/controls.sh)
         (builtins.readFile ./configs/sketchy/sketchy-items/music.sh)
         (builtins.readFile ./configs/sketchy/sketchy-items/cpu.sh)
-        (builtins.readFile ./configs/sketchy/sketchyset.sh)
+        (builtins.readFile ./configs/sketchy/sketchyset.sh) */
       ];
     };
 
