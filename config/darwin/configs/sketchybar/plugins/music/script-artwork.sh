@@ -1,4 +1,5 @@
 #!/bin/bash
+export PATH=/opt/homebrew/bin/:$PATH;
 export RELPATH=$(dirname $0)/../..;
 #SKETCHYBAR_MEDIASTREAM#
 
