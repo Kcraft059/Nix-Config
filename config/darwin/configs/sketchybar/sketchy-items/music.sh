@@ -1,7 +1,15 @@
 #!/bin/bash
+export RELPATH=$(dirname $0)/../..;
+
 ARTWORK_MARGIN=5
 TITLE_MARGIN=11
 INFO_WIDTH=80
+
+if which menubar;then
+  menubar=$(which menubar)
+else
+  menubar=$RELPATH/menubar
+fi
 
 SCRIPT_MUSIC="$RELPATH/plugins/music/script-artwork.sh $ARTWORK_MARGIN $BAR_HEIGHT #SKETCHYBAR_MEDIASTREAM#"
 
@@ -9,7 +17,7 @@ SCRIPT_CLICK_MUSIC_ARTWORK="media-control toggle-play-pause"
 
 SCRIPT_MUSIC_TITLE="$RELPATH/plugins/music/script-title.sh"
 
-SCRIPT_CLICK_MUSIC_TITLE="$RELPATH/menubar -s \"Control Center,NowPlaying\""
+SCRIPT_CLICK_MUSIC_TITLE="$menubar -s \"Control Center,NowPlaying\""
 
 SCRIPT_CENTER_SEP="$RELPATH/plugins/music/script-separator.sh"
 

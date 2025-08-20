@@ -1,3 +1,8 @@
 #!/bin/bash
 export RELPATH=$(dirname $0)/../..;
-$RELPATH/menubar -s "$(echo "$NAME" | cut -d '.' -f 2)"
+if which menubar;then
+  menubar=$(which menubar)
+else
+  menubar=$RELPATH/menubar
+fi
+$menubar -s "$(echo "$NAME" | cut -d '.' -f 2)"
