@@ -2,6 +2,12 @@
 export RELPATH=$(dirname $0)/../..;
 source $RELPATH/colors.sh
 
+if which menubar;then
+  menubar=$(which menubar)
+else
+  menubar=$RELPATH/menubar
+fi
+
 FONT=$1
 X_BAR_PADDING=$2
 
@@ -60,7 +66,7 @@ toggle_menu() {
     if [ $STATE = "off" ]; then
       /System/Applications/Mission\ Control.app/Contents/MacOS/Mission\ Control
     elif [ $STATE = "on" ]; then
-      $RELPATH/menubar -s 0
+      $menubar -s 0
     fi
   fi
 }
@@ -70,7 +76,7 @@ update_menus() {
   while IFS= read -r menu; do
     sketchybar --set menu.$mid icon="$menu" drawing=on
     mid=$(($mid + 1))
-  done < <($RELPATH/menubar -l)
+  done < <($menubar -l)
   while [ $mid -le 10 ]; do
     sketchybar --set menu.$mid drawing=off
     mid=$((mid + 1))
