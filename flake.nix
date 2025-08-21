@@ -45,7 +45,7 @@
     };
 
     sketchybar-config = {
-      url = "github:Kcraft059/sketchybar";
+      url = "github:Kcraft059/sketchybar-config";
       flake = false;
     };
 

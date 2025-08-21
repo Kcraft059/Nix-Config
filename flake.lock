@@ -526,13 +526,13 @@
         "lastModified": 1755762447,
         "narHash": "sha256-hsFb91e00For9kFj2ogm4YIchxn25Ywfs5+D/R6iYJg=",
         "owner": "Kcraft059",
-        "repo": "sketchybar",
+        "repo": "sketchybar-config",
         "rev": "a04dcca58c9b6f101a6a5deadae4fb5ac5b296e5",
         "type": "github"
       },
       "original": {
         "owner": "Kcraft059",
-        "repo": "sketchybar",
+        "repo": "sketchybar-config",
         "type": "github"
       }
     },
