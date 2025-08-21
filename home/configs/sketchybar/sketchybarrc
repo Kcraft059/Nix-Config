@@ -6,7 +6,7 @@ if [[ -z $(ls /Library/Fonts/ | grep 'sketchybar-app-font') ]]; then
 fi
 
 RELPATH="$(dirname "$0")"
-export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
+export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:$PATH
 mkdir -p ${TMPDIR}sketchybar
 
 

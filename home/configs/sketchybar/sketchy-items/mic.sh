@@ -1,5 +1,5 @@
 #!/bin/bash
-SCRIPT_MIC=$RELPATH/plugins/mic/script.sh
+SCRIPT_MIC="export PATH=$PATH; $RELPATH/plugins/mic/script.sh"
 
 mic=(
   icon=􀊱

@@ -1,5 +1,5 @@
 #!/bin/bash
-SCRIPT_PKGS="$RELPATH/plugins/packages/script.sh"
+SCRIPT_PKGS="export PATH=$PATH; $RELPATH/plugins/packages/script.sh"
 
 pkgs=(
   drawing=off

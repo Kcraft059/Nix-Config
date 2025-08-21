@@ -9,7 +9,8 @@ menuitems=(
   "pkgs"
 )
 
-SCRIPT_CLICK_SEPARATOR_MORE="$RELPATH/plugins/more-menu/script.sh \
+SCRIPT_CLICK_SEPARATOR_MORE="export PATH=$PATH; \
+$RELPATH/plugins/more-menu/script.sh \
 \"${menucontrols[@]}\" \"${menuitems[@]}\" $INNER_PADDINGS \"$FONT\" "
 
 separator=(

@@ -4,7 +4,7 @@ GRAPH_MARGIN=4
 GRAPH_WIDTH=140
 PERCENT_WIDTH=24
 
-GRAPH_SCRIPT=$RELPATH/plugins/graph/script.sh
+GRAPH_SCRIPT="export PATH=$PATH; $RELPATH/plugins/graph/script.sh"
 
 graph=(
   graph.color=$SUBTLE_MOON

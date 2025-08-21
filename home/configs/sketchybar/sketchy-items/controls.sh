@@ -6,7 +6,7 @@ done
 
 for item in "${menuitem[@]}"; do
 
-  SCRIPT_CLICK_MENU_ITEM=$RELPATH/plugins/controls/click.sh
+  SCRIPT_CLICK_MENU_ITEM="export PATH=$PATH; $RELPATH/plugins/controls/click.sh"
 
   alias=(
     drawing=off
