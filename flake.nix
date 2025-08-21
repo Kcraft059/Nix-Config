@@ -72,7 +72,7 @@
               ./config/darwin/default.nix
               {
                 darwin-system.window-man.enable = true;
-                darwin-system.status-bar.enable = true;
+                #darwin-system.status-bar.enable = true;
                 darwin-system.defaults.dock.enable = true;
                 darwin-system.defaults.wallpaper = ./ressources/wallhaven.png;
               }
@@ -94,6 +94,7 @@
                   imports = [
                     ./home/darwin/default.nix
                   ];
+                  home-config.status-bar.enable = true;
                   home-config.GUIapps.enable = true;
                   home-config.darwinApps.enable = true;
                 };
@@ -126,8 +127,7 @@
               ./config/darwin/default.nix
               {
                 common.stylix.enable = false;
-                darwin-system.window-man.enable = false;
-                darwin-system.status-bar.enable = true;
+                #darwin-system.status-bar.enable = true;
                 darwin-system.defaults.wallpaper = ./ressources/wallhaven.png;
               }
               ./packages/nix/default.nix
@@ -149,6 +149,7 @@
                   imports = [
                     ./home/darwin/default.nix
                   ];
+                  home-config.status-bar.enable = false;
                   home-config.GUIapps.enable = true;
                 };
               }

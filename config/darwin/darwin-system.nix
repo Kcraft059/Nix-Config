@@ -18,7 +18,6 @@ in
   options.darwin-system = {
     enable = lib.mkEnableOption "Whether to enable the Darwin-Config";
     window-man.enable = lib.mkEnableOption "Whether to enable the WM Service";
-    status-bar.enable = lib.mkEnableOption "Whether to enable the Custom Menu-Bar service Service";
     defaults.enable = lib.mkEnableOption "Whether to config of macos defaults";
     defaults.dock.enable = lib.mkEnableOption "Whether to config dock items";
     defaults.wallpaper = lib.mkOption {
@@ -86,7 +85,7 @@ in
       NSGlobalDomain = {
         AppleICUForce24HourTime = true;
         AppleInterfaceStyle = "Dark";
-        _HIHideMenuBar = config.darwin-system.status-bar.enable;
+        _HIHideMenuBar = config.home-manager.users.camille.programs.sketchybar.enable;
       };
       dock = lib.mkIf config.darwin-system.defaults.dock.enable {
         autohide = true; # Dock

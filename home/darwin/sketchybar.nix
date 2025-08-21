@@ -5,7 +5,11 @@
   ...
 }:
 {
-  config = lib.mkIf config.darwin-system.status-bar.enable {
+  options.home-config.status-bar = {
+    enable = lib.mkEnableOption "Whether to enable the Custom Menu-Bar service Service";
+  };
+
+  config = lib.mkIf config.home-config.status-bar.enable {
     home.packages = with pkgs; [
       sketchybar-app-font
     ];
@@ -13,15 +17,17 @@
       enable = true;
       configType = "bash";
       config = {
-        source = ./sketchybar;
+        source = ../configs/sketchybar;
         recursive = true;
       };
       extraPackages = with pkgs; [
-        yabai
+        menubar-cli
+        imagemagick
+        macmon
       ];
     };
     xdg.configFile = {
-      "sketchybar/icon_map.sh".source = "${pkgs.sketchybar-app-font}/bin/icon_map.sh";
+      "sketchybar/dyn-icon_map.sh".source = "${pkgs.sketchybar-app-font}/bin/icon_map.sh";
     };
   };
 }

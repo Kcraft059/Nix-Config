@@ -82,7 +82,8 @@
           "python@3.13"
           "glib"
         ]
-        ++ lib.optionals config.HMB.masApps.enable [ "mas" ];
+        ++ lib.optionals config.HMB.masApps.enable [ "mas" ]
+        ++ lib.optionals config.home-manager.users.camille.programs.sketchybar.enable [ "media-control" ] ;
 
       masApps =
         #lib.mkIf config.HMB.coreUtils { } //
