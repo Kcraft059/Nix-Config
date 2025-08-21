@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   pkgs,
   lib,
   ...
@@ -17,7 +18,7 @@
       enable = true;
       configType = "bash";
       config = {
-        source = ../configs/sketchybar;
+        source = "${inputs.sketchybar-config}";
         recursive = true;
       };
       extraPackages = with pkgs; [
