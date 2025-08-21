@@ -16,6 +16,11 @@
     ];
     programs.sketchybar = {
       enable = true;
+      service = rec {
+        enable = true;
+        errorLogFile = "/tmp/sketchybar.log";
+        outLogFile = errorLogFile;
+      };
       configType = "bash";
       config = {
         source = "${inputs.sketchybar-config}";
