@@ -14,22 +14,22 @@
     ./ghostty.nix
     ./zsh.nix
     ./quick-actions.nix
+    ./sketchybar.nix
   ];
 
   config = {
 
     home.stateVersion = "24.11";
 
-    home.packages =
-      [
-        pkgs.m-cli
-        pkgs.macmon
-        pkgs.zsh-powerlevel10k
-      ]
-      ++ lib.optionals (config.home-config.darwinApps.enable && config.home-config.GUIapps.enable) [
-        pkgs.krita-mac
-        pkgs.fancyfolder
-      ];
+    home.packages = [
+      pkgs.m-cli
+      pkgs.macmon
+      pkgs.zsh-powerlevel10k
+    ]
+    ++ lib.optionals (config.home-config.darwinApps.enable && config.home-config.GUIapps.enable) [
+      pkgs.krita-mac
+      pkgs.fancyfolder
+    ];
   };
 }
 /*
