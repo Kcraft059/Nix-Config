@@ -153,10 +153,10 @@ in
         ${lib.optionalString (wallpaper != "")
           ''osascript -e 'tell application "System Events" to set picture of every desktop to "${wallpaper}"' ''
         }
-        ${lib.optionalString (builtins.elem pkgs.openjdk23 config.environment.systemPackages) ''ln -sf ${pkgs.openjdk23}/zulu-23.jdk /Library/Java/JavaVirtualMachines ''}
-        ${lib.optionalString (builtins.elem pkgs.openjdk21 config.environment.systemPackages) ''ln -sf ${pkgs.openjdk21}/zulu-21.jdk /Library/Java/JavaVirtualMachines ''}
-        ${lib.optionalString (builtins.elem pkgsX86.openjdk17 config.environment.systemPackages) ''ln -sf ${pkgsX86.openjdk17}/zulu-17.jdk /Library/Java/JavaVirtualMachines ''}
-        ${lib.optionalString (builtins.elem pkgs.openjdk8 config.environment.systemPackages) ''ln -sf ${pkgs.openjdk8}/zulu-8.jdk /Library/Java/JavaVirtualMachines ''}
+        ${lib.optionalString (builtins.elem pkgs.openjdk23 config.environment.systemPackages) ''ln -sf ${pkgs.openjdk23}/Library/Java/JavaVirtualMachines/zulu-23.jdk /Library/Java/JavaVirtualMachines ''}
+        ${lib.optionalString (builtins.elem pkgs.openjdk21 config.environment.systemPackages) ''ln -sf ${pkgs.openjdk21}/Library/Java/JavaVirtualMachines/zulu-21.jdk /Library/Java/JavaVirtualMachines ''}
+        ${lib.optionalString (builtins.elem pkgsX86.openjdk17 config.environment.systemPackages) ''ln -sf ${pkgsX86.openjdk17}/Library/Java/JavaVirtualMachines/zulu-17.jdk /Library/Java/JavaVirtualMachines ''}
+        ${lib.optionalString (builtins.elem pkgs.openjdk8 config.environment.systemPackages) ''ln -sf ${pkgs.openjdk8}/Library/Java/JavaVirtualMachines/zulu-8.jdk /Library/Java/JavaVirtualMachines ''}
         ${lib.optionalString (builtins.elem pkgs.ffmpeg config.environment.systemPackages) ''ln -sf ${pkgs.ffmpeg.lib}/lib/* /usr/local/lib/ ''} 
         ${lib.optionalString config.darwin-system.defaults.enable ''
           defaults write -g NSColorSimulateHardwareAccent -bool YES 
