@@ -1,7 +1,6 @@
 #!/bin/bash
-export RELPATH=$(dirname $0);
-if ! [ -f "$RELPATH/dyn-icon_map.sh" ]; then 
-  source "$RELPATH/dyn-icon_map.sh"
+if ! [ -f ~/.config/sketchybar/dyn-icon_map.sh ]; then 
+  source ~/.config/sketchybar/dyn-icon_map.sh
 else 
   __icon_map() {
     case $1 in
