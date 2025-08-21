@@ -44,6 +44,11 @@
       flake = false;
     };
 
+    sketchybar-config = {
+      url = "github:Kcraft059/sketchybar";
+      flake = false;
+    };
+
     # hyprland.url = "github:hyprwm/Hyprland";
 
   };
