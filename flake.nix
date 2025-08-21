@@ -94,6 +94,7 @@
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
                 home-manager.backupFileExtension = "hmbackup";
+                home-manager.extraSpecialArgs = { inherit inputs; };
                 home-manager.users.camille = {
                   # {...} can be replaced by import ./path/to/module.nix
                   imports = [
