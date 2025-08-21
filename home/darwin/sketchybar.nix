@@ -13,6 +13,7 @@
   config = lib.mkIf config.home-config.status-bar.enable {
     home.packages = with pkgs; [
       sketchybar-app-font
+      menubar-cli
     ];
     programs.sketchybar = {
       enable = true;
