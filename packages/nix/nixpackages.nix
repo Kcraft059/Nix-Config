@@ -32,11 +32,9 @@ in
     nixpkgs.overlays =
       [ 
         inputs.nix-vscode-extensions.overlays.default
-      ]
-      ++ lib.optionals config.services.sketchybar.enable [ 
         (import ../../overlays/menubar-cli.nix)
-      ]
-      ++ lib.optionals config.NIXPKG.darwinApps.enable [
+      /* ]
+      ++ lib.optionals config.NIXPKG.darwinApps.enable [ */
         (import ../../overlays/fancy-folder.nix)
         (import ../../overlays/krita-mac.nix)
         #(import ./overlays/mas.nix)

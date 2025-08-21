@@ -25,7 +25,7 @@
         window_animation_duration = 0.22;
 
         menubar_opacity = 0.75;
-        external_bar = lib.optionalString config.services.sketchybar.enable "all:36:0"; # Only add if sketchybar
+        external_bar = lib.optionalString config.home-manager.users.camille.programs.sketchybar.enable "all:36:0"; # Only add if sketchybar
         top_padding = 8;
         bottom_padding = 8;
         left_padding = 8;
@@ -99,58 +99,6 @@
         '')}/bin/all-apps-quit
       '';
     };
-    services.sketchybar = lib.mkIf config.darwin-system.status-bar.enable {
-      # Keep as lib.mkIf enable option not working well.
-      enable = true;
-      config =
-        let
-          path = ./configs/sketchybar;
-        in
-        ''
-          #!/bin/bash
-          export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
-          ${path}/sketchybarrc
-        '';
-      /*
-        builtins.concatStringsSep "\n" [
-          (builtins.readFile ./configs/sketchy/colors.sh)
-          (builtins.readFile ./configs/sketchy/icon_map.sh)
-          (builtins.readFile ./configs/sketchy/add_separator.sh)
-          (builtins.readFile ./configs/sketchy/sketchybarrc)
-          (builtins.readFile ./configs/sketchy/sketchy-items/logo.sh)
-          (builtins.readFile ./configs/sketchy/sketchy-items/spaces.sh)
-          (builtins.readFile ./configs/sketchy/sketchy-items/frontapp.sh)
-          (builtins.readFile ./configs/sketchy/sketchy-items/menus.sh)
-          (builtins.readFile ./configs/sketchy/sketchy-items/calendar.sh)
-          (builtins.readFile ./configs/sketchy/sketchy-items/mic.sh)
-          (builtins.readFile ./configs/sketchy/sketchy-items/volume.sh)
-          (builtins.readFile ./configs/sketchy/sketchy-items/battery.sh)
-          (builtins.readFile ./configs/sketchy/sketchy-items/wifi.sh)
-          (builtins.readFile ./configs/sketchy/sketchy-items/display.sh)
-          (builtins.readFile ./configs/sketchy/sketchy-items/more-menu.sh)
-          (builtins.readFile ./configs/sketchy/sketchy-items/packages.sh)
-          (builtins.readFile ./configs/sketchy/sketchy-items/controls.sh)
-          (builtins.readFile ./configs/sketchy/sketchy-items/music.sh)
-          (builtins.readFile ./configs/sketchy/sketchy-items/cpu.sh)
-          (builtins.readFile ./configs/sketchy/sketchyset.sh)
-        ];
-      */
-    };
-
     # Additionnal config dependencies
-
-    environment.systemPackages = lib.optionals config.services.sketchybar.enable [
-      pkgs.menubar-cli
-      pkgs.imagemagick
-      pkgs.macmon
-    ];
-
-    homebrew.brews = lib.optionals config.services.sketchybar.enable [
-      "media-control"
-    ];
-
-    fonts.packages = lib.optionals config.services.sketchybar.enable [
-      pkgs.sketchybar-app-font
-    ];
   };
 }

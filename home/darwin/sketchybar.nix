@@ -1,0 +1,33 @@
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
+  options.home-config.status-bar = {
+    enable = lib.mkEnableOption "Whether to enable the Custom Menu-Bar service Service";
+  };
+
+  config = lib.mkIf config.home-config.status-bar.enable {
+    home.packages = with pkgs; [
+      sketchybar-app-font
+    ];
+    programs.sketchybar = {
+      enable = true;
+      configType = "bash";
+      config = {
+        source = ../configs/sketchybar;
+        recursive = true;
+      };
+      extraPackages = with pkgs; [
+        menubar-cli
+        imagemagick
+        macmon
+      ];
+    };
+    xdg.configFile = {
+      "sketchybar/dyn-icon_map.sh".source = "${pkgs.sketchybar-app-font}/bin/icon_map.sh";
+    };
+  };
+}
