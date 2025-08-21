@@ -25,7 +25,7 @@
         window_animation_duration = 0.22;
 
         menubar_opacity = 0.75;
-        external_bar = lib.optionalString config.services.sketchybar.enable "all:36:0"; # Only add if sketchybar
+        external_bar = lib.optionalString config.home-manager.users.camille.programs.sketchybar.enable "all:36:0"; # Only add if sketchybar
         top_padding = 8;
         bottom_padding = 8;
         left_padding = 8;
@@ -100,15 +100,5 @@
       '';
     };
     # Additionnal config dependencies
-
-    environment.systemPackages = lib.optionals config.services.sketchybar.enable [
-      pkgs.menubar-cli
-      pkgs.imagemagick
-      pkgs.macmon
-    ];
-
-    homebrew.brews = lib.optionals config.services.sketchybar.enable [
-      "media-control"
-    ];
   };
 }
