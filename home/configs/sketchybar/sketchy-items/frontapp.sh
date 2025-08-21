@@ -1,11 +1,7 @@
 #!/bin/bash
-SCRIPT_FRONT_APP=$RELPATH/plugins/frontapp/script.sh
+SCRIPT_FRONT_APP="export PATH=$PATH; $RELPATH/plugins/frontapp/script.sh"
 
-SCRIPT_CLICK_FRONT_APP="$(
-  cat <<'EOM'
-yabai -m window --toggle float
-EOM
-)"
+SCRIPT_CLICK_FRONT_APP="export PATH=$PATH; yabai -m window --toggle float"
 
 front_app=(
   background.color=$OVERLAY_MOON

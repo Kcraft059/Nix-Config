@@ -1,6 +1,6 @@
 #!/bin/bash
-SCRIPT_CLICK_BATTERY=$RELPATH/plugins/battery/click.sh
-SCRIPT_BATTERY=$RELPATH/plugins/battery/script.sh
+SCRIPT_CLICK_BATTERY="export PATH=$PATH; $RELPATH/plugins/battery/click.sh"
+SCRIPT_BATTERY="export PATH=$PATH; $RELPATH/plugins/battery/script.sh"
 
 battery=(
   script=$SCRIPT_BATTERY

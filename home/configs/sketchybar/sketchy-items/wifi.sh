@@ -1,7 +1,7 @@
 #!/bin/bash
-SCRIPT_WIFI="$RELPATH/plugins/wifi/script.sh"
+SCRIPT_WIFI="export PATH=$PATH; $RELPATH/plugins/wifi/script.sh"
 
-SCRIPT_CLICK_WIFI="$RELPATH/plugins/wifi/click.sh"
+SCRIPT_CLICK_WIFI="export PATH=$PATH; $RELPATH/plugins/wifi/click.sh"
 
 wifi=(
   script="$SCRIPT_WIFI"

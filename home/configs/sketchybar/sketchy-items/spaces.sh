@@ -1,7 +1,7 @@
 #!/bin/bash
-SCRIPT_SPACES="$RELPATH/plugins/spaces/script.sh"
+SCRIPT_SPACES="export PATH=$PATH; $RELPATH/plugins/spaces/script.sh"
 
-SCRIPT_SPACE_WINDOWS="$RELPATH/plugins/spaces/script-windows.sh"
+SCRIPT_SPACE_WINDOWS="export PATH=$PATH; $RELPATH/plugins/spaces/script-windows.sh"
 
 SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13" "14" "15")
 

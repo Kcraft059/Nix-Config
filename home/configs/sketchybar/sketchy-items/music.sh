@@ -10,15 +10,15 @@ else
   menubar=$RELPATH/menubar
 fi
 
-SCRIPT_MUSIC="$RELPATH/plugins/music/script-artwork.sh $ARTWORK_MARGIN $BAR_HEIGHT #SKETCHYBAR_MEDIASTREAM#"
+SCRIPT_MUSIC="export PATH=$PATH; $RELPATH/plugins/music/script-artwork.sh $ARTWORK_MARGIN $BAR_HEIGHT #SKETCHYBAR_MEDIASTREAM#"
 
-SCRIPT_CLICK_MUSIC_ARTWORK="export PATH=/opt/homebrew/bin/:$PATH; media-control toggle-play-pause"
+SCRIPT_CLICK_MUSIC_ARTWORK="export PATH=$PATH;  media-control toggle-play-pause"
 
-SCRIPT_MUSIC_TITLE="$RELPATH/plugins/music/script-title.sh"
+SCRIPT_MUSIC_TITLE="export PATH=$PATH; $RELPATH/plugins/music/script-title.sh"
 
-SCRIPT_CLICK_MUSIC_TITLE="$menubar -s \"Control Center,NowPlaying\""
+SCRIPT_CLICK_MUSIC_TITLE="export PATH=$PATH; $menubar -s \"Control Center,NowPlaying\""
 
-SCRIPT_CENTER_SEP="$RELPATH/plugins/music/script-separator.sh"
+SCRIPT_CENTER_SEP="export PATH=$PATH; $RELPATH/plugins/music/script-separator.sh"
 
 music_artwork=(
   drawing=off

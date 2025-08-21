@@ -1,6 +1,6 @@
 #!/bin/bash
-SCRIPT_CLICK_DISPLAY=$RELPATH/plugins/display/click.sh
-SCRIPT_DISPLAY=$RELPATH/plugins/display/script.sh
+SCRIPT_CLICK_DISPLAY="export PATH=$PATH; $RELPATH/plugins/display/click.sh"
+SCRIPT_DISPLAY="export PATH=$PATH; $RELPATH/plugins/display/script.sh"
 
 # betterdisplaycli get --identifiers --devicetype=DisplayGroup
 

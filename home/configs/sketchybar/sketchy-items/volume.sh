@@ -1,7 +1,7 @@
 #!/bin/bash
-SCRIPT_VOLUME_CLICK="$RELPATH/plugins/volume/click.sh"
+SCRIPT_VOLUME_CLICK="export PATH=$PATH; $RELPATH/plugins/volume/click.sh"
 
-SCRIPT_VOLUME="$RELPATH/plugins/volume/script.sh"
+SCRIPT_VOLUME="export PATH=$PATH; $RELPATH/plugins/volume/script.sh"
 
 volume_slider=(
   script="$SCRIPT_VOLUME"
