@@ -29,6 +29,7 @@
       pkgs.speedtest-go
       pkgs.mtr
       pkgs.eza
+      pkgs.mcrcon
       # pkgs.devenv maybe later see https://devenv.sh - alternative to nix-shells
 
     ] ++ lib.optionals config.home-config.GUIapps.enable [
