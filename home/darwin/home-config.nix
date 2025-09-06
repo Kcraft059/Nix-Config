@@ -15,6 +15,7 @@
     ./zsh.nix
     ./quick-actions.nix
     ./sketchybar.nix
+    ./app-defaults.nix
   ];
 
   config = {

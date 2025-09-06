@@ -40,6 +40,7 @@
         yabai -m rule --add app="^Fancy Folder$" manage=off
         yabai -m rule --add app="^Alcove$" manage=off
         yabai -m rule --add app="^Raycast$" manage=off
+        yabai -m rule --add app="^DockDoor$" manage=off
         yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
         #borders active_color=0xffc4a7e7 hidpi=on width=4.0 &
         sudo yabai --load-sa
