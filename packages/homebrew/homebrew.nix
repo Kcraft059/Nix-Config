@@ -53,6 +53,7 @@
           "steamcmd"
           "gog-galaxy"
           "dockdoor"
+          "appcleaner"
           #"logitech-g-hub"
           #"kegworks"
           #"binary-ninja-free"
@@ -98,7 +99,6 @@
           Testflight = 899247664;
           prettyJsonSafari = 1445328303;
           whatsapp = 310633997;
-          Usage = 1561788435;
           KeyNote = 409183694;
         };
 
