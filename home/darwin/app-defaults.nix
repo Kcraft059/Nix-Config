@@ -5,20 +5,10 @@
   ...
 }:
 {
-
   home.file =
     lib.mapAttrs'
       (name: value: lib.nameValuePair ("/Users/camille/Library/Preferences/" + name) (value))
       {
-        "test".text = "test";
-        "glip.plist" = "b";
+        "com.apple.screencapture.plist".source = home/configs/defaults-plists/com.apple.screencapture.plist;
       };
 }
-/*
-  {
-
-    { x = "a"; y = "b"; }
-
-    home.file."/Users/camille/Library/Preferences/"
-  }
-*/
