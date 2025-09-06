@@ -31,6 +31,7 @@
         mvllow.rose-pine
         bmewburn.vscode-intelephense-client
         mkhl.shfmt
+        dnicolson.binary-plist
         /* SPGoding.datapack-language-server # Not added yet to the packages repo */
       ];
     };
