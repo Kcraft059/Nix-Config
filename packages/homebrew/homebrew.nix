@@ -52,7 +52,9 @@
           "google-chrome" # Ewww… WebHID Only
           "steamcmd"
           "gog-galaxy"
-          # "kegworks"
+          "dockdoor"
+          #"logitech-g-hub"
+          #"kegworks"
           #"binary-ninja-free"
         ];
       brews =

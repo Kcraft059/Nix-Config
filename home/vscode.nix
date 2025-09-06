@@ -23,12 +23,15 @@
         "editor.detectIndentation" = false;
         "editor.tabSize" = 2;
         "git.suggestSmartCommit" = true;
+        "shfmt.executablePath" = "${pkgs.shfmt}/bin/shfmt";
       };
       extensions = with pkgs.vscode-marketplace; [
         # To use, needs to overlay inputs.nix-vscode-extensions.overlays.default
         jnoortheen.nix-ide
         mvllow.rose-pine
         bmewburn.vscode-intelephense-client
+        mkhl.shfmt
+        /* SPGoding.datapack-language-server # Not added yet to the packages repo */
       ];
     };
   };
