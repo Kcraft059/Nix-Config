@@ -79,7 +79,7 @@
                 darwin-system.window-man.enable = true;
                 #darwin-system.status-bar.enable = true;
                 darwin-system.defaults.dock.enable = true;
-                darwin-system.defaults.wallpaper = ./ressources/wallhaven.png;
+                darwin-system.defaults.wallpaper = ./ressources/Lake_Aurora.png;
               }
               ./packages/nix/default.nix
               {

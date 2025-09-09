@@ -37,6 +37,7 @@ in
       ++ lib.optionals config.NIXPKG.darwinApps.enable [ */
         (import ../../overlays/fancy-folder.nix)
         (import ../../overlays/krita-mac.nix)
+        (import ../../overlays/backdrop.nix)
         #(import ./overlays/mas.nix)
         #(import ../../overlays/smc-cli.nix)
         (import ../../overlays/battery-toolkit.nix)
