@@ -13,7 +13,7 @@ in
     lib.optionalString config.home-config.GUIapps.enable (toKeyValue
       { mkKeyValue = mkKeyValueDefault { } " = "; }
       {
-        theme = "dark:rose-pine-moon,light:rose-pine-dawn";
+        theme = "dark:Rose Pine Moon,light:Rose Pine Dawn";
         background-blur = 15;
         background-opacity = 0.85;
         #window-step-resize = true;
@@ -21,9 +21,9 @@ in
         window-width = 109;
         window-padding-x = 5;
         quit-after-last-window-closed = true;
-        macos-icon = "custom-style";
-        macos-icon-ghost-color = "#F6C177";
-        macos-icon-screen-color = "#232137";
+        #macos-icon = "custom-style";
+        #macos-icon-ghost-color = "#F6C177";
+        #macos-icon-screen-color = "#232137";
         #keybind = global:cmd+i=change_title_prompt
         keybind = "global:cmd+opt+ctrl+space=toggle_quick_terminal";
         quick-terminal-position = "center";
