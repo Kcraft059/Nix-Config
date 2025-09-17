@@ -20,11 +20,12 @@
         lib.optionals config.HMB.coreUtils [
           "hex-fiend"
           #"visual-studio-code"
-          "ghostty"
+          #"ghostty"
+          "ghostty@tip"
           "font-sf-pro"
         ]
         ++ lib.optionals config.HMB.brews.enable [
-          "macfuse"
+          "macfuse@dev"
         ]
         ++ lib.optionals config.HMB.casks.enable [
           "vlc"
@@ -52,7 +53,7 @@
           "google-chrome" # Ewww… WebHID Only
           "steamcmd"
           "gog-galaxy"
-          "dockdoor"
+          #"dockdoor"
           "appcleaner"
           #"logitech-g-hub"
           #"kegworks"

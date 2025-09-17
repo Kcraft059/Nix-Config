@@ -70,6 +70,7 @@ in
         pkgs.mkalias
         pkgs.mas
         pkgs.battery-toolkit
+        pkgs.utm
       ]
       ++ lib.optionals config.NIXPKG.linuxApps.enable [
         pkgs.sshfs

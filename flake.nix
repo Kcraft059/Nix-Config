@@ -143,13 +143,14 @@
               }
               ./packages/homebrew/default.nix
               {
-                HMB.brews.enable = false;
+                HMB.brews.enable = true;
                 HMB.casks.enable = false;
               }
               home-manager.darwinModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
+                home-manager.backupFileExtension = "hmbackup";
                 home-manager.users.camille = {
                   # {...} can be replaced by import ./path/to/module.nix
                   imports = [
