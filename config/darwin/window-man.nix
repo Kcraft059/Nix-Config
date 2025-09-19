@@ -25,12 +25,12 @@
         window_animation_duration = 0.22;
 
         menubar_opacity = 0.75;
-        external_bar = lib.optionalString config.home-manager.users.camille.programs.sketchybar.enable "all:36:0"; # Only add if sketchybar
-        top_padding = 8;
-        bottom_padding = 8;
-        left_padding = 8;
-        right_padding = 8;
-        window_gap = 8;
+        external_bar = lib.optionalString config.home-manager.users.camille.programs.sketchybar.enable "all:38:0"; # Only add if sketchybar
+        top_padding = 6;
+        bottom_padding = 6;
+        left_padding = 6;
+        right_padding = 6;
+        window_gap = 6;
       };
       extraConfig = ''
         yabai -m rule --add app="^System Settings$" manage=off
