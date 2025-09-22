@@ -90,11 +90,15 @@
                 HMB.masApps.enable = true; # mdutil #check for spotlight indexing
               }
               home-manager.darwinModules.home-manager
-              {
+              ({ config, ... }: {  # Call as a function to prevent
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
                 home-manager.backupFileExtension = "hmbackup";
-                home-manager.extraSpecialArgs = { inherit inputs; };
+                home-manager.extraSpecialArgs = {
+                  inherit inputs;
+                  systemPackages = config.environment.systemPackages;
+                  systemFonts = config.fonts.packages;
+                };
                 home-manager.users.camille = {
                   # {...} can be replaced by import ./path/to/module.nix
                   imports = [
@@ -104,7 +108,7 @@
                   home-config.GUIapps.enable = true;
                   home-config.darwinApps.enable = true;
                 };
-              }
+              })
               nix-homebrew.darwinModules.nix-homebrew
               {
                 nix-homebrew = {
