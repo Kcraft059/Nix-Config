@@ -36,11 +36,12 @@
     };
     xdg.configFile = {
       "sketchybar/dyn-icon_map.sh".source = "${pkgs.sketchybar-app-font}/bin/icon_map.sh";
-      "sketchybar/local-config.sh".text = ''
-        NOTCH_WIDTH=200
+      "sketchybar/config.sh".text = ''
+        NOTCH_WIDTH=400
         MUSIC_INFO_WIDTH=100
+        COLOR_SCHEME="catppuccin-mocha"
       '';
     };
-    home.sessionVariables.SKETCHYBAR_CONFIG = "$HOME/.config/sketchybar/local-config.sh";
+    #home.sessionVariables.SKETCHYBAR_CONFIG = "$HOME/.config/sketchybar/local-config.sh";
   };
 }
