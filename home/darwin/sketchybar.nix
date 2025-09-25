@@ -39,7 +39,7 @@
       "sketchybar/config.sh".text = ''
         #NOTCH_WIDTH=180
         MUSIC_INFO_WIDTH=100
-        COLOR_SCHEME="catppuccin-mocha"
+        #COLOR_SCHEME="catppuccin-mocha"
       '';
     };
     #home.sessionVariables.SKETCHYBAR_CONFIG = "$HOME/.config/sketchybar/local-config.sh";
