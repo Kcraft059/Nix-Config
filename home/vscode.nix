@@ -6,6 +6,8 @@
   ...
 }:
 {
+  stylix.targets.vscode.enable = false;
+
   programs.vscode = {
     package = pkgs.vscode;
     enable = config.home-config.GUIapps.enable;
@@ -17,12 +19,12 @@
               "JetBrainsMono Nerd Font";
         in
         {
-          "workbench.colorTheme" = lib.mkForce "Rosé Pine Moon";
-          "editor.fontSize" = lib.mkForce 13.0;
-          "debug.console.fontSize" = lib.mkForce 13.0;
-          "markdown.preview.fontSize" = lib.mkForce 13.0;
-          "scm.inputFontSize" = lib.mkForce 13.0;
-          "terminal.integrated.fontSize" = lib.mkForce 13.0;
+          "workbench.colorTheme" = "Rosé Pine Moon";
+          "editor.fontSize" = 13.0;
+          "debug.console.fontSize" = 13.0;
+          "markdown.preview.fontSize" = 13.0;
+          "scm.inputFontSize" = 13.0;
+          "terminal.integrated.fontSize" = 13.0;
           "git.openRepositoryInParentFolders" = "always";
           "explorer.confirmDragAndDrop" = false;
           "git.confirmSync" = false;
