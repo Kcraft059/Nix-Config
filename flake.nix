@@ -18,7 +18,7 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew"; # Nix homebrew
-    
+
     LazyVim = {
       url = "github:matadaniel/LazyVim-module";
       inputs.nixpkgs.follows = "nixpkgs";
