@@ -52,6 +52,7 @@ in
       ]
       ++ lib.optionals config.NIXPKG.additionnals.enable [
         #pkgs.php
+        pkgs.bindfs
         pkgs.ffmpeg
         pkgs.openjdk8
         pkgs.openjdk23

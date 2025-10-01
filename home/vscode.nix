@@ -12,7 +12,9 @@
     profiles.default = {
       userSettings =
         let
-          font = lib.optionalString (builtins.elem pkgs.nerd-fonts.jetbrains-mono systemFonts) lib.mkForce "JetBrainsMono Nerd Font";
+          font =
+            lib.optionalString (builtins.elem pkgs.nerd-fonts.jetbrains-mono systemFonts) lib.mkForce
+              "JetBrainsMono Nerd Font";
         in
         {
           "workbench.colorTheme" = lib.mkForce "Rosé Pine Moon";
@@ -35,10 +37,12 @@
           "scm.inputFontFamily" = font;
           "editor.inlayHints.fontFamily" = font;
           "editor.inlineSuggest.fontFamily" = font;
+          "workbench.startupEditor" = "none";
         };
       extensions = with pkgs.vscode-marketplace; [
         # To use, needs to overlay inputs.nix-vscode-extensions.overlays.default
         jnoortheen.nix-ide
+        ms-vscode.cpptools-extension-pack
         mvllow.rose-pine
         bmewburn.vscode-intelephense-client
         mkhl.shfmt

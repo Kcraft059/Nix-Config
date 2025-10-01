@@ -14,6 +14,7 @@
     ./alacritty.nix
     ./ssh.nix
     ./vscode.nix
+    ./lazy-vim.nix
   ];
 
   config = {

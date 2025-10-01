@@ -64,6 +64,7 @@
         lib.optionals config.HMB.brews.enable [
           #"powerlevel10k"
           "betterdisplaycli"
+          "dyld-shared-cache-extractor"
           "ext4fuse-mac" # sudo ext4fuse <diskXsX> <mountPoint> -o allow_other -o umask=000
           "ntfs-3g-mac" # "libunistring" "gettext"
           "sshfs-mac" # sshfs <user>@<host>:<dir> <mountPoint> -o identityFile=<pathToSSH-Key>
