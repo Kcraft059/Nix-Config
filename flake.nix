@@ -18,6 +18,11 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew"; # Nix homebrew
+    
+    LazyVim = {
+      url = "github:matadaniel/LazyVim-module";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
@@ -41,6 +46,10 @@
     };
     homebrew-kegworks = {
       url = "github:Kegworks-App/homebrew-kegworks";
+      flake = false;
+    };
+    homebrew-keith = {
+      url = "github:keith/homebrew-formulae";
       flake = false;
     };
 
@@ -90,25 +99,29 @@
                 HMB.masApps.enable = true; # mdutil #check for spotlight indexing
               }
               home-manager.darwinModules.home-manager
-              ({ config, ... }: {  # Call as a function to prevent
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.backupFileExtension = "hmbackup";
-                home-manager.extraSpecialArgs = {
-                  inherit inputs;
-                  systemPackages = config.environment.systemPackages;
-                  systemFonts = config.fonts.packages;
-                };
-                home-manager.users.camille = {
-                  # {...} can be replaced by import ./path/to/module.nix
-                  imports = [
-                    ./home/darwin/default.nix
-                  ];
-                  home-config.status-bar.enable = true;
-                  home-config.GUIapps.enable = true;
-                  home-config.darwinApps.enable = true;
-                };
-              })
+              (
+                { config, ... }:
+                {
+                  # Call as a function to access input recursively
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.backupFileExtension = "hmbackup";
+                  home-manager.extraSpecialArgs = {
+                    inherit inputs;
+                    systemPackages = config.environment.systemPackages;
+                    systemFonts = config.fonts.packages;
+                  };
+                  home-manager.users.camille = {
+                    # {...} can be replaced by import ./path/to/module.nix
+                    imports = [
+                      ./home/darwin/default.nix
+                    ];
+                    home-config.status-bar.enable = true;
+                    home-config.GUIapps.enable = true;
+                    home-config.darwinApps.enable = true;
+                  };
+                }
+              )
               nix-homebrew.darwinModules.nix-homebrew
               {
                 nix-homebrew = {
@@ -123,6 +136,7 @@
                     "gromgit/homebrew-fuse" = inputs.homebrew-fuse;
                     "waydabber/homebrew-betterdisplay" = inputs.homebrew-betterdisplay;
                     "Kegworks-App/homebrew-kegworks" = inputs.homebrew-kegworks;
+                    "keith/homebrew-formulae" = inputs.homebrew-keith;
                   };
                 };
               }
@@ -178,6 +192,7 @@
                     "gromgit/homebrew-fuse" = inputs.homebrew-fuse;
                     "waydabber/homebrew-betterdisplay" = inputs.homebrew-betterdisplay;
                     "Kegworks-App/homebrew-kegworks" = inputs.homebrew-kegworks;
+                    "keith/homebrew-formulae" = inputs.homebrew-keith;
                   };
                 };
               }
