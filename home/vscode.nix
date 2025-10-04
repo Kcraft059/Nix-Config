@@ -40,6 +40,7 @@
           "editor.inlayHints.fontFamily" = font;
           "editor.inlineSuggest.fontFamily" = font;
           "workbench.startupEditor" = "none";
+          "chat.disableAIFeatures" = true;
         };
       extensions = with pkgs.vscode-marketplace; [
         # To use, needs to overlay inputs.nix-vscode-extensions.overlays.default

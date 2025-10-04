@@ -58,6 +58,11 @@
       flake = false;
     };
 
+    wifi-unredactor = {
+      url = "github:noperator/wifi-unredactor";
+      flake = false;
+    };
+
     # hyprland.url = "github:hyprwm/Hyprland";
 
   };

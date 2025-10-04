@@ -48,12 +48,11 @@
         DEST="$PWD"
         (cd "$mnt"; cp -a !(Applications) "$DEST/")
       '';
-      installPhase =
-        ''
-          mkdir -p "$out/Applications/${appname}.app"
-          cp -pR * "$out/Applications/${appname}.app"
-        ''
-        + postInstall;
+      installPhase = ''
+        mkdir -p "$out/Applications/${appname}.app"
+        cp -pR * "$out/Applications/${appname}.app"
+      ''
+      + postInstall;
       meta = with lib; {
         description = description;
         homepage = homepage;
