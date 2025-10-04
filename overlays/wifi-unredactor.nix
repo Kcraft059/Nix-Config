@@ -43,7 +43,7 @@ self: super:
           exit 1
         fi
         
-        rm $MACOS_DIR/wifi-unredactor.swift
+        rm "$MACOS_DIR/wifi-unredactor.swift"
 
         cd ..
 
@@ -54,12 +54,12 @@ self: super:
         mkdir -p "$out/bin/"
         cp -pR ./source/${appname}.app "$out/Applications/"
         
-        cat <<EOF > $out/bin/wifi-unredactor
+        cat <<EOF > "$out/bin/wifi-unredactor"
         #!/bin/bash
         $out/Applications/${appname}.app/Contents/MacOS/wifi-unredactor
         EOF
 
-        chmod +x $out/bin/wifi-unredactor
+        chmod +x "$out/bin/wifi-unredactor"
       '';
 
       meta = with lib; {
