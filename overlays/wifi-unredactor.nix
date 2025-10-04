@@ -1,13 +1,5 @@
 { inputs }:
 self: super:
-/*
-  let
-    packageHelper = import ./utils/app-install.nix {
-      pkgs = super;
-      lib = super.lib;
-    };
-  in
-*/
 {
   wifi-unredactor =
     with super;
