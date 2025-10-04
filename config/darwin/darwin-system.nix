@@ -147,7 +147,7 @@ in
         wallpaper = config.darwin-system.defaults.wallpaper;
       in
       lib.mkAfter ''
-        echo -ne "\033[38;5;5mRunning postActivation scripts…\033[0m " >&2
+        echo -ne "\033[38;5;5mRunning postActivation scripts…\033[0m\n" >&2
         mdutil -i off -V /nix # Ensure spotlight is turned off for nix-store
         
         ${lib.optionalString (wallpaper != "")

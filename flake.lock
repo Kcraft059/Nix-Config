@@ -471,17 +471,18 @@
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixpkgs": "nixpkgs_2",
         "sketchybar-config": "sketchybar-config",
-        "stylix": "stylix"
+        "stylix": "stylix",
+        "wifi-unredactor": "wifi-unredactor"
       }
     },
     "sketchybar-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1759334848,
-        "narHash": "sha256-8kRkL1e7zVOOp8IY41b29FNYCB6TjGC9sOjcbDhj8yo=",
+        "lastModified": 1759338511,
+        "narHash": "sha256-FWcp+GXtFTV8Hfc8/w7ZHR2OIaNQlWs+kepQTdeSylU=",
         "owner": "Kcraft059",
         "repo": "sketchybar-config",
-        "rev": "255d7069fc88fa4eb0d62c287c3ccd51c23b90e8",
+        "rev": "d4cf5ae88a15ddab3ab53498961914e6a1909d2f",
         "type": "github"
       },
       "original": {
@@ -645,6 +646,22 @@
       "original": {
         "owner": "tinted-theming",
         "repo": "base16-zed",
+        "type": "github"
+      }
+    },
+    "wifi-unredactor": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1738247696,
+        "narHash": "sha256-mPYI60m7PACQ6xItvTshDJBwfVTtm4N/UeIvEthgci8=",
+        "owner": "noperator",
+        "repo": "wifi-unredactor",
+        "rev": "c4acc3e1f8093c6a365195f1240546b342aa0f56",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noperator",
+        "repo": "wifi-unredactor",
         "type": "github"
       }
     }

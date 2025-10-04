@@ -31,6 +31,7 @@
         menubar-cli
         imagemagick
         macmon
+        wifi-unredactor
       ];
 
     };
