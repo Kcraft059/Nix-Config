@@ -61,9 +61,6 @@ self: super:
 
         chmod +x $out/bin/wifi-unredactor
       '';
-      #mkdir -p "$out/Applications/${appname}.app"
-      #cp -pR * "$out/Applications/${appname}.app"
-      #+ postInstall;
 
       meta = with lib; {
         description = description;
