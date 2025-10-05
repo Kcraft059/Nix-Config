@@ -53,6 +53,8 @@
       flake = false;
     };
 
+    ## Custom sources
+
     sketchybar-config = {
       url = "github:Kcraft059/sketchybar-config";
       flake = false;
