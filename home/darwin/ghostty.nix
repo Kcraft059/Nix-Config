@@ -13,7 +13,7 @@ in
     lib.optionalString config.home-config.GUIapps.enable (toKeyValue
       { mkKeyValue = mkKeyValueDefault { } " = "; }
       {
-        theme = "dark:Rose Pine Moon,light:Rose Pine Dawn";
+        theme = "dark:rose-pine-moon,light:rose-pine-dawn";
         background-blur = 15;
         background-opacity = 0.85;
         #window-step-resize = true;
