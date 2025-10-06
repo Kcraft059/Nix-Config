@@ -39,8 +39,12 @@
       "sketchybar/dyn-icon_map.sh".source = "${pkgs.sketchybar-app-font}/bin/icon_map.sh";
       "sketchybar/config.sh".text = ''
         #NOTCH_WIDTH=180
-        MUSIC_INFO_WIDTH=100
         #COLOR_SCHEME="catppuccin-mocha"
+        MUSIC_INFO_WIDTH=100
+        MENU_CONTROLS=(
+        	"Control__Center,Bluetooth"
+        	"Control__Center,FocusModes"
+        )
       '';
     };
     #home.sessionVariables.SKETCHYBAR_CONFIG = "$HOME/.config/sketchybar/local-config.sh";
