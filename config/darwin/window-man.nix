@@ -102,4 +102,91 @@
     };
     # Additionnal config dependencies
   };
+  /*
+    services.aerospace = {
+          enable = false;
+          settings = {
+            enable-normalization-flatten-containers = true;
+            enable-normalization-opposite-orientation-for-nested-containers = true;
+            accordion-padding = 30;
+            default-root-container-layout = "tiles";
+            default-root-container-orientation = "auto";
+            on-focused-monitor-changed = [ "move-mouse monitor-lazy-center" ];
+            automatically-unhide-macos-hidden-apps = false;
+            gaps = {
+              outer.left = 8;
+              outer.bottom = 8;
+              outer.top = 8;
+              outer.right = 8;
+              inner.horizontal = 8;
+              inner.vertical = 8;
+            };
+            mode.main.binding =
+              let
+                wbinds = [
+                  {
+                    s = "1";
+                    w = "1";
+                  }
+                  {
+                    s = "2";
+                    w = "2";
+                  }
+                  {
+                    s = "3";
+                    w = "3";
+                  }
+                  {
+                    s = "4";
+                    w = "4";
+                  }
+                  {
+                    s = "5";
+                    w = "5";
+                  }
+                ];
+              in
+              builtins.listToAttrs (
+                (builtins.map (x: {
+                  name = "alt-${x.s}";
+                  value = "workspace ${x.w}";
+                }) wbinds)
+                ++ (builtins.map (x: {
+                  name = "alt-shift-${x.s}";
+                  value = "move-node-to-workspace ${x.w}";
+                }) wbinds)
+              )
+              // {
+                alt-j = "focus left";
+                alt-k = "focus down";
+                alt-i = "focus up";
+                alt-l = "focus right";
+                ctrl-alt-shift-j = [
+                  "join-with left"
+                  "mode main"
+                ];
+                ctrl-alt-shift-k = [
+                  "join-with down"
+                  "mode main"
+                ];
+                ctrl-alt-shift-i = [
+                  "join-with up"
+                  "mode main"
+                ];
+                ctrl-alt-shift-l = [
+                  "join-with right"
+                  "mode main"
+                ];
+                alt-shift-j = "move left";
+                alt-shift-k = "move down";
+                alt-shift-i = "move up";
+                alt-shift-l = "move right";
+                alt-slash = "layout tiles horizontal vertical"; # ( + = )
+                alt-comma = "layout accordion horizontal vertical"; # ( . ; )
+                alt-tab = "workspace-back-and-forth";
+                ctrl-alt-cmd-esc = "enable off";
+              };
+          };
+        };
+  */
 }
