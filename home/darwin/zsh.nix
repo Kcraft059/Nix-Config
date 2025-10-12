@@ -22,7 +22,8 @@
 
           setopt interactivecomments
           
-          alias ll='eza --long --header --git --icons=auto'
+          alias ll="eza --long --header --git --icons=auto"
+          alias fzf-p="fzf --preview='bat --color=always --style=numbers {}' --bind 'focus:transform-header:file --brief {}'"
         '';
     sessionVariables = {
       EDITOR = "${pkgs.neovim}/bin/nvim";

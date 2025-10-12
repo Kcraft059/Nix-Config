@@ -22,10 +22,11 @@
         #source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
         # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-        
+
         #[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-        alias ll='eza --long --header --git --icons=auto'
+        alias ll="eza --long --header --git --icons=auto"
+        alias fzf-p="fzf --preview='bat --color=always --style=numbers {}' --bind 'focus:transform-header:file --brief {}'"
       '';
     sessionVariables = {
       EDITOR = "${pkgs.neovim}/bin/nvim";

@@ -33,7 +33,8 @@
         speedtest-go
         mtr
         eza
-        #fzf
+        posting 
+        # gum for clis
         # pkgs.mcrcon
         # pkgs.devenv maybe later see https://devenv.sh - alternative to nix-shells
 
