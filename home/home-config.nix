@@ -15,27 +15,32 @@
     ./ssh.nix
     ./vscode.nix
     ./lazy-vim.nix
+    ./fzf.nix
   ];
 
   config = {
-    home.packages = [
-      # pkgs.atuin
-      pkgs.nixfmt-rfc-style
-      pkgs.imagemagick
-      pkgs.yt-dlp
-      pkgs.bat
-      pkgs.mailsy
-      pkgs.tree
-      pkgs.htop
-      pkgs.speedtest-go
-      pkgs.mtr
-      pkgs.eza
-      # pkgs.mcrcon
-      # pkgs.devenv maybe later see https://devenv.sh - alternative to nix-shells
+    home.packages =
+      with pkgs;
+      [
+        # pkgs.atuin
+        nixfmt-rfc-style
+        imagemagick
+        yt-dlp
+        bat
+        mailsy
+        tree
+        htop
+        speedtest-go
+        mtr
+        eza
+        #fzf
+        # pkgs.mcrcon
+        # pkgs.devenv maybe later see https://devenv.sh - alternative to nix-shells
 
-    ] ++ lib.optionals config.home-config.GUIapps.enable [
-      #pkgs.alacritty
-    ];
+      ]
+      ++ lib.optionals config.home-config.GUIapps.enable [
+        #pkgs.alacritty
+      ];
   };
 }
 /*
