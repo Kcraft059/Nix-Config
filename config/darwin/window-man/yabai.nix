@@ -18,6 +18,7 @@ let
 
   # Visual options
   global-padding = common.global-padding;
+  barHeight = common.barHeight;
 
   # Final eval
   yabai-final-config = non-managed-apps-config;
@@ -45,7 +46,7 @@ in
         window_animation_duration = 0.22;
 
         menubar_opacity = 0.75;
-        external_bar = lib.optionalString config.home-manager.users.camille.programs.sketchybar.enable "all:38:0"; # Only add if sketchybar
+        external_bar = "all:${toString barHeight}:0"; # Only add if sketchybar
         top_padding = global-padding;
         bottom_padding = global-padding;
         left_padding = global-padding;

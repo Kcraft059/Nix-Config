@@ -13,8 +13,7 @@ let
   enable-aerospace = common.enable-aerospace && common.enable-wm;
 
   # Visual
-  barHeight =
-    if config.home-manager.users.camille.programs.sketchybar.enable then common.barHeight else 0;
+  barHeight = common.barHeight;
   topGap = barHeight + common.global-padding;
   global-padding = common.global-padding;
 
