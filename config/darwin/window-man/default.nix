@@ -6,7 +6,7 @@
     ./skhd.nix
   ];
 
-  config.darwin-system.window-man = {
+  options.darwin-system.window-man = {
     enable = lib.mkEnableOption "Whether to enable the WM Service";
     type = lib.mkOption {
       type = lib.types.str;
@@ -17,6 +17,8 @@
       '';
     };
   };
-  
-  darwin-system.window-man.enable = lib.mkDefault false;
+
+  config = {
+    darwin-system.window-man.enable = lib.mkDefault false;
+  };
 }
