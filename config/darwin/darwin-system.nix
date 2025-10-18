@@ -17,18 +17,19 @@ in
 {
   options.darwin-system = {
     enable = lib.mkEnableOption "Whether to enable the Darwin-Config";
-    window-man.enable = lib.mkEnableOption "Whether to enable the WM Service";
-    defaults.enable = lib.mkEnableOption "Whether to config of macos defaults";
-    defaults.dock.enable = lib.mkEnableOption "Whether to config dock items";
-    defaults.wallpaper = lib.mkOption {
-      type = lib.types.path;
-      default = "";
-      example = lib.literalExpression ''/ressources/wallpaper.png'';
-      description = ''
-        Set the default wallpaper
-      '';
+    defaults = {
+      enable = lib.mkEnableOption "Whether to config of macos defaults";
+      dock.enable = lib.mkEnableOption "Whether to config dock items";
+      wallpaper = lib.mkOption {
+        type = lib.types.path;
+        default = "";
+        example = lib.literalExpression ''/ressources/wallpaper.png'';
+        description = ''
+          Set the default wallpaper
+        '';
+      };
     };
-
+    # window-man is defined at ./window-man/defaults.nix
   };
 
   config = lib.mkIf config.darwin-system.enable {
@@ -149,7 +150,7 @@ in
       lib.mkAfter ''
         echo -ne "\033[38;5;5mRunning postActivation scripts…\033[0m\n" >&2
         mdutil -i off -V /nix # Ensure spotlight is turned off for nix-store
-        
+
         ${lib.optionalString (wallpaper != "")
           ''osascript -e 'tell application "System Events" to set picture of every desktop to "${wallpaper}"' ''
         }

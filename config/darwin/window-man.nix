@@ -5,6 +5,7 @@
   ...
 }:
 {
+
   config = {
     services.yabai = {
       enable = config.darwin-system.window-man.enable;
