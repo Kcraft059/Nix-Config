@@ -94,7 +94,7 @@
               {
                 darwin-system.window-man = {
                   enable = true;
-                  type = "aerospace";
+                  type = "yabai";
                 };
                 #darwin-system.status-bar.enable = true;
                 darwin-system.defaults.dock.enable = true;

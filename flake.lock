@@ -478,11 +478,11 @@
     "sketchybar-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1760174949,
-        "narHash": "sha256-ClRkGXn5j9Z5p68KF2bv0cK0XfNXZbJ6aLYVBbBqyjA=",
+        "lastModified": 1760818833,
+        "narHash": "sha256-6XE72rziOaunURZk/HYwFgXuXCjb+f1y0iSMnduXdh8=",
         "owner": "Kcraft059",
         "repo": "sketchybar-config",
-        "rev": "217dba9d746bf694ca61f23726d3785ef397f3ca",
+        "rev": "6839afecee722033356a078360f9b29aff627f53",
         "type": "github"
       },
       "original": {
