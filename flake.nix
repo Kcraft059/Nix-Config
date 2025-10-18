@@ -92,7 +92,10 @@
             modules = [
               ./config/darwin/default.nix
               {
-                darwin-system.window-man.enable = true;
+                darwin-system.window-man = {
+                  enable = true;
+                  type = "aerospace";
+                };
                 #darwin-system.status-bar.enable = true;
                 darwin-system.defaults.dock.enable = true;
                 darwin-system.defaults.wallpaper = ./ressources/Lake_Aurora.png;
