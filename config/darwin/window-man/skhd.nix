@@ -4,9 +4,8 @@
   config,
   ...
 }:
-
 let
-  common = import ./common-options.nix;
+  common = import ./common-options.nix { inherit config pkgs; };
 
   # Behaviour options
   super = common.modifiers.super;
@@ -65,8 +64,8 @@ let
     ${super} - k : ${aerospace} focus --boundaries-action wrap-around-the-workspace up
     ${super} - l : ${aerospace} focus --boundaries-action wrap-around-the-workspace right
 
-    ${super} + ${alt} - j : ${aerospace} focus --boundaries-action wrap-around-the-workspace dfs-next
-    ${super} + ${alt} - k : ${aerospace} focus --boundaries-action wrap-around-the-workspace dfs-prev
+    ${super} + ${ctrl} - j : ${aerospace} focus --boundaries-action wrap-around-the-workspace dfs-next
+    ${super} + ${ctrl} - k : ${aerospace} focus --boundaries-action wrap-around-the-workspace dfs-prev
 
     # === Window Movement ===
     ${super} + ${mod} - h : ${aerospace} swap --swap-focus --wrap-around left
@@ -108,10 +107,10 @@ let
     ${super} + ${shift} - q : ${aerospace} close
 
     # === Window Resizing ===
-    ${alt} + ${super} - h : ${aerospace} resize smart -50
-    ${alt} + ${super} - l : ${aerospace} resize smart +50
-    ${alt} + ${super} - j : ${aerospace} resize smart-opposite +50
-    ${alt} + ${super} - k : ${aerospace} resize smart-opposite -50
+    ${ctrl} + ${super} - h : ${aerospace} resize smart -50
+    ${ctrl} + ${super} - l : ${aerospace} resize smart +50
+    ${ctrl} + ${super} - j : ${aerospace} resize smart-opposite +50
+    ${ctrl} + ${super} - k : ${aerospace} resize smart-opposite -50
     ${super} - 0 : ${aerospace} balance-sizes
   '';
 

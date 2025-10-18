@@ -6,7 +6,7 @@
 }:
 
 let
-  common = import ./common-options.nix;
+  common = import ./common-options.nix { inherit config pkgs; };
 
   # Enabling options
   enable-yabai = common.enable-yabai && common.enable-wm;
@@ -19,6 +19,8 @@ let
   # Visual options
   global-padding = common.global-padding;
 
+  # Final eval
+  yabai-final-config = non-managed-apps-config;
 in
 {
   config = {
@@ -53,7 +55,7 @@ in
 
       extraConfig =
         # Adds additionnal config
-        non-managed-apps-config ++ ''
+        yabai-final-config + ''
           yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
           sudo yabai --load-sa
           #borders active_color=0xffc4a7e7 hidpi=on width=4.0 &

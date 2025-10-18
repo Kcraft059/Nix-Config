@@ -1,3 +1,4 @@
+{ pkgs, config, ... }:
 {
   ### Shared window-manager config
 
@@ -31,7 +32,7 @@
     apps=$(osascript -e 'tell application "System Events" to get name of every application process whose background only is false' | sed 's/, /,/g')
 
     IFS=',' read -r -a app_list <<< "$apps"
-    
+
     for app in "''${app_list[@]}"; do
         if [[ "$app" != "Finder" ]]; then
             echo "Quitted $app"
