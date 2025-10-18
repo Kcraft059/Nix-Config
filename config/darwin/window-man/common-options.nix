@@ -43,4 +43,6 @@
 
   # Visual
   global-padding = 6;
+
+  barHeight = 38;
 }
