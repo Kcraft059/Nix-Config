@@ -59,40 +59,51 @@ let
   aerospace = "${pkgs.aerospace}/bin/aerospace";
   aerospace-config = lib.optionalString common.enable-aerospace ''
     # === Window Focus ===
-    ${super} - h : ${aerospace} focus --boundaries-action wrap-around-the-workspace left
-    ${super} - j : ${aerospace} focus --boundaries-action wrap-around-the-workspace down
-    ${super} - k : ${aerospace} focus --boundaries-action wrap-around-the-workspace up
-    ${super} - l : ${aerospace} focus --boundaries-action wrap-around-the-workspace right
+    ${super} - left : ${aerospace} focus --boundaries-action wrap-around-the-workspace left
+    ${super} - down : ${aerospace} focus --boundaries-action wrap-around-the-workspace down
+    ${super} - up : ${aerospace} focus --boundaries-action wrap-around-the-workspace up
+    ${super} - right : ${aerospace} focus --boundaries-action wrap-around-the-workspace right
 
     ${super} + ${ctrl} - j : ${aerospace} focus --boundaries-action wrap-around-the-workspace dfs-next
     ${super} + ${ctrl} - k : ${aerospace} focus --boundaries-action wrap-around-the-workspace dfs-prev
 
     # === Window Movement ===
-    ${super} + ${mod} - h : ${aerospace} swap --swap-focus --wrap-around left
-    ${super} + ${mod} - j : ${aerospace} swap --swap-focus --wrap-around down
-    ${super} + ${mod} - k : ${aerospace} swap --swap-focus --wrap-around up
-    ${super} + ${mod} - l : ${aerospace} swap --swap-focus --wrap-around right
+    ${super} + ${mod} + ${shift} - up : ${aerospace} swap --swap-focus --wrap-around left
+    ${super} + ${mod} + ${shift} - down : ${aerospace} swap --swap-focus --wrap-around down
+    ${super} + ${mod} + ${shift} - left : ${aerospace} swap --swap-focus --wrap-around up
+    ${super} + ${mod} + ${shift} - right : ${aerospace} swap --swap-focus --wrap-around right
+
+    ${super} + ${mod} - up : ${aerospace} move up
+    ${super} + ${mod} - down : ${aerospace} move down
+    ${super} + ${mod} - left : ${aerospace} move left
+    ${super} + ${mod} - right : ${aerospace} move right
 
     # === Workspace Switching ===
-    ${super} - 1 : ${aerospace} workspace 1
-    ${super} - 2 : ${aerospace} workspace 2
-    ${super} - 3 : ${aerospace} workspace 3
-    ${super} - 4 : ${aerospace} workspace 4
-    ${super} - 5 : ${aerospace} workspace 5
-    ${super} - 6 : ${aerospace} workspace 6
-    ${super} - 7 : ${aerospace} workspace 7
-    ${super} - 8 : ${aerospace} workspace 8
-    ${super} - 9 : ${aerospace} workspace 9
+          
+    ${super} + ${ctrl} - right : ${aerospace} workspace next
+    ${super} + ${ctrl} - left : ${aerospace} workspace previous
+    ${super} + ${ctrl} + ${shift} - right : ${aerospace} move-node-to-workspace --focus-follows-window next
+    ${super} + ${ctrl} + ${shift} - left : ${aerospace} move-node-to-workspace --focus-follows-window previous
+    
+    # ${super} - 1 : ${aerospace} workspace 1
+    # ${super} - 2 : ${aerospace} workspace 2
+    # ${super} - 3 : ${aerospace} workspace 3
+    # ${super} - 4 : ${aerospace} workspace 4
+    # ${super} - 5 : ${aerospace} workspace 5
+    # ${super} - 6 : ${aerospace} workspace 6
+    # ${super} - 7 : ${aerospace} workspace 7
+    # ${super} - 8 : ${aerospace} workspace 8
+    # ${super} - 9 : ${aerospace} workspace 9
 
-    ${super} + ${shift} - 1 : ${aerospace} move-node-to-workspace --focus-follows-window 1
-    ${super} + ${shift} - 2 : ${aerospace} move-node-to-workspace --focus-follows-window 2
-    ${super} + ${shift} - 3 : ${aerospace} move-node-to-workspace --focus-follows-window 3
-    ${super} + ${shift} - 4 : ${aerospace} move-node-to-workspace --focus-follows-window 4
-    ${super} + ${shift} - 5 : ${aerospace} move-node-to-workspace --focus-follows-window 5
-    ${super} + ${shift} - 6 : ${aerospace} move-node-to-workspace --focus-follows-window 6
-    ${super} + ${shift} - 7 : ${aerospace} move-node-to-workspace --focus-follows-window 7
-    ${super} + ${shift} - 8 : ${aerospace} move-node-to-workspace --focus-follows-window 8
-    ${super} + ${shift} - 9 : ${aerospace} move-node-to-workspace --focus-follows-window 9
+    # ${super} + ${shift} - 1 : ${aerospace} move-node-to-workspace --focus-follows-window 1
+    # ${super} + ${shift} - 2 : ${aerospace} move-node-to-workspace --focus-follows-window 2
+    # ${super} + ${shift} - 3 : ${aerospace} move-node-to-workspace --focus-follows-window 3
+    # ${super} + ${shift} - 4 : ${aerospace} move-node-to-workspace --focus-follows-window 4
+    # ${super} + ${shift} - 5 : ${aerospace} move-node-to-workspace --focus-follows-window 5
+    # ${super} + ${shift} - 6 : ${aerospace} move-node-to-workspace --focus-follows-window 6
+    # ${super} + ${shift} - 7 : ${aerospace} move-node-to-workspace --focus-follows-window 7
+    # ${super} + ${shift} - 8 : ${aerospace} move-node-to-workspace --focus-follows-window 8
+    # ${super} + ${shift} - 9 : ${aerospace} move-node-to-workspace --focus-follows-window 9
 
     # === Layout Management ===
     ${super} - e : ${aerospace} layout horizontal
