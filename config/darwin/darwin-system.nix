@@ -151,7 +151,7 @@ in
         echo -ne "\033[38;5;5mRunning postActivation scripts…\033[0m\n" >&2
         mdutil -i off -V /nix # Ensure spotlight is turned off for nix-store
 
-        ${pkgs.skhd}/bin/skhd -r # Reloads skhd
+        # ${pkgs.skhd}/bin/skhd -r # Reloads skhd
 
         ${lib.optionalString (wallpaper != "")
           ''osascript -e 'tell application "System Events" to set picture of every desktop to "${wallpaper}"' ''
