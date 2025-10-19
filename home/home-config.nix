@@ -16,6 +16,7 @@
     ./vscode.nix
     ./lazy-vim.nix
     ./fzf.nix
+    ./rift.nix
   ];
 
   config = {

@@ -128,8 +128,8 @@
               ./config/darwin/default.nix
               {
                 darwin-system.window-man = {
-                  enable = true;
-                  type = "yabai";
+                  enable = true; # Might need to manually remove launchd services
+                  type = "rift";
                 };
                 #darwin-system.status-bar.enable = true;
                 darwin-system.defaults.dock.enable = true;
@@ -155,6 +155,7 @@
                     inherit inputs;
                     systemPackages = config.environment.systemPackages;
                     systemFonts = config.fonts.packages;
+                    rift-config = config.services.rift.config;
                   };
                   home-manager.users.camille = {
                     # {...} can be replaced by import ./path/to/module.nix

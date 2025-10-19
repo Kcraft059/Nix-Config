@@ -4,6 +4,7 @@
     ./yabai.nix
     ./aerospace.nix
     ./skhd.nix
+    ./rift.nix
   ];
 
   options.darwin-system.window-man = {
@@ -11,7 +12,7 @@
     type = lib.mkOption {
       type = lib.types.str;
       default = "yabai";
-      example = lib.literalExpression ''yabai/aerospace'';
+      example = lib.literalExpression ''yabai/aerospace/rift'';
       description = ''
         Which wm should be used ?
       '';
