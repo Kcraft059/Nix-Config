@@ -1,20 +1,19 @@
-self: super:
-{
-  menubar-cli = super.stdenv.mkDerivation {
-    name = "menubar-cli";
-    version = "1.0";
+{ pkgs, lib, ... }:
+pkgs.stdenv.mkDerivation rec {
 
-    src = ./src/menubar-cli;  # Or fetchFromGitHub if remote
+  name = "menubar-cli";
+  version = "1.0";
 
-    nativeBuildInputs = [ super.clang ]; # or gcc if needed
+  src = ./src/menubar-cli; # Or fetchFromGitHub if remote
 
-    buildPhase = ''
-      make
-    '';
+  nativeBuildInputs = [ pkgs.clang ]; # or gcc if needed
 
-    installPhase = ''
-      mkdir -p $out/bin
-      cp bin/menubar $out/bin/
-    '';
-  };
+  buildPhase = ''
+    make
+  '';
+
+  installPhase = ''
+    mkdir -p $out/bin
+    cp bin/menubar $out/bin/
+  '';
 }
