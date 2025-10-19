@@ -29,23 +29,16 @@ in
 
   config = {
 
-    nixpkgs.overlays = [
+    /* nixpkgs.overlays = [
       inputs.nix-vscode-extensions.overlays.default
-      (import ../../overlays/menubar-cli.nix)
-      (import ../../overlays/wifi-unredactor.nix {
-        inherit inputs;
-      })
-      /*
-        ]
-        ++ lib.optionals config.NIXPKG.darwinApps.enable [
-      */
-      (import ../../overlays/fancy-folder.nix)
-      (import ../../overlays/krita-mac.nix)
-      (import ../../overlays/backdrop.nix)
+      (import ../../overlays/default.nix { inherit inputs; })
+      #(import ../../overlays/fancy-folder.nix)
+      #(import ../../overlays/krita-mac.nix)
+      #(import ../../overlays/backdrop.nix)
       #(import ./overlays/mas.nix)
       #(import ../../overlays/smc-cli.nix)
-      (import ../../overlays/battery-toolkit.nix)
-    ];
+      #(import ../../overlays/battery-toolkit.nix)
+    ]; */
 
     environment.systemPackages =
       lib.optionals config.NIXPKG.coreUtils [
@@ -71,6 +64,7 @@ in
       ++ lib.optionals config.NIXPKG.darwinApps.enable [
         # Darwin Apps
         #pkgs.smc-cli
+        pkgs.rift
         pkgs.smc-fuzzer
         pkgs.mkalias
         pkgs.wifi-unredactor

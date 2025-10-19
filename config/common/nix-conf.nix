@@ -21,10 +21,14 @@
 
   nix.gc.options = "-d --delete-older-than 15d";
 
-  nixpkgs.hostPlatform = system; # Already specified dynamically
-  nixpkgs.config.allowUnfree = true;
+  ## All of those are now defined in flake.nix
+ 
+  #nixpkgs.hostPlatform = system; # Already specified dynamically
+  #nixpkgs.config.allowUnfree = true;
   #nixpkgs.config.allowUnsupportedSystem = true;
   #nixpkgs.config.allowBroken = true;
+  
+  ##
 
   # Create /etc/zshrc that loads the nix-darwin environment.
   # programs.zsh.enable = true;

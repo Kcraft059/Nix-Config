@@ -5,14 +5,21 @@
 
   inputs = {
 
+    ## Modules
+    # Core
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-    nix-darwin.url = "github:nix-darwin/nix-darwin";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
+    # Functionnality modules
     stylix.url = "github:danth/stylix";
 
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
@@ -23,6 +30,20 @@
       url = "github:matadaniel/LazyVim-module";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Rust Packages
+
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    crane = {
+      url = "github:ipetkov/crane";
+      #inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    ## Homebrew taps
 
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
@@ -60,12 +81,10 @@
       flake = false;
     };
 
-    wifi-unredactor = {
-      url = "github:noperator/wifi-unredactor";
+    rift = {
+      url = "github:acsandmann/rift";
       flake = false;
     };
-
-    # hyprland.url = "github:hyprwm/Hyprland";
 
   };
 
@@ -83,11 +102,27 @@
       darwinConfigurations =
         let
           system = "aarch64-darwin";
+          pkgs = import inputs.nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+            #config.allowUnsupportedSystem = true;
+            #config.allowBroken = true;
+            overlays = [
+              inputs.nix-vscode-extensions.overlays.default
+              (import ./overlays/default.nix { inherit inputs; })
+            ];
+          };
         in
         {
           "MacBookAirCam-M3" = nix-darwin.lib.darwinSystem {
+            system = system;
             specialArgs = {
-              inherit self system inputs;
+              inherit
+                self # Needed in nix-conf
+                system # Needed in nixpackages
+                inputs # Needed throughout the config
+                pkgs # Is needed since we modify options above
+                ;
             };
             modules = [
               ./config/darwin/default.nix
@@ -154,8 +189,14 @@
             ];
           };
           "MacBookAirCam-M3-Test" = nix-darwin.lib.darwinSystem {
+            system = system;
             specialArgs = {
-              inherit self system inputs;
+              inherit
+                self
+                system
+                inputs
+                pkgs
+                ;
             };
             modules = [
               ./config/darwin/default.nix

@@ -105,6 +105,21 @@
         "type": "github"
       }
     },
+    "crane": {
+      "locked": {
+        "lastModified": 1759893430,
+        "narHash": "sha256-yAy4otLYm9iZ+NtQwTMEbqHwswSFUbhn7x826RR6djw=",
+        "owner": "ipetkov",
+        "repo": "crane",
+        "rev": "1979a2524cb8c801520bd94c38bb3d5692419d93",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ipetkov",
+        "repo": "crane",
+        "type": "github"
+      }
+    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -455,9 +470,26 @@
         "type": "github"
       }
     },
+    "rift": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1760805704,
+        "narHash": "sha256-vYfaRApdEphNp6/xYFU/eCuAx/0Lx482vnOz+xNDdQg=",
+        "owner": "acsandmann",
+        "repo": "rift",
+        "rev": "9717f472156714a0607bea56035e118bd39cf8df",
+        "type": "github"
+      },
+      "original": {
+        "owner": "acsandmann",
+        "repo": "rift",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "LazyVim": "LazyVim",
+        "crane": "crane",
         "home-manager": "home-manager",
         "homebrew-betterdisplay": "homebrew-betterdisplay",
         "homebrew-bundle": "homebrew-bundle",
@@ -470,19 +502,40 @@
         "nix-homebrew": "nix-homebrew",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixpkgs": "nixpkgs_2",
+        "rift": "rift",
+        "rust-overlay": "rust-overlay",
         "sketchybar-config": "sketchybar-config",
-        "stylix": "stylix",
-        "wifi-unredactor": "wifi-unredactor"
+        "stylix": "stylix"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1760841560,
+        "narHash": "sha256-NVOl5Lk1QD+i4I4My4f85yjXBinu+OXOUWskPNtzKHs=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "a9121dc4ccd63e0309426b91bd7a494189516274",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
       }
     },
     "sketchybar-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1760818833,
-        "narHash": "sha256-6XE72rziOaunURZk/HYwFgXuXCjb+f1y0iSMnduXdh8=",
+        "lastModified": 1760819521,
+        "narHash": "sha256-XoGjMnAh30TwlBkmu6jpNJ9/jsNb75SiH7y7TG6sw9A=",
         "owner": "Kcraft059",
         "repo": "sketchybar-config",
-        "rev": "6839afecee722033356a078360f9b29aff627f53",
+        "rev": "862a180df5831622e92b378402036f1b3ce21571",
         "type": "github"
       },
       "original": {
@@ -646,22 +699,6 @@
       "original": {
         "owner": "tinted-theming",
         "repo": "base16-zed",
-        "type": "github"
-      }
-    },
-    "wifi-unredactor": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1738247696,
-        "narHash": "sha256-mPYI60m7PACQ6xItvTshDJBwfVTtm4N/UeIvEthgci8=",
-        "owner": "noperator",
-        "repo": "wifi-unredactor",
-        "rev": "c4acc3e1f8093c6a365195f1240546b342aa0f56",
-        "type": "github"
-      },
-      "original": {
-        "owner": "noperator",
-        "repo": "wifi-unredactor",
         "type": "github"
       }
     }
