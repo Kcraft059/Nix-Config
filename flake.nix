@@ -129,7 +129,7 @@
               {
                 darwin-system.window-man = {
                   enable = true; # Might need to manually remove launchd services
-                  type = "rift";
+                  type = "yabai";
                 };
                 #darwin-system.status-bar.enable = true;
                 darwin-system.defaults.dock.enable = true;
