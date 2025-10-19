@@ -6,6 +6,7 @@
   enable-wm = config.darwin-system.window-man.enable;
   enable-yabai = config.darwin-system.window-man.type == "yabai";
   enable-aerospace = config.darwin-system.window-man.type == "aerospace";
+  enable-rift = config.darwin-system.window-man.type == "rift";
 
   # Behaviour
   modifiers = {
