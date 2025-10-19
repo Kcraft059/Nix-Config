@@ -64,7 +64,7 @@ in
       ++ lib.optionals config.NIXPKG.darwinApps.enable [
         # Darwin Apps
         #pkgs.smc-cli
-        pkgs.rift
+        #pkgs.rift
         pkgs.smc-fuzzer
         pkgs.mkalias
         pkgs.wifi-unredactor
