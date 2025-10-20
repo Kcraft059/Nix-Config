@@ -12,7 +12,7 @@ let
   enable-yabai = common.enable-yabai && common.enable-wm;
 
   # Behaviour options
-  non-managed-apps-config = lib.concatStringsSep "\n " (
+  non-managed-apps-config = lib.concatStringsSep "\n" (
     builtins.map (name: "yabai -m rule --add app=\"^${name}$\" manage=off") common.non-managed-apps
   );
 
@@ -21,7 +21,7 @@ let
   barHeight = common.barHeight;
 
   # Final eval
-  yabai-final-config = non-managed-apps-config;
+  yabai-final-config = non-managed-apps-config + "\n";
 in
 {
   config = {
