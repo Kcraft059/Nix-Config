@@ -217,19 +217,28 @@
                 HMB.casks.enable = false;
               }
               home-manager.darwinModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.backupFileExtension = "hmbackup";
-                home-manager.users.camille = {
-                  # {...} can be replaced by import ./path/to/module.nix
-                  imports = [
-                    ./home/darwin/default.nix
-                  ];
-                  home-config.status-bar.enable = false;
-                  home-config.GUIapps.enable = true;
-                };
-              }
+              (
+                { config, ... }:
+                {
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.backupFileExtension = "hmbackup";
+                  home-manager.extraSpecialArgs = {
+                    inherit inputs;
+                    systemPackages = config.environment.systemPackages;
+                    systemFonts = config.fonts.packages;
+                    rift-config = config.services.rift.config;
+                  };
+                  home-manager.users.camille = {
+                    # {...} can be replaced by import ./path/to/module.nix
+                    imports = [
+                      ./home/darwin/default.nix
+                    ];
+                    home-config.status-bar.enable = false;
+                    home-config.GUIapps.enable = true;
+                  };
+                }
+              )
               nix-homebrew.darwinModules.nix-homebrew
               {
                 nix-homebrew = {
