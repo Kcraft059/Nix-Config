@@ -146,6 +146,8 @@ in
     system.activationScripts.postActivation.text =
       let
         wallpaper = config.darwin-system.defaults.wallpaper;
+        syspkgs = config.environment.systemPackages;
+        homepkgs = config.home-manager.users.camille.home.packages;
       in
       lib.mkAfter ''
         echo -ne "\033[38;5;5mRunning postActivation scripts…\033[0m\n" >&2
@@ -153,19 +155,30 @@ in
 
         # ${pkgs.skhd}/bin/skhd -r # Reloads skhd
 
+        if [ -f /opt/homebrew/bin/tccutil ];then
+          echo -ne "\033[38;5;2mSetting up tcc permissions…\033[0m\n" >&2
+          /opt/homebrew/bin/tccutil -i ${pkgs.bashNonInteractive}/bin/bash
+          ${lib.optionalString (builtins.elem pkgs.yabai syspkgs) ''/opt/homebrew/bin/tccutil  -i ${pkgs.yabai}/bin/yabai''}
+          ${lib.optionalString config.home-manager.users.camille.programs.sketchybar.enable ''/opt/homebrew/bin/tccutil  -i ${pkgs.sketchybar}/bin/sketchybar''}
+          ${lib.optionalString (builtins.elem pkgs.skhd syspkgs) ''/opt/homebrew/bin/tccutil  -i ${pkgs.skhd}/bin/skhd''}
+          ${lib.optionalString (builtins.elem pkgs.rift syspkgs) ''/opt/homebrew/bin/tccutil  -i ${pkgs.rift}/bin/rift''}
+          ${lib.optionalString (builtins.elem pkgs.aerospace syspkgs) ''/opt/homebrew/bin/tccutil  -i ${pkgs.aerospace}/bin/aerospace''}
+        fi
+
+
         ${lib.optionalString (wallpaper != "")
           ''osascript -e 'tell application "System Events" to set picture of every desktop to "${wallpaper}"' ''
         }
-        ${lib.optionalString (builtins.elem pkgs.openjdk23 config.environment.systemPackages) ''ln -sf ${pkgs.openjdk23}/Library/Java/JavaVirtualMachines/zulu-23.jdk /Library/Java/JavaVirtualMachines ''}
-        ${lib.optionalString (builtins.elem pkgs.openjdk21 config.environment.systemPackages) ''ln -sf ${pkgs.openjdk21}/Library/Java/JavaVirtualMachines/zulu-21.jdk /Library/Java/JavaVirtualMachines ''}
-        ${lib.optionalString (builtins.elem pkgsX86.openjdk17 config.environment.systemPackages) ''ln -sf ${pkgsX86.openjdk17}/Library/Java/JavaVirtualMachines/zulu-17.jdk /Library/Java/JavaVirtualMachines ''}
-        ${lib.optionalString (builtins.elem pkgs.openjdk8 config.environment.systemPackages) ''ln -sf ${pkgs.openjdk8}/Library/Java/JavaVirtualMachines/zulu-8.jdk /Library/Java/JavaVirtualMachines ''}
-        ${lib.optionalString (builtins.elem pkgs.ffmpeg config.environment.systemPackages) ''ln -sf ${pkgs.ffmpeg.lib}/lib/* /usr/local/lib/ ''} 
+        ${lib.optionalString (builtins.elem pkgs.openjdk23 syspkgs) ''ln -sf ${pkgs.openjdk23}/Library/Java/JavaVirtualMachines/zulu-23.jdk /Library/Java/JavaVirtualMachines ''}
+        ${lib.optionalString (builtins.elem pkgs.openjdk21 syspkgs) ''ln -sf ${pkgs.openjdk21}/Library/Java/JavaVirtualMachines/zulu-21.jdk /Library/Java/JavaVirtualMachines ''}
+        ${lib.optionalString (builtins.elem pkgsX86.openjdk17 syspkgs) ''ln -sf ${pkgsX86.openjdk17}/Library/Java/JavaVirtualMachines/zulu-17.jdk /Library/Java/JavaVirtualMachines ''}
+        ${lib.optionalString (builtins.elem pkgs.openjdk8 syspkgs) ''ln -sf ${pkgs.openjdk8}/Library/Java/JavaVirtualMachines/zulu-8.jdk /Library/Java/JavaVirtualMachines ''}
+        ${lib.optionalString (builtins.elem pkgs.ffmpeg syspkgs) ''ln -sf ${pkgs.ffmpeg.lib}/lib/* /usr/local/lib/ ''} 
         ${lib.optionalString config.darwin-system.defaults.enable ''
           defaults write -g NSColorSimulateHardwareAccent -bool YES 
           defaults write -g NSColorSimulatedHardwareEnclosureNumber -int 7
         ''}
-        #ln -sf ${pkgs.mas}/bin/mas /opt/homebrew/bin/mas'';
+      '';
 
     system.activationScripts.applications.text =
       let
