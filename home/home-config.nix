@@ -14,7 +14,7 @@
     ./alacritty.nix
     ./ssh.nix
     ./vscode.nix
-    ./lazy-vim.nix
+    #./lazy-vim.nix
     ./fzf.nix
     ./rift.nix
   ];
