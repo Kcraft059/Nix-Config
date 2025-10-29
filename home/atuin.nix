@@ -3,8 +3,8 @@
   programs.atuin = {
     enable = true;
     enableZshIntegration = true;
-    /* config = {
-    db_path = "~/.history.db";
-    }; */
+    settings = {
+      db_path = "/Volumes/Data/camille/Apps-Data/Atuin/history.db";
+    };
   };
 }

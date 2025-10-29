@@ -38,14 +38,12 @@
     xdg.configFile = {
       "sketchybar/dyn-icon_map.sh".source = "${pkgs.sketchybar-app-font}/bin/icon_map.sh";
       "sketchybar/config.sh".text = ''
-        #NOTCH_WIDTH=180
-        #BAR_LOOK="compact"
-        #COLOR_SCHEME="catppuccin-mocha"
         MUSIC_INFO_WIDTH=100
         MENU_CONTROLS=(
         	"Control__Center,Bluetooth"
         	"Control__Center,FocusModes"
         )
+        LOG_LEVEL=none
       '';
     };
     #home.sessionVariables.SKETCHYBAR_CONFIG = "$HOME/.config/sketchybar/local-config.sh";

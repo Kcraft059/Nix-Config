@@ -263,11 +263,11 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1757145372,
-        "narHash": "sha256-nTAFgRYLgwz6WwKVpI2/smsW17FsHF/04UyPvIeLuiw=",
+        "lastModified": 1761035948,
+        "narHash": "sha256-4kEP2yAcjPK9Dm5W9F6F/s2mv9AtN6wUscWTTPS8e/g=",
         "owner": "homebrew",
         "repo": "homebrew-cask",
-        "rev": "e0e9be147093fbdba57cf953f557425651d9054a",
+        "rev": "8bea46eb43b518678e2a1b07cf77b0dd860b5ce0",
         "type": "github"
       },
       "original": {
@@ -531,11 +531,11 @@
     "sketchybar-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1760895638,
-        "narHash": "sha256-W76ZjEio1BSZ0oKMIJGNP8qpcaevtLJM3v5SQ/AQWg4=",
+        "lastModified": 1761741301,
+        "narHash": "sha256-gwT/1u/KUYmAqfFw23qLn81QJRZXQPtasYkXW/IB37U=",
         "owner": "Kcraft059",
         "repo": "sketchybar-config",
-        "rev": "6657ca6d9fe52dc64bf27a983eaefd9ecc63edd6",
+        "rev": "599c921d54de350cf84fef9dc6aa8e121c607f5c",
         "type": "github"
       },
       "original": {
