@@ -98,7 +98,7 @@ in
         persistent-apps = [
           "/System/Applications/System Settings.app"
           "/System/Applications/App Store.app"
-          "/Applications/About This Hack.app"
+          # "/Applications/About This Hack.app"
           "/System/Applications/Utilities/Disk Utility.app"
           "/Applications/Ghostty.app"
           "${pkgs.vscode}/Applications/Visual Studio Code.app"
@@ -127,9 +127,9 @@ in
           "/System/Applications/Music.app"
           "/Applications/Audacity.app"
           "/Applications/VLC.app"
-          "/System/Volumes/Data/Applications/Microsoft Word.app"
-          "/System/Volumes/Data/Applications/Microsoft PowerPoint.app"
-          "/System/Volumes/Data/Applications/Microsoft Excel.app"
+          "/Volumes/Data/Applications/Microsoft Word.app"
+          "/Volumes/Data/Applications/Microsoft PowerPoint.app"
+          "/Volumes/Data/Applications/Microsoft Excel.app"
           "/System/Applications/Notes.app"
           "/System/Volumes/Data/Applications/PDFgear.app"
         ];

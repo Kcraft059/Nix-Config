@@ -41,6 +41,9 @@
           "editor.inlineSuggest.fontFamily" = font;
           "workbench.startupEditor" = "none";
           "chat.disableAIFeatures" = true;
+          "C_Cpp.vcFormat.newLine.beforeCatch" = false;
+          "C_Cpp.vcFormat.newLine.beforeElse" = false;
+          "C_Cpp.clang_format_style" = "{ BasedOnStyle: Google, ColumnLimit: 0}";
         };
       extensions = with pkgs.vscode-marketplace; [
         # To use, needs to overlay inputs.nix-vscode-extensions.overlays.default
