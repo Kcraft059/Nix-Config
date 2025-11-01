@@ -17,6 +17,7 @@
     #./lazy-vim.nix
     ./fzf.nix
     ./rift.nix
+    ./bat.nix
   ];
 
   config = {
@@ -27,7 +28,7 @@
         nixfmt-rfc-style
         imagemagick
         yt-dlp
-        bat
+        # bat
         mailsy
         tree
         htop
