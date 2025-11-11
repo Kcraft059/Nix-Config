@@ -24,18 +24,17 @@
     home.packages =
       with pkgs;
       [
-        # pkgs.atuin
-        nixfmt-rfc-style
-        imagemagick
-        yt-dlp
-        # bat
-        mailsy
-        tree
-        htop
-        speedtest-go
-        mtr
-        eza
-        posting 
+        nixfmt-rfc-style # Nix formating
+        imagemagick # Image editing
+        yt-dlp # Video dwonloading tool
+        mailsy # Temp email
+        htop # Htop program manager
+        speedtest-go # Speedtest
+        mtr # My traceroute
+        eza # ls replacement
+        posting # Tui http request sender
+        bear # generate compile_comand
+        
         # gum for clis
         # pkgs.mcrcon
         # pkgs.devenv maybe later see https://devenv.sh - alternative to nix-shells
