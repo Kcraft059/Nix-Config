@@ -20,8 +20,8 @@
         lib.optionals config.HMB.coreUtils [
           "hex-fiend"
           #"visual-studio-code"
-          #"ghostty"
-          "ghostty@tip"
+          "ghostty"
+          #"ghostty@tip"
           "font-sf-pro"
         ]
         ++ lib.optionals config.HMB.brews.enable [
@@ -104,6 +104,7 @@
           prettyJsonSafari = 1445328303;
           whatsapp = 310633997;
           KeyNote = 409183694;
+          #CrystalFetch = 6454431289;
         };
 
       taps = [

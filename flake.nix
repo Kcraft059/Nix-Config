@@ -133,7 +133,7 @@
                 };
                 #darwin-system.status-bar.enable = true;
                 darwin-system.defaults.dock.enable = true;
-                darwin-system.defaults.wallpaper = ./ressources/Lake_Aurora.png;
+                darwin-system.defaults.wallpaper = ./ressources/Floral_Black_Purple.jpg;
               }
               ./packages/nix/default.nix
               {
@@ -193,33 +193,36 @@
             system = system;
             specialArgs = {
               inherit
-                self
-                system
-                inputs
-                pkgs
+                self # Needed in nix-conf
+                system # Needed in nixpackages
+                inputs # Needed throughout the config
+                pkgs # Is needed since we modify options above
                 ;
             };
             modules = [
               ./config/darwin/default.nix
               {
-                common.stylix.enable = false;
+                darwin-system.window-man = {
+                  enable = true; # Might need to manually remove launchd services
+                  type = "yabai";
+                };
                 #darwin-system.status-bar.enable = true;
-                darwin-system.defaults.wallpaper = ./ressources/Lake_Aurora.png;
+                darwin-system.defaults.dock.enable = true;
+                darwin-system.defaults.wallpaper = ./ressources/Floral_Black_Purple.jpg;
               }
               ./packages/nix/default.nix
               {
-                NIXPKG.additionnals.enable = false;
-                NIXPKG.GUIapps.enable = false;
+                NIXPKG.darwinApps.enable = true;
               }
               ./packages/homebrew/default.nix
               {
-                HMB.brews.enable = true;
-                HMB.casks.enable = false;
+                HMB.masApps.enable = false;
               }
               home-manager.darwinModules.home-manager
               (
                 { config, ... }:
                 {
+                  # Call as a function to access input recursively
                   home-manager.useGlobalPkgs = true;
                   home-manager.useUserPackages = true;
                   home-manager.backupFileExtension = "hmbackup";
@@ -234,8 +237,9 @@
                     imports = [
                       ./home/darwin/default.nix
                     ];
-                    home-config.status-bar.enable = false;
+                    home-config.status-bar.enable = true;
                     home-config.GUIapps.enable = true;
+                    home-config.darwinApps.enable = true;
                   };
                 }
               )
@@ -245,7 +249,7 @@
                   enable = true;
                   enableRosetta = true;
                   user = "camille";
-                  mutableTaps = true;
+                  mutableTaps = false;
                   taps = {
                     "homebrew/homebrew-core" = inputs.homebrew-core;
                     "homebrew/homebrew-cask" = inputs.homebrew-cask;
