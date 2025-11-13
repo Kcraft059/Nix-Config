@@ -133,7 +133,7 @@
                 };
                 #darwin-system.status-bar.enable = true;
                 darwin-system.defaults.dock.enable = true;
-                darwin-system.defaults.wallpaper = ./ressources/Floral_Black_Purple.jpg;
+                darwin-system.defaults.wallpaper = ./ressources/Abstract_Wave.jpg;
               }
               ./packages/nix/default.nix
               {
@@ -208,7 +208,7 @@
                 };
                 #darwin-system.status-bar.enable = true;
                 darwin-system.defaults.dock.enable = true;
-                darwin-system.defaults.wallpaper = ./ressources/Floral_Black_Purple.jpg;
+                darwin-system.defaults.wallpaper = ./ressources/Abstract_Wave.jpg;
               }
               ./packages/nix/default.nix
               {

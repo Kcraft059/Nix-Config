@@ -18,24 +18,20 @@
       enable = config.HMB.enable;
       casks =
         lib.optionals config.HMB.coreUtils [
-          "hex-fiend"
-          #"visual-studio-code"
           "ghostty"
-          #"ghostty@tip"
           "font-sf-pro"
         ]
         ++ lib.optionals config.HMB.brews.enable [
           "macfuse@dev"
         ]
         ++ lib.optionals config.HMB.casks.enable [
+          "hex-fiend"
           "vlc"
           "iina"
           "the-unarchiver"
           "BetterDisplay"
-          "Stats"
           "Raycast"
           "kid3"
-          #"multimc"
           "prismlauncher"
           "audacity"
           "whisky"
@@ -46,17 +42,15 @@
           "chatgpt"
           "discord"
           "gimp"
-          "Alcove"
+          #"Alcove"
           "suspicious-package"
           "firefox"
           "balenaetcher"
           "google-chrome" # Ewww… WebHID Only
           "steamcmd"
           "gog-galaxy"
-          #"dockdoor"
           "appcleaner"
           "orion"
-          #"logitech-g-hub"
           #"kegworks"
           #"binary-ninja-free"
         ];
@@ -102,7 +96,7 @@
           amphetamine = 937984704;
           Testflight = 899247664;
           prettyJsonSafari = 1445328303;
-          whatsapp = 310633997;
+          #whatsapp = 310633997;
           KeyNote = 409183694;
           #CrystalFetch = 6454431289;
         };
