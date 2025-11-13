@@ -34,7 +34,7 @@
         eza # ls replacement
         posting # Tui http request sender
         bear # generate compile_comand
-        
+
         # gum for clis
         # pkgs.mcrcon
         # pkgs.devenv maybe later see https://devenv.sh - alternative to nix-shells
@@ -43,5 +43,7 @@
       ++ lib.optionals config.home-config.GUIapps.enable [
         #pkgs.alacritty
       ];
+    home.file."Library/Developer/Xcode/UserData/FontAndColorThemes/Rose Pine Moon.xccolortheme".source =
+      ../ressources/Rose_Pine_Moon.xccolortheme;
   };
 }
