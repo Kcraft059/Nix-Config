@@ -3,7 +3,6 @@
   config,
   self,
   lib,
-  system,
   ...
 }:
 {

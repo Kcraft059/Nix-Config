@@ -2,8 +2,12 @@
 {
   programs.git = {
     enable = true;
-    userEmail = "kcraft059.msg@gmail.com";
-    userName = "Kcraft059";
+    settings = {
+      user = {
+        email = "kcraft059.msg@gmail.com";
+        name = "Kcraft059";
+      };
+    };
     ignores = [
       "*~"
       ".DS_Store"

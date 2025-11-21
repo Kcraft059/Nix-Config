@@ -3,7 +3,7 @@
   config,
   self,
   lib,
-  system,
+  #system,
   ...
 }:
 {
@@ -15,7 +15,7 @@
   nix.settings = {
     experimental-features = "nix-command flakes";
   };
-  nix.extraOptions = lib.optionalString (pkgs.system == "aarch64-darwin") ''
+  nix.extraOptions = lib.optionalString (pkgs.stdenv.hostPlatform.system == "aarch64-darwin") ''
     extra-platforms = x86_64-darwin aarch64-darwin
   '';
 

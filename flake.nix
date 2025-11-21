@@ -101,9 +101,9 @@
     {
       darwinConfigurations =
         let
-          system = "aarch64-darwin";
+          targetSystem = "aarch64-darwin";
           pkgs = import inputs.nixpkgs {
-            inherit system;
+            system = targetSystem;
             config.allowUnfree = true;
             #config.allowUnsupportedSystem = true;
             #config.allowBroken = true;
@@ -115,11 +115,11 @@
         in
         {
           "MacBookAirCam-M3" = nix-darwin.lib.darwinSystem {
-            system = system;
+            system = targetSystem;
             specialArgs = {
+              system = targetSystem;
               inherit
                 self # Needed in nix-conf
-                system # Needed in nixpackages
                 inputs # Needed throughout the config
                 pkgs # Is needed since we modify options above
                 ;
@@ -141,7 +141,7 @@
               }
               ./packages/homebrew/default.nix
               {
-                HMB.masApps.enable = true; # mdutil #check for spotlight indexing
+                HMB.masApps.enable = false; # mdutil #check for spotlight indexing
               }
               home-manager.darwinModules.home-manager
               (
@@ -190,11 +190,11 @@
             ];
           };
           "MacBookAirCam-M3-Test" = nix-darwin.lib.darwinSystem {
-            system = system;
+            system = targetSystem;
             specialArgs = {
+              system = targetSystem;
               inherit
                 self # Needed in nix-conf
-                system # Needed in nixpackages
                 inputs # Needed throughout the config
                 pkgs # Is needed since we modify options above
                 ;
