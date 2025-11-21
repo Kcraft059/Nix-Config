@@ -99,7 +99,7 @@
           Testflight = 899247664;
           prettyJsonSafari = 1445328303;
           Xcode = 497799835;
-          #whatsapp = 310633997;
+          Whatsapp = 310633997;
           KeyNote = 409183694;
           #CrystalFetch = 6454431289;
         };

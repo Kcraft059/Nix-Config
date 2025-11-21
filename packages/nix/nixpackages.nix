@@ -2,13 +2,13 @@
   pkgs,
   config,
   lib,
-  system,
+  #system,
   inputs,
   ...
 }:
 let
   pkgsX86 =
-    if system == "aarch64-darwin" then
+    if pkgs.stdenv.hostPlatform.system == "aarch64-darwin" then
       import pkgs.path {
         system = "x86_64-darwin";
         config = pkgs.config;
@@ -52,7 +52,6 @@ in
         pkgs.bindfs
         pkgs.ffmpeg
         pkgs.openjdk8
-        pkgs.openjdk23
         pkgs.openjdk21
         effectivePkgsX86.openjdk17
       ]
