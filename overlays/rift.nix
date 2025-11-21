@@ -2,7 +2,7 @@
 let
   # Import nixpkgs with rust-overlay to access rust-bin nightly toolchains
   pkgsWithRust = import inputs.nixpkgs {
-    system = pkgs.system;
+    system = pkgs.stdenv.hostPlatform.system;
     overlays = [ (import inputs.rust-overlay) ];
   };
 
