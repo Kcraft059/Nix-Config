@@ -64,10 +64,12 @@
           "ext4fuse-mac" # sudo ext4fuse <diskXsX> <mountPoint> -o allow_other -o umask=000
           "ntfs-3g-mac" # "libunistring" "gettext"
           "sshfs-mac" # sshfs <user>@<host>:<dir> <mountPoint> -o identityFile=<pathToSSH-Key>
-          /* { # https://nix-darwin.github.io/nix-darwin/manual/#opt-homebrew.brews._.restart_service
-            name = "batt";
-            restart_service = "changed"; # maybe see environment.launchDaemons.<name>.enable instead 
-          } */
+          /*
+            { # https://nix-darwin.github.io/nix-darwin/manual/#opt-homebrew.brews._.restart_service
+              name = "batt";
+              restart_service = "changed"; # maybe see environment.launchDaemons.<name>.enable instead
+            }
+          */
 
           # dependencies -> declare to prevent uninstall
           "ca-certificates"
@@ -84,7 +86,7 @@
           "glib"
         ]
         ++ lib.optionals config.HMB.masApps.enable [ "mas" ]
-        ++ lib.optionals config.home-manager.users.camille.programs.sketchybar.enable [ "media-control" ] ;
+        ++ lib.optionals config.home-manager.users.camille.programs.sketchybar.enable [ "media-control" ];
 
       masApps =
         #lib.mkIf config.HMB.coreUtils { } //
@@ -96,6 +98,7 @@
           amphetamine = 937984704;
           Testflight = 899247664;
           prettyJsonSafari = 1445328303;
+          Xcode = 497799835;
           #whatsapp = 310633997;
           KeyNote = 409183694;
           #CrystalFetch = 6454431289;

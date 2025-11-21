@@ -102,6 +102,7 @@ in
           "/System/Applications/Utilities/Disk Utility.app"
           "/Applications/Ghostty.app"
           "${pkgs.vscode}/Applications/Visual Studio Code.app"
+          "/Applications/Xcode.app"
           "/System/Applications/TextEdit.app"
           {
             spacer = {

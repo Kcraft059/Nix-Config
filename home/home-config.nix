@@ -43,7 +43,12 @@
       ++ lib.optionals config.home-config.GUIapps.enable [
         #pkgs.alacritty
       ];
+
+    # Miscellaneous configs
+
     home.file."Library/Developer/Xcode/UserData/FontAndColorThemes/Rose Pine Moon.xccolortheme".source =
       ../ressources/Rose_Pine_Moon.xccolortheme;
+    home.file."Library/Group Containers/UBF8T346G9.Office/User Content.localized/Themes.localized/Default Theme.potm".source =
+      ../ressources/Excel_Default.potm;
   };
 }

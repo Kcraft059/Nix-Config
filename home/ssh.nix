@@ -15,6 +15,13 @@
         user = "server";
         identityFile = "~/.ssh/FTN-ed25519";
       };
+      FTN-Server-Node = {
+        port = 22;
+        hostname = "10.0.0.2";
+        user = "server";
+        proxyJump = "FTN-Server";
+        identityFile = "~/.ssh/FTN-node-ed25519";
+      };
       FTN-Camille = {
         port = 22;
         hostname = "ftnetwork.duckdns.org";

@@ -76,19 +76,21 @@ rec {
         };
       extensions = with pkgs.vscode-marketplace; [
         # To use, needs to overlay inputs.nix-vscode-extensions.overlays.default
+        
+                mvllow.rose-pine # Theme
 
-        mvllow.rose-pine # Theme
+                jnoortheen.nix-ide # Nix code formating + completion
+                llvm-vs-code-extensions.vscode-clangd # C/C++ (obj) completion + formating
+                bmewburn.vscode-intelephense-client # PHP completion + formating
+                mkhl.shfmt # Shell completion + formating
+                ## ms-vscode.cpptools
+                
+                ## ms-python.python
+                dnicolson.binary-plist # Allow modification of binary plists
 
-        jnoortheen.nix-ide # Nix code formating + completion
-        llvm-vs-code-extensions.vscode-clangd # C/C++ (obj) completion + formating
-        bmewburn.vscode-intelephense-client # PHP completion + formating
-        mkhl.shfmt # Shell completion + formating
-        #ms-vscode.cpptools
-
-        dnicolson.binary-plist # Allow modification of binary plists
-
-        # ms-vscode.cpptools-extension-pack
-        # SPGoding.datapack-language-server # Not added yet to the packages repo
+                ## ms-vscode.cpptools-extension-pack
+                ## SPGoding.datapack-language-server # Not added yet to the packages repo
+        
       ];
     };
   };
