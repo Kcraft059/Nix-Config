@@ -101,12 +101,14 @@
     {
       darwinConfigurations =
         let
-          targetSystem = "aarch64-darwin";
+          system = "aarch64-darwin"; # Build system
           pkgs = import inputs.nixpkgs {
-            system = targetSystem;
-            config.allowUnfree = true;
-            #config.allowUnsupportedSystem = true;
-            #config.allowBroken = true;
+            inherit system;
+            config = {
+              allowUnfree = true;
+              #allowUnsupportedSystem = true;
+              #allowBroken = true;
+            };
             overlays = [
               inputs.nix-vscode-extensions.overlays.default
               (import ./overlays/default.nix { inherit inputs; })
@@ -115,9 +117,8 @@
         in
         {
           "MacBookAirCam-M3" = nix-darwin.lib.darwinSystem {
-            system = targetSystem;
+            inherit system;
             specialArgs = {
-              system = targetSystem;
               inherit
                 self # Needed in nix-conf
                 inputs # Needed throughout the config
@@ -190,9 +191,8 @@
             ];
           };
           "MacBookAirCam-M3-Test" = nix-darwin.lib.darwinSystem {
-            system = targetSystem;
+            inherit system;
             specialArgs = {
-              system = targetSystem;
               inherit
                 self # Needed in nix-conf
                 inputs # Needed throughout the config
