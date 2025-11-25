@@ -40,6 +40,15 @@
         # pkgs.devenv maybe later see https://devenv.sh - alternative to nix-shells
 
       ]
+      ++ [
+        (pkgs.writeShellScriptBin "sftp-fuse" ''
+          sshfs $1:/ /Volumes/$1 \
+            -o reconnect,ServerAliveInterval=15,ServerAliveCountMax=10 \
+            -o volname="$1 - SFTP" \
+            -o volicon="${../ressources/Shared_Volume.tiff}" \
+            ''${2:-"-o umask=$2"}
+        '')
+      ]
       ++ lib.optionals config.home-config.GUIapps.enable [
         #pkgs.alacritty
       ];

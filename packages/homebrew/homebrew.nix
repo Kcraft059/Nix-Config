@@ -50,7 +50,7 @@
           "steamcmd"
           "gog-galaxy"
           "appcleaner"
-          "orion"
+          "makemkv"
           #"kegworks"
           #"binary-ninja-free"
         ];
