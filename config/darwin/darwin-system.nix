@@ -178,10 +178,6 @@ in
           defaults write -g NSColorSimulateHardwareAccent -bool YES 
           defaults write -g NSColorSimulatedHardwareEnclosureNumber -int 7
           ''}
-        ${lib.optionalString (builtins.elem pkgs.libdvdcss syspkgs) ''
-          ln -s ${pkgs.libdvdcss}/lib/* /usr/local/lib/
-          ln -s ${pkgs.libdvdcss}/lib/pkgconfig/* /usr/local/lib/pkgconfig/
-        ''}
       '';
 
     system.activationScripts.applications.text =
