@@ -34,6 +34,7 @@
         eza # ls replacement
         posting # Tui http request sender
         bear # generate compile_comand
+        viu
 
         # gum for clis
         # mcrcon
