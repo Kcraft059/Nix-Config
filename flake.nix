@@ -135,6 +135,8 @@
                 #darwin-system.status-bar.enable = true;
                 darwin-system.defaults.dock.enable = true;
                 darwin-system.defaults.wallpaper = ./ressources/Abstract_Wave.jpg;
+                darwin-system.external-drive.enable = true;
+                darwin-system.external-drive.path = "/Volumes/Data";
               }
               ./packages/nix/default.nix
               {
@@ -154,19 +156,13 @@
                   home-manager.backupFileExtension = "hmbackup";
                   home-manager.extraSpecialArgs = {
                     inherit inputs;
-                    systemPackages = config.environment.systemPackages;
-                    systemFonts = config.fonts.packages;
-                    rift-config = config.services.rift.config;
+                    global-config = config;
                   };
                   home-manager.users.camille = {
                     # {...} can be replaced by import ./path/to/module.nix
                     imports = [
                       ./home/darwin/default.nix
                     ];
-                    home-config.external-drive = {
-                      enable = true;
-                      path = "/Volumes/Data";
-                    };
                     home-config.status-bar.enable = true;
                     home-config.GUIapps.enable = true;
                     home-config.darwinApps.enable = true;
@@ -194,82 +190,6 @@
               stylix.darwinModules.stylix
             ];
           };
-          /*
-            "MacBookAirCam-M3-Test" = nix-darwin.lib.darwinSystem {
-              inherit system;
-              specialArgs = {
-                inherit
-                  self # Needed in nix-conf
-                  inputs # Needed throughout the config
-                  pkgs # Is needed since we modify options above
-                  ;
-              };
-              modules = [
-                ./config/darwin/default.nix
-                {
-                  darwin-system.window-man = {
-                    enable = true; # Might need to manually remove launchd services
-                    type = "yabai";
-                  };
-                  #darwin-system.status-bar.enable = true;
-                  darwin-system.defaults.dock.enable = true;
-                  darwin-system.defaults.wallpaper = ./ressources/Abstract_Wave.jpg;
-                }
-                ./packages/nix/default.nix
-                {
-                  NIXPKG.darwinApps.enable = true;
-                }
-                ./packages/homebrew/default.nix
-                {
-                  HMB.masApps.enable = false;
-                }
-                home-manager.darwinModules.home-manager
-                (
-                  { config, ... }:
-                  {
-                    # Call as a function to access input recursively
-                    home-manager.useGlobalPkgs = true;
-                    home-manager.useUserPackages = true;
-                    home-manager.backupFileExtension = "hmbackup";
-                    home-manager.extraSpecialArgs = {
-                      inherit inputs;
-                      systemPackages = config.environment.systemPackages;
-                      systemFonts = config.fonts.packages;
-                      rift-config = config.services.rift.config;
-                    };
-                    home-manager.users.camille = {
-                      # {...} can be replaced by import ./path/to/module.nix
-                      imports = [
-                        ./home/darwin/default.nix
-                      ];
-                      home-config.status-bar.enable = true;
-                      home-config.GUIapps.enable = true;
-                      home-config.darwinApps.enable = true;
-                    };
-                  }
-                )
-                nix-homebrew.darwinModules.nix-homebrew
-                {
-                  nix-homebrew = {
-                    enable = true;
-                    enableRosetta = true;
-                    user = "camille";
-                    mutableTaps = false;
-                    taps = {
-                      "homebrew/homebrew-core" = inputs.homebrew-core;
-                      "homebrew/homebrew-cask" = inputs.homebrew-cask;
-                      "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
-                      "gromgit/homebrew-fuse" = inputs.homebrew-fuse;
-                      "waydabber/homebrew-betterdisplay" = inputs.homebrew-betterdisplay;
-                      "Kegworks-App/homebrew-kegworks" = inputs.homebrew-kegworks;
-                      "keith/homebrew-formulae" = inputs.homebrew-keith;
-                    };
-                  };
-                }
-                stylix.darwinModules.stylix
-              ];
-            };
-          */
         };
       nixosConfigurations =
         let

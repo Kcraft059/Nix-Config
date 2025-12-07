@@ -36,29 +36,11 @@
         bear # generate compile_comand
 
         # gum for clis
-        # pkgs.mcrcon
-        # pkgs.devenv maybe later see https://devenv.sh - alternative to nix-shells
-
-      ]
-      ++ [
-        (pkgs.writeShellScriptBin "sftp-fuse" ''
-          [[ -z "$1" ]] && exit 1
-          sshfs $1:/ /Volumes/$1 \
-                      -o reconnect,ServerAliveInterval=15,ServerAliveCountMax=10 \
-                      -o volname="$1 - SFTP" \
-                      -o volicon="${../ressources/Shared_Volume.tiff}" \
-                      ''${2:+"-o"} ''${2:+"umask=$2"}
-        '')
+        # mcrcon
+        # devenv maybe later see https://devenv.sh - alternative to nix-shells
       ]
       ++ lib.optionals config.home-config.GUIapps.enable [
         #pkgs.alacritty
       ];
-
-    # Miscellaneous configs
-
-    home.file."Library/Developer/Xcode/UserData/FontAndColorThemes/Rose Pine Moon.xccolortheme".source =
-      ../ressources/Rose_Pine_Moon.xccolortheme;
-    home.file."Library/Group Containers/UBF8T346G9.Office/User Content.localized/Themes.localized/Default Theme.potm".source =
-      ../ressources/Excel_Default.potm;
   };
 }
