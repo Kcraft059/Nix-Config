@@ -1,11 +1,11 @@
 {
   pkgs,
   config,
-  rift-config,
+  global-config,
   ...
 }:
 {
   xdg.configFile = {
-    "rift/config.toml".text = rift-config;
+    "rift/config.toml".text = global-config.services.rift.config;
   };
 }

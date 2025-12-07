@@ -9,10 +9,76 @@ let
     system = "x86_64-darwin";
     config = pkgs.config;
   };
-  pkgsArm = import pkgs.path {
-    system = "aarch64-darwin";
-    config = pkgs.config;
-  };
+
+  external-drive = config.darwin-system.external-drive;
+  defaults = config.darwin-system.defaults;
+
+  wallpaper = config.darwin-system.defaults.wallpaper;
+  syspkgs = config.environment.systemPackages;
+  homepkgs = config.home-manager.users.camille.home.packages;
+
+  system-activation = ''
+    echo -e "Running postActivation scripts…" >&2
+    mdutil -i off -V /nix # Ensure spotlight is turned off for nix-store
+
+    # ${pkgs.skhd}/bin/skhd -r # Reloads skhd
+
+    if [ -f /opt/homebrew/bin/tccutil ];then
+      echo -e "Setting up tcc permissions…" >&2
+      /opt/homebrew/bin/tccutil -i ${pkgs.bashNonInteractive}/bin/bash
+      ${lib.optionalString config.home-manager.users.camille.programs.sketchybar.enable ''/opt/homebrew/bin/tccutil  -i ${pkgs.sketchybar}/bin/sketchybar''}
+      ${lib.optionalString (builtins.elem pkgs.yabai syspkgs) ''/opt/homebrew/bin/tccutil  -i ${pkgs.yabai}/bin/yabai''}
+      ${lib.optionalString (builtins.elem pkgs.skhd syspkgs) ''/opt/homebrew/bin/tccutil  -i ${pkgs.skhd}/bin/skhd''}
+      ${lib.optionalString (builtins.elem pkgs.rift syspkgs) ''/opt/homebrew/bin/tccutil  -i ${pkgs.rift}/bin/rift''}
+      ${lib.optionalString (builtins.elem pkgs.aerospace syspkgs) ''/opt/homebrew/bin/tccutil  -i ${pkgs.aerospace}/bin/aerospace''}
+    fi
+
+
+    ${lib.optionalString (wallpaper != "")
+      ''osascript -e 'tell application "System Events" to set picture of every desktop to "${wallpaper}"' ''
+    }
+    ${lib.optionalString (builtins.elem pkgs.openjdk21 syspkgs) ''ln -sf ${pkgs.openjdk21}/Library/Java/JavaVirtualMachines/zulu-21.jdk /Library/Java/JavaVirtualMachines ''}
+    ${lib.optionalString (builtins.elem pkgsX86.openjdk17 syspkgs) ''ln -sf ${pkgsX86.openjdk17}/Library/Java/JavaVirtualMachines/zulu-17.jdk /Library/Java/JavaVirtualMachines ''}
+    ${lib.optionalString (builtins.elem pkgs.openjdk8 syspkgs) ''ln -sf ${pkgs.openjdk8}/Library/Java/JavaVirtualMachines/zulu-8.jdk /Library/Java/JavaVirtualMachines ''}
+    ${lib.optionalString (builtins.elem pkgs.ffmpeg syspkgs) ''ln -sf ${pkgs.ffmpeg.lib}/lib/* /usr/local/lib/ ''} 
+    ${lib.optionalString defaults.enable ''
+      defaults write -g NSColorSimulateHardwareAccent -bool YES 
+      defaults write -g NSColorSimulatedHardwareEnclosureNumber -int 7
+    ''}
+  '';
+
+  application-script =
+    let
+      env = pkgs.buildEnv {
+        name = "system-applications";
+        paths = config.environment.systemPackages;
+        pathsToLink = [ "/Applications" ];
+      };
+    in
+    lib.mkForce (
+      ''
+        # Set up applications.
+        echo "setting up /Applications..." >&2
+        rm -rf /Applications/Nix\ Apps
+        mkdir -p /Applications/Nix\ Apps
+        find ${env}/Applications -maxdepth 1 -type l -exec readlink '{}' + |
+        while read -r src; do
+          app_name=$(basename "$src")
+          echo "copying $src" >&2
+          ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
+        done
+      ''
+      + lib.optionalString external-drive.enable ''
+        rm -rf /Applications/External\ Apps
+        mkdir -p /Applications/External\ Apps
+        find ${external-drive.path}/Applications -maxdepth 1 -type d -name '*.app' |
+        while read -r src; do
+          app_name=$(basename "$src")
+          echo "copying $src" >&2
+          ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/External Apps/$app_name"
+        done
+      ''
+    );
 in
 {
   options.darwin-system = {
@@ -29,9 +95,17 @@ in
         '';
       };
     };
-    # window-man is defined at ./window-man/defaults.nix
+    external-drive.enable = lib.mkEnableOption "Enable linking of outside ressources";
+    external-drive.path = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+      example = lib.literalExpression '''';
+      description = ''
+        Mount point for the shared disk
+      '';
+    };
   };
-
+  
   config = lib.mkIf config.darwin-system.enable {
 
     users.users.camille = {
@@ -39,14 +113,10 @@ in
       name = "camille";
       home = "/Users/camille";
     };
-
     system.primaryUser = "camille";
 
     programs.zsh.enable = true;
-
     security.pam.services.sudo_local.touchIdAuth = true;
-
-    # networking.computerName = hostName;
 
     networking = {
       knownNetworkServices = [
@@ -64,12 +134,12 @@ in
       #computerName = hostName;
     };
 
-    system.defaults = lib.mkIf config.darwin-system.defaults.enable {
+    system.defaults = lib.mkIf defaults.enable {
       # Behaviour
       loginwindow.DisableConsoleAccess = false;
       finder = {
         ShowPathbar = true; # Finder
-        QuitMenuItem = true; # Finder
+        QuitMenuItem = true;
         FXDefaultSearchScope = "SCcf";
         ShowExternalHardDrivesOnDesktop = true;
         ShowHardDrivesOnDesktop = true;
@@ -88,8 +158,8 @@ in
         AppleInterfaceStyle = "Dark";
         _HIHideMenuBar = config.home-manager.users.camille.programs.sketchybar.enable;
       };
-      dock = lib.mkIf config.darwin-system.defaults.dock.enable {
-        autohide = true; # Dock
+      dock = lib.mkIf defaults.dock.enable {
+        autohide = true;
         show-recents = false;
         wvous-bl-corner = 2; # Mission Control
         wvous-tr-corner = 14; # Quick Note
@@ -98,7 +168,6 @@ in
         persistent-apps = [
           "/System/Applications/System Settings.app"
           "/System/Applications/App Store.app"
-          # "/Applications/About This Hack.app"
           "/System/Applications/Utilities/Disk Utility.app"
           "/Applications/Ghostty.app"
           "${pkgs.vscode}/Applications/Visual Studio Code.app"
@@ -110,7 +179,7 @@ in
             };
           }
           "/System/Applications/Passwords.app"
-          "/System/Volumes/Data/Applications/Firefox.app"
+          "/Applications/Firefox.app"
           "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app"
           "/Users/camille/Applications/YouTube.app"
           "/Applications/Prism Launcher.app/"
@@ -128,77 +197,20 @@ in
           "/System/Applications/Music.app"
           "/Applications/Audacity.app"
           "/Applications/VLC.app"
-          "/Volumes/Data/Applications/Microsoft Word.app"
-          "/Volumes/Data/Applications/Microsoft PowerPoint.app"
-          "/Volumes/Data/Applications/Microsoft Excel.app"
+          (lib.optionalString external-drive.enable "${external-drive.path}/Applications/Microsoft Word.app")
+          (lib.optionalString external-drive.enable "${external-drive.path}/Applications/Microsoft PowerPoint.app")
+          (lib.optionalString external-drive.enable "${external-drive.path}/Applications/Microsoft Excel.app")
           "/System/Applications/Notes.app"
-          "/System/Volumes/Data/Applications/PDFgear.app"
+          "/Applications/PDFgear.app"
         ];
-
         persistent-others = [
-          # "/Applications/More Apps…"
           "${config.users.users.camille.home}/"
           "${config.users.users.camille.home}/Downloads"
         ];
-
       };
     };
 
-    system.activationScripts.postActivation.text =
-      let
-        wallpaper = config.darwin-system.defaults.wallpaper;
-        syspkgs = config.environment.systemPackages;
-        homepkgs = config.home-manager.users.camille.home.packages;
-      in
-      lib.mkAfter ''
-        echo -ne "\033[38;5;5mRunning postActivation scripts…\033[0m\n" >&2
-        mdutil -i off -V /nix # Ensure spotlight is turned off for nix-store
-
-        # ${pkgs.skhd}/bin/skhd -r # Reloads skhd
-
-        if [ -f /opt/homebrew/bin/tccutil ];then
-          echo -ne "\033[38;5;2mSetting up tcc permissions…\033[0m\n" >&2
-          /opt/homebrew/bin/tccutil -i ${pkgs.bashNonInteractive}/bin/bash
-          ${lib.optionalString (builtins.elem pkgs.yabai syspkgs) ''/opt/homebrew/bin/tccutil  -i ${pkgs.yabai}/bin/yabai''}
-          ${lib.optionalString config.home-manager.users.camille.programs.sketchybar.enable ''/opt/homebrew/bin/tccutil  -i ${pkgs.sketchybar}/bin/sketchybar''}
-          ${lib.optionalString (builtins.elem pkgs.skhd syspkgs) ''/opt/homebrew/bin/tccutil  -i ${pkgs.skhd}/bin/skhd''}
-          ${lib.optionalString (builtins.elem pkgs.rift syspkgs) ''/opt/homebrew/bin/tccutil  -i ${pkgs.rift}/bin/rift''}
-          ${lib.optionalString (builtins.elem pkgs.aerospace syspkgs) ''/opt/homebrew/bin/tccutil  -i ${pkgs.aerospace}/bin/aerospace''}
-        fi
-
-
-        ${lib.optionalString (wallpaper != "")
-          ''osascript -e 'tell application "System Events" to set picture of every desktop to "${wallpaper}"' ''
-        }
-        ${lib.optionalString (builtins.elem pkgs.openjdk21 syspkgs) ''ln -sf ${pkgs.openjdk21}/Library/Java/JavaVirtualMachines/zulu-21.jdk /Library/Java/JavaVirtualMachines ''}
-        ${lib.optionalString (builtins.elem pkgsX86.openjdk17 syspkgs) ''ln -sf ${pkgsX86.openjdk17}/Library/Java/JavaVirtualMachines/zulu-17.jdk /Library/Java/JavaVirtualMachines ''}
-        ${lib.optionalString (builtins.elem pkgs.openjdk8 syspkgs) ''ln -sf ${pkgs.openjdk8}/Library/Java/JavaVirtualMachines/zulu-8.jdk /Library/Java/JavaVirtualMachines ''}
-        ${lib.optionalString (builtins.elem pkgs.ffmpeg syspkgs) ''ln -sf ${pkgs.ffmpeg.lib}/lib/* /usr/local/lib/ ''} 
-        ${lib.optionalString config.darwin-system.defaults.enable ''
-          defaults write -g NSColorSimulateHardwareAccent -bool YES 
-          defaults write -g NSColorSimulatedHardwareEnclosureNumber -int 7
-          ''}
-      '';
-
-    system.activationScripts.applications.text =
-      let
-        env = pkgs.buildEnv {
-          name = "system-applications";
-          paths = config.environment.systemPackages;
-          pathsToLink = [ "/Applications" ];
-        };
-      in
-      lib.mkForce ''
-        # Set up applications.
-        echo "setting up /Applications..." >&2
-        rm -rf /Applications/Nix\ Apps
-        mkdir -p /Applications/Nix\ Apps
-        find ${env}/Applications -maxdepth 1 -type l -exec readlink '{}' + |
-        while read -r src; do
-          app_name=$(basename "$src")
-          echo "copying $src" >&2
-          ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
-        done
-      '';
+    system.activationScripts.applications.text = application-script;
+    system.activationScripts.postActivation.text = lib.mkAfter system-activation;
   };
 }

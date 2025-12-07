@@ -2,7 +2,7 @@
   pkgs,
   config,
   lib,
-  systemFonts,
+  global-config,
   ...
 }:
 let
@@ -28,7 +28,7 @@ rec {
       userSettings =
         let
           font =
-            lib.optionalString (builtins.elem pkgs.nerd-fonts.jetbrains-mono systemFonts) lib.mkForce
+            lib.optionalString (builtins.elem pkgs.nerd-fonts.jetbrains-mono global-config.fonts.packages) lib.mkForce
               "JetBrainsMono Nerd Font";
         in
         {
@@ -76,21 +76,21 @@ rec {
         };
       extensions = with pkgs.vscode-marketplace; [
         # To use, needs to overlay inputs.nix-vscode-extensions.overlays.default
-        
-                mvllow.rose-pine # Theme
 
-                jnoortheen.nix-ide # Nix code formating + completion
-                llvm-vs-code-extensions.vscode-clangd # C/C++ (obj) completion + formating
-                bmewburn.vscode-intelephense-client # PHP completion + formating
-                mkhl.shfmt # Shell completion + formating
-                ## ms-vscode.cpptools
-                
-                ## ms-python.python
-                dnicolson.binary-plist # Allow modification of binary plists
+        mvllow.rose-pine # Theme
 
-                ## ms-vscode.cpptools-extension-pack
-                ## SPGoding.datapack-language-server # Not added yet to the packages repo
-        
+        jnoortheen.nix-ide # Nix code formating + completion
+        llvm-vs-code-extensions.vscode-clangd # C/C++ (obj) completion + formating
+        bmewburn.vscode-intelephense-client # PHP completion + formating
+        mkhl.shfmt # Shell completion + formating
+        ## ms-vscode.cpptools
+
+        ## ms-python.python
+        dnicolson.binary-plist # Allow modification of binary plists
+
+        ## ms-vscode.cpptools-extension-pack
+        ## SPGoding.datapack-language-server # Not added yet to the packages repo
+
       ];
     };
   };
@@ -98,7 +98,11 @@ rec {
   # Only build file if clangd extension
   home.file.".clang-format".text =
     lib.optionalString (builtins.elem pkgs.vscode-marketplace.llvm-vs-code-extensions.vscode-clangd programs.vscode.profiles.default.extensions) clangd-config;
-  home.file."Developper/.clang-format".text =
-    lib.optionalString (builtins.elem pkgs.vscode-marketplace.llvm-vs-code-extensions.vscode-clangd programs.vscode.profiles.default.extensions) clangd-config;
 
+  home.activation.externalDriveLinks =
+    lib.optionalString
+      (builtins.elem pkgs.vscode-marketplace.llvm-vs-code-extensions.vscode-clangd programs.vscode.profiles.default.extensions)
+      lib.hm.dag.entryAfter
+      [ "writeBoundary" ]
+      ''ln -sfn "${pkgs.writeText "clang-format" clangd-config}" "$HOME/Developper/.clang-format"'';
 }
