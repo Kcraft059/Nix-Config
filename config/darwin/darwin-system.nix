@@ -136,7 +136,7 @@ in
         ];
 
         persistent-others = [
-          "/Applications/More Apps…"
+          # "/Applications/More Apps…"
           "${config.users.users.camille.home}/"
           "${config.users.users.camille.home}/Downloads"
         ];

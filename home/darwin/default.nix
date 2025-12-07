@@ -9,4 +9,5 @@
   home-config.darwinApps.enable = lib.mkDefault false;
   home-config.fastfetch.logo = "${../configs/fastfetch-logo.txt}";
   home-config.fastfetch.osString = "/\\/\\acOS ";
+  home-config.external-drive.enable = lib.mkDefault false;
 }

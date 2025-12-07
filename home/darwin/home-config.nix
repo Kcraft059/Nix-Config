@@ -16,6 +16,7 @@
     ./quick-actions.nix
     ./sketchybar.nix
     ./app-defaults.nix
+    ./links.nix
   ];
 
   config = {
@@ -29,30 +30,6 @@
     ]
     ++ lib.optionals (config.home-config.darwinApps.enable && config.home-config.GUIapps.enable) [
       pkgs.krita-mac
-      pkgs.fancyfolder
-      #pkgs.backdrop-app
     ];
   };
 }
-/*
-      programs.vscode = {
-        enable = true;
-      };
-
-      ".config/fastfetch/logo.txt".text = (builtins.readFile ./logo.txt);
-
-      programs.fastfetch = {
-        enable = true;
-        package = pkgs.fastfetch;
-        settings = {
-          logo = {
-            source = "~/.config/fastfetch/logo.txt";
-            padding = {
-              right = 1;
-            };
-          };
-        };
-      };
-
-  }
-*/
