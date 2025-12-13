@@ -101,12 +101,14 @@ rec {
     lib.optionalString (builtins.elem pkgs.vscode-marketplace.llvm-vs-code-extensions.vscode-clangd programs.vscode.profiles.default.extensions) clangd-config;
 
   home.activation.externalDriveLinks =
-    lib.optionalString
+    lib.mkIf
       (
         (builtins.elem pkgs.vscode-marketplace.llvm-vs-code-extensions.vscode-clangd programs.vscode.profiles.default.extensions)
         && config.home-config.external-drive.enable
       )
-      lib.hm.dag.entryAfter
-      [ "writeBoundary" ]
-      ''ln -sfn "${pkgs.writeText "clang-format" clangd-config}" "$HOME/Developper/.clang-format"'';
+      (
+        lib.hm.dag.entryAfter [
+          "writeBoundary"
+        ] ''ln -sfn "${pkgs.writeText "clang-format" clangd-config}" "$HOME/Developper/.clang-format"''
+      );
 }
