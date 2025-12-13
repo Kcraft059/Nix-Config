@@ -27,7 +27,7 @@ in
   config = {
     services.yabai = {
 
-      enable = enable-yabai; # if config.darwin-system.window-man.type == "yabai" then true else false;
+      enable = enable-yabai;
       enableScriptingAddition = true; # `sudo nvram boot-args="-arm64e_preview_abi"`
 
       config = {
@@ -35,8 +35,8 @@ in
         focus_follows_mouse = "off";
         mouse_follows_focus = "on";
         window_placement = "second_child";
-
         #window_shadow = "float";
+
         # Appearance
         window_opacity = "on";
         active_window_opacity = 1.0;
