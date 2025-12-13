@@ -73,6 +73,23 @@
         };
       */
     };
+
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      wireplumber.enable = true;
+    };
+
+    xdg.portal = {
+      enable = true;
+      xdgOpenUsePortal = true;
+
+      extraPortals = [
+        pkgs.xdg-desktop-portal-hyprland
+      ];
+    };
     /*
       programs.waybar = {
         enable = config.nixos-system.hyprland.enable;
@@ -108,7 +125,7 @@
     # Enable sound with pipewire.
     services.pulseaudio.enable = false;
     security.rtkit.enable = true;
-    services.pipewire = {
+    /* services.pipewire = {
       enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
@@ -120,7 +137,7 @@
       # no need to redefine it in your config for now)
       #media-session.enable = true;
     };
-
+ */
     environment.systemPackages = [ pkgs.brightnessctl ];
 
     # Enable touchpad support (enabled default in most desktopManager).
