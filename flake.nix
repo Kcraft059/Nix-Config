@@ -194,12 +194,9 @@
       nixosConfigurations =
         let
           system = "x86_64-linux";
-          pkgs = import inputs.nixpkgs {
-            inherit system;
+          pkgsConf = {
             config = {
               allowUnfree = true;
-              #allowUnsupportedSystem = true;
-              #allowBroken = true;
             };
             overlays = [
               inputs.nix-vscode-extensions.overlays.default
@@ -214,11 +211,11 @@
               inherit
                 self # Needed in nix-conf
                 inputs # Needed throughout the config
-                pkgs # Is needed since we modify options above
+                #pkgs # Is needed since we modify options above
                 ;
             };
             modules = [
-              pkgs.nixosModules.readOnlyPkgs
+              { nixpkgs = { inherit system; } // pkgsConf; }
               ./config/nixos/default.nix
               {
                 common.stylix.enable = true;
