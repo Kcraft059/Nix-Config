@@ -1,4 +1,4 @@
-#!bash
+#!/usr/bin/env bash
 system=$(uname -a | awk '{print $4}')
 
 case $system in
