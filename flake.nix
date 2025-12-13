@@ -65,8 +65,8 @@
       url = "github:waydabber/homebrew-betterdisplay";
       flake = false;
     };
-    homebrew-kegworks = {
-      url = "github:Kegworks-App/homebrew-kegworks";
+    homebrew-sirakugir = {
+      url = "github:Sikarugir-App/homebrew-sikarugir";
       flake = false;
     };
     homebrew-keith = {
@@ -149,7 +149,7 @@
               }
               ./packages/homebrew/default.nix
               {
-                HMB.masApps.enable = false; # mdutil #check for spotlight indexing
+                HMB.masApps.enable = true; # mdutil #check for spotlight indexing
               }
               home-manager.darwinModules.home-manager
               (
@@ -187,7 +187,7 @@
                     "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
                     "gromgit/homebrew-fuse" = inputs.homebrew-fuse;
                     "waydabber/homebrew-betterdisplay" = inputs.homebrew-betterdisplay;
-                    "Kegworks-App/homebrew-kegworks" = inputs.homebrew-kegworks;
+                    "Sirakugir-App/homebrew-sirakugir" = inputs.homebrew-sirakugir;
                     "keith/homebrew-formulae" = inputs.homebrew-keith;
                     "deskflow/homebrew-tap" = inputs.homebrew-deskflow;
                   };

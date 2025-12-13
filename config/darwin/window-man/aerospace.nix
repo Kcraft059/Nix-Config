@@ -43,7 +43,7 @@ let
 
   workspaceListString = lib.concatStringsSep " " (builtins.map (name: "\"${name}\"") workspaceNames);
   primaryWorkspace = builtins.head workspaceNames; # equivalent to 1
-  
+
   # Execs
   aerospaceSetup = pkgs.writeShellScriptBin "aerospace-setup-workspaces" ''
     #!/usr/bin/env bash
@@ -81,10 +81,12 @@ in
         outer.right = global-padding;
         outer.bottom = global-padding;
         outer.top = topGap;
-        /*= [
-          #{ monitor."Built-in Retina Display" = builtinTopGap; }
-          topGap # fallback for any other monitor
-        ];*/
+        /*
+          = [
+            #{ monitor."Built-in Retina Display" = builtinTopGap; }
+            topGap # fallback for any other monitor
+          ];
+        */
       };
       "on-focused-monitor-changed" = [
         "move-mouse monitor-lazy-center"

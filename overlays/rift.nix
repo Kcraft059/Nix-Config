@@ -1,4 +1,8 @@
-{ pkgs, inputs, lib ? pkgs.lib }:
+{
+  pkgs,
+  inputs,
+  lib ? pkgs.lib,
+}:
 let
   # Import nixpkgs with rust-overlay to access rust-bin nightly toolchains
   pkgsWithRust = import inputs.nixpkgs {
@@ -7,7 +11,11 @@ let
   };
 
   toolchain = pkgsWithRust.rust-bin.stable."1.90.0".default.override {
-    extensions = [ "rust-src" "clippy" "rustfmt" ];
+    extensions = [
+      "rust-src"
+      "clippy"
+      "rustfmt"
+    ];
   };
 
   craneLib = (inputs.crane.mkLib pkgsWithRust).overrideToolchain toolchain;
@@ -24,4 +32,5 @@ let
 
   cargoArtifacts = craneLib.buildDepsOnly commonArgs;
 
-in craneLib.buildPackage (commonArgs // { cargoArtifacts = cargoArtifacts; })
+in
+craneLib.buildPackage (commonArgs // { cargoArtifacts = cargoArtifacts; })

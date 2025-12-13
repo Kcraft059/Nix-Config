@@ -1,4 +1,9 @@
-{ pkgs, lib, global-config, ... }:
+{
+  pkgs,
+  lib,
+  global-config,
+  ...
+}:
 {
   imports = [
     ../default.nix

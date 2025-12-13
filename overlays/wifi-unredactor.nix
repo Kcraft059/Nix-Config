@@ -4,13 +4,13 @@ pkgs.stdenv.mkDerivation rec {
   appname = "wifi-unredactor";
   version = "master";
   sourceRoot = ".";
-  
+
   src = pkgs.fetchFromGitHub {
     owner = "noperator";
     repo = "wifi-unredactor";
     rev = version;
     sha256 = "sha256-mPYI60m7PACQ6xItvTshDJBwfVTtm4N/UeIvEthgci8=";
-  }; #inputs.wifi-unredactor;
+  }; # inputs.wifi-unredactor;
   description = "Workaround for redacted wifi-ssid";
   homepage = "https://github.com/noperator/wifi-unredactor/";
 

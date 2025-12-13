@@ -9,7 +9,7 @@ pkgs.stdenv.mkDerivation rec {
     rev = version;
     sha256 = "sha256-Ma1+E/i6LTvKpSRu2uASAC/EAsYM+cIWInWBzH4MkPw=";
   };
-  
+
   nativeBuildInputs = [
     pkgs.gcc
     pkgs.darwin.apple_sdk.frameworks.IOKit
