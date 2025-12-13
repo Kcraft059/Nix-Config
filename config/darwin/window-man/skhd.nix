@@ -135,6 +135,8 @@ in
       # App launch
       ctrl + cmd + alt - t : open /Applications/Ghostty.app
       ctrl + cmd + alt - q : ${common.quit-all-apps}/bin/quit-all-apps
+      cmd + alt - escape : ${common.shutdown}/bin/shutdown
+      cmd + ctrl - escape : ${common.restart}/bin/restart
     '';
   };
 }

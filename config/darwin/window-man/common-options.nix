@@ -28,8 +28,6 @@
   ];
 
   quit-all-apps = pkgs.writeShellScriptBin "quit-all-apps" ''
-    #!bin/bash
-
     apps=$(osascript -e 'tell application "System Events" to get name of every application process whose background only is false' | sed 's/, /,/g')
 
     IFS=',' read -r -a app_list <<< "$apps"
@@ -40,6 +38,14 @@
             killall "$app"
         fi
     done
+  '';
+
+  shutdown = pkgs.writeShellScriptBin "shutdown" ''
+    osascript -e 'tell app "loginwindow" to «event aevtrsdn»'
+  '';
+
+  restart = pkgs.writeShellScriptBin "restart" ''
+    osascript -e 'tell app "loginwindow" to «event aevtrrst»'
   '';
 
   # Visual
