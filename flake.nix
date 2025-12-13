@@ -229,23 +229,27 @@
                 NIXPKG.linuxApps.enable = true;
               }
               home-manager.nixosModules.home-manager
-              ({ config, ... }:{
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.backupFileExtension = "bak";
-                home-manager.extraSpecialArgs = {
-                  inherit inputs;
-                  global-config = config;
-                };
-                home-manager.users.camille = {
-                  # {...} can be replaced by import ./path/to/module.nix
-                  imports = [
-                    ./home/nixos/default.nix
-                  ];
-                  home-config.GUIapps.enable = true;
-                  home-config.hyprland.enable = true;
+              (
+                { config, ... }:
+                {
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.backupFileExtension = "bak";
+                  home-manager.extraSpecialArgs = {
+                    inherit inputs;
+                    global-config = config;
                   };
-              })
+                  home-manager.users.camille = {
+                    # {...} can be replaced by import ./path/to/module.nix
+                    imports = [
+                      ./home/nixos/default.nix
+                    ];
+                    home-config.GUIapps.enable = true;
+                    home-config.hyprland.enable = true;
+                    home-config.hyprland.wallpaper = ./ressources/Abstract_Wave.jpg;
+                  };
+                }
+              )
               stylix.nixosModules.stylix
             ];
           };

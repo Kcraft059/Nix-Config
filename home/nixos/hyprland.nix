@@ -7,6 +7,14 @@
 {
   options = {
     home-config.hyprland.enable = lib.mkEnableOption ''Enable Hyprland and its plugins'';
+    home-config.hyprland.wallpaper = lib.mkOption {
+      type = lib.types.path;
+      default = "";
+      example = lib.literalExpression ''/ressources/wallpaper.png'';
+      description = ''
+        Set the default wallpaper
+      '';
+    };
   };
 
   config =
@@ -186,15 +194,13 @@
         };
       };
 
-      home.file.".config/hypr/ign_coloful.png".source = ../../ressources/ign_colorful.png;
-
       # Plugins and Menu Items
 
       services.hyprpaper = {
         enable = true;
         settings = {
-          preload = [ "/home/camille/.config/hypr/ign_colorful.png" ];
-          wallpaper = [ "monitor,/home/camille/.config/hypr/ign_colorful.png" ];
+          preload = [ "${config.home-config.hyprland.wallpaper}" ];
+          wallpaper = [ "monitor,${config.home-config.hyprland.wallpaper}" ];
         };
       };
 
