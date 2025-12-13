@@ -23,7 +23,7 @@ in
     # Different of initExtra by adding First, it will be the first entry to be added
 
     initContent =
-      lib.mkBefore # lib.optionalString builtins.elem "a"
+      lib.mkBefore 
         ''
           # p10k config
           if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then

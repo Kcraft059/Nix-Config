@@ -218,6 +218,7 @@
                 ;
             };
             modules = [
+              readOnlyPkgs.nixosModules.readOnlyPkgs
               ./config/nixos/default.nix
               {
                 common.stylix.enable = true;

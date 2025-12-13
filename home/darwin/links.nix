@@ -33,24 +33,12 @@ let
     ) linkedDirs;
 in
 {
-  options = {
-    home-config.external-drive.enable = lib.mkEnableOption "Enable linking of outside ressources";
-    home-config.external-drive.path = lib.mkOption {
-      type = lib.types.str;
-      default = "/Volumes/Data";
-      example = lib.literalExpression '''';
-      description = ''
-        Mount point for the shared disk
-      '';
-    };
-  };
-  
   config = {
     home.file = {
-      "Library/Developer/Xcode/UserData/FontAndColorThemes".source =
-        ../../ressources/XcodeThemes;
+      "Library/Developer/Xcode/UserData/FontAndColorThemes".source = ../../ressources/XcodeThemes;
       "Library/Group Containers/UBF8T346G9.Office/User Content.localized/Themes.localized/Default Theme.potm".source =
         ../../ressources/Excel_Default.potm;
-    } // lib.optionals external-drive.enable linkedHomeFiles;
+    }
+    // lib.optionals external-drive.enable linkedHomeFiles;
   };
 }

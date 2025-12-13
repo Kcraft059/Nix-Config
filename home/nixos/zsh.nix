@@ -9,7 +9,8 @@
     enable = true;
     # Load the default Powerlevel10k configuration
     # Different of initExtra by adding First, it will be the first entry to be added
-    initExtraFirst = # lib.optionalString builtins.elem "a"
+    initContent =
+      lib.mkBefore
       ''
         # Prompt aspect
         autoload -U colors && colors
