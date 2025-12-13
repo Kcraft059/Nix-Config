@@ -135,6 +135,7 @@
                 #darwin-system.status-bar.enable = true;
                 darwin-system.defaults.dock.enable = true;
                 darwin-system.defaults.wallpaper = ./ressources/Abstract_Wave.jpg;
+                common.stylix.wallpaper = darwin-system.defaults.wallpaper;
                 darwin-system.external-drive.enable = true;
                 darwin-system.external-drive.path = "/Volumes/Data";
               }
@@ -219,6 +220,7 @@
               ./config/nixos/default.nix
               {
                 common.stylix.enable = true;
+                common.stylix.wallpaper =  ./ressources/Abstract_Wave.jpg;
                 nixos-system.plasma6.enable = false;
                 nixos-system.hyprland.enable = true;
               }
@@ -244,7 +246,7 @@
                     ];
                     home-config.GUIapps.enable = true;
                     home-config.hyprland.enable = true;
-                    home-config.hyprland.wallpaper = ./ressources/Abstract_Wave.jpg;
+                    home-config.hyprland.wallpaper = config.common.stylix.wallpaper;
                   };
                 }
               )
