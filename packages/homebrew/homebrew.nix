@@ -51,6 +51,7 @@
           "gog-galaxy"
           "appcleaner"
           "makemkv"
+          "deskflow"
           #"kegworks"
           #"binary-ninja-free"
         ];
