@@ -6,7 +6,6 @@
 }:
 {
   options.home-config = {
-    GUIapps.enable = lib.mkEnableOption "Install GUI-Apps ?";
     darwinApps.enable = lib.mkEnableOption "Install Darwin-Apps ?";
   };
 

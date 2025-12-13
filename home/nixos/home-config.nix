@@ -5,10 +5,6 @@
   ...
 }:
 {
-  options.home-config = {
-    GUIapps.enable = lib.mkEnableOption "Install GUI-Apps ?";
-  };
-
   imports = [
     ./hyprland.nix
     ./ghostty.nix

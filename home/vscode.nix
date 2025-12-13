@@ -101,7 +101,7 @@ rec {
 
   home.activation.externalDriveLinks =
     lib.optionalString
-      (builtins.elem pkgs.vscode-marketplace.llvm-vs-code-extensions.vscode-clangd programs.vscode.profiles.default.extensions)
+      (builtins.elem pkgs.vscode-marketplace.llvm-vs-code-extensions.vscode-clangd programs.vscode.profiles.default.extensions) || config.external-drive.enable
       lib.hm.dag.entryAfter
       [ "writeBoundary" ]
       ''ln -sfn "${pkgs.writeText "clang-format" clangd-config}" "$HOME/Developper/.clang-format"'';
