@@ -194,16 +194,33 @@
       nixosConfigurations =
         let
           system = "x86_64-linux";
+          pkgs = import inputs.nixpkgs {
+            inherit system;
+            config = {
+              allowUnfree = true;
+              #allowUnsupportedSystem = true;
+              #allowBroken = true;
+            };
+            overlays = [
+              inputs.nix-vscode-extensions.overlays.default
+              (import ./overlays/default.nix { inherit inputs; })
+            ];
+          };
         in
         {
           "NixLaptop" = nixpkgs.lib.nixosSystem {
+            inherit system;
             specialArgs = {
-              inherit self system inputs;
+              inherit
+                self # Needed in nix-conf
+                inputs # Needed throughout the config
+                pkgs # Is needed since we modify options above
+                ;
             };
             modules = [
               ./config/nixos/default.nix
               {
-                nixos-system.stylix.enable = true;
+                common.stylix.enable = true;
                 nixos-system.plasma6.enable = false;
                 nixos-system.hyprland.enable = true;
               }
@@ -212,10 +229,14 @@
                 NIXPKG.linuxApps.enable = true;
               }
               home-manager.nixosModules.home-manager
-              {
+              ({ config, ... }:{
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
                 home-manager.backupFileExtension = "bak";
+                home-manager.extraSpecialArgs = {
+                  inherit inputs;
+                  global-config = config;
+                };
                 home-manager.users.camille = {
                   # {...} can be replaced by import ./path/to/module.nix
                   imports = [
@@ -223,8 +244,8 @@
                   ];
                   home-config.GUIapps.enable = true;
                   home-config.hyprland.enable = true;
-                };
-              }
+                  };
+              })
               stylix.nixosModules.stylix
             ];
           };
