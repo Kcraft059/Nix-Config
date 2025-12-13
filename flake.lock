@@ -266,11 +266,11 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1763748738,
-        "narHash": "sha256-ID3aoiPYkCJZMPdVaExhBHKUqfR23C2fH38IKT4l0yA=",
+        "lastModified": 1765639468,
+        "narHash": "sha256-6t8IxSbVf1TzH/dy9wDB6fUvWLZWXE6/8fqgwGmz648=",
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "01be0a8c8a60a6d1f51877e1b8dcf1b603a64ee3",
+        "rev": "b26d8d005a7efe04933f1da612527b5bf56abb54",
         "type": "github"
       },
       "original": {
@@ -311,22 +311,6 @@
         "type": "github"
       }
     },
-    "homebrew-kegworks": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1755132769,
-        "narHash": "sha256-SN1PrxawrvkOGe9LYBWsb/o9ae+rd7E1xVtGEumUw5c=",
-        "owner": "Kegworks-App",
-        "repo": "homebrew-kegworks",
-        "rev": "f40f3149ea598ec4fedd052c8784dc1b3b0a2694",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Kegworks-App",
-        "repo": "homebrew-kegworks",
-        "type": "github"
-      }
-    },
     "homebrew-keith": {
       "flake": false,
       "locked": {
@@ -340,6 +324,22 @@
       "original": {
         "owner": "keith",
         "repo": "homebrew-formulae",
+        "type": "github"
+      }
+    },
+    "homebrew-sirakugir": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1755132769,
+        "narHash": "sha256-SN1PrxawrvkOGe9LYBWsb/o9ae+rd7E1xVtGEumUw5c=",
+        "owner": "Sikarugir-App",
+        "repo": "homebrew-sikarugir",
+        "rev": "f40f3149ea598ec4fedd052c8784dc1b3b0a2694",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Sikarugir-App",
+        "repo": "homebrew-sikarugir",
         "type": "github"
       }
     },
@@ -533,8 +533,8 @@
         "homebrew-core": "homebrew-core",
         "homebrew-deskflow": "homebrew-deskflow",
         "homebrew-fuse": "homebrew-fuse",
-        "homebrew-kegworks": "homebrew-kegworks",
         "homebrew-keith": "homebrew-keith",
+        "homebrew-sirakugir": "homebrew-sirakugir",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
         "nix-vscode-extensions": "nix-vscode-extensions",

@@ -84,7 +84,7 @@ let
     ${super} + ${ctrl} - left : ${aerospace} workspace prev
     ${super} + ${ctrl} + ${shift} - right : ${aerospace} move-node-to-workspace --focus-follows-window next
     ${super} + ${ctrl} + ${shift} - left : ${aerospace} move-node-to-workspace --focus-follows-window prev
-    
+
     # ${super} - 1 : ${aerospace} workspace 1
     # ${super} - 2 : ${aerospace} workspace 2
     # ${super} - 3 : ${aerospace} workspace 3

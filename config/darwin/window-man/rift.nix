@@ -11,7 +11,7 @@ let
   # Enable options
   enable-rift = common.enable-rift && common.enable-wm;
 
-  # Config 
+  # Config
   super = common.modifiers.super;
   mod = common.modifiers.mod;
   ctrl = common.modifiers.ctrl;

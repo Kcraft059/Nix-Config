@@ -22,49 +22,54 @@
           "font-sf-pro"
         ]
         ++ lib.optionals config.HMB.brews.enable [
-          "macfuse@dev"
+          "macfuse"
         ]
         ++ lib.optionals config.HMB.casks.enable [
+          # Utilities
+          "disk-inventory-x"
+          "lulu"
+          "knockknock"
           "hex-fiend"
-          "vlc"
-          "iina"
-          "the-unarchiver"
+          "deskflow"
+          "appcleaner"
           "BetterDisplay"
           "Raycast"
-          "kid3"
-          "prismlauncher"
-          "audacity"
           "whisky"
-          "lulu"
-          "disk-inventory-x"
+          #"sirakugir"
+          "the-unarchiver"
+          "balenaetcher"
+          "suspicious-package"
+          #"binary-ninja-free"
+          
+          # Media
+          "vlc"
+          "iina"
+          "kid3"
+          "audacity" 
+          "makemkv"
+          "gimp"
+
+          # Other
           "sf-symbols"
-          "knockknock"
           "chatgpt"
           "discord"
-          "gimp"
-          #"Alcove"
-          "suspicious-package"
           "firefox"
-          "balenaetcher"
-          "google-chrome" # Ewww… WebHID Only
+          "google-chrome"
           "steamcmd"
+          "prismlauncher"
           "gog-galaxy"
-          "appcleaner"
-          "makemkv"
-          "deskflow"
-          #"kegworks"
-          #"binary-ninja-free"
+          #"Alcove"
         ];
       brews =
-        #lib.optionals config.HMB.coreUtils [ ] ++
         lib.optionals config.HMB.brews.enable [
-          #"powerlevel10k"
-          "tccutil"
           "betterdisplaycli"
+  
+          "tccutil"
           "dyld-shared-cache-extractor"
+          
           "ext4fuse-mac" # sudo ext4fuse <diskXsX> <mountPoint> -o allow_other -o umask=000
-          "ntfs-3g-mac" # "libunistring" "gettext"
           "sshfs-mac" # sshfs <user>@<host>:<dir> <mountPoint> -o identityFile=<pathToSSH-Key>
+          "ntfs-3g-mac"
           /*
             { # https://nix-darwin.github.io/nix-darwin/manual/#opt-homebrew.brews._.restart_service
               name = "batt";
@@ -90,11 +95,10 @@
         ++ lib.optionals config.home-manager.users.camille.programs.sketchybar.enable [ "media-control" ];
 
       masApps =
-        #lib.mkIf config.HMB.coreUtils { } //
         lib.mkIf config.HMB.masApps.enable {
           actions = 1586435171;
           Ferromagnetic = 1546537151;
-          AppleConfigurator = 1037126344;
+          #AppleConfigurator = 1037126344;
           Pdf-Gear = 6469021132;
           amphetamine = 937984704;
           Testflight = 899247664;
@@ -102,6 +106,7 @@
           Xcode = 497799835;
           Whatsapp = 310633997;
           KeyNote = 409183694;
+          FolderQuickLook = 6753110395;
           #CrystalFetch = 6454431289;
         };
 
@@ -111,7 +116,8 @@
         "homebrew/homebrew-bundle"
         "gromgit/homebrew-fuse"
         "waydabber/homebrew-betterdisplay"
-        "Kegworks-App/homebrew-kegworks"
+        "Sirakugir-App/homebrew-sirakugir"
+        "deskflow/homebrew-tap"
       ];
       onActivation.autoUpdate = true;
       onActivation.upgrade = true;

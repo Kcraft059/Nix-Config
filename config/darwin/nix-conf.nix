@@ -33,7 +33,7 @@
       #Hour = 6;
       #Minute = 0;
     };
-    #nix.gc.options = "--delete-older-than 5d"; #Already setup in common 
+    #nix.gc.options = "--delete-older-than 5d"; #Already setup in common
 
     # Used for backwards compatibility, please read the changelog before changing.
     # $ darwin-rebuild changelog

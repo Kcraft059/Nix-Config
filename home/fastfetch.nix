@@ -17,7 +17,7 @@
     home-config.fastfetch.osString = lib.mkOption {
       type = lib.types.str;
       default = "OS";
-      example = lib.literalExpression '' /\\/\\acOS'';
+      example = lib.literalExpression ''/\\/\\acOS'';
       description = ''
         Configure the OSstring
       '';

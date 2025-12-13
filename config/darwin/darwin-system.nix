@@ -105,7 +105,7 @@ in
       '';
     };
   };
-  
+
   config = lib.mkIf config.darwin-system.enable {
 
     users.users.camille = {
