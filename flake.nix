@@ -125,7 +125,6 @@
               inherit
                 self # Needed in nix-conf
                 inputs # Needed throughout the config
-                #pkgs # Is needed since we modify options above
                 ;
             };
             modules = [
@@ -211,13 +210,12 @@
           };
         in
         {
-          "NixLaptop" = nixpkgs.lib.nixosSystem {
+          "LenovoYogaCam-i7" = nixpkgs.lib.nixosSystem {
             inherit system;
             specialArgs = {
               inherit
                 self # Needed in nix-conf
                 inputs # Needed throughout the config
-                #pkgs # Is needed since we modify options above
                 ;
             };
             modules = [
