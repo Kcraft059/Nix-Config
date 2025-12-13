@@ -17,6 +17,7 @@
     ./sketchybar.nix
     ./app-defaults.nix
     ./links.nix
+    ./rift.nix
   ];
 
   config = {
