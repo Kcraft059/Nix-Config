@@ -73,6 +73,10 @@
       url = "github:keith/homebrew-formulae";
       flake = false;
     };
+    homebrew-deskflow = {
+      url = "github:deskflow/homebrew-tap";
+      flake = false;
+    };
 
     ## Custom sources
 
@@ -185,6 +189,7 @@
                     "waydabber/homebrew-betterdisplay" = inputs.homebrew-betterdisplay;
                     "Kegworks-App/homebrew-kegworks" = inputs.homebrew-kegworks;
                     "keith/homebrew-formulae" = inputs.homebrew-keith;
+                    "deskflow/homebrew-tap" = inputs.homebrew-deskflow;
                   };
                 };
               }

@@ -279,6 +279,22 @@
         "type": "github"
       }
     },
+    "homebrew-deskflow": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1765289583,
+        "narHash": "sha256-OPaBtant8p2Smcsn4bwB70eSCalSRFA5RmLuCxsSsTA=",
+        "owner": "deskflow",
+        "repo": "homebrew-tap",
+        "rev": "64869c8cf937f62fd9e81ac8acfed2f1b8d946b6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "deskflow",
+        "repo": "homebrew-tap",
+        "type": "github"
+      }
+    },
     "homebrew-fuse": {
       "flake": false,
       "locked": {
@@ -515,6 +531,7 @@
         "homebrew-bundle": "homebrew-bundle",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
+        "homebrew-deskflow": "homebrew-deskflow",
         "homebrew-fuse": "homebrew-fuse",
         "homebrew-kegworks": "homebrew-kegworks",
         "homebrew-keith": "homebrew-keith",

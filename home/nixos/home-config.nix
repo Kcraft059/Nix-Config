@@ -21,31 +21,8 @@
       ++ lib.optionals config.home-config.GUIapps.enable [
         pkgs.ghostty
         pkgs.krita
+        pkgs.deskflow
         #pkgs.vscode
       ];
-
-      programs.vscode = {
-        enable = true;
-      };
   };
 }
-/*
-      
-
-      ".config/fastfetch/logo.txt".text = (builtins.readFile ./logo.txt);
-
-      programs.fastfetch = {
-        enable = true;
-        package = pkgs.fastfetch;
-        settings = {
-          logo = {
-            source = "~/.config/fastfetch/logo.txt";
-            padding = {
-              right = 1;
-            };
-          };
-        };
-      };
-
-  }
-*/

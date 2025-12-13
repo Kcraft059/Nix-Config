@@ -23,7 +23,7 @@
       #keybind = [ "global:cmd+opt+ctrl+space=toggle_quick_terminal" ];
       quick-terminal-position = "center";
       auto-update = "download";
-      term = "xterm-256color";
+      #term = "xterm-256color";
     };
   };
 }
