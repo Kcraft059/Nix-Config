@@ -81,9 +81,9 @@
               natural_scroll = false;
             };
           };
-          gestures = {
+          /* gestures = {
             workspace_swipe = true;
-          };
+          }; */
           "$mainMod" = "SUPER";
           bind =
             let

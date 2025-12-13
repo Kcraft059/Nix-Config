@@ -102,8 +102,7 @@
       darwinConfigurations =
         let
           system = "aarch64-darwin"; # Build system
-          pkgs = import inputs.nixpkgs {
-            inherit system;
+          pkgsConf = {
             config = {
               allowUnfree = true;
               #allowUnsupportedSystem = true;
@@ -122,10 +121,11 @@
               inherit
                 self # Needed in nix-conf
                 inputs # Needed throughout the config
-                pkgs # Is needed since we modify options above
+                #pkgs # Is needed since we modify options above
                 ;
             };
             modules = [
+              { nixpkgs = { inherit system; } // pkgsConf; }
               ./config/darwin/default.nix
               {
                 darwin-system.window-man = {

@@ -6,10 +6,12 @@
 }:
 {
   # home.packages = [ pkgs.ghostty ];
+  stylix.targets.ghostty.enable = false;
+
   programs.ghostty = {
     enable = config.home-config.GUIapps.enable;
     settings = {
-      theme = lib.mkForce "rose-pine-moon";
+      theme = "Rose Pine Moon";
       background-blur = 15;
       background-opacity = 0.85;
       window-step-resize = true;
