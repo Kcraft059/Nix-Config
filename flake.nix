@@ -127,7 +127,7 @@
             modules = [
               { nixpkgs = { inherit system; } // pkgsConf; }
               ./config/darwin/default.nix
-              {
+              rec {
                 darwin-system.window-man = {
                   enable = true; # Might need to manually remove launchd services
                   type = "yabai";
