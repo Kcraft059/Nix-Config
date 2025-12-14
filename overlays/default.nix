@@ -8,6 +8,7 @@ self: super: {
   smc-cli = super.callPackage ./smc-cli.nix { };
   #mas = super.callPackage ./mas.nix { };
   menubar-cli = super.callPackage ./menubar-cli.nix { };
+  ft-haptic = super.callPackage ./ft-haptic.nix { };
   krita-mac = super.callPackage ./krita-mac.nix { };
   fancyfolder = super.callPackage ./fancy-folder.nix { };
   backdrop-app = super.callPackage ./backdrop.nix { };
