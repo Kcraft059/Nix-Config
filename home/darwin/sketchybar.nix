@@ -30,6 +30,7 @@
       };
       extraPackages = with pkgs; [
         menubar-cli
+        ft-haptic
         imagemagick
         macmon
         wifi-unredactor
