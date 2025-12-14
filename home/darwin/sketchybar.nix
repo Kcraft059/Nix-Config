@@ -14,6 +14,7 @@
     home.packages = with pkgs; [
       sketchybar-app-font
       menubar-cli
+      ft-haptic
     ];
     programs.sketchybar = {
       enable = true;
