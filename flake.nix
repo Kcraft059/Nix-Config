@@ -137,7 +137,7 @@
                 };
                 #darwin-system.status-bar.enable = true;
                 darwin-system.defaults.dock.enable = true;
-                darwin-system.defaults.wallpaper = ./ressources/Abstract_Wave.jpg;
+                darwin-system.defaults.wallpaper = ./ressources/Ventura_Graphic_dark-2.png;
                 common.stylix.wallpaper = darwin-system.defaults.wallpaper;
                 darwin-system.external-drive.enable = true;
                 darwin-system.external-drive.path = "/Volumes/Data";

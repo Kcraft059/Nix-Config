@@ -39,7 +39,7 @@
       "sketchybar/dyn-icon_map.sh".source = "${pkgs.sketchybar-app-font}/bin/icon_map.sh";
       "sketchybar/config.sh".text = ''
         MUSIC_INFO_WIDTH=100
-        MENUBAR_AUTOHIDE=False
+        #MENUBAR_AUTOHIDE=False
         MENU_CONTROLS=(
         	"Control__Center,Bluetooth"
         	"Control__Center,FocusModes"
