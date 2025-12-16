@@ -60,6 +60,7 @@ in
       ++ lib.optionals config.NIXPKG.GUIapps.enable [
         #pkgs.ghostty
         pkgs.vscode
+        #pkgs.audacity
         # Gui Apps
       ]
       ++ lib.optionals config.NIXPKG.darwinApps.enable [

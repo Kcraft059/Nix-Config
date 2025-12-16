@@ -41,6 +41,7 @@ let
     ${lib.optionalString (builtins.elem pkgsX86.openjdk17 syspkgs) ''ln -sf ${pkgsX86.openjdk17}/Library/Java/JavaVirtualMachines/zulu-17.jdk /Library/Java/JavaVirtualMachines ''}
     ${lib.optionalString (builtins.elem pkgs.openjdk8 syspkgs) ''ln -sf ${pkgs.openjdk8}/Library/Java/JavaVirtualMachines/zulu-8.jdk /Library/Java/JavaVirtualMachines ''}
     ${lib.optionalString (builtins.elem pkgs.ffmpeg syspkgs) ''ln -sf ${pkgs.ffmpeg.lib}/lib/* /usr/local/lib/ ''} 
+    ${lib.optionalString (builtins.elem pkgs.ffmpeg syspkgs) ''echo ${pkgs.ffmpeg.lib}/lib/* >&2''} 
     ${lib.optionalString defaults.enable ''
       defaults write -g NSColorSimulateHardwareAccent -bool YES 
       defaults write -g NSColorSimulatedHardwareEnclosureNumber -int 7
@@ -169,7 +170,7 @@ in
           "/System/Applications/App Store.app"
           "/System/Applications/Utilities/Disk Utility.app"
           "/Applications/Ghostty.app"
-          "${pkgs.vscode}/Applications/Visual Studio Code.app"
+          (lib.optionalString (builtins.elem pkgs.vscode syspkgs) "${pkgs.vscode}/Applications/Visual Studio Code.app")
           "/Applications/Xcode.app"
           "/System/Applications/TextEdit.app"
           {
@@ -194,7 +195,7 @@ in
           }
           "/System/Applications/Photos.app"
           "/System/Applications/Music.app"
-          "/Applications/Audacity.app"
+          (lib.optionalString (builtins.elem pkgs.audacity config.home-manager.users.camille.home.packages) "${pkgs.audacity}/Applications/Audacity.app")
           "/Applications/VLC.app"
           (lib.optionalString external-drive.enable "${external-drive.path}/Applications/Microsoft Word.app")
           (lib.optionalString external-drive.enable "${external-drive.path}/Applications/Microsoft PowerPoint.app")
