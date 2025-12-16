@@ -1,8 +1,8 @@
 #include <AppKit/AppKit.h>
-#import <Cocoa/Cocoa.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#import <Cocoa/Cocoa.h>
 
 void vibrateTimes(long occurrences, double time);
 void interactiveLoop();

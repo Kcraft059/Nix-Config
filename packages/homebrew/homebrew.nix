@@ -45,7 +45,7 @@
           "vlc"
           "iina"
           "kid3"
-          "audacity" 
+          #"audacity" 
           "makemkv"
           "gimp"
 
