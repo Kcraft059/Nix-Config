@@ -61,10 +61,12 @@
           #"Alcove"
         ];
       brews =
+        lib.optionals config.HMB.coreUtils [
+          "tccutil"
+        ] ++
         lib.optionals config.HMB.brews.enable [
           "betterdisplaycli"
   
-          "tccutil"
           "dyld-shared-cache-extractor"
           
           "ext4fuse-mac" # sudo ext4fuse <diskXsX> <mountPoint> -o allow_other -o umask=000
@@ -118,6 +120,7 @@
         "waydabber/homebrew-betterdisplay"
         "Sirakugir-App/homebrew-sirakugir"
         "deskflow/homebrew-tap"
+        "keith/formulae"
       ];
       onActivation.autoUpdate = true;
       onActivation.upgrade = true;

@@ -118,8 +118,8 @@
             ];
           };
         in
-        {
-          "MacBookAirCam-M3" = nix-darwin.lib.darwinSystem {
+        rec {
+          full = nix-darwin.lib.darwinSystem {
             inherit system;
             specialArgs = {
               inherit
@@ -128,7 +128,11 @@
                 ;
             };
             modules = [
-              { nixpkgs = { inherit system; } // pkgsConf; }
+              {
+                nixpkgs = {
+                  inherit system;
+                } // pkgsConf;
+              }
               ./config/darwin/default.nix
               rec {
                 darwin-system.window-man = {
@@ -195,6 +199,91 @@
               stylix.darwinModules.stylix
             ];
           };
+          minimal = nix-darwin.lib.darwinSystem {
+            inherit system;
+            specialArgs = {
+              inherit
+                self # Needed in nix-conf
+                inputs # Needed throughout the config
+                ;
+            };
+            modules = [
+              {
+                nixpkgs = {
+                  inherit system;
+                } // pkgsConf;
+              }
+              ./config/darwin/default.nix
+              rec {
+                darwin-system.window-man = {
+                  enable = true; # Might need to manually remove launchd services
+                  type = "yabai";
+                };
+                #darwin-system.status-bar.enable = true;
+                darwin-system.defaults.dock.enable = true;
+                darwin-system.defaults.wallpaper = ./ressources/Abstract_Wave.jpg;
+                common.stylix.wallpaper = darwin-system.defaults.wallpaper;
+                darwin-system.external-drive.enable = false;
+              }
+              ./packages/nix/default.nix
+              {
+                NIXPKG.darwinApps.enable = false;
+              }
+              ./packages/homebrew/default.nix
+              {
+                HMB.masApps.enable = false; # mdutil #check for spotlight indexing
+                HMB.casks.enable = false;
+                HMB.brews.enable = false;
+              }
+              home-manager.darwinModules.home-manager
+              (
+                { config, ... }:
+                {
+                  # Call as a function to access input recursively
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.backupFileExtension = "hmbackup";
+                  home-manager.extraSpecialArgs = {
+                    inherit inputs;
+                    global-config = config;
+                  };
+                  home-manager.users.camille = {
+                    # {...} can be replaced by import ./path/to/module.nix
+                    imports = [
+                      ./home/darwin/default.nix
+                    ];
+                    home-config.status-bar.enable = true;
+                    home-config.GUIapps.enable = true;
+                    home-config.darwinApps.enable = false;
+                  };
+                }
+              )
+              nix-homebrew.darwinModules.nix-homebrew
+              {
+                nix-homebrew = {
+                  enable = true;
+                  enableRosetta = true;
+                  user = "camille";
+                  mutableTaps = false;
+                  taps = {
+                    "homebrew/homebrew-core" = inputs.homebrew-core;
+                    "homebrew/homebrew-cask" = inputs.homebrew-cask;
+                    "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
+                    "gromgit/homebrew-fuse" = inputs.homebrew-fuse;
+                    "waydabber/homebrew-betterdisplay" = inputs.homebrew-betterdisplay;
+                    "Sirakugir-App/homebrew-sirakugir" = inputs.homebrew-sirakugir;
+                    "keith/homebrew-formulae" = inputs.homebrew-keith;
+                    "deskflow/homebrew-tap" = inputs.homebrew-deskflow;
+                  };
+                };
+              }
+              stylix.darwinModules.stylix
+            ];
+          };
+
+          # Machines
+          "MacBookAirCam-M3" = full;
+          "MacRecovery" = minimal;
         };
       nixosConfigurations =
         let
@@ -219,11 +308,15 @@
                 ;
             };
             modules = [
-              { nixpkgs = { inherit system; } // pkgsConf; }
+              {
+                nixpkgs = {
+                  inherit system;
+                } // pkgsConf;
+              }
               ./config/nixos/default.nix
               {
                 common.stylix.enable = true;
-                common.stylix.wallpaper =  ./ressources/Abstract_Wave.jpg;
+                common.stylix.wallpaper = ./ressources/Abstract_Wave.jpg;
                 nixos-system.plasma6.enable = false;
                 nixos-system.hyprland.enable = true;
               }
