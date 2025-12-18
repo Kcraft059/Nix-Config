@@ -3,10 +3,13 @@ system=$(uname -a | awk '{print $4}')
 
 case $system in
 Darwin)
-	sudo darwin-rebuild switch --flake .\#$1
+	sudo darwin-rebuild switch --flake .\#$1 \
+		--option allow-unsafe-native-code-during-evaluation true
 	;;
 *NixOS)
-	sudo nixos-rebuild switch --flake .\#$1 --impure 
+	sudo nixos-rebuild switch --flake .\#$1 \
+		--option allow-unsafe-native-code-during-evaluation true \
+		--impure 
 	;;
 *)
 	echo "OS not supported."

@@ -10,6 +10,9 @@ let
     config = pkgs.config;
   };
 
+  checkExists = path: builtins.exec ["sh" "-c" ((p: ''if [ -e "${p}" ]; then echo true; else echo false; fi'') path)];
+  pathExist = path: (lib.mkIf (checkExists path)) path;
+
   external-drive = config.darwin-system.external-drive;
   defaults = config.darwin-system.defaults;
 
@@ -168,9 +171,9 @@ in
           "/System/Applications/System Settings.app"
           "/System/Applications/App Store.app"
           "/System/Applications/Utilities/Disk Utility.app"
-          "/Applications/Ghostty.app"
+          (pathExist "/Applications/Ghostty.app")
           (lib.mkIf (builtins.elem pkgs.vscode syspkgs) "${pkgs.vscode}/Applications/Visual Studio Code.app")
-          "/Applications/Xcode.app"
+          (pathExist "/Applications/Xcode.app")
           "/System/Applications/TextEdit.app"
           {
             spacer = {
@@ -178,11 +181,11 @@ in
             };
           }
           "/System/Applications/Passwords.app"
-          "/Applications/Firefox.app"
+          (pathExist "/Applications/Firefox.app")
           "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app"
-          "/Users/camille/Applications/YouTube.app"
-          "/Applications/Prism Launcher.app/"
-          "/Applications/Whisky.app/"
+          (pathExist "/Users/camille/Applications/YouTube.app")
+          (pathExist "/Applications/Prissm Launcher.app/")
+          (pathExist "/Applications/Whisky.app/")
           "/System/Applications/Messages.app"
           "/System/Applications/Mail.app"
           "/System/Applications/Calendar.app"
@@ -195,12 +198,12 @@ in
           "/System/Applications/Photos.app"
           "/System/Applications/Music.app"
           (lib.mkIf (builtins.elem pkgs.audacity config.home-manager.users.camille.home.packages) "${pkgs.audacity}/Applications/Audacity.app")
-          "/Applications/VLC.app"
+          (pathExist "/Applications/VLC.app")
           (lib.mkIf external-drive.enable "${external-drive.path}/Applications/Microsoft Word.app")
           (lib.mkIf external-drive.enable "${external-drive.path}/Applications/Microsoft PowerPoint.app")
           (lib.mkIf external-drive.enable "${external-drive.path}/Applications/Microsoft Excel.app")
           "/System/Applications/Notes.app"
-          "/Applications/PDFgear.app"
+          (pathExist "/Applications/PDFgear.app")
         ];
         persistent-others = [
           "${config.users.users.camille.home}/"
@@ -211,5 +214,7 @@ in
 
     system.activationScripts.applications.text = application-script;
     system.activationScripts.postActivation.text = lib.mkAfter system-activation;
+
+    #environment.etc."file_name".text = ''ruihruru'';
   };
 }
