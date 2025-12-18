@@ -26,7 +26,6 @@
     home.packages =
       with pkgs;
       [
-        m-cli
         macmon
         zsh-powerlevel10k
       ]
