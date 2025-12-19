@@ -10,9 +10,14 @@ let
     config = pkgs.config;
   };
 
-  ## [IMPURE] (unsafe commands… etc)
-  checkExists = path: builtins.exec ["sh" "-c" ((p: ''if [ -e "${p}" ]; then echo true; else echo false; fi'') path)];
-  pathExist = path: (lib.mkIf (checkExists path)) path;
+  /*
+    #(unsafe commands… etc)
+    #Needs : `--option allow-unsafe-native-code-during-evaluation true`, Awfull
+    checkExists = path: builtins.exec ["sh" "-c" ((p: ''if [ -e "${p}" ]; then echo true; else echo false; fi'') path)];
+  */
+  ## [IMPURE]
+  checkExists = path: builtins.pathExists path;
+  pathExist = path: (lib.mkIf ((checkExists path) || ((builtins.getEnv "HOME") == ""))) path;
 
   external-drive = config.darwin-system.external-drive;
   defaults = config.darwin-system.defaults;

@@ -111,10 +111,16 @@
     let
       ### Default general purpose configs
       default-secret-conf =
-        { config, ... }:
+        { config, lib, ... }:
         let
-          ## [IMPURE]
-          sops-key-file = (builtins.getEnv "SOPS_KEY_FILE");
+          sops-key-file =
+            let
+              file-path = builtins.getEnv "SOPS_KEY_FILE";
+            in
+            if file-path == "" then
+              throw "No $SOPS_KEY_FILE env-var, it might mean this flake is evaluated as --pure"
+            else
+              lib.traceValFn (v: "SOPS keyFile set to: ${v}") file-path;
         in
         rec {
           # To edit secrets .yaml `nix-shell -p sops --run "sops secrets/secrets.yaml"`
