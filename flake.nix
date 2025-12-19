@@ -108,22 +108,55 @@
       stylix,
       ...
     }@inputs: # Allow for access to optionnal inputs with inputs.optionnalInput
+    let
+      ### Default general purpose configs
+
+      default-secret-conf =
+        { config, ... }:
+        let
+          ## [IMPURE]
+          sops-key-file = (builtins.getEnv "SOPS_KEY_FILE");
+        in
+        rec {
+          # To edit secrets .yaml `nix-shell -p sops --run "sops secrets/secrets.yaml"`
+          # When adding new keys : `nix-shell -p sops --run "sops updatekeys secrets/secrets.yaml"`
+          sops.defaultSopsFile = ./secrets/secrets.yaml;
+          sops.age.sshKeyPaths = [ ];
+          sops.age.keyFile = sops-key-file;
+          # https://github.com/Mic92/sops-nix?tab=readme-ov-file#set-secret-permissionowner-and-allow-services-to-access-it
+          sops.secrets =
+            let
+              ssh-key-config = {
+                mode = "0600";
+                owner = config.users.users.camille.name;
+                #gid = config.users.users.camille.gid;
+              };
+            in
+            {
+              "ftn/front-ssh" = ssh-key-config;
+              "ftn/node-ssh" = ssh-key-config;
+              ssh-id-ed25519 = ssh-key-config;
+            };
+        };
+
+      default-nixpkg-conf = {
+        config = {
+          allowUnfree = true;
+          #allowUnsupportedSystem = true;
+          #allowBroken = true;
+        };
+        overlays = [
+          inputs.nix-vscode-extensions.overlays.default
+          (import ./overlays/default.nix { inherit inputs; })
+        ];
+      };
+    in
     {
       darwinConfigurations =
         let
           system = "aarch64-darwin"; # Build system
-          pkgsConf = {
-            config = {
-              allowUnfree = true;
-              #allowUnsupportedSystem = true;
-              #allowBroken = true;
-            };
-            overlays = [
-              inputs.nix-vscode-extensions.overlays.default
-              (import ./overlays/default.nix { inherit inputs; })
-            ];
-          };
         in
+
         rec {
           full = nix-darwin.lib.darwinSystem {
             ### Module parameter inheritance
@@ -142,40 +175,13 @@
                 nixpkgs = {
                   inherit system;
                 }
-                // pkgsConf;
+                // default-nixpkg-conf;
 
               }
 
               ## Secret module import
               sops-nix.darwinModules.sops
-              (
-                { config, ... }:
-                let
-                  ## [IMPURE]
-                  sops-key-file = (builtins.getEnv "SOPS_KEY_FILE");
-                in
-                rec {
-                  # To edit secrets .yaml `nix-shell -p sops --run "sops secrets/secrets.yaml"`
-                  # When adding new keys : `nix-shell -p sops --run "sops updatekeys secrets/secrets.yaml"`
-                  sops.defaultSopsFile = ./secrets/secrets.yaml;
-                  sops.age.sshKeyPaths = [ ];
-                  sops.age.keyFile = sops-key-file;
-                  # https://github.com/Mic92/sops-nix?tab=readme-ov-file#set-secret-permissionowner-and-allow-services-to-access-it
-                  sops.secrets =
-                    let
-                      ssh-key-config = {
-                        mode = "0600";
-                        owner = config.users.users.camille.name;
-                        #gid = config.users.users.camille.gid;
-                      };
-                    in
-                    {
-                      "ftn/front-ssh" = ssh-key-config;
-                      "ftn/node-ssh" = ssh-key-config;
-                      ssh-id-ed25519 = ssh-key-config;
-                    };
-                }
-              )
+              default-secret-conf
 
               ## Main system config
               ./config/darwin/default.nix
@@ -268,11 +274,12 @@
                 nixpkgs = {
                   inherit system;
                 }
-                // pkgsConf;
+                // default-nixpkg-conf;
               }
 
               ## Secret module import
               sops-nix.darwinModules.sops
+              default-secret-conf
 
               ## Main system config
               ./config/darwin/default.nix
@@ -358,15 +365,6 @@
       nixosConfigurations =
         let
           system = "x86_64-linux";
-          pkgsConf = {
-            config = {
-              allowUnfree = true;
-            };
-            overlays = [
-              inputs.nix-vscode-extensions.overlays.default
-              (import ./overlays/default.nix { inherit inputs; })
-            ];
-          };
         in
         rec {
           full = nixpkgs.lib.nixosSystem {
@@ -386,11 +384,12 @@
                 nixpkgs = {
                   inherit system;
                 }
-                // pkgsConf;
+                // default-nixpkg-conf;
               }
 
               ## Secret module import
               sops-nix.nixosModules.sops
+              default-secret-conf
 
               ## Main system config
               ./config/nixos/default.nix
@@ -414,7 +413,7 @@
                 {
                   home-manager.useGlobalPkgs = true;
                   home-manager.useUserPackages = true;
-                  home-manager.backupFileExtension = "bak";
+                  home-manager.backupFileExtension = "hmbackup";
                   home-manager.extraSpecialArgs = {
                     inherit inputs;
                     global-config = config;
