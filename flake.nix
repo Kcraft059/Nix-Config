@@ -115,6 +115,7 @@
         let
           sops-key-file =
             let
+              ## [IMPURE]
               file-path = builtins.getEnv "SOPS_KEY_FILE";
             in
             if file-path == "" then
@@ -132,15 +133,16 @@
           sops.secrets =
             let
               ssh-key-config = {
-                mode = "0600";
+                mode = "0400";
                 owner = config.users.users.camille.name;
-                #gid = config.users.users.camille.gid;
+                group = "wheel";
               };
             in
             {
               "ftn/front-ssh" = ssh-key-config;
               "ftn/node-ssh" = ssh-key-config;
               ssh-id-ed25519 = ssh-key-config;
+              github-token = ssh-key-config;
             };
         };
 

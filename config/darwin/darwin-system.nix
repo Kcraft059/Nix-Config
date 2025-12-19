@@ -121,6 +121,7 @@ in
       # Needed For Home-Manager
       name = "camille";
       home = "/Users/camille";
+      uid = 501;
       gid = 20;
     };
     system.primaryUser = "camille";

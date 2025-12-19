@@ -1,5 +1,6 @@
 {
   config,
+  global-config,
   inputs,
   pkgs,
   lib,
@@ -47,6 +48,7 @@
         	"Control__Center,FocusModes"
         )
         LOG_LEVEL=none
+        GITHUB_TOKEN="${global-config.sops.secrets.github-token.path}"
       '';
     };
     #home.sessionVariables.SKETCHYBAR_CONFIG = "$HOME/.config/sketchybar/local-config.sh";
