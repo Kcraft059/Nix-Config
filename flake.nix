@@ -110,7 +110,6 @@
     }@inputs: # Allow for access to optionnal inputs with inputs.optionnalInput
     let
       ### Default general purpose configs
-
       default-secret-conf =
         { config, ... }:
         let
@@ -150,6 +149,7 @@
           (import ./overlays/default.nix { inherit inputs; })
         ];
       };
+
     in
     {
       darwinConfigurations =
@@ -180,7 +180,7 @@
 
               ## Secret module import
               sops-nix.darwinModules.sops
-              default-secret-conf
+              default-secret-conf # Gets evaluated as a function
 
               ## Main system config
               ./config/darwin/default.nix
