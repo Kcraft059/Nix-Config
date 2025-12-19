@@ -10,7 +10,7 @@ let
     config = pkgs.config;
   };
 
-  ## [IMPURE]
+  ## [IMPURE] (unsafe commands… etc)
   checkExists = path: builtins.exec ["sh" "-c" ((p: ''if [ -e "${p}" ]; then echo true; else echo false; fi'') path)];
   pathExist = path: (lib.mkIf (checkExists path)) path;
 
