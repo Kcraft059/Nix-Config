@@ -10,6 +10,7 @@ let
     config = pkgs.config;
   };
 
+  ## [IMPURE]
   checkExists = path: builtins.exec ["sh" "-c" ((p: ''if [ -e "${p}" ]; then echo true; else echo false; fi'') path)];
   pathExist = path: (lib.mkIf (checkExists path)) path;
 
@@ -115,6 +116,7 @@ in
       # Needed For Home-Manager
       name = "camille";
       home = "/Users/camille";
+      gid = 20;
     };
     system.primaryUser = "camille";
 
@@ -184,7 +186,7 @@ in
           (pathExist "/Applications/Firefox.app")
           "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app"
           (pathExist "/Users/camille/Applications/YouTube.app")
-          (pathExist "/Applications/Prissm Launcher.app/")
+          (pathExist "/Applications/Prism Launcher.app/")
           (pathExist "/Applications/Whisky.app/")
           "/System/Applications/Messages.app"
           "/System/Applications/Mail.app"
@@ -215,6 +217,6 @@ in
     system.activationScripts.applications.text = application-script;
     system.activationScripts.postActivation.text = lib.mkAfter system-activation;
 
-    #environment.etc."file_name".text = ''ruihruru'';
+    #environment.etc."file_name".text = builtins.readFile config.sops.secrets.ftn-user1.path;
   };
 }
