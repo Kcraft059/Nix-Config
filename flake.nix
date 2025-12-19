@@ -176,7 +176,6 @@
                   inherit system;
                 }
                 // default-nixpkg-conf;
-
               }
 
               ## Secret module import
