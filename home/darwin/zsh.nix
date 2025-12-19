@@ -35,10 +35,11 @@ in
       alias ll="eza --long --header --git --icons=auto"
       alias os-switch="${os-switch}"
       alias fzf-p="fzf --preview='bat --color=always --style=numbers {}' --bind 'focus:transform-header:file --brief {}'"
+      
+      export XDG_CONFIG_HOME=$HOME/.config # Needed for some programs
     '';
     sessionVariables = {
       EDITOR = "${pkgs.neovim}/bin/nvim";
     };
-
   };
 }

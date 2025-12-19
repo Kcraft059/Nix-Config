@@ -5,12 +5,18 @@
 
   inputs = {
 
-    ## Modules
-    # Core
+    ################### Core Modules ###################
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    ################### Utility Modules ###################
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -19,19 +25,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Functionnality modules
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     stylix.url = "github:danth/stylix";
 
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    /*
+      LazyVim = {
+         url = "github:matadaniel/LazyVim-module";
+         inputs.nixpkgs.follows = "nixpkgs";
+       };
+    */
 
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew"; # Nix homebrew
-
-    LazyVim = {
-      url = "github:matadaniel/LazyVim-module";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Rust Packages
+    ################### Overlays Modules ###################
 
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
@@ -43,7 +48,7 @@
       #inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ## Homebrew taps
+    ################### Homebrew taps ###################
 
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
@@ -78,7 +83,7 @@
       flake = false;
     };
 
-    ## Custom sources
+    ################### Custom sources ###################
 
     sketchybar-config = {
       url = "github:Kcraft059/sketchybar-config";
@@ -97,6 +102,7 @@
       self,
       nixpkgs,
       nix-darwin,
+      sops-nix,
       home-manager,
       nix-homebrew,
       stylix,
@@ -120,6 +126,7 @@
         in
         rec {
           full = nix-darwin.lib.darwinSystem {
+            ### Module parameter inheritance
             inherit system;
             specialArgs = {
               inherit
@@ -127,12 +134,50 @@
                 inputs # Needed throughout the config
                 ;
             };
+
+            ### Module & module configuration
             modules = [
+              ## Pkgs set configuration
               {
                 nixpkgs = {
                   inherit system;
-                } // pkgsConf;
+                }
+                // pkgsConf;
+
               }
+
+              ## Secret module import
+              sops-nix.darwinModules.sops
+              (
+                { config, ... }:
+                let
+                  ## [IMPURE]
+                  sops-key-file = (builtins.getEnv "SOPS_KEY_FILE");
+                in
+                rec {
+                  # To edit secrets .yaml `nix-shell -p sops --run "sops secrets/secrets.yaml"`
+                  # When adding new keys : `nix-shell -p sops --run "sops updatekeys secrets/secrets.yaml"`
+                  sops.defaultSopsFile = ./secrets/secrets.yaml;
+                  sops.age.sshKeyPaths = [ ];
+                  sops.age.keyFile = sops-key-file;
+                  # https://github.com/Mic92/sops-nix?tab=readme-ov-file#set-secret-permissionowner-and-allow-services-to-access-it
+                  sops.secrets =
+                    let
+                      ssh-key-config = {
+                        mode = "0600";
+                        owner = config.users.users.camille.name;
+                        #gid = config.users.users.camille.gid;
+                      };
+                    in
+                    {
+                      "ftn/front-ssh" = ssh-key-config;
+                      "ftn/node-ssh" = ssh-key-config;
+                      ssh-id-ed25519 = ssh-key-config;
+                    };
+                }
+              )
+
+              ## Main system config
               ./config/darwin/default.nix
               rec {
                 darwin-system.window-man = {
@@ -142,18 +187,43 @@
                 #darwin-system.status-bar.enable = true;
                 darwin-system.defaults.dock.enable = true;
                 darwin-system.defaults.wallpaper = ./ressources/Abstract_Wave.jpg;
-                common.stylix.wallpaper = darwin-system.defaults.wallpaper;
                 darwin-system.external-drive.enable = true;
                 darwin-system.external-drive.path = "/Volumes/Data";
+                common.stylix.wallpaper = darwin-system.defaults.wallpaper;
               }
+
+              ## Package config
               ./packages/nix/default.nix
               {
                 NIXPKG.darwinApps.enable = true;
+              }
+
+              ## Homebrew packages config
+              nix-homebrew.darwinModules.nix-homebrew
+              {
+                nix-homebrew = {
+                  enable = true;
+                  enableRosetta = true;
+                  user = "camille";
+                  mutableTaps = false;
+                  taps = {
+                    "homebrew/homebrew-core" = inputs.homebrew-core;
+                    "homebrew/homebrew-cask" = inputs.homebrew-cask;
+                    "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
+                    "gromgit/homebrew-fuse" = inputs.homebrew-fuse;
+                    "waydabber/homebrew-betterdisplay" = inputs.homebrew-betterdisplay;
+                    "Sirakugir-App/homebrew-sirakugir" = inputs.homebrew-sirakugir;
+                    "keith/homebrew-formulae" = inputs.homebrew-keith;
+                    "deskflow/homebrew-tap" = inputs.homebrew-deskflow;
+                  };
+                };
               }
               ./packages/homebrew/default.nix
               {
                 HMB.masApps.enable = true; # mdutil #check for spotlight indexing
               }
+
+              ## Home-manager user config
               home-manager.darwinModules.home-manager
               (
                 { config, ... }:
@@ -177,6 +247,54 @@
                   };
                 }
               )
+
+              ## Stylix
+              stylix.darwinModules.stylix
+            ];
+          };
+          minimal = nix-darwin.lib.darwinSystem {
+            ### Module parameter inheritance
+            inherit system;
+            specialArgs = {
+              inherit
+                self # Needed in nix-conf
+                inputs # Needed throughout the config
+                ;
+            };
+            ### Module & module configuration
+            modules = [
+              ## Pkgs set configuration
+              {
+                nixpkgs = {
+                  inherit system;
+                }
+                // pkgsConf;
+              }
+
+              ## Secret module import
+              sops-nix.darwinModules.sops
+
+              ## Main system config
+              ./config/darwin/default.nix
+              rec {
+                darwin-system.window-man = {
+                  enable = true; # Might need to manually remove launchd services
+                  type = "yabai";
+                };
+                #darwin-system.status-bar.enable = true;
+                darwin-system.defaults.dock.enable = true;
+                darwin-system.defaults.wallpaper = ./ressources/Abstract_Wave.jpg;
+                common.stylix.wallpaper = darwin-system.defaults.wallpaper;
+                darwin-system.external-drive.enable = false;
+              }
+
+              ## Package config
+              ./packages/nix/default.nix
+              {
+                NIXPKG.darwinApps.enable = false;
+              }
+
+              ## Homebrew packages config
               nix-homebrew.darwinModules.nix-homebrew
               {
                 nix-homebrew = {
@@ -196,45 +314,14 @@
                   };
                 };
               }
-              stylix.darwinModules.stylix
-            ];
-          };
-          minimal = nix-darwin.lib.darwinSystem {
-            inherit system;
-            specialArgs = {
-              inherit
-                self # Needed in nix-conf
-                inputs # Needed throughout the config
-                ;
-            };
-            modules = [
-              {
-                nixpkgs = {
-                  inherit system;
-                } // pkgsConf;
-              }
-              ./config/darwin/default.nix
-              rec {
-                darwin-system.window-man = {
-                  enable = true; # Might need to manually remove launchd services
-                  type = "yabai";
-                };
-                #darwin-system.status-bar.enable = true;
-                darwin-system.defaults.dock.enable = true;
-                darwin-system.defaults.wallpaper = ./ressources/Abstract_Wave.jpg;
-                common.stylix.wallpaper = darwin-system.defaults.wallpaper;
-                darwin-system.external-drive.enable = false;
-              }
-              ./packages/nix/default.nix
-              {
-                NIXPKG.darwinApps.enable = false;
-              }
               ./packages/homebrew/default.nix
               {
                 HMB.masApps.enable = false; # mdutil #check for spotlight indexing
                 HMB.casks.enable = false;
                 HMB.brews.enable = false;
               }
+
+              ## Home-manager user config
               home-manager.darwinModules.home-manager
               (
                 { config, ... }:
@@ -258,30 +345,13 @@
                   };
                 }
               )
-              nix-homebrew.darwinModules.nix-homebrew
-              {
-                nix-homebrew = {
-                  enable = true;
-                  enableRosetta = true;
-                  user = "camille";
-                  mutableTaps = false;
-                  taps = {
-                    "homebrew/homebrew-core" = inputs.homebrew-core;
-                    "homebrew/homebrew-cask" = inputs.homebrew-cask;
-                    "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
-                    "gromgit/homebrew-fuse" = inputs.homebrew-fuse;
-                    "waydabber/homebrew-betterdisplay" = inputs.homebrew-betterdisplay;
-                    "Sirakugir-App/homebrew-sirakugir" = inputs.homebrew-sirakugir;
-                    "keith/homebrew-formulae" = inputs.homebrew-keith;
-                    "deskflow/homebrew-tap" = inputs.homebrew-deskflow;
-                  };
-                };
-              }
+
+              ## Stylix
               stylix.darwinModules.stylix
             ];
           };
 
-          # Machines
+          # Config assignation
           "MacBookAirCam-M3" = full;
           "MacRecovery" = minimal;
         };
@@ -298,8 +368,9 @@
             ];
           };
         in
-        {
-          "LenovoYogaCam-i7" = nixpkgs.lib.nixosSystem {
+        rec {
+          full = nixpkgs.lib.nixosSystem {
+            ### Module parameter inheritance
             inherit system;
             specialArgs = {
               inherit
@@ -307,12 +378,21 @@
                 inputs # Needed throughout the config
                 ;
             };
+
+            ### Module & module configuration
             modules = [
+              ## Pkgs set configuration
               {
                 nixpkgs = {
                   inherit system;
-                } // pkgsConf;
+                }
+                // pkgsConf;
               }
+
+              ## Secret module import
+              sops-nix.nixosModules.sops
+
+              ## Main system config
               ./config/nixos/default.nix
               {
                 common.stylix.enable = true;
@@ -320,10 +400,14 @@
                 nixos-system.plasma6.enable = false;
                 nixos-system.hyprland.enable = true;
               }
+
+              ## Package config
               ./packages/nix/default.nix
               {
                 NIXPKG.linuxApps.enable = true;
               }
+
+              ## Home-manager user config
               home-manager.nixosModules.home-manager
               (
                 { config, ... }:
@@ -346,11 +430,16 @@
                   };
                 }
               )
+
+              ## Stylix
               stylix.nixosModules.stylix
             ];
           };
+
+          ### Config assignation
+          "LenovoYogaCam-i7" = full;
         };
       # Expose the package set, including overlays, for convenience.
-      darwinPackages = self.darwinConfigurations."MacBookAirCam-M3".pkgs;
+      darwinPackages = self.darwinConfigurations.full.pkgs;
     };
 }

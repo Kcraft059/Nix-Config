@@ -47,6 +47,7 @@
         posting # Tui http request sender
         bear # generate compile_comand
         viu # image viewer
+        sops # Secret management
 
         # gum for clis
         # mcrcon

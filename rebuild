@@ -1,17 +1,25 @@
 #!/usr/bin/env bash
 system=$(uname -a | awk '{print $4}')
 
+export SOPS_KEY_FILE=${1:-"$HOME/.sops-key"}
+echo Using sops-key: \"$SOPS_KEY_FILE\"
+
 case $system in
 Darwin)
-	sudo darwin-rebuild switch --flake .\#$1 \
-		--option allow-unsafe-native-code-during-evaluation true
+	sudo --preserve-env=SOPS_KEY_FILE \
+		darwin-rebuild switch --flake .\#$2 \
+		--option allow-unsafe-native-code-during-evaluation true \
+		--impure
 	;;
 *NixOS)
-	sudo nixos-rebuild switch --flake .\#$1 \
+	sudo --preserve-env=SOPS_KEY_FILE \
+		nixos-rebuild switch --flake .\#$2 \
 		--option allow-unsafe-native-code-during-evaluation true \
-		--impure 
+		--impure
 	;;
 *)
 	echo "OS not supported."
 	;;
 esac
+
+unset SOPS_KEY_FILE
