@@ -28,7 +28,6 @@
   };
 
   programs.ssh.matchBlocks."github.com" = {
-    #addKeysToAgent = true;
     identityFile = "${global-config.sops.secrets.ssh-id-ed25519.path}";
   };
 }
