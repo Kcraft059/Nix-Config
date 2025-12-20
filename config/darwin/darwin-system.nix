@@ -222,7 +222,5 @@ in
 
     system.activationScripts.applications.text = application-script;
     system.activationScripts.postActivation.text = lib.mkAfter system-activation;
-
-    #environment.etc."file_name".text = builtins.readFile config.sops.secrets.ftn-user1.path;
   };
 }
