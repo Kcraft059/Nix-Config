@@ -19,6 +19,7 @@ let
   linkedDirs = {
     "Library/Containers/com.isaacmarovitz.Whisky" = "camille/Apps-Data/Whisky";
     "Library/Application Support/PrismLauncher" = "camille/Apps-Data/Prism";
+    "Library/Application Support/Steam/steamapps" = "camille/Apps-Data/Steam (Windows)/steamapps";
   };
 
   linkedHomeFiles =
