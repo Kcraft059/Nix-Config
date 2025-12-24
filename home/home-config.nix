@@ -45,9 +45,10 @@
         mtr # My traceroute
         eza # ls replacement
         posting # Tui http request sender
-        bear # generate compile_comand
         viu # image viewer
         sops # Secret management
+
+        bear # generate compile_comand
 
         # gum for clis
         # mcrcon
