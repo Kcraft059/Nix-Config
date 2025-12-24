@@ -27,7 +27,7 @@
     "DockDoor"
   ];
 
-  quit-all-apps = pkgs.writeShellScriptBin "quit-all-apps" ''
+  quit-all-apps = "${pkgs.writeShellScriptBin "quit-all-apps" ''
     apps=$(osascript -e 'tell application "System Events" to get name of every application process whose background only is false' | sed 's/, /,/g')
 
     IFS=',' read -r -a app_list <<< "$apps"
@@ -38,15 +38,17 @@
             killall "$app"
         fi
     done
-  '';
+  ''}/bin/quit-all-apps";
 
-  shutdown = pkgs.writeShellScriptBin "shutdown" ''
+  shutdown = "${pkgs.writeShellScriptBin "shutdown" ''
     osascript -e 'tell app "loginwindow" to «event aevtrsdn»'
-  '';
+  ''}/bin/shutdown";
 
-  restart = pkgs.writeShellScriptBin "restart" ''
+  restart = "${pkgs.writeShellScriptBin "restart" ''
     osascript -e 'tell app "loginwindow" to «event aevtrrst»'
-  '';
+  ''}/bin/restart";
+
+  screensaver = "/System/Library/CoreServices/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine";
 
   # Visual
   global-padding = 6;

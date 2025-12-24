@@ -58,6 +58,7 @@
           "steamcmd"
           "prismlauncher"
           "gog-galaxy"
+          "steam"
           #"Alcove"
         ];
       brews =
