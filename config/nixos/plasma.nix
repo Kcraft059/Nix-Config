@@ -15,15 +15,14 @@ in
   config = lib.mkIf plasma-enable {
 
     # Enable the X11 windowing system.
-    /*
-      services.xserver = {
-        enable = true;
-        xkb = {
-          layout = "fr";
-          variant = "";
-        };
+
+    services.xserver = {
+      enable = true;
+      xkb = {
+        layout = "fr";
+        variant = "";
       };
-    */
+    };
 
     services.desktopManager.plasma6.enable = true;
     services.displayManager.sddm = {
