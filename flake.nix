@@ -476,6 +476,7 @@
           let
             system = "aarch64-linux";
 
+            ## Lib patch for removed options (bootloader)
             lib = nixpkgs.lib;
             baseLib = nixpkgs.lib;
             origMkRemovedOptionModule = baseLib.mkRemovedOptionModule;
