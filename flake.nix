@@ -382,7 +382,7 @@
       nixosConfigurations = rec {
         full-generic = {
           ### Module parameter inheritance
-          inherit system;
+          #inherit system;
           specialArgs = {
             inherit
               self # Needed in nix-conf
@@ -454,6 +454,7 @@
           in
           nixpkgs.lib.nixosSystem full-generic
           // {
+            inherit system;
             modules = full-generic.modules ++ [
               {
                 networking.hostName = "RpiCam-500plus";
@@ -468,6 +469,7 @@
           in
           nixos-raspberrypi.lib.nixosSystem full-generic
           // {
+            inherit system;
             modules = full-generic.modules ++ [
               {
                 networking.hostName = "RpiCam-500plus";
