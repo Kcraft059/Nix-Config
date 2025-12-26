@@ -523,7 +523,11 @@
                     inherit system;
                   }
                   // default-nixpkg-conf;
-
+                }
+                
+                ## Main system config
+                ./config/nixos/rpi5/default.nix
+                {
                   networking.hostName = "RpiCam-500plus";
 
                   ## Temporary
@@ -531,8 +535,6 @@
                   stylix.targets.qt.enable = false;
                 }
 
-                ## Main system config
-                ./config/nixos/rpi5/default.nix
               ];
             }
           );
