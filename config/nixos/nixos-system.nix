@@ -110,8 +110,8 @@
     services.printing.enable = true;
 
     # Enable Bluetooth
-    hardware.bluetooth.enable = true; # enables support for Bluetooth
-    hardware.bluetooth.powerOnBoot = true;
+    # hardware.bluetooth.enable = true; # enables support for Bluetooth
+    # hardware.bluetooth.powerOnBoot = true;
 
     # Enable sound with pipewire.
     services.pulseaudio.enable = false;
