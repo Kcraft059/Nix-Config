@@ -73,14 +73,14 @@
       wireplumber.enable = true;
     };
 
-    xdg.portal = {
+    /* xdg.portal = {
       enable = true;
       xdgOpenUsePortal = true;
 
       extraPortals = [
         pkgs.xdg-desktop-portal-hyprland
       ];
-    };
+    }; */
     /*
       programs.waybar = {
         enable = config.nixos-system.hyprland.enable;
