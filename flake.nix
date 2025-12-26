@@ -532,12 +532,6 @@
 
                   ## Temporary
                   stylix.targets = {
-                    plymouth = {
-                      enable = true;
-                      logoAnimated = false;
-                    };
-                    console.enable = true;
-                    chromium.enable = true;
                     qt.enable = true;
                     qt.platform = "kde";
                   };
