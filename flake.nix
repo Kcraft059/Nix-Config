@@ -473,6 +473,13 @@
           nixos-raspberrypi.lib.nixosSystem full-generic
           // {
             inherit system;
+            
+            # Append required special-args
+            specialArgs = full-generic.specialArgs // {
+              inherit nixos-raspberrypi;
+            };
+
+            # Append other modules
             modules = full-generic.modules ++ [
               {
                 nixpkgs = {
