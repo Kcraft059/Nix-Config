@@ -55,7 +55,7 @@
     programs.hyprland = {
       enable = config.nixos-system.hyprland.enable;
       #package = inputs.hyprland.packages."${pkgs.system}".hyprland;
-      xwayland.enable = true;
+      xwayland.enable = config.nixos-system.hyprland.enable;
       #nvidiaPatches = true;
       /*
         xwayland = {
