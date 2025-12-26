@@ -524,7 +524,7 @@
                   }
                   // default-nixpkg-conf;
                 }
-                
+
                 ## Main system config
                 ./config/nixos/rpi5/default.nix
                 {
@@ -533,6 +533,8 @@
                   ## Temporary
                   stylix.targets.gnome.enable = false;
                   stylix.targets.qt.enable = false;
+                  stylix.targets.kde.enable = false;
+                  stylix.targets.kde.useWallpaper = false;
                 }
 
               ];

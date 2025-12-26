@@ -14,9 +14,6 @@ in
 
   config = lib.mkIf plasma-enable {
 
-    stylix.targets.kde.enable = false;
-    stylix.targets.kde.useWallpaper = false;
-    
     # Enable the X11 windowing system.
     services.xserver = {
       enable = true;
