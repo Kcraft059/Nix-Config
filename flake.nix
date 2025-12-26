@@ -531,10 +531,16 @@
                   networking.hostName = "RpiCam-500plus";
 
                   ## Temporary
-                  stylix.targets.gnome.enable = false;
-                  stylix.targets.qt.enable = false;
-                  stylix.targets.kde.enable = false;
-                  stylix.targets.kde.useWallpaper = false;
+                  stylix.targets = {
+                    plymouth = {
+                      enable = true;
+                      logoAnimated = false;
+                    };
+                    console.enable = true;
+                    chromium.enable = true;
+                    qt.enable = true;
+                    qt.platform = "kde";
+                  };
                 }
 
               ];
