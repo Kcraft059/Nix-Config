@@ -485,39 +485,26 @@
 
               # Append other modules
               modules = full-generic.modules ++ [
-                (
-                  {
-                    config,
-                    lib,
-                    pkgs,
-                    ...
-                  }:
-                  {
-                    nixpkgs = {
-                      inherit system;
-                    }
-                    // default-nixpkg-conf;
+                {
+                  imports = with nixos-raspberrypi.nixosModules; [
+                    raspberry-pi-5.base
+                    raspberry-pi-5.page-size-16k
+                    raspberry-pi-5.display-vc4
+                    raspberry-pi-5.bluetooth
+                  ];
 
-                    networking.hostName = "RpiCam-500plus";
-
-                    ## Temporary
-                    stylix.targets.gnome.enable = false;
-                    stylix.targets.qt.enable = false;
-
-                    ## RPI Boot loader & kernel - do not touch.
-                    boot.loader.raspberryPi.bootloader = "kernel";
-
-                    system.nixos.tags =
-                      let
-                        cfg = config.boot.loader.raspberryPi;
-                      in
-                      [
-                        "raspberry-pi-${cfg.variant}"
-                        cfg.bootloader
-                        config.boot.kernelPackages.kernel.version
-                      ];
+                  nixpkgs = {
+                    inherit system;
                   }
-                )
+                  // default-nixpkg-conf;
+
+                  networking.hostName = "RpiCam-500plus";
+
+                  ## Temporary
+                  stylix.targets.gnome.enable = false;
+                  stylix.targets.qt.enable = false;
+                }
+                
                 ## Main system config
                 ./config/nixos/regular/default.nix
               ];
