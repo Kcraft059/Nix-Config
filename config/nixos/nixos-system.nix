@@ -52,6 +52,11 @@
     # Audio + video
     hardware.graphics.enable = true;
 
+    environment.systemPackages = with pkgs; [
+      mesa
+      mesa-demos
+    ];
+
     services.pipewire = {
       enable = true;
       alsa.enable = true;
