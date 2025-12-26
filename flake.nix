@@ -494,6 +494,7 @@
 
                   ## Temporary
                   stylix.targets.gnome.enable = false;
+                  stylix.targets.qt.enable = false;
                 }
                 ## Main system config
                 ./config/nixos/regular/default.nix
