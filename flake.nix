@@ -407,7 +407,7 @@
             {
               common.stylix.enable = true;
               common.stylix.wallpaper = ./ressources/Abstract_Wave.jpg;
-              nixos-system.plasma6.enable = false;
+              nixos-system.plasma6.enable = true;
               nixos-system.hyprland.enable = false;
             }
 
@@ -415,7 +415,7 @@
             ./packages/nix/default.nix
             {
               NIXPKG.linuxApps.enable = true;
-              NIXPKG.GUIapps.enable = false;
+              NIXPKG.GUIapps.enable = true;
             }
 
             ## Home-manager user config
@@ -435,7 +435,7 @@
                   imports = [
                     ./home/nixos/default.nix
                   ];
-                  home-config.GUIapps.enable = false;
+                  home-config.GUIapps.enable = true;
                   home-config.hyprland.enable = false;
                   home-config.hyprland.wallpaper = config.common.stylix.wallpaper;
                 };
