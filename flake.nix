@@ -474,11 +474,30 @@
         full-rpi5 =
           let
             system = "aarch64-linux";
+
+            lib = nixpkgs.lib;
+            baseLib = nixpkgs.lib;
+            origMkRemovedOptionModule = baseLib.mkRemovedOptionModule;
+            patchedLib = lib.extend (
+              final: prev: {
+                mkRemovedOptionModule =
+                  optionName: replacementInstructions:
+                  let
+                    key = "removedOptionModule#" + final.concatStringsSep "_" optionName;
+                  in
+                  { options, ... }:
+                  (origMkRemovedOptionModule optionName replacementInstructions { inherit options; })
+                  // {
+                    inherit key;
+                  };
+              }
+            );
+
           in
           nixos-raspberrypi.lib.nixosSystem (
             full-generic
             // {
-              inherit system;
+              inherit system lib;
 
               # Append required special-args
               specialArgs = full-generic.specialArgs // {
