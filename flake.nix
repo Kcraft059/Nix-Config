@@ -447,52 +447,56 @@
           let
             system = "x86_64-linux";
           in
-          nixpkgs.lib.nixosSystem full-generic
-          // {
-            inherit system;
-            modules = full-generic.modules ++ [
-              {
-                ## Pkgs set configuration
-                nixpkgs = {
-                  inherit system;
-                }
-                // default-nixpkg-conf;
+          nixpkgs.lib.nixosSystem (
+            full-generic
+            // {
+              inherit system;
+              modules = full-generic.modules ++ [
+                {
+                  ## Pkgs set configuration
+                  nixpkgs = {
+                    inherit system;
+                  }
+                  // default-nixpkg-conf;
 
-                ## Hostname config
-                networking.hostName = "RpiCam-500plus";
-              }
-              ## Main system config
-              ./config/nixos/regular/default.nix
-            ];
-          };
+                  ## Hostname config
+                  networking.hostName = "RpiCam-500plus";
+                }
+                ## Main system config
+                ./config/nixos/regular/default.nix
+              ];
+            }
+          );
 
         full-rpi5 =
           let
             system = "aarch64-linux";
           in
-          nixos-raspberrypi.lib.nixosSystem full-generic
-          // {
-            inherit system;
-            
-            # Append required special-args
-            specialArgs = full-generic.specialArgs // {
-              inherit nixos-raspberrypi;
-            };
+          nixos-raspberrypi.lib.nixosSystem (
+            full-generic
+            // {
+              inherit system;
 
-            # Append other modules
-            modules = full-generic.modules ++ [
-              {
-                nixpkgs = {
-                  inherit system;
+              # Append required special-args
+              specialArgs = full-generic.specialArgs // {
+                inherit nixos-raspberrypi;
+              };
+
+              # Append other modules
+              modules = full-generic.modules ++ [
+                {
+                  nixpkgs = {
+                    inherit system;
+                  }
+                  // default-nixpkg-conf;
+
+                  networking.hostName = "RpiCam-500plus";
                 }
-                // default-nixpkg-conf;
-
-                networking.hostName = "RpiCam-500plus";
-              }
-              ## Main system config
-              ./config/nixos/regular/default.nix
-            ];
-          };
+                ## Main system config
+                ./config/nixos/regular/default.nix
+              ];
+            }
+          );
 
         ### Config assignation
         "LenovoYogaCam-i7" = full;
