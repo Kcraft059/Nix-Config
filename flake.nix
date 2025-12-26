@@ -499,7 +499,8 @@
           nixos-raspberrypi.lib.nixosSystem (
             full-generic
             // {
-              inherit system lib;
+              inherit system;
+              lib = patchedLib;
 
               # Append required special-args
               specialArgs = full-generic.specialArgs // {
