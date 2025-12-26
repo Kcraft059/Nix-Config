@@ -460,7 +460,7 @@
                   // default-nixpkg-conf;
 
                   ## Hostname config
-                  networking.hostName = "RpiCam-500plus";
+                  networking.hostName = "LenovoYogaCam-i7";
                 }
                 ## Main system config
                 ./config/nixos/regular/default.nix
