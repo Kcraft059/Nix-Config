@@ -12,7 +12,7 @@
   ];
 
   disabledModules = [
-    "nixos/modules/system/boot/loader/raspberrypi"
+    "nixos/modules/rename.nix"
   ];
 
   config = {
