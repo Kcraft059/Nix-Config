@@ -13,7 +13,7 @@
 
   config = {
 
-    ## RPI Boot loader & kernel - do not touch.
+    /* ## RPI Boot loader & kernel - do not touch.
     boot.loader.raspberryPi.bootloader = "kernel";
 
     system.nixos.tags =
@@ -24,6 +24,6 @@
         "raspberry-pi-${cfg.variant}"
         cfg.bootloader
         config.boot.kernelPackages.kernel.version
-      ];
+      ]; */
   };
 }
