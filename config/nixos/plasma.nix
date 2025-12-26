@@ -14,7 +14,7 @@ in
 
   config = lib.mkIf plasma-enable {
 
-    # Enable the X11 windowing system.
+    # Enable the X11 windowing system (login primarly)
     services.xserver = {
       enable = true;
       xkb = {
@@ -23,6 +23,7 @@ in
       };
     };
 
+    # Enable plasma desktop manager
     services.desktopManager.plasma6.enable = true;
     services.displayManager.sddm = {
       enable = true;
@@ -33,16 +34,5 @@ in
       qt.enable = true;
       qt.platform = "kde";
     };
-
-    /* environment.systemPackages = with pkgs; [
-      kdePackages.qtstyleplugin-kvantum
-    ]; */
-
-    /*
-      xdg.portal = {
-        enable = true;
-        extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
-      };
-    */
   };
 }
