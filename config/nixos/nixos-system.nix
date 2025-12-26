@@ -6,9 +6,14 @@
   ...
 }:
 {
+  imports = [
+    ./nix-conf.nix
+    ./plasma.nix
+  ];
+  
   options = {
     nixos-system.enable = lib.mkEnableOption "Whether to enable the Nixos-Config";
-    nixos-system.plasma6.enable = lib.mkEnableOption "Whether to enable the Nixos-Config";
+    #nixos-system.plasma6.enable = lib.mkEnableOption "Whether to enable the Nixos-Config";
     nixos-system.hyprland.enable = lib.mkEnableOption "Whether to enable the Nixos-Config";
   };
 
@@ -41,14 +46,6 @@
       LC_TELEPHONE = "fr_FR.UTF-8";
       LC_TIME = "fr_FR.UTF-8";
     };
-
-    # Enable the X11 windowing system.
-    # You can disable this if you're only using the Wayland session.
-    services.xserver.enable = config.nixos-system.plasma6.enable;
-
-    # Enable the KDE Plasma Desktop Environment.
-    services.displayManager.sddm.enable = config.nixos-system.plasma6.enable;
-    services.desktopManager.plasma6.enable = config.nixos-system.plasma6.enable;
 
     # Hyprland test
 
@@ -96,12 +93,6 @@
         ];
       };
     */
-
-    # Configure keymap in X11
-    services.xserver.xkb = {
-      layout = "fr";
-      variant = "";
-    };
 
     # Configure console keymap
     console.keyMap = "fr";
@@ -185,6 +176,6 @@
     # this value at the release version of the first install of this system.
     # Before changing this value read the documentation for this option
     # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-    system.stateVersion = "24.11"; # Did you read the comment?
+    system.stateVersion = "25.05"; # Did you read the comment?
   };
 }

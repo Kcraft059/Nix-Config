@@ -7,7 +7,6 @@
 {
   imports = [
     ../../common/stylix.nix
-    ../nix-conf.nix
     ../nixos-system.nix
     ./nixos-system.nix
   ];
