@@ -13,6 +13,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
+
     ################### Utility Modules ###################
 
     sops-nix = {
@@ -94,7 +96,14 @@
       url = "github:acsandmann/rift";
       flake = false;
     };
+  };
 
+  ################### Additionnal binary caches ###################
+  nixConfig = {
+    extra-substituters = [ "https://nixos-raspberrypi.cachix.org" ];
+    extra-trusted-public-keys = [
+      "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
+    ];
   };
 
   outputs =
@@ -147,6 +156,7 @@
         };
 
       default-nixpkg-conf = {
+        #inherit system;
         config = {
           allowUnfree = true;
           #allowUnsupportedSystem = true;
@@ -369,82 +379,108 @@
           "MacBookAirCam-M3" = full;
           "MacRecovery" = minimal;
         };
-      nixosConfigurations =
-        let
-          system = "x86_64-linux";
-        in
-        rec {
-          full = nixpkgs.lib.nixosSystem {
-            ### Module parameter inheritance
-            inherit system;
-            specialArgs = {
-              inherit
-                self # Needed in nix-conf
-                inputs # Needed throughout the config
-                ;
-            };
+      nixosConfigurations = rec {
+        full-generic = {
+          ### Module parameter inheritance
+          inherit system;
+          specialArgs = {
+            inherit
+              self # Needed in nix-conf
+              inputs # Needed throughout the config
+              ;
+          };
 
-            ### Module & module configuration
-            modules = [
-              ## Pkgs set configuration
-              {
-                nixpkgs = {
-                  inherit system;
-                }
-                // default-nixpkg-conf;
+          ### Module & module configuration
+          modules = [
+            ## Pkgs set configuration
+            {
+              nixpkgs = {
+                inherit system;
               }
+              // default-nixpkg-conf;
+            }
 
-              ## Secret module import
-              sops-nix.nixosModules.sops
-              default-secret-conf
+            ## Secret module import
+            sops-nix.nixosModules.sops
+            default-secret-conf
 
-              ## Main system config
-              ./config/nixos/default.nix
+            ## Main system config
+            # ./config/nixos/default.nix # Is not general enough
+            {
+              common.stylix.enable = true;
+              common.stylix.wallpaper = ./ressources/Abstract_Wave.jpg;
+              nixos-system.plasma6.enable = false;
+              nixos-system.hyprland.enable = false;
+            }
+
+            ## Package config
+            ./packages/nix/default.nix
+            {
+              NIXPKG.linuxApps.enable = true;
+            }
+
+            ## Home-manager user config
+            home-manager.nixosModules.home-manager
+            (
+              { config, ... }:
               {
-                common.stylix.enable = true;
-                common.stylix.wallpaper = ./ressources/Abstract_Wave.jpg;
-                nixos-system.plasma6.enable = false;
-                nixos-system.hyprland.enable = true;
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.backupFileExtension = "hmbackup";
+                home-manager.extraSpecialArgs = {
+                  inherit inputs;
+                  global-config = config;
+                };
+                home-manager.users.camille = {
+                  # {...} can be replaced by import ./path/to/module.nix
+                  imports = [
+                    ./home/nixos/default.nix
+                  ];
+                  home-config.GUIapps.enable = true;
+                  home-config.hyprland.enable = true;
+                  home-config.hyprland.wallpaper = config.common.stylix.wallpaper;
+                };
               }
+            )
 
-              ## Package config
-              ./packages/nix/default.nix
+            ## Stylix
+            stylix.nixosModules.stylix
+          ];
+        };
+
+        full =
+          let
+            system = "x86_64-linux";
+          in
+          nixpkgs.lib.nixosSystem full-generic
+          // {
+            modules = full-generic.modules ++ [
               {
-                NIXPKG.linuxApps.enable = true;
+                networking.hostName = "RpiCam-500plus";
               }
-
-              ## Home-manager user config
-              home-manager.nixosModules.home-manager
-              (
-                { config, ... }:
-                {
-                  home-manager.useGlobalPkgs = true;
-                  home-manager.useUserPackages = true;
-                  home-manager.backupFileExtension = "hmbackup";
-                  home-manager.extraSpecialArgs = {
-                    inherit inputs;
-                    global-config = config;
-                  };
-                  home-manager.users.camille = {
-                    # {...} can be replaced by import ./path/to/module.nix
-                    imports = [
-                      ./home/nixos/default.nix
-                    ];
-                    home-config.GUIapps.enable = true;
-                    home-config.hyprland.enable = true;
-                    home-config.hyprland.wallpaper = config.common.stylix.wallpaper;
-                  };
-                }
-              )
-
-              ## Stylix
-              stylix.nixosModules.stylix
+              ./config/nixos/regular/default.nix
             ];
           };
 
-          ### Config assignation
-          "LenovoYogaCam-i7" = full;
-        };
+        full-rpi5 =
+          let
+            system = "aarch64-linux";
+          in
+          nixos-raspberrypi.lib.nixosSystem full-generic
+          // {
+            modules = full-generic.modules ++ [
+              {
+                networking.hostName = "RpiCam-500plus";
+              }
+              ./config/nixos/regular/default.nix
+            ];
+          };
+
+        ### Config assignation
+        "LenovoYogaCam-i7" = full;
+
+        "RpiCam-500plus" = full-rpi5;
+      };
       # Expose the package set, including overlays, for convenience.
       darwinPackages = self.darwinConfigurations.full.pkgs;
     };

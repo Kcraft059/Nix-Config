@@ -12,19 +12,9 @@
     nixos-system.hyprland.enable = lib.mkEnableOption "Whether to enable the Nixos-Config";
   };
 
-  imports = [
-    # Include the results of the hardware scan.
-    ## [IMPURE]
-    /etc/nixos/hardware-configuration.nix
-  ];
-
   config = lib.mkIf config.nixos-system.enable {
 
-    # Bootloader.
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
-
-    networking.hostName = "LenovoYogaCam-i7"; # Define your hostname.
+    #networking.hostName = "LenovoYogaCam-i7"; # Define your hostname.
     # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
     # Configure network proxy if necessary
