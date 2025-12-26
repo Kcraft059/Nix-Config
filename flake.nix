@@ -485,31 +485,39 @@
 
               # Append other modules
               modules = full-generic.modules ++ [
-                {
-                  nixpkgs = {
-                    inherit system;
+                (
+                  {
+                    config,
+                    lib,
+                    pkgs,
+                    ...
+                  }:
+                  {
+                    nixpkgs = {
+                      inherit system;
+                    }
+                    // default-nixpkg-conf;
+
+                    networking.hostName = "RpiCam-500plus";
+
+                    ## Temporary
+                    stylix.targets.gnome.enable = false;
+                    stylix.targets.qt.enable = false;
+
+                    ## RPI Boot loader & kernel - do not touch.
+                    boot.loader.raspberryPi.bootloader = "kernel";
+
+                    system.nixos.tags =
+                      let
+                        cfg = config.boot.loader.raspberryPi;
+                      in
+                      [
+                        "raspberry-pi-${cfg.variant}"
+                        cfg.bootloader
+                        config.boot.kernelPackages.kernel.version
+                      ];
                   }
-                  // default-nixpkg-conf;
-
-                  networking.hostName = "RpiCam-500plus";
-
-                  ## Temporary
-                  stylix.targets.gnome.enable = false;
-                  stylix.targets.qt.enable = false;
-
-                  ## RPI Boot loader & kernel - do not touch.
-                  boot.loader.raspberryPi.bootloader = "kernel";
-
-                  system.nixos.tags =
-                    let
-                      cfg = config.boot.loader.raspberryPi;
-                    in
-                    [
-                      "raspberry-pi-${cfg.variant}"
-                      cfg.bootloader
-                      config.boot.kernelPackages.kernel.version
-                    ];
-                }
+                )
                 ## Main system config
                 ./config/nixos/regular/default.nix
               ];
