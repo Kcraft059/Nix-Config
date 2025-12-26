@@ -11,6 +11,10 @@
     /etc/nixos/hardware-configuration.nix
   ];
 
+  disabledModules = [
+    "nixos/modules/system/boot/loader/raspberrypi"
+  ];
+
   config = {
     ## RPI Boot loader & kernel - do not touch.
     boot.loader.raspberryPi.bootloader = "kernel";
