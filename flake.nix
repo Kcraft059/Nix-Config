@@ -393,12 +393,6 @@
           ### Module & module configuration
           modules = [
             ## Pkgs set configuration
-            {
-              nixpkgs = {
-                inherit system;
-              }
-              // default-nixpkg-conf;
-            }
 
             ## Secret module import
             sops-nix.nixosModules.sops
@@ -457,8 +451,16 @@
             inherit system;
             modules = full-generic.modules ++ [
               {
+                ## Pkgs set configuration
+                nixpkgs = {
+                  inherit system;
+                }
+                // default-nixpkg-conf;
+
+                ## Hostname config
                 networking.hostName = "RpiCam-500plus";
               }
+              ## Main system config
               ./config/nixos/regular/default.nix
             ];
           };
@@ -472,8 +474,14 @@
             inherit system;
             modules = full-generic.modules ++ [
               {
+                nixpkgs = {
+                  inherit system;
+                }
+                // default-nixpkg-conf;
+
                 networking.hostName = "RpiCam-500plus";
               }
+              ## Main system config
               ./config/nixos/regular/default.nix
             ];
           };
