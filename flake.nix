@@ -111,6 +111,7 @@
       self,
       nixpkgs,
       nix-darwin,
+      nixos-raspberrypi,
       sops-nix,
       home-manager,
       nix-homebrew,
