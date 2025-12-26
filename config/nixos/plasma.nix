@@ -29,9 +29,14 @@ in
       wayland.enable = true;
     };
 
-    environment.systemPackages = with pkgs; [
+    stylix.targets = {
+      qt.enable = true;
+      qt.platform = "kde";
+    };
+
+    /* environment.systemPackages = with pkgs; [
       kdePackages.qtstyleplugin-kvantum
-    ];
+    ]; */
 
     /*
       xdg.portal = {

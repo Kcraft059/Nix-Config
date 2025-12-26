@@ -529,12 +529,6 @@
                 ./config/nixos/rpi5/default.nix
                 {
                   networking.hostName = "RpiCam-500plus";
-
-                  ## Temporary
-                  stylix.targets = {
-                    qt.enable = true;
-                    qt.platform = "kde";
-                  };
                 }
 
               ];
