@@ -13,6 +13,11 @@
   nix.enable = true;
   nix.settings = {
     experimental-features = "nix-command flakes";
+    trusted-users = [
+      "root"
+      "@wheel"
+      "camille"
+    ];
   };
 
   nix.extraOptions = lib.optionalString (pkgs.stdenv.hostPlatform.system == "aarch64-darwin") ''

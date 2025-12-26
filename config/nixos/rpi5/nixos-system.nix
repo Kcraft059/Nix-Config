@@ -1,0 +1,27 @@
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  imports = [
+    # Include the results of the hardware scan.
+    ## [IMPURE]
+    /etc/nixos/hardware-configuration.nix
+  ];
+
+  config = {
+    boot.loader.raspberryPi.bootloader = "kernel";
+    
+    system.nixos.tags =
+      let
+        cfg = config.boot.loader.raspberryPi;
+      in
+      [
+        "raspberry-pi-${cfg.variant}"
+        cfg.bootloader
+        config.boot.kernelPackages.kernel.version
+      ];
+  };
+}
