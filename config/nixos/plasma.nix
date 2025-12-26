@@ -15,7 +15,6 @@ in
   config = lib.mkIf plasma-enable {
 
     # Enable the X11 windowing system.
-
     services.xserver = {
       enable = true;
       xkb = {
@@ -30,9 +29,14 @@ in
       #wayland.enable = true;
     };
 
-    xdg.portal = {
+    environment.systemPackages = with pkgs; [
+      kvantum
+      libsForQt6.qtstyleplugin-kvantum
+    ];
+
+    /* xdg.portal = {
       enable = true;
       extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
-    };
+    }; */
   };
 }
