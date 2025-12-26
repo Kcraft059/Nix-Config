@@ -412,6 +412,7 @@
             ./packages/nix/default.nix
             {
               NIXPKG.linuxApps.enable = true;
+              NIXPKG.GUIapps.enable = false;
             }
 
             ## Home-manager user config
@@ -431,8 +432,8 @@
                   imports = [
                     ./home/nixos/default.nix
                   ];
-                  home-config.GUIapps.enable = true;
-                  home-config.hyprland.enable = true;
+                  home-config.GUIapps.enable = false;
+                  home-config.hyprland.enable = false;
                   home-config.hyprland.wallpaper = config.common.stylix.wallpaper;
                 };
               }
