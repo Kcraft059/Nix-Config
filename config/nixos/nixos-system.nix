@@ -12,12 +12,10 @@
   ];
 
   options = {
-    nixos-system.enable = lib.mkEnableOption "Whether to enable the Nixos-Config";
-    #nixos-system.plasma6.enable = lib.mkEnableOption "Whether to enable the Nixos-Config";
     nixos-system.hyprland.enable = lib.mkEnableOption "Whether to enable the Nixos-Config";
   };
 
-  config = lib.mkIf config.nixos-system.enable {
+  config = {
 
     ## Networking
     networking.networkmanager.enable = true;
