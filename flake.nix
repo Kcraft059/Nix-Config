@@ -491,6 +491,9 @@
                   // default-nixpkg-conf;
 
                   networking.hostName = "RpiCam-500plus";
+
+                  ## Temporary
+                  stylix.targets.gnome.enable = false;
                 }
                 ## Main system config
                 ./config/nixos/regular/default.nix
