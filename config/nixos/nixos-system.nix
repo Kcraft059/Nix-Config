@@ -48,6 +48,8 @@
       LC_TIME = "fr_FR.UTF-8";
     };
 
+    console.keyboardLayout = "fr";
+
     ## Hardware config
     # Audio + video
     hardware.graphics.enable = true;
