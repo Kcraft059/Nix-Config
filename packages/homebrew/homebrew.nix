@@ -53,7 +53,7 @@
           "sf-symbols"
           "chatgpt"
           "discord"
-          "firefox"
+          #"firefox"
           "google-chrome"
           "steamcmd"
           "prismlauncher"
