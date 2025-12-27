@@ -58,5 +58,8 @@
         audacity
         #pkgs.alacritty
       ]);
+    
+    stylix.targets.firefox.enable = false;
+    programs.firefox.enable = config.home-config.GUIapps.enable;
   };
 }

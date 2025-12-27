@@ -189,7 +189,7 @@ in
             };
           }
           "/System/Applications/Passwords.app"
-          (pathExist "/Applications/Firefox.app")
+          (lib.mkIf (builtins.elem pkgs.firefox config.home-manager.users.camille.home.packages) "${pkgs.firefox}/Applications/Firefox.app")
           "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app"
           (pathExist "/Users/camille/Applications/YouTube.app")
           (pathExist "/Applications/Prism Launcher.app/")
