@@ -81,6 +81,7 @@
     users.users.camille = {
       isNormalUser = true;
       description = "Camille T";
+      hashedPasswordFile = config.sops.secrets.camille-passwd.path;
       extraGroups = [
         "networkmanager"
         "wheel"

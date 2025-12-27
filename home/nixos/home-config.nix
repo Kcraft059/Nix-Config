@@ -7,6 +7,7 @@
 {
   imports = [
     ./hyprland.nix
+    ./plasma.nix
     ./ghostty.nix
     ./zsh.nix
   ];
@@ -19,7 +20,7 @@
     ]
     ++ lib.optionals config.home-config.GUIapps.enable [
       pkgs.ghostty
-      pkgs.krita
+      #pkgs.krita
       pkgs.deskflow
       #pkgs.vscode
     ];

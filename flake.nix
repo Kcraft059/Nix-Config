@@ -156,6 +156,7 @@
               "ftn/node-ssh" = ssh-key-config;
               ssh-id-ed25519 = ssh-key-config;
               github-token = ssh-key-config;
+              camille-passwd.neededForUsers = true;
             };
         };
 
@@ -438,6 +439,7 @@
                   home-config.GUIapps.enable = true;
                   home-config.hyprland.enable = false;
                   home-config.hyprland.wallpaper = config.common.stylix.wallpaper;
+                  home-config.plasma.enable = true;
                 };
               }
             )
