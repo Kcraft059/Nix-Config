@@ -32,7 +32,6 @@ in
 
     stylix.targets = {
       qt.enable = true;
-      qt.platform = "kde";
     };
   };
 }
