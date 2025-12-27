@@ -407,7 +407,7 @@
             # ./config/nixos/default.nix # Is not general enough
             {
               common.stylix.enable = true;
-              common.stylix.wallpaper = ./ressources/Abstract_Wave.jpg;
+              common.stylix.wallpaper = ./ressources/Shared_Volume.tiff;
               nixos-system.plasma6.enable = true;
               nixos-system.hyprland.enable = false;
             }
