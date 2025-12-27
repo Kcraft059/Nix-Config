@@ -30,9 +30,6 @@ in
       wayland.enable = true;
     };
 
-    stylix.targets = {
-      qt.enable = true;
-      qt.platform = "kde";
-    };
+    stylix.targets.qt.enable = false;
   };
 }
