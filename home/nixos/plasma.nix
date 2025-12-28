@@ -56,18 +56,29 @@
           location = "top";
           floating = true;
           height = 30;
+          opacity = "translucent";
           widgets = [
-            {
+            ## App launcher 
+            { 
               kickoff = {
                 sortAlphabetically = true;
                 icon = "nix-snowflake-white";
               };
             }
+
+            ## Workspaces
+            {
+              name = "org.kde.plasma.activitypager";
+            }
+
+            "org.kde.plasma.marginsseparator"
           ];
         }
         {
           location = "bottom";
           hiding = "autohide";
+          lengthMode = "fit";
+          opacity = "translucent";
           floating = true;
           widgets = [
             {
@@ -75,6 +86,7 @@
                 launchers = [
                   "applications:org.kde.dolphin.desktop"
                   "applications:org.kde.konsole.desktop"
+                  "file://${lib.traceValFn (v: "HM-Path: ${v}") config.home.profileDirectory}"
                 ];
               };
             }
@@ -88,7 +100,7 @@
           config.General.showSecondHand = true;
 
           position = {
-            horizontal = 1920 - 175;
+            horizontal = 1080;
             vertical = 0;
           };
           size = {
