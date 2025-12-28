@@ -51,53 +51,71 @@
       };
 
       ## Ui elements
-      panels = [
-        {
-          location = "top";
-          floating = true;
-          height = 30;
-          opacity = "translucent";
-          widgets = [
-            ## App launcher 
-            { 
-              kickoff = {
-                sortAlphabetically = true;
-                icon = "nix-snowflake-white";
-              };
-            }
-
-            ## Workspaces
-            {
-              name = "org.kde.plasma.pager";
-              config.General.showWindowIcons = true;
-            }
-
-            "org.kde.plasma.marginsseparator"
-            
-            "org.kde.plasma.appmenu"
-
-            "org.kde.plasma.marginsseparator"
-          ];
-        }
-        {
-          location = "bottom";
-          hiding = "autohide";
-          lengthMode = "fit";
-          opacity = "translucent";
-          floating = true;
-          widgets = [
-            {
-              iconTasks = {
-                launchers = [
-                  "applications:org.kde.dolphin.desktop"
-                  "applications:org.kde.konsole.desktop"
-                  "file://${lib.traceValFn (v: "HM-Path: ${v}") config.home.profileDirectory}"
-                ];
-              };
-            }
-          ];
-        }
-      ];
+      panels =
+        let
+          lenSpacer = len: {
+            name = "org.kde.plasma.panelspacer";
+            config.General = {
+              expanding = false;
+              length = len;
+            };
+          };
+          spacer = "org.kde.plasma.panelspacer";
+        in
+        [
+          {
+            location = "top";
+            floating = true;
+            hiding = "windowsbelow";
+            height = 30;
+            opacity = "translucent";
+            widgets = [
+              ## App launcher
+              (lenSpacer 5)
+              {
+                kickoff = {
+                  sortAlphabetically = true;
+                  icon = "nix-snowflake-white";
+                };
+              }
+              ## Workspaces
+              (lenSpacer 10)
+              {
+                name = "org.kde.plasma.pager";
+                config.General.showWindowIcons = true;
+              }
+              (lenSpacer 5)
+              "org.kde.plasma.marginsseparator"
+              (lenSpacer 5)
+              ## Menubar
+              "org.kde.plasma.appmenu"
+              spacer
+              ## Controls
+              "org.kde.plasma.marginsseparator"
+              "org.kde.plasma.bluetooth"
+            ];
+          }
+          {
+            location = "bottom";
+            hiding = "autohide";
+            lengthMode = "fit";
+            opacity = "translucent";
+            floating = true;
+            widgets = [
+              {
+                iconTasks = {
+                  launchers = [
+                    "applications:org.kde.dolphin.desktop"
+                    "applications:org.kde.konsole.desktop"
+                    "file://${config.home.profileDirectory}/share/applications/code.desktop"
+                    "file://${config.home.profileDirectory}/share/applications/Alacritty.desktop"
+                    "file://${config.home.profileDirectory}/share/applications/firefox.desktop"
+                  ];
+                };
+              }
+            ];
+          }
+        ];
 
       desktop.widgets = [
         {
@@ -105,7 +123,7 @@
           config.General.showSecondHand = true;
 
           position = {
-            horizontal = 1080;
+            horizontal = 1920;
             vertical = 0;
           };
           size = {
