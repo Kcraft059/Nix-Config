@@ -31,7 +31,7 @@ in
     };
 
     stylix.targets = {
-      qt.enable = true;
+      qt.enable = false;
     };
   };
 }
