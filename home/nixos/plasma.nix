@@ -68,8 +68,13 @@
 
             ## Workspaces
             {
-              name = "org.kde.plasma.activitypager";
+              name = "org.kde.plasma.pager";
+              config.General.showWindowIcons = true;
             }
+
+            "org.kde.plasma.marginsseparator"
+            
+            "org.kde.plasma.appmenu"
 
             "org.kde.plasma.marginsseparator"
           ];
