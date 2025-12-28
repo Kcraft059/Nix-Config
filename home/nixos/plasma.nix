@@ -79,12 +79,14 @@
                 };
               }
               ## Workspaces
-              (lenSpacer 10)
+              (lenSpacer 5)
               {
                 name = "org.kde.plasma.pager";
                 config.General.showWindowIcons = true;
               }
               "org.kde.plasma.marginsseparator"
+              (lenSpacer 8)
+              ## Appname
               {
                 applicationTitleBar = {
                   behavior = {
@@ -96,21 +98,17 @@
                       fit = "fixedSize";
                       size = 12;
                     };
+                    layout = {
+                      elements = [ "windowIcon" "windowTitle" ];
+                      horizontalAlignment = "left";
+                      showDisabledElements = "deactivated";
+                      verticalAlignment = "center";
+                    };
                     hideEmptyTitle = true;
-                    /*
-                      margins = {
-                        bottom = 0;
-                        left = 10;
-                        right = 5;
-                        top = 0;
-                      };
-                    */
                     source = "appName";
                   };
                 };
               }
-              (lenSpacer 5)
-              ## Menubar
               {
                 name = "org.kde.plasma.appmenu";
                 config.Appearance.compactView = true;
