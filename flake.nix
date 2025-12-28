@@ -397,7 +397,7 @@
 
           ### Module & module configuration
           modules = [
-            ## Pkgs set configuration
+            # [COMPLETE] Pkgs set configuration
 
             ## Secret module import
             sops-nix.nixosModules.sops
@@ -432,12 +432,7 @@
                   global-config = config;
                 };
                 home-manager.users.camille = {
-                  # {...} can be replaced by import ./path/to/module.nix
-                  /*
-                    imports = [
-                      ./home/nixos/default.nix
-                    ];
-                  */
+                  # [COMPLETE] import config for user camille
                   home-config.GUIapps.enable = true;
                   home-config.hyprland.enable = false;
                   home-config.hyprland.wallpaper = config.common.stylix.wallpaper;
@@ -469,15 +464,13 @@
 
                   ## Hostname config
                   networking.hostName = "LenovoYogaCam-i7";
+
+                  ## Home manager config
+                  home-manager.users.camille.imports = [ ./home/nixos/regular/default.nix ];
                 }
 
                 ## Main system config
                 ./config/nixos/regular/default.nix
-
-                {
-                  ## Home manager config
-                  home-manager.users.camille.imports = [ ./home/nixos/regular/default.nix ];
-                }
               ];
             }
           );
@@ -526,26 +519,21 @@
                     raspberry-pi-5.display-vc4
                     raspberry-pi-5.bluetooth
                   ];
-                }
 
-                {
                   nixpkgs = {
                     inherit system;
                   }
                   // default-nixpkg-conf;
+
+                  ## Hostname config
+                  networking.hostName = "RpiCam-500plus";
+
+                  ## Home manager config
+                  home-manager.users.camille.imports = [ ./home/nixos/rpi5/default.nix ];
                 }
 
                 ## Main system config
                 ./config/nixos/rpi5/default.nix
-                {
-                  networking.hostName = "RpiCam-500plus";
-                }
-
-                ## Home manager config
-                {
-                  home-manager.users.camille.imports = [ ./home/nixos/rpi5/default.nix ];
-                }
-
               ];
             }
           );
