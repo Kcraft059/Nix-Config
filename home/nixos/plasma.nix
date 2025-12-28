@@ -84,8 +84,8 @@
 
       desktop.widgets = [
         {
-          analogclock = {
-            #name = "org.kde.plasma.analogclock";
+          {
+            name = "org.kde.plasma.analogclock";
             config.General.showSecondHand = true;
 
             position = {
