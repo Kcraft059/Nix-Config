@@ -92,17 +92,20 @@
                   behavior = {
                     activeTaskSource = "activeTask";
                   };
+                  layout = {
+                    elements = [
+                      "windowIcon"
+                      "windowTitle"
+                    ];
+                    horizontalAlignment = "left";
+                    showDisabledElements = "deactivated";
+                    verticalAlignment = "center";
+                  };
                   windowTitle = {
                     font = {
                       bold = false;
                       fit = "fixedSize";
                       size = 12;
-                    };
-                    layout = {
-                      elements = [ "windowIcon" "windowTitle" ];
-                      horizontalAlignment = "left";
-                      showDisabledElements = "deactivated";
-                      verticalAlignment = "center";
                     };
                     hideEmptyTitle = true;
                     source = "appName";
