@@ -443,6 +443,7 @@
                   # [COMPLETE] import config for user camille
                   home-config.GUIapps.enable = true;
                   home-config.plasma.enable = true;
+                  home-config.userPicture = ./ressources/vflower-1.jpg;
                 };
               }
             )

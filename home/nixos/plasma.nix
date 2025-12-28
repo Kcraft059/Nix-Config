@@ -42,9 +42,9 @@
 
       desktop.widgets = [
         {
-          "org.kde.plasma.digitalclock" = {
-            config.Appearance.showDate = false;
-          };
+          name = "org.kde.plasma.digitalclock";
+          config.Appearance.showDate = false;
+
           position = {
             horizontal = 51;
             vertical = 100;
@@ -64,5 +64,7 @@
            };
       */
     };
+
+    home.file.".face.icon".source = config.home-config.userPicture;
   };
 }

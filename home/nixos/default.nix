@@ -14,6 +14,14 @@
         Set the default wallpaper
       '';
     };
+    home-config.userPicture = lib.mkOption {
+      type = lib.types.path;
+      default = "";
+      example = lib.literalExpression ''/ressources/user-picture.png'';
+      description = ''
+        Sets the default user picture
+      '';
+    };
   };
 
   config = {
