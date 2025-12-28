@@ -10,5 +10,6 @@
   };
   config = lib.mkIf config.home-config.plasma.enable {
     stylix.targets.gtk.enable = false;
+    stylix.targets.kde.enable = false;
   };
 }
