@@ -84,18 +84,16 @@
 
       desktop.widgets = [
         {
-          {
-            name = "org.kde.plasma.analogclock";
-            config.General.showSecondHand = true;
+          name = "org.kde.plasma.analogclock";
+          config.General.showSecondHand = true;
 
-            position = {
-              horizontal = 1920 - 175;
-              vertical = 0;
-            };
-            size = {
-              height = 175;
-              width = 175;
-            };
+          position = {
+            horizontal = 1920 - 175;
+            vertical = 0;
+          };
+          size = {
+            height = 175;
+            width = 175;
           };
         }
       ];
