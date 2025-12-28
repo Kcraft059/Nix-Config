@@ -21,6 +21,6 @@
     home-config.hyprland.enable = lib.mkDefault false;
     home-config.plasma.enable = lib.mkDefault false;
     home-config.fastfetch.osString = "|\\|ixOS  ";
-    home-config.desktopManager.wallpaper = lib.mkDefault common.stylix.wallpaper;
+    home-config.desktopManager.wallpaper = lib.mkDefault global-config.common.stylix.wallpaper;
   };
 }
