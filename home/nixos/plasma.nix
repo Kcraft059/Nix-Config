@@ -21,21 +21,16 @@
     programs.plasma = {
       enable = true;
 
+      ## Theming
       workspace = {
         lookAndFeel = "org.kde.breezedark.desktop";
         theme = "breeze-dark";
         cursor = {
           theme = "breeze_cursors";
-          size = 18;
+          size = 20;
         };
         soundTheme = "ocean";
         wallpaper = "${config.home-config.desktopManager.wallpaper}";
-      };
-
-      hotkeys.commands."launch-konsole" = {
-        name = "Launch Konsole";
-        key = "Meta+Alt+K";
-        command = "konsole";
       };
 
       fonts = {
@@ -44,6 +39,30 @@
           pointSize = 12;
         };
       };
+
+      desktop.widgets = [
+        {
+          "org.kde.plasma.digitalclock" = {
+            config.Appearance.showDate = false;
+          };
+          position = {
+            horizontal = 51;
+            vertical = 100;
+          };
+          size = {
+            height = 250;
+            width = 250;
+          }
+        }
+      ];
+
+      /*
+        hotkeys.commands."launch-konsole" = {
+             name = "Launch Konsole";
+             key = "Meta+Alt+K";
+             command = "konsole";
+           };
+      */
     };
   };
 }
