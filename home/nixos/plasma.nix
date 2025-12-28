@@ -85,23 +85,49 @@
                 config.General.showWindowIcons = true;
               }
               "org.kde.plasma.marginsseparator"
+              {
+                applicationTitleBar = {
+                  behavior = {
+                    activeTaskSource = "activeTask";
+                  };
+                  windowTitle = {
+                    font = {
+                      bold = false;
+                      fit = "fixedSize";
+                      size = 12;
+                    };
+                    hideEmptyTitle = true;
+                    /*
+                      margins = {
+                        bottom = 0;
+                        left = 10;
+                        right = 5;
+                        top = 0;
+                      };
+                    */
+                    source = "appName";
+                  };
+                };
+              }
               (lenSpacer 5)
               ## Menubar
-              "org.kde.plasma.appmenu"
+              {
+                name = "org.kde.plasma.appmenu";
+                config.Appearance.compactView = true;
+              }
               spacer
               ## Controls
               "org.kde.plasma.marginsseparator"
               {
                 systemTray.items = {
-                  # We explicitly show bluetooth and battery
                   shown = [
-                    "org.kde.plasma.battery"
+                    "org.kde.plasma.volume"
+                    "org.kde.plasma.networkmanagement"
                     "org.kde.plasma.bluetooth"
                   ];
-                  # And explicitly hide networkmanagement and volume
                   hidden = [
-                    "org.kde.plasma.networkmanagement"
-                    "org.kde.plasma.volume"
+                    "org.kde.plasma.battery"
+                    "org.kde.kscreen"
                   ];
                 };
               }
