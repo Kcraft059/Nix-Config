@@ -16,7 +16,7 @@
     home.packages = [
     ]
     ++ lib.optionals config.home-config.GUIapps.enable [
-      pkgs.ghostty
+      #pkgs.ghostty
       #pkgs.krita
       pkgs.deskflow
     ];
