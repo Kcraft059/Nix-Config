@@ -53,25 +53,49 @@
       ## Ui elements
       panels = [
         {
+          location = "top";
+          floating = true;
+          height = 30;
+          widgets = [
+            {
+              kickoff = {
+                sortAlphabetically = true;
+                icon = "nix-snowflake-white";
+              };
+            }
+          ];
+        }
+        {
           location = "bottom";
           hiding = "autohide";
           floating = true;
-          widgets = [ ];
+          widgets = [
+            {
+              iconTasks = {
+                launchers = [
+                  "applications:org.kde.dolphin.desktop"
+                  "applications:org.kde.konsole.desktop"
+                ];
+              };
+            }
+          ];
         }
       ];
 
       desktop.widgets = [
         {
-          name = "org.kde.plasma.analogclock";
-          config.General.showSecondHand = true;
+          analogclock = {
+            #name = "org.kde.plasma.analogclock";
+            config.General.showSecondHand = true;
 
-          position = {
-            horizontal = 1920 - 175;
-            vertical = 0;
-          };
-          size = {
-            height = 175;
-            width = 175;
+            position = {
+              horizontal = 1920 - 175;
+              vertical = 0;
+            };
+            size = {
+              height = 175;
+              width = 175;
+            };
           };
         }
       ];
