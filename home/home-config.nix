@@ -54,12 +54,15 @@
         # mcrcon
         # devenv maybe later see https://devenv.sh - alternative to nix-shells
       ]
-      ++ lib.optionals config.home-config.GUIapps.enable (with pkgs; [
-        audacity
-        #pkgs.alacritty
-      ]);
-    
-    stylix.targets.firefox.enable = false;
-    #programs.firefox.enable = config.home-config.GUIapps.enable;
+      ++ lib.optionals config.home-config.GUIapps.enable (
+        with pkgs;
+        [
+          audacity
+          #pkgs.alacritty
+        ]
+      );
+
+    # Programs
+    programs.firefox.enable = config.home-config.GUIapps.enable;
   };
 }

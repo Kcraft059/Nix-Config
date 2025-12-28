@@ -6,11 +6,6 @@
   ...
 }:
 {
-  imports = [
-    ./nix-conf.nix
-    ./plasma.nix
-  ];
-
   options = {
     nixos-system.hyprland.enable = lib.mkEnableOption "Whether to enable the Nixos-Config";
   };
