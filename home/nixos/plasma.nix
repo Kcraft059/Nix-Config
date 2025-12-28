@@ -22,7 +22,7 @@
       enable = true;
 
       ## Theming
-      configFile.kdeglobals.General.AccentColor = "255,0,0";
+      configFile.kdeglobals.General.AccentColor = "116,118,168";
 
       workspace = {
         lookAndFeel = "org.kde.breezedark.desktop";
