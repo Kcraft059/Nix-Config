@@ -11,9 +11,11 @@
 
   config = lib.mkIf config.home-config.plasma.enable {
     # Stylix overrides
-    stylix.targets.gtk.enable = false;
-    stylix.targets.kde.enable = false;
-    stylix.targets.qt.enable = false;
+    stylix.targets = {
+      #gtk.enable = false;
+      kde.enable = false;
+      qt.enable = false;
+    };
 
     # Plasma configuration
     programs.plasma = {
