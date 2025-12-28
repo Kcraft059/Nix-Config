@@ -141,7 +141,7 @@
           }
           {
             location = "bottom";
-            hiding = "autohide";
+            hiding = "dodgewindows";
             lengthMode = "fit";
             opacity = "translucent";
             floating = true;
@@ -150,9 +150,9 @@
                 iconTasks = {
                   launchers = [
                     "applications:org.kde.dolphin.desktop"
-                    "applications:org.kde.konsole.desktop"
-                    "file://${config.home.profileDirectory}/share/applications/code.desktop"
+                    "applications:org.kde.systemsettings.desktop"
                     "file://${config.home.profileDirectory}/share/applications/Alacritty.desktop"
+                    "file://${config.home.profileDirectory}/share/applications/code.desktop"
                     "file://${config.home.profileDirectory}/share/applications/firefox.desktop"
                   ];
                 };
