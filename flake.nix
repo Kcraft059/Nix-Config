@@ -442,8 +442,6 @@
                 home-manager.users.camille = {
                   # [COMPLETE] import config for user camille
                   home-config.GUIapps.enable = true;
-                  home-config.hyprland.enable = false;
-                  home-config.hyprland.wallpaper = config.common.stylix.wallpaper;
                   home-config.plasma.enable = true;
                 };
               }

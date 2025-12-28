@@ -7,14 +7,7 @@
 {
   options = {
     home-config.hyprland.enable = lib.mkEnableOption ''Enable Hyprland and its plugins'';
-    home-config.hyprland.wallpaper = lib.mkOption {
-      type = lib.types.path;
-      default = "";
-      example = lib.literalExpression ''/ressources/wallpaper.png'';
-      description = ''
-        Set the default wallpaper
-      '';
-    };
+
   };
 
   config =
@@ -23,7 +16,7 @@
         ${pkgs.waybar}/bin/waybar &
         #${pkgs.swww}/bin/swww-daemon & 
         #sleep 1
-        #${pkgs.swww}/bin/swww img ${config.home-config.hyprland.wallpaper} &
+        #${pkgs.swww}/bin/swww img ${config.home-config.desktopManager.wallpaper} &
       '';
 
     in
@@ -201,8 +194,8 @@
       services.hyprpaper = {
         enable = true;
         settings = {
-          preload = [ "${config.home-config.hyprland.wallpaper}" ];
-          wallpaper = [ "monitor,${config.home-config.hyprland.wallpaper}" ];
+          preload = [ "${config.home-config.desktopManager.wallpaper}" ];
+          wallpaper = [ "monitor,${config.home-config.desktopManager.wallpaper}" ];
         };
       };
 
