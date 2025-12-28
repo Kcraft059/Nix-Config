@@ -13,6 +13,7 @@
     # Stylix overrides
     stylix.targets.gtk.enable = false;
     stylix.targets.kde.enable = false;
+    stylix.targets.qt.enable = false;
 
     # Plasma configuration
     programs.plasma = {
