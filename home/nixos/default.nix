@@ -1,11 +1,26 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, global-config, ... }:
 {
   imports = [
     ../default.nix
     ./home-config.nix
   ];
-  home-config.GUIapps.enable = lib.mkDefault false;
-  home-config.hyprland.enable = lib.mkDefault false;
-  home-config.plasma.enable = lib.mkDefault false;
-  home-config.fastfetch.osString = "|\\|ixOS  ";
+
+  options = {
+    home-config.desktopManager.wallpaper = lib.mkOption {
+      type = lib.types.path;
+      default = "";
+      example = lib.literalExpression ''/ressources/wallpaper.png'';
+      description = ''
+        Set the default wallpaper
+      '';
+    };
+  };
+
+  config = {
+    home-config.GUIapps.enable = lib.mkDefault false;
+    home-config.hyprland.enable = lib.mkDefault false;
+    home-config.plasma.enable = lib.mkDefault false;
+    home-config.fastfetch.osString = "|\\|ixOS  ";
+    home-config.desktopManager.wallpaper = lib.mkDefault common.stylix.wallpaper;
+  };
 }
