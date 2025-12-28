@@ -22,6 +22,8 @@
       enable = true;
 
       ## Theming
+      configFile.kdeglobals.General.AccentColor = "255,0,0";
+
       workspace = {
         lookAndFeel = "org.kde.breezedark.desktop";
         theme = "breeze-dark";
@@ -43,6 +45,7 @@
       desktop.widgets = [
         {
           name = "org.kde.plasma.analogclock";
+          config.General.showSecondHand = true;
 
           position = {
             horizontal = 0;
