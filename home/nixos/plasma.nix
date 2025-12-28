@@ -84,7 +84,6 @@
                 name = "org.kde.plasma.pager";
                 config.General.showWindowIcons = true;
               }
-              (lenSpacer 5)
               "org.kde.plasma.marginsseparator"
               (lenSpacer 5)
               ## Menubar
@@ -92,7 +91,25 @@
               spacer
               ## Controls
               "org.kde.plasma.marginsseparator"
-              "org.kde.plasma.bluetooth"
+              {
+                systemTray.items = {
+                  # We explicitly show bluetooth and battery
+                  shown = [
+                    "org.kde.plasma.battery"
+                    "org.kde.plasma.bluetooth"
+                  ];
+                  # And explicitly hide networkmanagement and volume
+                  hidden = [
+                    "org.kde.plasma.networkmanagement"
+                    "org.kde.plasma.volume"
+                  ];
+                };
+              }
+              "org.kde.plasma.marginsseparator"
+              {
+                name = "org.kde.plasma.digitalclock";
+              }
+              (lenSpacer 5)
             ];
           }
           {
@@ -113,6 +130,8 @@
                   ];
                 };
               }
+              (lenSpacer 5)
+              "org.kde.plasma.trash"
             ];
           }
         ];
