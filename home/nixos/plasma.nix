@@ -42,8 +42,7 @@
 
       desktop.widgets = [
         {
-          name = "org.kde.plasma.digitalclock";
-          config.Appearance.showDate = false;
+          name = "org.kde.plasma.analogclock";
 
           position = {
             horizontal = 51;
