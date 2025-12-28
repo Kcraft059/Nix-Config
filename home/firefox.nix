@@ -20,7 +20,7 @@
         extensions.force = true;
         search = {
           force = true;
-          default = "Google";
+          default = "google";
         };
       };
     };
