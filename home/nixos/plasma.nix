@@ -214,8 +214,8 @@
           config.General.showSecondHand = true;
 
           position = {
-            horizontal = -100;
-            vertical = -100;
+            horizontal = 100;
+            vertical = 100;
           };
           size = {
             height = 175;
