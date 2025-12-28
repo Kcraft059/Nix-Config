@@ -12,7 +12,7 @@
   config = lib.mkIf config.home-config.plasma.enable {
     # Stylix overrides
     stylix.targets = {
-      #gtk.enable = false;
+      gtk.enable = false;
       kde.enable = false;
       qt.enable = false;
     };
@@ -45,8 +45,8 @@
           name = "org.kde.plasma.analogclock";
 
           position = {
-            horizontal = 51;
-            vertical = 100;
+            horizontal = 0;
+            vertical = 0;
           };
           size = {
             height = 250;
