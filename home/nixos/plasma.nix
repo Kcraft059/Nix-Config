@@ -150,7 +150,7 @@
                 iconTasks = {
                   launchers = [
                     "applications:org.kde.dolphin.desktop"
-                    "applications:org.kde.systemsettings.desktop"
+                    "applications:systemsettings.desktop"
                     "file://${config.home.profileDirectory}/share/applications/Alacritty.desktop"
                     "file://${config.home.profileDirectory}/share/applications/code.desktop"
                     "file://${config.home.profileDirectory}/share/applications/firefox.desktop"
