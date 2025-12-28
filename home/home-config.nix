@@ -14,6 +14,7 @@
     ./alacritty.nix
     ./ssh.nix
     ./vscode.nix
+    ./firefox.nix
     #./lazy-vim.nix
     ./fzf.nix
     ./bat.nix
@@ -58,11 +59,7 @@
         with pkgs;
         [
           audacity
-          #pkgs.alacritty
         ]
       );
-
-    # Programs
-    programs.firefox.enable = config.home-config.GUIapps.enable;
   };
 }

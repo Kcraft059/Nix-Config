@@ -5,7 +5,6 @@
   ...
 }:
 {
-  # home.packages = [ pkgs.ghostty ];
   stylix.targets.ghostty.enable = false;
 
   programs.ghostty = {

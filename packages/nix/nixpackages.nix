@@ -28,20 +28,6 @@ in
   };
 
   config = {
-
-    /*
-      nixpkgs.overlays = [
-        inputs.nix-vscode-extensions.overlays.default
-        (import ../../overlays/default.nix { inherit inputs; })
-        #(import ../../overlays/fancy-folder.nix)
-        #(import ../../overlays/krita-mac.nix)
-        #(import ../../overlays/backdrop.nix)
-        #(import ./overlays/mas.nix)
-        #(import ../../overlays/smc-cli.nix)
-        #(import ../../overlays/battery-toolkit.nix)
-      ];
-    */
-
     environment.systemPackages =
       lib.optionals config.NIXPKG.coreUtils [
         pkgs.git
@@ -50,7 +36,6 @@ in
         pkgs.jq
       ]
       ++ lib.optionals config.NIXPKG.additionnals.enable [
-        #pkgs.php
         pkgs.bindfs
         pkgs.ffmpeg
         pkgs.openjdk8
@@ -58,9 +43,7 @@ in
         effectivePkgsX86.openjdk17
       ]
       ++ lib.optionals config.NIXPKG.GUIapps.enable [
-        #pkgs.ghostty
         pkgs.vscode
-        #pkgs.audacity
         # Gui Apps
       ]
       ++ lib.optionals config.NIXPKG.darwinApps.enable [
