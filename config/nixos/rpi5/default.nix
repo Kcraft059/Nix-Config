@@ -6,13 +6,7 @@
 }:
 {
   imports = [
-    ../../common/stylix.nix
-    ../nixos-system.nix
+    ../default.nix
     ./nixos-system.nix
   ];
-  
-  nixos-system.plasma6.enable = lib.mkDefault true;
-  nixos-system.hyprland.enable = lib.mkDefault false;
-  nix-conf.garbage-collect.enable = lib.mkDefault true;
-  common.stylix.enable = lib.mkDefault false;
 }

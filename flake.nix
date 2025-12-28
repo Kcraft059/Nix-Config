@@ -433,9 +433,11 @@
                 };
                 home-manager.users.camille = {
                   # {...} can be replaced by import ./path/to/module.nix
-                  imports = [
-                    ./home/nixos/default.nix
-                  ];
+                  /*
+                    imports = [
+                      ./home/nixos/default.nix
+                    ];
+                  */
                   home-config.GUIapps.enable = true;
                   home-config.hyprland.enable = false;
                   home-config.hyprland.wallpaper = config.common.stylix.wallpaper;
@@ -468,8 +470,14 @@
                   ## Hostname config
                   networking.hostName = "LenovoYogaCam-i7";
                 }
+
                 ## Main system config
                 ./config/nixos/regular/default.nix
+
+                {
+                  ## Home manager config
+                  home-manager.users.camille.imports = [ ./home/nixos/regular/default.nix ];
+                }
               ];
             }
           );
@@ -531,6 +539,11 @@
                 ./config/nixos/rpi5/default.nix
                 {
                   networking.hostName = "RpiCam-500plus";
+                }
+
+                ## Home manager config
+                {
+                  home-manager.users.camille.imports = [ ./home/nixos/rpi5/default.nix ];
                 }
 
               ];
