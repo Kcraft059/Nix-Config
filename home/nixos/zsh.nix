@@ -27,6 +27,7 @@
     enable = true;
     enableZshIntegration = true;
     settings = {
+      ## See https://starship.rs/presets/pastel-powerline
       add_newline = false;
       scan_timeout = 10;
       format = lib.concatStrings [
@@ -40,23 +41,23 @@
         "$git_status"
         "[](fg:#FCA17D bg:#86BBD8)"
         "$c"
-        "$elixir"
-        "$elm"
-        "$golang"
-        "$gradle"
-        "$haskell"
-        "$java"
-        "$julia"
-        "$nodejs"
-        "$nim"
-        "$rust"
-        "$scala"
+        #"$elixir"
+        #"$elm"
+        #"$golang"
+        #"$gradle"
+        #"$haskell"
+        #"$java"
+        #"$julia"
+        #"$nodejs"
+        #"$nim"
+        #"$rust"
+        #"$scala"
         "[](fg:#86BBD8 bg:#06969A)"
-        "$docker_context"
+        #"$docker_context"
         "[](fg:#06969A bg:#33658A)"
         "$time"
         "[](fg:#33658A)"
-        "\n"
+        "$line_break"
         "$character"
       ];
       character = {
@@ -72,12 +73,43 @@
       };
       os = {
         style = "bg:#9A348E";
+        disabled = false;
       };
       directory = {
         style = "bg:#DA627D";
         format = "[ $path ]($style)";
         truncation_length = 3;
         truncation_symbol = "…/";
+        susbtitutions = {
+          "Documents" = "󰈙 ";
+          "Downloads" = " ";
+          "Music" = " ";
+          "Pictures" = " ";
+        };
+      };
+      time = {
+        disabled = false;
+        time_format = "%R"; # Hour:Minute Format
+        style = "bg:#33658A";
+        format = "[ ♥ $time ]($style)";
+      };
+
+      ## Git
+      git_branch = {
+        symbol = "";
+        style = "bg:#FCA17D";
+        format = "[ $symbol $branch ]($style)";
+      };
+      git_status = {
+        style = "bg:#FCA17D";
+        format = "[$all_status$ahead_behind ]($style)";
+      };
+
+      ## Langs
+      c = {
+        symbol = " ";
+        style = "bg:#86BBD8";
+        format = "[ $symbol ($version) ]($style)";
       };
     };
   };
