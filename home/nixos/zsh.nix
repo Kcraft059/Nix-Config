@@ -35,12 +35,12 @@
         "[](fg:0)"
         "$os"
         "$username"
-        "[](fg:1 bg:0)" #"[](fg:1 bg:6)"
+        "[](fg:1 bg:0)" # "[](fg:1 bg:6)"
         "$directory"
-        "[](fg:6 bg:0)" #"[](fg:6 bg:3)"
+        "[](fg:6 bg:0)" # "[](fg:6 bg:3)"
         "$git_branch"
         "$git_status"
-        "[](fg:3 bg:0)" #"[](fg:3 bg:5)"
+        "[](fg:3 bg:0)" # "[](fg:3 bg:5)"
         "$c"
         #"$elixir"
         #"$elm"
@@ -53,16 +53,18 @@
         #"$nim"
         #"$rust"
         #"$scala"
-        "[](fg:5 bg:0)" #"[](fg:5 bg:4)"
+        "[](fg:5 bg:0)" # "[](fg:5 bg:4)"
         #"$docker_context"
-        "[](fg:4 bg:0)" #"[](fg:4 bg:2)"
+        "[](fg:4 bg:0)" # "[](fg:4 bg:2)"
         "$time"
-        "[](fg:0)" #"[](fg:2)"
+        "[](fg:0)" # "[](fg:2)"
         "$line_break"
         "$character"
       ];
 
       right_format = lib.concatStrings [
+        "$hostname"
+        "$line_break"
         "$time"
       ];
 
@@ -77,8 +79,11 @@
         format = "[$user ]($style)";
         disabled = false;
       };
+      hostname = {
+        disabled = false;
+      };
       os = {
-        style = "fg:1";
+        style = "fg:1 bg:0";
         disabled = false;
       };
       directory = {
