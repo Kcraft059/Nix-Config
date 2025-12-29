@@ -81,6 +81,7 @@
       };
       hostname = {
         disabled = false;
+        style = "fg:1 bg:0";
       };
       os = {
         style = "fg:1 bg:0";
