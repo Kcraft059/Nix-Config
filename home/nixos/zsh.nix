@@ -31,10 +31,10 @@
       add_newline = false;
       scan_timeout = 10;
       format = lib.concatStrings [
-        "[](#9A348E)"
+        "[](red)"
         "$os"
         "$username"
-        "[](bg:#DA627D fg:#9A348E)"
+        "[](bg:red fg:#9A348E)"
         "$directory"
         "[](fg:#DA627D bg:#FCA17D)"
         "$git_branch"
@@ -60,6 +60,11 @@
         "$line_break"
         "$character"
       ];
+
+      right_format = lib.concatStrings [
+        "$time"
+      ];
+
       character = {
         success_symbol = "[❯](bold green)";
         error_symbol = "[❯](bold red)";
@@ -80,7 +85,7 @@
         format = "[ $path ]($style)";
         truncation_length = 3;
         truncation_symbol = "…/";
-        susbtitutions = {
+        substitutions = {
           "Documents" = "󰈙 ";
           "Downloads" = " ";
           "Music" = " ";
@@ -91,7 +96,7 @@
         disabled = false;
         time_format = "%R"; # Hour:Minute Format
         style = "bg:#33658A";
-        format = "[ ♥ $time ]($style)";
+        format = "[  $time ]($style)";
       };
 
       ## Git
