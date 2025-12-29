@@ -32,15 +32,15 @@
       add_newline = false;
       scan_timeout = 10;
       format = lib.concatStrings [
-        "[](1)"
+        "[](fg:0)"
         "$os"
         "$username"
-        "[](fg:1 bg:6)"
+        "[](fg:1 bg:0)" #"[](fg:1 bg:6)"
         "$directory"
-        "[](fg:6 bg:3)"
+        "[](fg:6 bg:0)" #"[](fg:6 bg:3)"
         "$git_branch"
         "$git_status"
-        "[](fg:3 bg:5)"
+        "[](fg:3 bg:0)" #"[](fg:3 bg:5)"
         "$c"
         #"$elixir"
         #"$elm"
@@ -53,11 +53,11 @@
         #"$nim"
         #"$rust"
         #"$scala"
-        "[](fg:5 bg:4)"
+        "[](fg:5 bg:0)" #"[](fg:5 bg:4)"
         #"$docker_context"
-        "[](fg:4 bg:2)"
+        "[](fg:4 bg:0)" #"[](fg:4 bg:2)"
         "$time"
-        "[](fg:2)"
+        "[](fg:0)" #"[](fg:2)"
         "$line_break"
         "$character"
       ];
@@ -72,17 +72,17 @@
       };
       username = {
         show_always = true;
-        style_user = "bg:1";
-        style_root = "bg:1";
+        style_user = "fg:1 bg:0";
+        style_root = "fg:1 bg:0";
         format = "[$user ]($style)";
         disabled = false;
       };
       os = {
-        style = "bg:1";
+        style = "fg:1";
         disabled = false;
       };
       directory = {
-        style = "bg:6";
+        style = "fg:6 bg:0";
         format = "[ $path ]($style)";
         truncation_length = 3;
         truncation_symbol = "…/";
@@ -96,25 +96,25 @@
       time = {
         disabled = false;
         time_format = "%R"; # Hour:Minute Format
-        style = "bg:2";
+        style = "fg:2 bg:0";
         format = "[  $time ]($style)";
       };
 
       ## Git
       git_branch = {
         symbol = "";
-        style = "bg:3";
+        style = "fg:3 bg:0";
         format = "[ $symbol $branch ]($style)";
       };
       git_status = {
-        style = "bg:3";
+        style = "fg:3 bg:0";
         format = "[$all_status$ahead_behind ]($style)";
       };
 
       ## Langs
       c = {
         symbol = " ";
-        style = "bg:5";
+        style = "fg:5 bg:0";
         format = "[ $symbol ($version) ]($style)";
       };
     };
