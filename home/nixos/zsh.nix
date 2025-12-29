@@ -32,15 +32,15 @@
       add_newline = false;
       scan_timeout = 10;
       format = lib.concatStrings [
-        "[](red)"
+        "[](1)"
         "$os"
         "$username"
-        "[](fg:red bg:cyan)"
+        "[](fg:1 bg:6)"
         "$directory"
-        "[](fg:cyan bg:yellow)"
+        "[](fg:6 bg:3)"
         "$git_branch"
         "$git_status"
-        "[](fg:yellow bg:magenta)"
+        "[](fg:3 bg:5)"
         "$c"
         #"$elixir"
         #"$elm"
@@ -53,11 +53,11 @@
         #"$nim"
         #"$rust"
         #"$scala"
-        "[](fg:magenta bg:blue)"
+        "[](fg:5 bg:4)"
         #"$docker_context"
-        "[](fg:blue bg:green)"
+        "[](fg:4 bg:2)"
         "$time"
-        "[](fg:green)"
+        "[](fg:2)"
         "$line_break"
         "$character"
       ];
@@ -72,17 +72,17 @@
       };
       username = {
         show_always = true;
-        style_user = "bg:#9A348E";
-        style_root = "bg:#9A348E";
+        style_user = "bg:1";
+        style_root = "bg:1";
         format = "[$user ]($style)";
         disabled = false;
       };
       os = {
-        style = "bg:#9A348E";
+        style = "bg:1";
         disabled = false;
       };
       directory = {
-        style = "bg:#DA627D";
+        style = "bg:6";
         format = "[ $path ]($style)";
         truncation_length = 3;
         truncation_symbol = "…/";
@@ -96,25 +96,25 @@
       time = {
         disabled = false;
         time_format = "%R"; # Hour:Minute Format
-        style = "bg:#33658A";
+        style = "bg:2";
         format = "[  $time ]($style)";
       };
 
       ## Git
       git_branch = {
         symbol = "";
-        style = "bg:#FCA17D";
+        style = "bg:3";
         format = "[ $symbol $branch ]($style)";
       };
       git_status = {
-        style = "bg:#FCA17D";
+        style = "bg:3";
         format = "[$all_status$ahead_behind ]($style)";
       };
 
       ## Langs
       c = {
         symbol = " ";
-        style = "bg:#86BBD8";
+        style = "bg:5";
         format = "[ $symbol ($version) ]($style)";
       };
     };
