@@ -62,11 +62,11 @@
         "$character"
       ];
 
-      right_format = lib.concatStrings [
+      /* right_format = lib.concatStrings [
         "$hostname"
         "$line_break"
         "$time"
-      ];
+      ]; */
 
       character = {
         success_symbol = "[❯](bold green)";
@@ -79,10 +79,10 @@
         format = "[$user ]($style)";
         disabled = false;
       };
-      hostname = {
+/*       hostname = {
         disabled = false;
         style = "fg:1 bg:0";
-      };
+      }; */
       os = {
         style = "fg:1 bg:0";
         disabled = false;
