@@ -23,6 +23,7 @@
     };
   };
 
+  stylix.targets.starship.enable = false;
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
@@ -34,7 +35,7 @@
         "[](red)"
         "$os"
         "$username"
-        "[](bg:red fg:cyan)"
+        "[](fg:red bg:cyan)"
         "$directory"
         "[](fg:cyan bg:yellow)"
         "$git_branch"
