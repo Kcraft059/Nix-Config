@@ -31,6 +31,11 @@ python3Packages.buildPythonPackage rec {
     "RPiKeyboardConfig"
   ];
 
+  postFixup = ''
+    wrapProgram $out/bin/rpi-keyboard-config \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ hidapi ]}
+  '';
+
   meta = with lib; {
     description = "RPi Keyboard configuration utility";
     homepage = "https://github.com/raspberrypi/rpi-keyboard-config";
