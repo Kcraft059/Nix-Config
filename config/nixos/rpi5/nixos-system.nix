@@ -18,6 +18,7 @@
   config = {
     environment.systemPackages = with pkgs; [
       libgpiod
+      pigpio
       rpi-keyboard-config
       i2c-tools
     ];
