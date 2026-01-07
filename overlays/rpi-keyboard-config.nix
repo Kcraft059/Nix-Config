@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
     owner = "raspberrypi";
     repo = "rpi-keyboard-config";
     rev = "v${version}"; # or a commit hash
-    hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+    hash = "sha256-/r4Rv3FkWulsYHb/q1ymf+7wNzSQbTDVSOa8QgH/cyk=";
   };
 
   format = "setuptools";
