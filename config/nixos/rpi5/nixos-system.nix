@@ -17,13 +17,15 @@
 
   config = {
     environment.systemPackages = with pkgs; [
+      # Hardware interaction tools
       libgpiod
-      pigpio
-      rpi-keyboard-config
       i2c-tools
+      rpi-keyboard-config
     ];
 
     hardware.i2c.enable = true;
+
+    # Export pwm to sysfs
 
     hardware.raspberry-pi.config.all = {
       dt-overlays.pwm = {
