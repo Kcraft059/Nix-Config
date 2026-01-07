@@ -20,7 +20,7 @@ python3Packages.buildPythonPackage rec {
   format = "setuptools";
 
   # Runtime dependencies (adjust after checking imports)
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = [
     hidapi
   ];
 
