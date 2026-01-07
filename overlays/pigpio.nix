@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
     owner = "joan2937";
     repo = "pigpio";
     rev = "v${version}";
-    hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+    hash = "sha256-Z+SwUlBbtWtnbjTe0IghR3gIKS43ZziN0amYtmXy7HE=";
   };
 
   buildPhase = ''
