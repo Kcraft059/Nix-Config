@@ -19,7 +19,26 @@
     environment.systemPackages = with pkgs; [
       libgpiod
       rpi-keyboard-config
+      i2c-tools
     ];
+
+    hardware.i2c.enable = true;
+
+    hardware.raspberry-pi.config.all = {
+      dt-overlays.pwm = {
+        enable = true;
+        params = {
+          pin = {
+            enable = true;
+            value = 18;
+          };
+          func = {
+            enable = true;
+            value = 2;
+          };
+        };
+      };
+    };
 
     ## RPI Boot loader & kernel - do not touch.
     boot.loader.raspberryPi.bootloader = "kernel";
