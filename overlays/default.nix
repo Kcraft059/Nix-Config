@@ -1,11 +1,10 @@
 { inputs }:
 self: super: {
-  wifi-unredactor =
-    super.callPackage ./wifi-unredactor.nix
-      {
-        # inherit inputs;
-      };
+  wifi-unredactor = super.callPackage ./wifi-unredactor.nix {
+    # inherit inputs;
+  };
   smc-cli = super.callPackage ./smc-cli.nix { };
+  rpi-keyboard-config = super.callPackage ./rpi-keyboard-config.nix { };
   #mas = super.callPackage ./mas.nix { };
   menubar-cli = super.callPackage ./menubar-cli.nix { };
   ft-haptic = super.callPackage ./ft-haptic.nix { };
