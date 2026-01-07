@@ -5,6 +5,7 @@ self: super: {
   };
   smc-cli = super.callPackage ./smc-cli.nix { };
   rpi-keyboard-config = super.callPackage ./rpi-keyboard-config.nix { };
+  pigpio = super.callPackage ./pigpio.nix { };
   #mas = super.callPackage ./mas.nix { };
   menubar-cli = super.callPackage ./menubar-cli.nix { };
   ft-haptic = super.callPackage ./ft-haptic.nix { };
