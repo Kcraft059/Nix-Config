@@ -16,6 +16,10 @@
   ];
 
   config = {
+    environment.systemPackages = with pkgs; [
+      libgpiod
+    ];
+
     ## RPI Boot loader & kernel - do not touch.
     boot.loader.raspberryPi.bootloader = "kernel";
 
