@@ -2,6 +2,8 @@
   lib,
   python3Packages,
   fetchFromGitHub,
+  hidapi,
+  ...
 }:
 
 python3Packages.buildPythonPackage rec {
@@ -19,7 +21,6 @@ python3Packages.buildPythonPackage rec {
 
   # Runtime dependencies (adjust after checking imports)
   propagatedBuildInputs = with python3Packages; [
-    click
     hidapi
   ];
 
