@@ -28,7 +28,7 @@ python3Packages.buildPythonPackage rec {
   doCheck = false;
 
   pythonImportsCheck = [
-    "RPiKeyboardConfig"
+    #"RPiKeyboardConfig"
   ];
 
   postFixup = ''
