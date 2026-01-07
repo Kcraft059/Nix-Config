@@ -18,6 +18,7 @@
   config = {
     environment.systemPackages = with pkgs; [
       libgpiod
+      rpi-keyboard-config
     ];
 
     ## RPI Boot loader & kernel - do not touch.
