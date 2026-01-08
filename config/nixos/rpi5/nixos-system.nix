@@ -26,7 +26,6 @@
     hardware.i2c.enable = true;
 
     # Export pwm to sysfs
-
     hardware.raspberry-pi.config.all = {
       dt-overlays.pwm = {
         enable = true;
@@ -53,7 +52,8 @@
       [
         "raspberry-pi-${cfg.variant}"
         cfg.bootloader
-        config.boot.kernelPackages.kernel.version
+        (lib.traceValFn (x: "config.boot.kernelPackages.kernel: ${x}") config.boot.kernelPackages.kernel).version
       ];
+
   };
 }
