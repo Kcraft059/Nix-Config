@@ -21,6 +21,9 @@
       libgpiod
       i2c-tools
       rpi-keyboard-config
+      raspberrypi.raspberrypi-utils
+    ] ++ [
+      config.boot.kernelPackages.kernel.dev
     ];
 
     hardware.i2c.enable = true;
@@ -52,8 +55,7 @@
       [
         "raspberry-pi-${cfg.variant}"
         cfg.bootloader
-        (lib.traceValFn (x: "config.boot.kernelPackages.kernel: ${x}") config.boot.kernelPackages.kernel).version
+        config.boot.kernelPackages.kernel.version
       ];
-
   };
 }
