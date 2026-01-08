@@ -23,7 +23,7 @@
       rpi-keyboard-config
       raspberrypi-utils
     ] ++ [
-      config.boot.kernelPackages.kernel.dev
+      # config.boot.kernelPackages.kernel.dev
     ];
 
     hardware.i2c.enable = true;
