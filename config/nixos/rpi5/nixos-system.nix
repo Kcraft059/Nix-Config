@@ -21,7 +21,7 @@
       libgpiod
       i2c-tools
       rpi-keyboard-config
-      raspberrypi.raspberrypi-utils
+      raspberrypi-utils
     ] ++ [
       config.boot.kernelPackages.kernel.dev
     ];
