@@ -169,8 +169,8 @@
           config.General.showSecondHand = true;
 
           position = {
-            horizontal = 1920;
-            vertical = 0;
+            horizontal = 1920 - (builtins.elemAt config.programs.plasma.desktop.widgets 0).size.width;
+            vertical = (builtins.elemAt config.programs.plasma.panels 0).height + 10;
           };
           size = {
             height = 175;
