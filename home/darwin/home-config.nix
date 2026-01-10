@@ -27,7 +27,6 @@
       with pkgs;
       [
         macmon
-        zsh-powerlevel10k
       ]
       ++ [
         (pkgs.writeShellScriptBin "sftp-fuse" ''

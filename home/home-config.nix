@@ -17,6 +17,7 @@
     ./firefox.nix
     #./lazy-vim.nix
     ./fzf.nix
+    ./zsh.nix
     ./bat.nix
   ];
 
