@@ -75,8 +75,9 @@
       format = lib.concatStrings [
         "[](fg:0)"
         "$os"
-        "[](fg:1 bg:0)"
+        "[](fg:5 bg:0)"
         "$directory"
+        "[](fg:1 bg:0)"
         "[](fg:6 bg:0)"
         "[](fg:3 bg:0)"
         "$git_branch"
@@ -140,8 +141,9 @@
 
       os = {
         style = "fg:5 bg:0";
-        format = "[ $symbol ]($style)";
+        format = "[ $symbol]($style)";
         symbols.NixOS = " ";
+        symbols.Macos = " ";
         disabled = false;
       };
       directory = {

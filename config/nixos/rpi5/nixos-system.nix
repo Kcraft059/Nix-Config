@@ -23,7 +23,7 @@
       rpi-keyboard-config
       raspberrypi-utils
     ] ++ [
-      config.boot.kernelPackages.kernel.dev
+      config.boot.kernelPackages.kernel.dev # Might cause long compilation
     ];
 
     hardware.i2c.enable = true;
