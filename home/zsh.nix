@@ -64,137 +64,240 @@
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
-    settings = {
-      ## See https://starship.rs/presets/pastel-powerline
+    settings =
+      let
 
-      add_newline = false;
-      scan_timeout = 10;
+        colors-vals = [
+          "5"
+          "1"
+          "6"
+          "3"
+          "4"
+          "2"
+        ];
 
-      continuation_prompt = "[› ](fg:8)";
+        colors = builtins.listToAttrs (
+          map (i: {
+            name = builtins.toString i;
+            value = builtins.elemAt colors-vals i;
+          }) (builtins.genList (i: i) (builtins.length colors-vals))
+        );
 
-      format = lib.concatStrings [
-        "[](fg:0)"
-        "$os"
-        "[](fg:5 bg:0)"
-        "$directory"
-        "[](fg:1 bg:0)"
-        "[](fg:6 bg:0)"
-        "[](fg:3 bg:0)"
-        "$git_branch"
-        "$git_status"
-        "$c"
-        "[](fg:4 bg:0)"
-        "$nix_shell"
-        "[](fg:2 bg:0)"
-        "[](fg:0)"
+        white = "7";
+        background = "0";
+        subtle = "8";
 
-        "$fill"
-        
-        "[](fg:0)"
-        "$username"
-        "[](fg:2 bg:0)"
-        "$hostname"
-        "[](fg:5 bg:0)"
-        "$localip"
-        "[](fg:0)"
-        "[─╮ ](fg:8)"
-        "$line_break"
-        "$character"
-      ];
+        elems = [
+          rec {
+            primary-color = "5";
+            l-fmt = [
+              "[](fg:${background})"
+              "$os"
+              "[](fg:${primary-color} bg:${background})"
+            ];
+            r-fmt = [ ];
+            config = {
+              os = {
+                style = "fg:${primary-color} bg:${background}";
+                format = "[ $symbol]($style)";
+                symbols.NixOS = " ";
+                symbols.Macos = " ";
+                disabled = false;
+              };
+            };
+          }
+          rec {
+            primary-color = "1";
+            l-fmt = [
+              "$directory"
+              "[](fg:${primary-color} bg:${background})"
+            ];
+            r-fmt = [ ];
+            config = {
+              directory = {
+                style = "fg:${primary-color} bg:${background}";
+                format = "[ $path ]($style)";
+                truncation_length = 3;
+                truncation_symbol = "…/";
+                substitutions = {
+                  "Documents" = "󰈙 ";
+                  "Downloads" = " ";
+                  "Music" = " ";
+                  "Pictures" = " ";
+                };
+              };
+            };
+          }
+          rec {
+            primary-color = "6";
+            l-fmt = [
+              "$git_branch"
+              "$git_status"
+              "[](fg:${primary-color} bg:${background})"
+            ];
+            r-fmt = [ ];
+            config = {
+              git_branch = {
+                symbol = "";
+                style = "fg:${primary-color} bg:${background}";
+                format = "[ $symbol $branch ]($style)";
+              };
+              git_status = {
+                ahead = "[⇡\${count}](fg:2 bg:${background})";
+                diverged = "[⇕⇡\${ahead_count}⇣\${behind_count}](fg:3 bg:${background})";
+                behind = "[⇣\${count}](fg:1 bg:${background})";
+                style = "fg:${primary-color} bg:${background}";
+                format = "[$all_status$ahead_behind ]($style)";
+              };
+            };
+          }
+          rec {
+            primary-color = "3";
+            l-fmt = [
+              "$c"
+              "[](fg:${primary-color} bg:${background})"
+            ];
+            r-fmt = [ ];
+            config = {
+              c.style = "fg:${primary-color} bg:${background}";
+            };
+          }
+          rec {
+            primary-color = "4";
+            l-fmt = [
+              "$nix_shell"
+              "[](fg:${primary-color} bg:${background})"
+            ];
+            r-fmt = [ ];
+            config = {
+              nix_shell = {
+                disabled = false;
+                format = "[ $symbol $state( \\($name\\)) ]($style)";
+                symbol = " ";
+                style = "fg:${primary-color} bg:${background}";
+                impure_msg = "[impure](fg:6 bg:${background})";
+                pure_msg = "[pure](fg:2 bg:${background})";
+                unknown_msg = "[unknown](fg:3 bg:${background})";
+              };
+            };
+          }
+          rec {
+            primary-color = "2";
+            l-fmt = [
+              "[](fg:${primary-color} bg:${background})"
+            ];
+            r-fmt = [ ];
+            config = { };
+          }
+          rec {
+            primary-color = subtle;
+            l-fmt = [
+              "[](fg:${background})"
+              "$fill"
+              "[](fg:${background})"
+            ];
+            r-fmt = [ ];
+            config = {
+              fill = {
+                symbol = "─";
+                style = "fg:${primary-color}";
+              };
+            };
+          }
+          rec {
+            primary-color = "4";
+            l-fmt = [
+              "$username"
+            ];
+            r-fmt = [ ];
+            config = {
+              username = {
+                show_always = true;
+                style_user = "fg:${primary-color} bg:${background}";
+                style_root = "fg:1 bg:${background}";
+                format = "[ $user ]($style)";
+                disabled = false;
+              };
+            };
+          }
+          rec {
+            primary-color = "2";
+            l-fmt = [
+              "[](fg:${primary-color} bg:${background})"
+              "$hostname"
+            ];
+            r-fmt = [ ];
+            config = {
+              hostname = {
+                disabled = false;
+                ssh_only = false;
+                ssh_symbol = " ";
+                format = "[ $hostname ]($style)";
+                style = "fg:${primary-color} bg:${background}";
+              };
+            };
+          }
+          rec {
+            primary-color = "5";
+            l-fmt = [
+              "[](fg:${colors."0"} bg:${background})"
+              "$localip"
+            ];
+            r-fmt = [ ];
+            config = {
+              localip = {
+                disabled = false;
+                ssh_only = false;
+                format = "[ $localipv4  ]($style)";
+                style = "fg:${primary-color} bg:${background}";
+              };
+            };
+          }
+          rec {
+            primary-color = "7";
+            l-fmt = [ ];
+            r-fmt = [
+              "[](fg:${background})" # "[](fg:2)"
+              "$time"
+            ];
+            config = {
+              time = {
+                disabled = false;
+                time_format = "%T"; # Hour:Minute Format
+                style = "fg:${primary-color} bg:${background}";
+                format = "[ $time  ]($style)";
+              };
+            };
+          }
+          rec {
+            primary-color = subtle;
+            l-fmt = [
+              "[](fg:${background})"
+              "[─╮ ](fg:${primary-color})"
+              "$line_break"
+              "$character"
+            ];
+            r-fmt = [
+              "[](fg:${background})" # "[](fg:2)"
+              "[─╯](fg:${primary-color})"
+            ];
+            config = {
+              continuation_prompt = "[› ](fg:${subtle})";
+              character = {
+                success_symbol = "[❯](fg:4)";
+                error_symbol = "[❯](fg:1)";
+              };
+            };
+          }
+        ];
 
-      right_format = lib.concatStrings [
-        "[](fg:0)" # "[](fg:2)"
-        "$time"
-        "[](fg:0)" # "[](fg:2)"
-        "[─╯](fg:8)"
-      ];
-
-      character = {
-        success_symbol = "[❯](fg:4)";
-        error_symbol = "[❯](fg:1)";
-      };
-
-      fill.symbol = "─";
-
-      username = {
-        show_always = true;
-        style_user = "fg:4 bg:0";
-        style_root = "fg:1 bg:0";
-        format = "[ $user ]($style)";
-        disabled = false;
-      };
-
-      hostname = {
-        disabled = false;
-        ssh_only = false;
-        ssh_symbol = " ";
-        format = "[ $hostname ]($style)";
-        style = "fg:2 bg:0";
-      };
-
-      localip = {
-        disabled = false;
-        ssh_only = false;
-        format = "[ $localipv4  ]($style)";
-        style = "fg:5 bg:0";
-      };
-
-      os = {
-        style = "fg:5 bg:0";
-        format = "[ $symbol]($style)";
-        symbols.NixOS = " ";
-        symbols.Macos = " ";
-        disabled = false;
-      };
-      directory = {
-        style = "fg:1 bg:0";
-        format = "[ $path ]($style)";
-        truncation_length = 3;
-        truncation_symbol = "…/";
-        substitutions = {
-          "Documents" = "󰈙 ";
-          "Downloads" = " ";
-          "Music" = " ";
-          "Pictures" = " ";
+        base-settings = {
+          add_newline = false;
+          scan_timeout = 10;
+          format = lib.concatStrings (builtins.concatLists (map (v: v.l-fmt) elems));
+          right_format = lib.concatStrings (builtins.concatLists (map (v: v.r-fmt) elems));
         };
-      };
-      time = {
-        disabled = false;
-        time_format = "%T"; # Hour:Minute Format
-        style = "fg:7 bg:0";
-        format = "[ $time  ]($style)";
-      };
-
-      ## Git
-      git_branch = {
-        symbol = "";
-        style = "fg:3 bg:0";
-        format = "[ $symbol $branch ]($style)";
-      };
-      git_status = {
-        ahead = "[⇡\${count}](fg:2 bg:0)";
-        diverged = "[⇕⇡\${ahead_count}⇣\${behind_count}](fg:3 bg:0)";
-        behind = "[⇣\${count}](fg:1 bg:0)";
-        style = "fg:3 bg:0";
-        format = "[$all_status$ahead_behind ]($style)";
-      };
-
-      ## Langs
-      c = {
-        symbol = " ";
-        style = "fg:5 bg:0";
-        format = "[ $symbol ($version) ]($style)";
-      };
-
-      nix_shell = {
-        disabled = false;
-        format = "[ $symbol $state( \\($name\\)) ]($style)";
-        symbol = " ";
-        style = "fg:4 bg:0";
-        impure_msg = "[impure](fg:6 bg:0)";
-        pure_msg = "[pure](fg:2 bg:0)";
-        unknown_msg = "[unknown](fg:3 bg:0)";
-      };
-    };
+      in
+      builtins.foldl' (acc: v: acc // v) base-settings (map (v: v.config) elems);
   };
 }
