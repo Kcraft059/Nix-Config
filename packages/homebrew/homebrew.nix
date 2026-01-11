@@ -20,6 +20,8 @@
         lib.optionals config.HMB.coreUtils [
           "ghostty"
           "font-sf-pro"
+          "BetterDisplay"
+          "Raycast"
         ]
         ++ lib.optionals config.HMB.brews.enable [
           "macfuse"
@@ -32,8 +34,6 @@
           "hex-fiend"
           "deskflow"
           "appcleaner"
-          "BetterDisplay"
-          "Raycast"
           "whisky"
           #"sirakugir"
           "the-unarchiver"
