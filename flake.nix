@@ -185,10 +185,8 @@
       darwinConfigurations =
         let
           system = "aarch64-darwin"; # Build system
-        in
 
-        rec {
-          full = nix-darwin.lib.darwinSystem {
+          full-generic = {
             ### Module parameter inheritance
             inherit system;
             specialArgs = {
@@ -287,7 +285,7 @@
               stylix.darwinModules.stylix
             ];
           };
-          minimal = nix-darwin.lib.darwinSystem {
+          minimal-generic = {
             ### Module parameter inheritance
             inherit system;
             specialArgs = {
@@ -321,7 +319,6 @@
                 darwin-system.defaults.dock.enable = true;
                 darwin-system.defaults.wallpaper = ./ressources/Breeze.png;
                 common.stylix.wallpaper = darwin-system.defaults.wallpaper;
-                darwin-system.external-drive.enable = false;
               }
 
               ## Package config
@@ -386,170 +383,187 @@
               stylix.darwinModules.stylix
             ];
           };
-
+        in
+        rec {
           # Config assignation
+          full = nix-darwin.lib.darwinSystem full-generic;
+          minimal = nix-darwin.lib.darwinSystem minimal-generic;
+
           "MacBookAirCam-M3" = full;
-          "MacRecovery" = minimal;
-        };
-      nixosConfigurations = rec {
-        full-generic = {
-          ### Module parameter inheritance
-          #inherit system;
-          specialArgs = {
-            inherit
-              self # Needed in nix-conf
-              inputs # Needed throughout the config
-              ;
-          };
-
-          ### Module & module configuration
-          modules = [
-            # [COMPLETE] Pkgs set configuration
-
-            ## Secret module import
-            sops-nix.nixosModules.sops
-            default-secret-conf
-
-            ## Main system config
-            # ./config/nixos/default.nix # Is not general enough
-            {
-              common.stylix.enable = true;
-              common.stylix.wallpaper = ./ressources/Breeze.png;
-              nixos-system.plasma6.enable = true;
-              nixos-system.hyprland.enable = false;
-            }
-
-            ## Package config
-            ./packages/nix/default.nix
-            {
-              NIXPKG.linuxApps.enable = true;
-              NIXPKG.GUIapps.enable = true;
-            }
-
-            ## Home-manager user config
-            home-manager.nixosModules.home-manager
-            (
-              { config, ... }:
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.backupFileExtension = "hmbackup";
-                home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ];
-                home-manager.extraSpecialArgs = {
-                  inherit inputs;
-                  global-config = config;
-                };
-                home-manager.users.camille = {
-                  # [COMPLETE] import config for user camille
-                  home-config.GUIapps.enable = true;
-                  home-config.plasma.enable = true;
-                  home-config.userPicture = ./ressources/vflower-1.jpg;
-                };
-              }
-            )
-
-            ## Stylix
-            stylix.nixosModules.stylix
-          ];
-        };
-
-        full =
-          let
-            system = "x86_64-linux";
-          in
-          nixpkgs.lib.nixosSystem (
-            full-generic
+          "MacBookAirCam-M3-minimal" = nix-darwin.lib.darwinSystem (
+            minimal-generic
             // {
-              inherit system;
-              modules = full-generic.modules ++ [
+              modules = minimal-generic.modules ++ [
                 {
-                  ## Pkgs set configuration
-                  nixpkgs = {
-                    inherit system;
-                  }
-                  // default-nixpkg-conf;
-
-                  ## Hostname config
-                  networking.hostName = "LenovoYogaCam-i7";
-
-                  ## Home manager config
-                  home-manager.users.camille.imports = [ ./home/nixos/regular/default.nix ];
+                  darwin-system.external-drive.enable = true;
+                  darwin-system.external-drive.path = "/Volumes/Data";
                 }
-
-                ## Main system config
-                ./config/nixos/regular/default.nix
               ];
             }
           );
+          "MacRecovery" = minimal;
+        };
+      nixosConfigurations =
+        let
+          full-generic = {
+            ### Module parameter inheritance
+            #inherit system;
+            specialArgs = {
+              inherit
+                self # Needed in nix-conf
+                inputs # Needed throughout the config
+                ;
+            };
 
-        full-rpi5 =
-          let
-            system = "aarch64-linux";
+            ### Module & module configuration
+            modules = [
+              # [COMPLETE] Pkgs set configuration
 
-            ## Lib patch for removed options (bootloader)
-            lib = nixpkgs.lib;
-            baseLib = nixpkgs.lib;
-            origMkRemovedOptionModule = baseLib.mkRemovedOptionModule;
-            patchedLib = lib.extend (
-              final: prev: {
-                mkRemovedOptionModule =
-                  optionName: replacementInstructions:
-                  let
-                    key = "removedOptionModule#" + final.concatStringsSep "_" optionName;
-                  in
-                  { options, ... }:
-                  (origMkRemovedOptionModule optionName replacementInstructions { inherit options; })
-                  // {
-                    inherit key;
+              ## Secret module import
+              sops-nix.nixosModules.sops
+              default-secret-conf
+
+              ## Main system config
+              # ./config/nixos/default.nix # Is not general enough
+              {
+                common.stylix.enable = true;
+                common.stylix.wallpaper = ./ressources/Breeze.png;
+                nixos-system.plasma6.enable = true;
+                nixos-system.hyprland.enable = false;
+              }
+
+              ## Package config
+              ./packages/nix/default.nix
+              {
+                NIXPKG.linuxApps.enable = true;
+                NIXPKG.GUIapps.enable = true;
+              }
+
+              ## Home-manager user config
+              home-manager.nixosModules.home-manager
+              (
+                { config, ... }:
+                {
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.backupFileExtension = "hmbackup";
+                  home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ];
+                  home-manager.extraSpecialArgs = {
+                    inherit inputs;
+                    global-config = config;
                   };
+                  home-manager.users.camille = {
+                    # [COMPLETE] import config for user camille
+                    home-config.GUIapps.enable = true;
+                    home-config.plasma.enable = true;
+                    home-config.userPicture = ./ressources/vflower-1.jpg;
+                  };
+                }
+              )
+
+              ## Stylix
+              stylix.nixosModules.stylix
+            ];
+          };
+        in
+        rec {
+          full =
+            let
+              system = "x86_64-linux";
+            in
+            nixpkgs.lib.nixosSystem (
+              full-generic
+              // {
+                inherit system;
+                modules = full-generic.modules ++ [
+                  {
+                    ## Pkgs set configuration
+                    nixpkgs = {
+                      inherit system;
+                    }
+                    // default-nixpkg-conf;
+
+                    ## Hostname config
+                    networking.hostName = "LenovoYogaCam-i7";
+
+                    ## Home manager config
+                    home-manager.users.camille.imports = [ ./home/nixos/regular/default.nix ];
+                  }
+
+                  ## Main system config
+                  ./config/nixos/regular/default.nix
+                ];
               }
             );
 
-          in
-          nixos-raspberrypi.lib.nixosSystem (
-            full-generic
-            // {
-              inherit system;
-              lib = patchedLib;
+          full-rpi5 =
+            let
+              system = "aarch64-linux";
 
-              # Append required special-args
-              specialArgs = full-generic.specialArgs // {
-                inherit nixos-raspberrypi;
-              };
-
-              # Append other modules
-              modules = full-generic.modules ++ [
-                {
-                  imports = with nixos-raspberrypi.nixosModules; [
-                    raspberry-pi-5.base
-                    raspberry-pi-5.page-size-16k
-                    raspberry-pi-5.display-vc4
-                    raspberry-pi-5.bluetooth
-                  ];
-
-                  nixpkgs = {
-                    inherit system;
-                  }
-                  // default-nixpkg-conf;
-
-                  ## Hostname config
-                  networking.hostName = "RpiCam-500plus";
-
-                  ## Home manager config
-                  home-manager.users.camille.imports = [ ./home/nixos/rpi5/default.nix ];
+              ## Lib patch for removed options (bootloader)
+              lib = nixpkgs.lib;
+              baseLib = nixpkgs.lib;
+              origMkRemovedOptionModule = baseLib.mkRemovedOptionModule;
+              patchedLib = lib.extend (
+                final: prev: {
+                  mkRemovedOptionModule =
+                    optionName: replacementInstructions:
+                    let
+                      key = "removedOptionModule#" + final.concatStringsSep "_" optionName;
+                    in
+                    { options, ... }:
+                    (origMkRemovedOptionModule optionName replacementInstructions { inherit options; })
+                    // {
+                      inherit key;
+                    };
                 }
+              );
 
-                ## Main system config
-                ./config/nixos/rpi5/default.nix
-              ];
-            }
-          );
+            in
+            nixos-raspberrypi.lib.nixosSystem (
+              full-generic
+              // {
+                inherit system;
+                lib = patchedLib;
 
-        ### Config assignation
-        "LenovoYogaCam-i7" = full;
+                # Append required special-args
+                specialArgs = full-generic.specialArgs // {
+                  inherit nixos-raspberrypi;
+                };
 
-        "RpiCam-500plus" = full-rpi5;
-      };
+                # Append other modules
+                modules = full-generic.modules ++ [
+                  {
+                    imports = with nixos-raspberrypi.nixosModules; [
+                      raspberry-pi-5.base
+                      raspberry-pi-5.page-size-16k
+                      raspberry-pi-5.display-vc4
+                      raspberry-pi-5.bluetooth
+                    ];
+
+                    nixpkgs = {
+                      inherit system;
+                    }
+                    // default-nixpkg-conf;
+
+                    ## Hostname config
+                    networking.hostName = "RpiCam-500plus";
+
+                    ## Home manager config
+                    home-manager.users.camille.imports = [ ./home/nixos/rpi5/default.nix ];
+                  }
+
+                  ## Main system config
+                  ./config/nixos/rpi5/default.nix
+                ];
+              }
+            );
+
+          ### Config assignation
+
+          "LenovoYogaCam-i7" = full;
+          "RpiCam-500plus" = full-rpi5;
+        };
       # Expose the package set, including overlays, for convenience.
       darwinPackages = self.darwinConfigurations.full.pkgs;
     };
