@@ -50,6 +50,7 @@
         builtin = "fg=4,bold";
         command = "fg=4";
         alias = "fg=4,underline";
+        function = "fg=6";
         commandseparator = "fg=8,bold";
         path = "fg=7,underline";
         path_pathseparator = "fg=6,underline";
