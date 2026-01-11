@@ -23,15 +23,52 @@
         alias fzf-p="fzf --preview='bat --color=always --style=numbers {}' --bind 'focus:transform-header:file --brief {}'"
       '')
     ];
+
     sessionVariables = {
       EDITOR = "${pkgs.neovim}/bin/nvim";
     };
+
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting = {
       enable = true;
+
+      highlighters = [
+        "brackets"
+        "pattern"
+        "main"
+      ];
+
+      patterns = {
+        #"rm -rf *" = "fg=1,bold,bg=8";
+      };
+
       styles = {
-        comment = "fg=8,bold";
+        comment = "fg=8";
+        unknown-token = "fg=1,underline,bold";
+        reserved-word = "fg=5,bold";
+        builtin = "fg=4,bold";
+        command = "fg=4";
+        alias = "fg=4,underline";
+        commandseparator = "fg=8,bold";
+        path = "fg=7,underline";
+        path_pathseparator = "fg=6,underline";
+        globbing = "fg=5,bold";
+        command-substitution-delimiter-quoted = "fg=5";
+        command-substitution-delimiter-unquoted = "fg=6";
+        single-hyphen-option = "fg=2";
+        double-hyphen-option = "fg=2,bold";
+        single-quoted-argument = "fg=3,bold";
+        boudle-quoted-argument = "fg=3";
+        dollar-double-quoted-argument = "fg=5";
+        dollar-argument = "fg=5";
+        redirection = "fg=6,bold,underline";
+        arithmetic-expansion = "fg=6";
+        assign = "fg=7,underline";
+        bracket-level-1 = "fg=6";
+        bracket-level-2 = "fg=2";
+        bracket-level-3 = "fg=5";
+        bracket-level-4 = "fg=3";
       };
     };
 
@@ -42,7 +79,6 @@
         "sudo"
         "systemd"
       ];
-      #theme = "ys";
     };
 
     plugins = [
@@ -81,7 +117,7 @@
             r-fmt = [ ];
             config = {
               os = {
-                style = "fg:${primary-color} bg:${background}";
+                style = "fg:${primary-color} bold bg:${background}";
                 format = "[ $symbol]($style)";
                 symbols.NixOS = " ";
                 symbols.Macos = " ";
@@ -138,11 +174,27 @@
             primary-color = "3";
             l-fmt = [
               "$c"
+              "$cpp"
+              "$python"
               "[](fg:${primary-color} bg:${background})"
             ];
             r-fmt = [ ];
             config = {
-              c.style = "fg:${primary-color} bg:${background}";
+              c = {
+                symbol = " ";
+                style = "fg:${primary-color} bg:${background}";
+                format = "[ $symbol($version(-$name)) ]($style)";
+              };
+              cpp = {
+                symbol = " ";
+                style = "fg:${primary-color} bg:${background}";
+                format = "[$symbol($version(-$name) )]($style)";
+              };
+              python = {
+                symbol = " ";
+                style = "fg:${primary-color} bg:${background}";
+                format = "[ \${symbol}\${pyenv_prefix}(\${version} )(\\($virtualenv\\) )]($style)";
+              };
             };
           }
           rec {
@@ -157,7 +209,7 @@
                 disabled = false;
                 format = "[ $symbol $state( \\($name\\)) ]($style)";
                 symbol = " ";
-                style = "fg:${primary-color} bg:${background}";
+                style = "fg:${primary-color} bold bg:${background}";
                 impure_msg = "[impure](fg:6 bg:${background})";
                 pure_msg = "[pure](fg:2 bg:${background})";
                 unknown_msg = "[unknown](fg:3 bg:${background})";
@@ -167,20 +219,35 @@
           rec {
             primary-color = "2";
             l-fmt = [
+              "$cmd_duration"
               "[](fg:${primary-color} bg:${background})"
             ];
             r-fmt = [ ];
-            config = { };
+            config = {
+              cmd_duration = {
+                show_notifications = true;
+                show_milliseconds = true;
+                style = "fg:${primary-color} bg:${background}";
+                format = "[  $duration ]($style)";
+              };
+            };
           }
           rec {
             primary-color = subtle;
             l-fmt = [
+              "$status"
               "[](fg:${background})"
               "$fill"
               "[](fg:${background})"
             ];
             r-fmt = [ ];
             config = {
+              status = {
+                disabled = false;
+                symbol = "✘";
+                format = "[ $symbol $status ]($style)";
+                style = "fg:1 bold bg:${background}";
+              };
               fill = {
                 symbol = "─";
                 style = "fg:${primary-color}";
@@ -223,7 +290,7 @@
           rec {
             primary-color = "5";
             l-fmt = [
-              "[](fg:${colors."0"} bg:${background})"
+              "[](fg:${primary-color} bg:${background})"
               "$localip"
             ];
             r-fmt = [ ];
@@ -247,7 +314,7 @@
               time = {
                 disabled = false;
                 time_format = "%T"; # Hour:Minute Format
-                style = "fg:${primary-color} bg:${background}";
+                style = "fg:${primary-color} italic bg:${background}";
                 format = "[ $time  ]($style)";
               };
             };
@@ -275,7 +342,7 @@
         ];
 
         base-settings = {
-          add_newline = false;
+          add_newline = true;
           scan_timeout = 10;
           format = lib.concatStrings (builtins.concatLists (map (v: v.l-fmt) elems));
           right_format = lib.concatStrings (builtins.concatLists (map (v: v.r-fmt) elems));
