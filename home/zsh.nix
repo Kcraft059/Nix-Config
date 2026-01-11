@@ -66,23 +66,6 @@
     enableZshIntegration = true;
     settings =
       let
-
-        colors-vals = [
-          "5"
-          "1"
-          "6"
-          "3"
-          "4"
-          "2"
-        ];
-
-        colors = builtins.listToAttrs (
-          map (i: {
-            name = builtins.toString i;
-            value = builtins.elemAt colors-vals i;
-          }) (builtins.genList (i: i) (builtins.length colors-vals))
-        );
-
         white = "7";
         background = "0";
         subtle = "8";
