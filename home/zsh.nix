@@ -226,7 +226,7 @@
             r-fmt = [ ];
             config = {
               cmd_duration = {
-                show_notifications = true;
+                show_notifications = false;
                 show_milliseconds = true;
                 style = "fg:${primary-color} bg:${background}";
                 format = "[  $duration ]($style)";
