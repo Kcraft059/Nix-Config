@@ -45,8 +45,8 @@
           "vlc"
           "iina"
           "kid3"
-          #"audacity" 
-          "makemkv"
+          #"audacity" # Provided by nix
+          #"makemkv"
           "gimp"
 
           # Other
