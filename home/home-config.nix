@@ -38,7 +38,7 @@
     home.packages =
       with pkgs;
       [
-        nixfmt-rfc-style # Nix formating
+        nixfmt # Nix formating
         imagemagick # Image editing
         yt-dlp # Video dwonloading tool
         mailsy # Temp email
