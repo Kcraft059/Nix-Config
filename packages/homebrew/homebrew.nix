@@ -39,6 +39,7 @@
           "the-unarchiver"
           "balenaetcher"
           "suspicious-package"
+          "protonvpn"
           #"binary-ninja-free"
           
           # Media
@@ -50,16 +51,19 @@
           "gimp"
 
           # Other
+          # "libreoffice"
           "sf-symbols"
           "chatgpt"
           "discord"
           #"firefox"
           "google-chrome"
+          #"Alcove"
+
+          # Games
           "steamcmd"
           "prismlauncher"
           "gog-galaxy"
           "steam"
-          #"Alcove"
         ];
       brews =
         lib.optionals config.HMB.coreUtils [
@@ -103,7 +107,7 @@
           Ferromagnetic = 1546537151;
           #AppleConfigurator = 1037126344;
           Pdf-Gear = 6469021132;
-          amphetamine = 937984704;
+          #amphetamine = 937984704;
           Testflight = 899247664;
           prettyJsonSafari = 1445328303;
           Xcode = 497799835;
