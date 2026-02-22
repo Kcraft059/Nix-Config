@@ -39,7 +39,7 @@
         '')
       ]
       ++ lib.optionals (config.home-config.darwinApps.enable && config.home-config.GUIapps.enable) [
-        pkgs.krita-mac
+        # pkgs.krita-mac
       ];
   };
 }

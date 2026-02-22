@@ -16,15 +16,18 @@
   ];
 
   config = {
-    environment.systemPackages = with pkgs; [
-      # Hardware interaction tools
-      libgpiod
-      i2c-tools
-      rpi-keyboard-config
-      raspberrypi-utils
-    ] ++ [
-      config.boot.kernelPackages.kernel.dev # Might cause long compilation
-    ];
+    environment.systemPackages =
+      with pkgs;
+      [
+        # Hardware interaction tools
+        libgpiod
+        i2c-tools
+        rpi-keyboard-config
+        raspberrypi-utils
+      ]
+      ++ [
+        config.boot.kernelPackages.kernel.dev # Might cause long compilation
+      ];
 
     hardware.i2c.enable = true;
 
@@ -47,6 +50,15 @@
 
     ## RPI Boot loader & kernel - do not touch.
     boot.loader.raspberry-pi.bootloader = "kernel";
+    boot.kernelPatches = [
+      {
+        name = "mem device";
+        structuredExtraConfig = {
+          STRICT_DEVMEM = lib.kernel.no;
+          IO_STRICT_DEVMEM = lib.kernel.no;
+        };
+      }
+    ];
 
     system.nixos.tags =
       let
