@@ -52,7 +52,7 @@
     boot.loader.raspberry-pi.bootloader = "kernel";
     boot.kernelPatches = [
       {
-        name = "mem device";
+        name = "allow devmem";
         structuredExtraConfig = {
           STRICT_DEVMEM = lib.kernel.no;
           IO_STRICT_DEVMEM = lib.kernel.no;
