@@ -41,6 +41,7 @@
           "suspicious-package"
           "protonvpn"
           #"binary-ninja-free"
+          "picoscope"
           
           # Media
           "vlc"
