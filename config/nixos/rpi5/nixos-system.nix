@@ -53,6 +53,7 @@
     boot.kernelPatches = [
       {
         name = "allow devmem";
+        patch = null;
         structuredExtraConfig = {
           STRICT_DEVMEM = lib.kernel.no;
           IO_STRICT_DEVMEM = lib.kernel.no;
