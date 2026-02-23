@@ -30,14 +30,26 @@
 
     # Internationalisation properties.
     time.timeZone = "Europe/Paris";
-    i18n.defaultLocale = "en_US.UTF-8";
-    i18n.extraLocaleSettings = {
-      LC_ADDRESS = "fr_FR.UTF-8";
-      LC_MEASUREMENT = "fr_FR.UTF-8";
-      LC_MONETARY = "fr_FR.UTF-8";
-      LC_TIME = "fr_FR.UTF-8";
-    };
+    i18n = {
+      defaultLocale = "en_US.UTF-8";
 
+      supportedLocales = [
+        "en_US.UTF-8/UTF-8"
+        "fr_FR.UTF-8/UTF-8"
+      ];
+
+      extraLocaleSettings = {
+        # Time & Date
+        LC_TIME = "en_DK.UTF-8"; # English text + 24h + YYYY-MM-DD format
+        # Numbers, currency, measurement
+        LC_NUMERIC = "fr_FR.UTF-8"; # 1 234 567,89
+        LC_MONETARY = "fr_FR.UTF-8"; # € style currency
+        LC_MEASUREMENT = "fr_FR.UTF-8"; # Metric units
+        # Calendar & week
+        LC_TIME__CALENDAR = "gregorian";
+        LC_TIME__FIRST_DAY = 1; # Monday as first day
+      };
+    };
     console.keyMap = "fr";
 
     ## Hardware config
