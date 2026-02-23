@@ -24,6 +24,7 @@
         i2c-tools
         rpi-keyboard-config
         raspberrypi-utils
+        busybox
       ]
       ++ [
         config.boot.kernelPackages.kernel.dev # Might cause long compilation

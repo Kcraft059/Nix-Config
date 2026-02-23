@@ -34,6 +34,7 @@ in
         pkgs.screen
         pkgs.neovim
         pkgs.jq
+        pkgs.gcc
       ]
       ++ lib.optionals config.NIXPKG.additionnals.enable [
         pkgs.bindfs
