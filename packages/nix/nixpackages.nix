@@ -55,7 +55,7 @@ in
         pkgs.mkalias
         pkgs.wifi-unredactor
         pkgs.mas
-        pkgs.battery-toolkit
+        #pkgs.battery-toolkit
         pkgs.utm
       ]
       ++ lib.optionals config.NIXPKG.linuxApps.enable [
