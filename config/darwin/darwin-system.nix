@@ -26,7 +26,7 @@ let
   syspkgs = config.environment.systemPackages;
   homepkgs = config.home-manager.users.camille.home.packages;
 
-  system-activation = ''
+  activation-script = lib.mkAfter ''
     echo -e "Running postActivation scripts…" >&2
     mdutil -i off -V /nix # Ensure spotlight is turned off for nix-store
 
@@ -42,10 +42,6 @@ let
       ${lib.optionalString (builtins.elem pkgs.aerospace syspkgs) "/opt/homebrew/bin/tccutil  -i ${pkgs.aerospace}/bin/aerospace"}
     fi
 
-
-    ${lib.optionalString (wallpaper != "")
-      ''osascript -e 'tell application "System Events" to set picture of every desktop to "${wallpaper}"' ''
-    }
     ${lib.optionalString (builtins.elem pkgs.openjdk21 syspkgs) "ln -sf ${pkgs.openjdk21}/Library/Java/JavaVirtualMachines/zulu-21.jdk /Library/Java/JavaVirtualMachines "}
     ${lib.optionalString (builtins.elem pkgsX86.openjdk17 syspkgs) "ln -sf ${pkgsX86.openjdk17}/Library/Java/JavaVirtualMachines/zulu-17.jdk /Library/Java/JavaVirtualMachines "}
     ${lib.optionalString (builtins.elem pkgs.openjdk8 syspkgs) "ln -sf ${pkgs.openjdk8}/Library/Java/JavaVirtualMachines/zulu-8.jdk /Library/Java/JavaVirtualMachines "}
@@ -84,6 +80,18 @@ let
         done
       ''
     );
+
+  defaults-script = lib.mkAfter (
+    (lib.optionalString defaults.enable ''
+      if sudo -u ${config.system.primaryUser} defaults read -g AppleAccentColor &>/dev/null; then
+        sudo -u ${config.system.primaryUser} defaults delete -g AppleAccentColor
+      fi
+    '')
+    + (lib.optionalString (wallpaper != "") ''
+      osascript -e 'tell application "System Events" to set picture of every desktop to "${wallpaper}"' 
+    '')
+  );
+
 in
 {
   options.darwin-system = {
@@ -281,14 +289,8 @@ in
       };
     };
 
-    system.activationScripts.defaults.text = lib.mkIf defaults.enable (
-      lib.mkAfter ''
-        if sudo -u ${config.system.primaryUser} defaults read -g AppleAccentColor &>/dev/null; then
-          sudo -u ${config.system.primaryUser} defaults delete -g AppleAccentColor
-        fi
-      ''
-    );
+    system.activationScripts.defaults.text = defaults-script;
     system.activationScripts.applications.text = application-script;
-    system.activationScripts.postActivation.text = lib.mkAfter system-activation;
+    system.activationScripts.postActivation.text = activation-script;
   };
 }
