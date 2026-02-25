@@ -46,8 +46,8 @@
       configFile.kwinrc.Plugins.slidebackEnabled = true;
       configFile.kwinrc.Plugins.translucencyEnabled = true;
       configFile.kwinrc."Effect-translucency" = {
-        Inactive = 90;
-        MoveResize = 95;
+        Inactive = 93;
+        MoveResize = 97;
       };
 
       ## Ui elements

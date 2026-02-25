@@ -14,9 +14,20 @@
   };
 
   config = {
+    # Pre-activation patches
+    system.activationScripts.homebrew.text = lib.mkBefore (
+      ''
+        echo -e "Running Patches for Homebrew bundle..." >&2
+      ''
+      + lib.optionalString (builtins.any (c: c.name == "macfuse") config.homebrew.casks) ''
+        echo -e "Patching macFuse dependency..." >&2
+        touch /usr/local/include/fuse.h
+      ''
+    );
+
     homebrew = {
       enable = config.HMB.enable;
-      casks =
+      casks = # See https://nix-darwin.github.io/nix-darwin/manual/#opt-homebrew.casks
         lib.optionals config.HMB.coreUtils [
           "ghostty"
           "font-sf-pro"
@@ -42,7 +53,7 @@
           "protonvpn"
           #"binary-ninja-free"
           "picoscope"
-          
+
           # Media
           "vlc"
           "iina"
@@ -69,12 +80,12 @@
       brews =
         lib.optionals config.HMB.coreUtils [
           "tccutil"
-        ] ++
-        lib.optionals config.HMB.brews.enable [
+        ]
+        ++ lib.optionals config.HMB.brews.enable [
           "betterdisplaycli"
-  
+
           "dyld-shared-cache-extractor"
-          
+
           "ext4fuse-mac" # sudo ext4fuse <diskXsX> <mountPoint> -o allow_other -o umask=000
           "sshfs-mac" # sshfs <user>@<host>:<dir> <mountPoint> -o identityFile=<pathToSSH-Key>
           "ntfs-3g-mac"
@@ -102,21 +113,20 @@
         ++ lib.optionals config.HMB.masApps.enable [ "mas" ]
         ++ lib.optionals config.home-manager.users.camille.programs.sketchybar.enable [ "media-control" ];
 
-      masApps =
-        lib.mkIf config.HMB.masApps.enable {
-          actions = 1586435171;
-          Ferromagnetic = 1546537151;
-          #AppleConfigurator = 1037126344;
-          Pdf-Gear = 6469021132;
-          #amphetamine = 937984704;
-          Testflight = 899247664;
-          prettyJsonSafari = 1445328303;
-          Xcode = 497799835;
-          Whatsapp = 310633997;
-          KeyNote = 409183694;
-          FolderQuickLook = 6753110395;
-          #CrystalFetch = 6454431289;
-        };
+      masApps = lib.mkIf config.HMB.masApps.enable {
+        actions = 1586435171;
+        Ferromagnetic = 1546537151;
+        #AppleConfigurator = 1037126344;
+        Pdf-Gear = 6469021132;
+        #amphetamine = 937984704;
+        #Testflight = 899247664;
+        prettyJsonSafari = 1445328303;
+        Xcode = 497799835;
+        Whatsapp = 310633997;
+        KeyNote = 409183694;
+        FolderQuickLook = 6753110395;
+        #CrystalFetch = 6454431289;
+      };
 
       taps = [
         "homebrew/homebrew-cask"
