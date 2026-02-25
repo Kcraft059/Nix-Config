@@ -8,11 +8,16 @@ Anyway, this is my nix config, a bit messy, but functionnal enough for me !
 
 ```bash
 # Install Nix using lix installer
-curl -sSf -L https://install.lix.systems/lix | sh -s -- install macos --volume-label 'Nix'
+curl -sSf -L https://install.lix.systems/lix | sh -s -- install macos --volume-label <volume name>
+
+# Recommended prerequisites
+xcode-select --install
+softwareupdate --install-rosetta --agree-to-license
+sudo xcodebuild -license accept # Once Xcode is installed
 
 # Rebuild config without darwin-rebuild cmd
-export SOPS_KEY_FILE=<path to sops key>
+export SOPS_KEY_FILE=<path to sops key> # Needed for secrets decrypt
 sudo --preserve-env=SOPS_KEY_FILE nix run nix-darwin/master#darwin-rebuild -- switch \ 
-    --flake .#<configName> \
+    --flake <path>#<configName> \
     --impure
 ```
