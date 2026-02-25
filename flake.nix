@@ -405,10 +405,10 @@
           "MacExternal" = nix-darwin.lib.darwinSystem (
             full-generic
             // {
-              modules = minimal-generic.modules ++ [
-                {
+              modules = full-generic.modules ++ [
+                ({config,lib,...}:{
                   darwin-system.external-drive.enable = lib.mkForce false;
-                }
+                })
               ];
             }
           );

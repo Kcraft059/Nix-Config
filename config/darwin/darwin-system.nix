@@ -198,7 +198,8 @@ in
 
         NSGlobalDomain = {
           AppleIconAppearanceCustomTintColor = "0.47 0.45 0.94 0.85";
-          NSColorSimulateHardwareAccent = true;
+          AppleIconAppearanceTintColor = "Other";
+          NSColorSimulateHardwareAccent = 1;
           NSColorSimulatedHardwareEnclosureNumber = 7;
           #AppleAccentColor = -2;
         };
