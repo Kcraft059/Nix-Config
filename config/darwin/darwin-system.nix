@@ -50,10 +50,6 @@ let
     ${lib.optionalString (builtins.elem pkgsX86.openjdk17 syspkgs) "ln -sf ${pkgsX86.openjdk17}/Library/Java/JavaVirtualMachines/zulu-17.jdk /Library/Java/JavaVirtualMachines "}
     ${lib.optionalString (builtins.elem pkgs.openjdk8 syspkgs) "ln -sf ${pkgs.openjdk8}/Library/Java/JavaVirtualMachines/zulu-8.jdk /Library/Java/JavaVirtualMachines "}
     ${lib.optionalString (builtins.elem pkgs.ffmpeg syspkgs) "ln -sf ${pkgs.ffmpeg.lib}/lib/* /usr/local/lib/ "} 
-    ${lib.optionalString defaults.enable ''
-      defaults write -g NSColorSimulateHardwareAccent -bool YES 
-      defaults write -g NSColorSimulatedHardwareEnclosureNumber -int 7
-    ''}
   '';
 
   application-script =
@@ -191,6 +187,13 @@ in
         "com.apple.Safari" = {
           "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" = true;
         };
+
+        NSGlobalDomain = {
+          AppleIconAppearanceCustomTintColor = "0.47 0.45 0.94 0.85";
+          NSColorSimulateHardwareAccent = true;
+          NSColorSimulatedHardwareEnclosureNumber = 7;
+          #AppleAccentColor = -2;
+        };
       };
 
       controlcenter = {
@@ -278,6 +281,13 @@ in
       };
     };
 
+    system.activationScripts.defaults.text = lib.mkIf defaults.enable (
+      lib.mkAfter ''
+        if sudo -u ${config.system.primaryUser} defaults read -g AppleAccentColor &>/dev/null; then
+          sudo -u ${config.system.primaryUser} defaults delete -g AppleAccentColor
+        fi
+      ''
+    );
     system.activationScripts.applications.text = application-script;
     system.activationScripts.postActivation.text = lib.mkAfter system-activation;
   };
