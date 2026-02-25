@@ -401,7 +401,18 @@
               ];
             }
           );
-          "MacRecovery" = minimal;
+
+          "MacExternal" = nix-darwin.lib.darwinSystem (
+            full-generic
+            // {
+              modules = minimal-generic.modules ++ [
+                {
+                  darwin-system.external-drive.enable = lib.mkForce false;
+                }
+              ];
+            }
+          );
+
         };
       nixosConfigurations =
         let
