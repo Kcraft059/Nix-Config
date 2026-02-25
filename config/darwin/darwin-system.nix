@@ -33,23 +33,23 @@ let
     # ${pkgs.skhd}/bin/skhd -r # Reloads skhd
 
     if [ -f /opt/homebrew/bin/tccutil ];then
-      echo -e "Setting up tcc permissions…" >&2
+      echo -e "Setting up tcc permissions..." >&2
       /opt/homebrew/bin/tccutil -i ${pkgs.bashNonInteractive}/bin/bash
-      ${lib.optionalString config.home-manager.users.camille.programs.sketchybar.enable ''/opt/homebrew/bin/tccutil  -i ${pkgs.sketchybar}/bin/sketchybar''}
-      ${lib.optionalString (builtins.elem pkgs.yabai syspkgs) ''/opt/homebrew/bin/tccutil  -i ${pkgs.yabai}/bin/yabai''}
-      ${lib.optionalString (builtins.elem pkgs.skhd syspkgs) ''/opt/homebrew/bin/tccutil  -i ${pkgs.skhd}/bin/skhd''}
-      ${lib.optionalString (builtins.elem pkgs.rift syspkgs) ''/opt/homebrew/bin/tccutil  -i ${pkgs.rift}/bin/rift''}
-      ${lib.optionalString (builtins.elem pkgs.aerospace syspkgs) ''/opt/homebrew/bin/tccutil  -i ${pkgs.aerospace}/bin/aerospace''}
+      ${lib.optionalString config.home-manager.users.camille.programs.sketchybar.enable "/opt/homebrew/bin/tccutil  -i ${pkgs.sketchybar}/bin/sketchybar"}
+      ${lib.optionalString (builtins.elem pkgs.yabai syspkgs) "/opt/homebrew/bin/tccutil  -i ${pkgs.yabai}/bin/yabai"}
+      ${lib.optionalString (builtins.elem pkgs.skhd syspkgs) "/opt/homebrew/bin/tccutil  -i ${pkgs.skhd}/bin/skhd"}
+      ${lib.optionalString (builtins.elem pkgs.rift syspkgs) "/opt/homebrew/bin/tccutil  -i ${pkgs.rift}/bin/rift"}
+      ${lib.optionalString (builtins.elem pkgs.aerospace syspkgs) "/opt/homebrew/bin/tccutil  -i ${pkgs.aerospace}/bin/aerospace"}
     fi
 
 
     ${lib.optionalString (wallpaper != "")
       ''osascript -e 'tell application "System Events" to set picture of every desktop to "${wallpaper}"' ''
     }
-    ${lib.optionalString (builtins.elem pkgs.openjdk21 syspkgs) ''ln -sf ${pkgs.openjdk21}/Library/Java/JavaVirtualMachines/zulu-21.jdk /Library/Java/JavaVirtualMachines ''}
-    ${lib.optionalString (builtins.elem pkgsX86.openjdk17 syspkgs) ''ln -sf ${pkgsX86.openjdk17}/Library/Java/JavaVirtualMachines/zulu-17.jdk /Library/Java/JavaVirtualMachines ''}
-    ${lib.optionalString (builtins.elem pkgs.openjdk8 syspkgs) ''ln -sf ${pkgs.openjdk8}/Library/Java/JavaVirtualMachines/zulu-8.jdk /Library/Java/JavaVirtualMachines ''}
-    ${lib.optionalString (builtins.elem pkgs.ffmpeg syspkgs) ''ln -sf ${pkgs.ffmpeg.lib}/lib/* /usr/local/lib/ ''} 
+    ${lib.optionalString (builtins.elem pkgs.openjdk21 syspkgs) "ln -sf ${pkgs.openjdk21}/Library/Java/JavaVirtualMachines/zulu-21.jdk /Library/Java/JavaVirtualMachines "}
+    ${lib.optionalString (builtins.elem pkgsX86.openjdk17 syspkgs) "ln -sf ${pkgsX86.openjdk17}/Library/Java/JavaVirtualMachines/zulu-17.jdk /Library/Java/JavaVirtualMachines "}
+    ${lib.optionalString (builtins.elem pkgs.openjdk8 syspkgs) "ln -sf ${pkgs.openjdk8}/Library/Java/JavaVirtualMachines/zulu-8.jdk /Library/Java/JavaVirtualMachines "}
+    ${lib.optionalString (builtins.elem pkgs.ffmpeg syspkgs) "ln -sf ${pkgs.ffmpeg.lib}/lib/* /usr/local/lib/ "} 
     ${lib.optionalString defaults.enable ''
       defaults write -g NSColorSimulateHardwareAccent -bool YES 
       defaults write -g NSColorSimulatedHardwareEnclosureNumber -int 7
@@ -98,7 +98,7 @@ in
       wallpaper = lib.mkOption {
         type = lib.types.path;
         default = "";
-        example = lib.literalExpression ''/ressources/wallpaper.png'';
+        example = lib.literalExpression "/ressources/wallpaper.png";
         description = ''
           Set the default wallpaper
         '';
@@ -108,7 +108,7 @@ in
     external-drive.path = lib.mkOption {
       type = lib.types.str;
       default = "";
-      example = lib.literalExpression '''';
+      example = lib.literalExpression "";
       description = ''
         Mount point for the shared disk
       '';
@@ -130,6 +130,11 @@ in
     security.pam.services.sudo_local.touchIdAuth = true;
 
     networking = {
+      applicationFirewall = {
+        enable = true;
+        allowSigned = true;
+        allowSignedApp = true;
+      };
       knownNetworkServices = [
         # networksetup -listallnetworkservices
         "Wi-Fi"
@@ -142,11 +147,23 @@ in
         "8.8.8.4"
       ];
       #computerName = hostName;
+      #hostName = "HostName";
+    };
+
+    services.openssh = {
+      enable = true;
     };
 
     system.defaults = lib.mkIf defaults.enable {
+      # Appearance
+      NSGlobalDomain = {
+        AppleICUForce24HourTime = true;
+        AppleInterfaceStyle = "Dark";
+        AppleIconAppearanceTheme = "RegularDark";
+        _HIHideMenuBar = config.home-manager.users.camille.programs.sketchybar.enable;
+      };
+
       # Behaviour
-      loginwindow.DisableConsoleAccess = false;
       finder = {
         ShowPathbar = true; # Finder
         QuitMenuItem = true;
@@ -157,18 +174,44 @@ in
         ShowRemovableMediaOnDesktop = true;
         NewWindowTarget = "Home";
         FXEnableExtensionChangeWarning = false;
+        _FXEnableColumnAutoSizing = true;
+        #_FXShowPosixPathInTitle = true;
         # AppleShowAllFiles = true;
       };
+
+      #Gestures
+      trackpad.TrackpadThreeFingerVertSwipeGesture = 2; # See https://nix-darwin.github.io/nix-darwin/manual/#opt-system.defaults.trackpad.TrackpadThreeFingerVertSwipeGesture
+
+      SoftwareUpdate.AutomaticallyInstallMacOSUpdates = false;
       WindowManager.EnableStandardClickToShowDesktop = false;
       loginwindow.GuestEnabled = false;
-      SoftwareUpdate.AutomaticallyInstallMacOSUpdates = false;
-      # Appearance
-      NSGlobalDomain = {
-        AppleICUForce24HourTime = true;
-        AppleInterfaceStyle = "Dark";
-        _HIHideMenuBar = config.home-manager.users.camille.programs.sketchybar.enable;
+      loginwindow.DisableConsoleAccess = false;
+
+      CustomSystemPreferences = {
+        "com.apple.Safari" = {
+          "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" = true;
+        };
       };
-      dock = lib.mkIf defaults.dock.enable {
+
+      controlcenter = {
+        # Should take a look into control center
+        BatteryShowPercentage = true;
+        Bluetooth = true;
+        FocusModes = true;
+        NowPlaying = true;
+        Sound = true;
+      };
+
+      dock = {
+        mru-spaces = false; # Disable space reordering
+        showAppExposeGestureEnabled = true;
+        showDesktopGestureEnabled = true;
+        showLaunchpadGestureEnabled = true;
+        showMissionControlGestureEnabled = true;
+        showhidden = true; # Hidden apps are transparent in dock
+      }
+      // lib.optionals defaults.dock.enable {
+
         autohide = true;
         show-recents = false;
         wvous-bl-corner = 2; # Mission Control
@@ -214,8 +257,23 @@ in
           (pathExist "/Applications/PDFgear.app")
         ];
         persistent-others = [
-          "${config.users.users.camille.home}/"
-          "${config.users.users.camille.home}/Downloads"
+          {
+            folder = {
+              path = "${config.users.users.camille.home}/";
+              displayas = "folder";
+              showas = "grid";
+              arrangement = "name";
+            };
+          }
+
+          {
+            folder = {
+              path = "${config.users.users.camille.home}/Downloads";
+              displayas = "stack";
+              showas = "fan";
+              arrangement = "date-added";
+            };
+          }
         ];
       };
     };
