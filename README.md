@@ -20,4 +20,7 @@ export SOPS_KEY_FILE=<path to sops key> # Needed for secrets decrypt
 sudo --preserve-env=SOPS_KEY_FILE nix run nix-darwin/master#darwin-rebuild -- switch \ 
     --flake <path>#<configName> \
     --impure
+
+# Recommended
+sudo reboot
 ```
