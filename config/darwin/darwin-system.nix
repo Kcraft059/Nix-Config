@@ -191,7 +191,7 @@ in
       loginwindow.GuestEnabled = false;
       loginwindow.DisableConsoleAccess = false;
 
-      CustomSystemPreferences = {
+      CustomUserPreferences = {
         "com.apple.Safari" = {
           "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" = true;
         };
@@ -199,7 +199,7 @@ in
         NSGlobalDomain = {
           AppleIconAppearanceCustomTintColor = "0.47 0.45 0.94 0.85";
           AppleIconAppearanceTintColor = "Other";
-          NSColorSimulateHardwareAccent = 1;
+          NSColorSimulateHardwareAccent = true;
           NSColorSimulatedHardwareEnclosureNumber = 7;
           #AppleAccentColor = -2;
         };
@@ -207,7 +207,7 @@ in
 
       controlcenter = {
         # Should take a look into control center
-        BatteryShowPercentage = true;
+        BatteryShowPercentage = false;
         Bluetooth = true;
         FocusModes = true;
         NowPlaying = true;
