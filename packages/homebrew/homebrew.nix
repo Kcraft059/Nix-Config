@@ -116,15 +116,16 @@
       masApps = lib.mkIf config.HMB.masApps.enable {
         actions = 1586435171;
         Ferromagnetic = 1546537151;
-        #AppleConfigurator = 1037126344;
         Pdf-Gear = 6469021132;
-        #amphetamine = 937984704;
-        #Testflight = 899247664;
         prettyJsonSafari = 1445328303;
         Xcode = 497799835;
         Whatsapp = 310633997;
         KeyNote = 409183694;
         FolderQuickLook = 6753110395;
+        wBlock = 6746388723;
+        #AppleConfigurator = 1037126344;
+        #amphetamine = 937984704;
+        #Testflight = 899247664;
         #CrystalFetch = 6454431289;
       };
 
