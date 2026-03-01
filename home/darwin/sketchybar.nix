@@ -24,33 +24,37 @@
         errorLogFile = "/tmp/sketchybar.log";
         outLogFile = errorLogFile;
       };
-      configType = "bash";
+      configType = "lua";
       config = {
         source = "${inputs.sketchybar-config}";
+        #source = ../../sketchybar-config;
         recursive = true;
       };
       extraPackages = with pkgs; [
         menubar-cli
         ft-haptic
         imagemagick
-        macmon
-        wifi-unredactor
+        sketchybar-app-font
+        nix
+        yabai
       ];
+    };
 
-    };
-    xdg.configFile = {
-      "sketchybar/dyn-icon_map.sh".source = "${pkgs.sketchybar-app-font}/bin/icon_map.sh";
-      "sketchybar/config.sh".text = ''
-        MUSIC_INFO_WIDTH=100
-        #MENUBAR_AUTOHIDE=False
-        MENU_CONTROLS=(
-        	"Control__Center,Bluetooth"
-        	"Control__Center,FocusModes"
-        )
-        LOG_LEVEL=none
-        GITHUB_TOKEN="${global-config.sops.secrets.github-token.path}"
-      '';
-    };
-    #home.sessionVariables.SKETCHYBAR_CONFIG = "$HOME/.config/sketchybar/local-config.sh";
+    launchd.agents.sketchybar.config.EnvironmentVariables = lib.mkMerge [
+      {
+        SKETCHYBAR_CONFIG = "${pkgs.writeText "test" ''
+          bd_display_groups = {
+            ["Dual External"]       = { icon = "􀨧" },
+            ["Built-in + External"] = { icon = "􂤓" },
+            ["Built-in"]            = { icon = "􁈸" }
+          }
+
+          controls = {
+            "Control Center,Bluetooth",
+            "Control Center,FocusModes"
+          }
+        ''}";
+      }
+    ];
   };
 }

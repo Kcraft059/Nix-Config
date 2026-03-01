@@ -617,15 +617,16 @@
     "sketchybar-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1765744666,
-        "narHash": "sha256-aVQuPxdMwoSHFWpKr7taIxIgc6/22/M3bTk43xalCqY=",
+        "lastModified": 1772404638,
+        "narHash": "sha256-IqT1VozTdC/rcNzYLvOkDm6ivYPVLwapqtCAP+brNkQ=",
         "owner": "Kcraft059",
         "repo": "sketchybar-config",
-        "rev": "e6e9fc707bbf0683b26a38cfb121b59b56cdb30a",
+        "rev": "244610b9d1fed0c7fc381f13209e645c944fe0ac",
         "type": "github"
       },
       "original": {
         "owner": "Kcraft059",
+        "ref": "lua-port",
         "repo": "sketchybar-config",
         "type": "github"
       }

@@ -97,7 +97,7 @@
     ################### Custom sources ###################
 
     sketchybar-config = {
-      url = "github:Kcraft059/sketchybar-config";
+      url = "github:Kcraft059/sketchybar-config/lua-port";
       flake = false;
     };
 
