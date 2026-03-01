@@ -70,6 +70,9 @@ rec {
           "C_Cpp.intelliSenseEngine" = "disabled";
 
           "shfmt.executablePath" = "${pkgs.shfmt}/bin/shfmt";
+          
+          "luahelper.format.continuation_indent_width" = 2;
+          "luahelper.format.indent_width" = 2;
 
           #"C_Cpp.vcFormat.newLine.beforeCatch" = false;
           #"C_Cpp.vcFormat.newLine.beforeElse" = false;
@@ -84,6 +87,7 @@ rec {
         llvm-vs-code-extensions.vscode-clangd # C/C++ (obj) completion + formating
         bmewburn.vscode-intelephense-client # PHP completion + formating
         mkhl.shfmt # Shell completion + formating
+        yinfei.luahelper # Lua formating
         ## ms-vscode.cpptools
 
         ## ms-python.python
