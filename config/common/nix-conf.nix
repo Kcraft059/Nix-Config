@@ -20,6 +20,8 @@
     ];
   };
 
+  #nix.nixPath = pkgs.lib.mkForce [];
+
   nix.extraOptions = lib.optionalString (pkgs.stdenv.hostPlatform.system == "aarch64-darwin") ''
     extra-platforms = x86_64-darwin aarch64-darwin
   '';
