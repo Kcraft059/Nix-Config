@@ -17,19 +17,23 @@
       menubar-cli
       ft-haptic
     ];
+
     programs.sketchybar = {
       enable = true;
+
       service = rec {
         enable = true;
         errorLogFile = "/tmp/sketchybar.log";
         outLogFile = errorLogFile;
       };
+
       configType = "lua";
+
       config = {
         source = "${inputs.sketchybar-config}";
-        #source = ../../sketchybar-config;
         recursive = true;
       };
+      
       extraPackages = with pkgs; [
         menubar-cli
         ft-haptic
@@ -53,6 +57,8 @@
             "Control Center,Bluetooth",
             "Control Center,FocusModes"
           }
+          
+          git_key = "${global-config.sops.secrets.github-token.path}"
         ''}";
       }
     ];
