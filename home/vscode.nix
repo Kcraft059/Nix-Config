@@ -70,7 +70,7 @@ rec {
           "C_Cpp.intelliSenseEngine" = "disabled";
 
           "shfmt.executablePath" = "${pkgs.shfmt}/bin/shfmt";
-          
+
           "luahelper.format.continuation_indent_width" = 2;
           "luahelper.format.indent_width" = 2;
 
@@ -99,6 +99,10 @@ rec {
       ];
     };
   };
+
+  home.packages = with pkgs; [
+    nixfmt # Nix formating
+  ];
 
   # Only build file if clangd extension
   home.file.".clang-format".text =
