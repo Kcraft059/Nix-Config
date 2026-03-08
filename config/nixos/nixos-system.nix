@@ -33,7 +33,7 @@
     i18n = {
       defaultLocale = "en_US.UTF-8";
 
-      supportedLocales = [
+      extraLocales = [
         "en_US.UTF-8/UTF-8"
         "fr_FR.UTF-8/UTF-8"
       ];
@@ -45,9 +45,6 @@
         LC_NUMERIC = "fr_FR.UTF-8"; # 1 234 567,89
         LC_MONETARY = "fr_FR.UTF-8"; # € style currency
         LC_MEASUREMENT = "fr_FR.UTF-8"; # Metric units
-        # Calendar & week
-        LC_TIME__CALENDAR = "gregorian";
-        LC_TIME__FIRST_DAY = 1; # Monday as first day
       };
     };
     console.keyMap = "fr";
