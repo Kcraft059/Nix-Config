@@ -3,9 +3,9 @@
 # Also see https://github.com/Mic92/dotfiles/blob/d6114726d859df36ccaa32891c4963ae5717ef7f/nixos/.sops.yaml
 # for a more complex example.
 keys:
-  - &camille age1mvz7wjeel93hxg6d9s8h8s9dqhcyxyujf9t5dn00dsjq87hmt3vq6ul37m
+  - &ssh-id age1vy6359efz0a9yzu4s9tl35vkejj0rt6rt6uv52j5l7j5hy33u4tqh0emed
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:
     - age:
-      - *camille
+      - *ssh-id

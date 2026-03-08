@@ -38,15 +38,13 @@
     home.packages =
       with pkgs;
       [
-        nixfmt # Nix formating
         imagemagick # Image editing
         yt-dlp # Video dwonloading tool
-        mailsy # Temp email
-        htop # Htop program manager
         speedtest-go # Speedtest
         mtr # My traceroute
         eza # ls replacement
-        posting # Tui http request sender
+        # mailsy # Temp email
+        # posting # Tui http request sender
         viu # image viewer
         sops # Secret management
 

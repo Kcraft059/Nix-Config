@@ -35,6 +35,7 @@ in
         pkgs.neovim
         pkgs.jq
         pkgs.gcc
+        pkgs.htop # Htop program manager
       ]
       ++ lib.optionals config.NIXPKG.additionnals.enable [
         pkgs.bindfs
