@@ -7,10 +7,10 @@
 {
   stylix.targets.ghostty.enable = false;
 
-  # [THEME DEPENDENT]
   programs.ghostty = {
     enable = config.home-config.GUIapps.enable;
     settings = {
+      # [THEME DEPENDENT]
       theme = "Rose Pine Moon";
       background-blur = 15;
       background-opacity = 0.85;

@@ -81,6 +81,7 @@ let
       ''
     );
 
+  # [THEME DEPENDENT]
   defaults-script = lib.mkAfter (
     (lib.optionalString defaults.enable ''
       if sudo -u ${config.system.primaryUser} defaults read -g AppleAccentColor &>/dev/null; then
