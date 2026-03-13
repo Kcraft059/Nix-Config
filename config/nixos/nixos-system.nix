@@ -6,10 +6,6 @@
   ...
 }:
 {
-  options = {
-    nixos-system.hyprland.enable = lib.mkEnableOption "Whether to enable the Nixos-Config";
-  };
-
   config = {
 
     ## Networking
@@ -88,32 +84,6 @@
         "wheel"
       ];
     };
-
-    ## Hyprland config
-
-    programs.hyprland = {
-      enable = config.nixos-system.hyprland.enable;
-      #package = inputs.hyprland.packages."${pkgs.system}".hyprland;
-      xwayland.enable = config.nixos-system.hyprland.enable;
-      #nvidiaPatches = true;
-      /*
-        xwayland = {
-          hidpi = true;
-          enable = true;
-        };
-      */
-    };
-
-    /*
-      xdg.portal = {
-        enable = true;
-        xdgOpenUsePortal = true;
-
-        extraPortals = [
-          pkgs.xdg-desktop-portal-hyprland
-        ];
-      };
-    */
 
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions
