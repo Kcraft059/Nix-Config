@@ -44,6 +44,7 @@
       ];
     };
 
+    # [THEME DEPENDENT]
     launchd.agents.sketchybar.config.EnvironmentVariables = lib.mkMerge [
       {
         SKETCHYBAR_CONFIG = "${pkgs.writeText "test" ''
@@ -64,3 +65,38 @@
     ];
   };
 }
+/* themes.lua (for auto-generation)
+gruv_box = {
+  bar = {
+    background = function(tpf, tpfunc)
+      return tpfunc(0x161616, 145)
+    end,
+    border = function(tpf, tpfunc)
+      return tpfunc(0x808080, tpf - 20)
+    end
+  },
+  text = {
+    primary = 0xfffbf1c7,
+    subtle = 0xffa89984,
+    muted = 0xff7c6f64
+  },
+  zone = {
+    background = function(tpf, tpfunc)
+      return tpfunc(0x3c3836, tpf - 50)
+    end,
+    border = function(tpf, tpfunc)
+      return tpfunc(0x665c54, tpf - 20)
+    end,
+    overlay = 0xff7C6f64
+  },
+  colors = {
+    red = 0xfffb4934,
+    orange = 0xfffe8019,
+    yellow = 0xfffabd2f,
+    blue = 0xff458588,
+    cyan = 0xffb8bb26,
+    purple = 0xffd3869b,
+    black = 0xff000000
+  }
+}
+*/

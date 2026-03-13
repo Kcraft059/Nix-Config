@@ -5,6 +5,7 @@
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
+    # [THEME DEPENDENT]
     defaultOptions = [
       "--style full"
       "--height 80%"

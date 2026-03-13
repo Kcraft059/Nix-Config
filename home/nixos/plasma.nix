@@ -17,6 +17,7 @@
       qt.enable = false;
     };
 
+    # [THEME DEPENDENT]
     # Plasma configuration
     programs.plasma = {
       enable = true;

@@ -22,6 +22,8 @@
           opacity = 0.85;
           blur = true;
         };
+        
+        # [THEME DEPENDENT]
         general = {
           import = [ "${pkgs.alacritty-theme}/share/alacritty-theme/rose_pine_moon.toml" ];
         };

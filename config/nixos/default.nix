@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-    ../common/stylix.nix
+    ../common/theme/default.nix
     ./nixos-system.nix
     ./nix-conf.nix
     ./plasma.nix
