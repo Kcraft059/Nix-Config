@@ -440,7 +440,6 @@
                 common.stylix.enable = true;
                 common.stylix.wallpaper = ./ressources/Breeze.png;
                 nixos-system.plasma6.enable = true;
-                nixos-system.hyprland.enable = false;
               }
 
               ## Package config

@@ -6,7 +6,6 @@
 }:
 {
   imports = [
-    ./hyprland.nix
     ./plasma.nix
     ./ghostty.nix
     #./zsh.nix
