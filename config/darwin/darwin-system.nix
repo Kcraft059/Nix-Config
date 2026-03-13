@@ -160,6 +160,8 @@ in
 
     system.defaults = lib.mkIf defaults.enable {
       # Appearance
+
+      # [THEME DEPENDENT]
       NSGlobalDomain = {
         AppleICUForce24HourTime = true;
         AppleInterfaceStyle = "Dark";
@@ -196,6 +198,7 @@ in
           "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" = true;
         };
 
+        # [THEME DEPENDENT]
         NSGlobalDomain = {
           AppleIconAppearanceCustomTintColor = "0.47 0.45 0.94 0.85";
           AppleIconAppearanceTintColor = "Other";

@@ -7,6 +7,7 @@
 {
   stylix.targets.ghostty.enable = false;
 
+  # [THEME DEPENDENT]
   programs.ghostty = {
     enable = config.home-config.GUIapps.enable;
     settings = {

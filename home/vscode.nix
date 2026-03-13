@@ -81,6 +81,7 @@ rec {
       extensions = with pkgs.vscode-marketplace; [
         # To use, needs to overlay inputs.nix-vscode-extensions.overlays.default
 
+        # [THEME DEPENDENT]
         mvllow.rose-pine # Theme
 
         jnoortheen.nix-ide # Nix code formating + completion

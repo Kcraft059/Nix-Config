@@ -9,7 +9,7 @@ let
 in
 {
   options = {
-    nixos-system.plasma6.enable = lib.mkEnableOption "Whether to enable the Nixos-Config";
+    nixos-system.plasma6.enable = lib.mkEnableOption "Whether to enable the Nixos Plasma config";
   };
 
   config = lib.mkIf plasma-enable {
