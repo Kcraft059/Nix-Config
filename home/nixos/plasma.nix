@@ -6,7 +6,7 @@
 }:
 {
   options = {
-    home-config.plasma.enable = lib.mkEnableOption ''Enable Plasma configuration and its plugins'';
+    home-config.plasma.enable = lib.mkEnableOption "Enable Plasma configuration and its plugins";
   };
 
   config = lib.mkIf config.home-config.plasma.enable {
@@ -17,16 +17,17 @@
       qt.enable = false;
     };
 
-    # [THEME DEPENDENT]
     # Plasma configuration
     programs.plasma = {
       enable = true;
 
       ## Theming
+      # [THEME DEPENDENT]
       configFile.kdeglobals.General.AccentColor = "116,118,168";
 
       workspace = {
         lookAndFeel = "org.kde.breezedark.desktop";
+        # [THEME DEPENDENT]
         theme = "breeze-dark";
         cursor = {
           theme = "breeze_cursors";
