@@ -43,3 +43,19 @@ nix-shell -p sops --run "sops <secrets path>"
 # Update keys from .sops.yaml
 nix-shell -p sops --run "sops updatekeys <secrets path>"
 ```
+
+# Styling 
+
+**EnclosureNumbers colors:**
+
+| Int  | Hex       | Color                               |
+| ---- | --------- | ----------------------------------- |
+| 9    | `#F3B036` | $${\color{#F3B036}{\blacksquare}}$$ |
+| 10   | `#427E82` | $${\color{#427E82}{\blacksquare}}$$ |
+| 11   | `#507790` | $${\color{#507790}{\blacksquare}}$$ |
+| 12   | `#CD565A` | $${\color{#CD565A}{\blacksquare}}$$ |
+| 13   | `#5D6291` | $${\color{#5D6291}{\blacksquare}}$$ |
+| 14   | `#EF8056` | $${\color{#EF8056}{\blacksquare}}$$ |
+| 15   | `#98A8D9` | $${\color{#98A8D9}{\blacksquare}}$$ |
+| 16   | `#B5D65A` | $${\color{#B5D65A}{\blacksquare}}$$ |
+| 16   | `#F77F9A` | $${\color{#F77F9A}{\blacksquare}}$$ |
