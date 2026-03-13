@@ -1,7 +1,10 @@
 {
   description = "Polyglot Nix-system config for all my devices - Kcraft059";
 
-  # Note : on macos uninstalled nix-2.25.3 from nix-env
+  /**
+   * Note: 
+   * Tags: [IMPURE], [THEME DEPENDANT], [SOON DEPRECATED]
+   */
 
   inputs = {
 
@@ -217,11 +220,13 @@
                   enable = true; # Might need to manually remove launchd services
                   type = "yabai";
                 };
-                #darwin-system.status-bar.enable = true;
                 darwin-system.defaults.dock.enable = true;
                 darwin-system.defaults.wallpaper = ./ressources/Breeze.png;
                 darwin-system.external-drive.enable = true;
                 darwin-system.external-drive.path = "/Volumes/Data";
+
+                # [SOON DEPRECATED]
+                common.stylix.enable = true;
                 common.stylix.wallpaper = darwin-system.defaults.wallpaper;
               }
 
@@ -315,9 +320,11 @@
                   enable = true; # Might need to manually remove launchd services
                   type = "yabai";
                 };
-                #darwin-system.status-bar.enable = true;
                 darwin-system.defaults.dock.enable = true;
                 darwin-system.defaults.wallpaper = ./ressources/Breeze.png;
+
+                # [SOON DEPRECATED]
+                common.stylix.enable = true;
                 common.stylix.wallpaper = darwin-system.defaults.wallpaper;
               }
 
@@ -406,9 +413,12 @@
             full-generic
             // {
               modules = full-generic.modules ++ [
-                ({config,lib,...}:{
-                  darwin-system.external-drive.enable = lib.mkForce false;
-                })
+                (
+                  { config, lib, ... }:
+                  {
+                    darwin-system.external-drive.enable = lib.mkForce false;
+                  }
+                )
               ];
             }
           );
@@ -428,8 +438,6 @@
 
             ### Module & module configuration
             modules = [
-              # [COMPLETE] Pkgs set configuration
-
               ## Secret module import
               sops-nix.nixosModules.sops
               default-secret-conf
@@ -437,6 +445,7 @@
               ## Main system config
               # ./config/nixos/default.nix # Is not general enough
               {
+                # [SOON DEPRECATED]
                 common.stylix.enable = true;
                 common.stylix.wallpaper = ./ressources/Breeze.png;
                 nixos-system.plasma6.enable = true;
@@ -463,7 +472,6 @@
                     global-config = config;
                   };
                   home-manager.users.camille = {
-                    # [COMPLETE] import config for user camille
                     home-config.GUIapps.enable = true;
                     home-config.plasma.enable = true;
                     home-config.userPicture = ./ressources/vflower-1.jpg;
