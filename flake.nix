@@ -3,7 +3,7 @@
 
   /**
     Note:
-    Tags: [IMPURE], [THEME DEPENDANT], [SOON DEPRECATED]
+    Tags: [IMPURE], [THEME DEPENDENT], [SOON DEPRECATED]
   */
 
   inputs = {
@@ -227,7 +227,7 @@
                   darwin-system.external-drive.enable = true;
                   darwin-system.external-drive.path = "/Volumes/Data";
 
-                  common.theme = (import ./config/common/theme/rose-pine.nix { inherit pkgs; });
+                  common.theme = import ./config/common/theme/rose-pine.nix { inherit pkgs; };
 
                   # [SOON DEPRECATED]
                   #stylix.enable = true;

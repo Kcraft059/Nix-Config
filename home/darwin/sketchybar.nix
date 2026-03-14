@@ -1,55 +1,19 @@
 {
-  config,
-  global-config,
   inputs,
   pkgs,
   lib,
   themeUtils,
+  config,
+  global-config,
   ...
 }:
 let
   theme = global-config.common.theme;
-  clr = theme.colors;
-  hcv = themeUtils.hexColorToHexValue;
-
   safe_theme_name = "custom_theme";
 
-  palette_config = pkgs.writeText "sketchybar-${theme.name}.lua" ''
-    ${safe_theme_name} = {
-      bar = {
-        background = function(tpf, tpfunc)
-          return tpfunc(0x161616, 145)
-        end,
-        border = function(tpf, tpfunc)
-          return tpfunc(0x808080, tpf - 20)
-        end
-      },
-      text = {
-        primary = 0xff${hcv clr.text.primary},
-        subtle = 0xff${hcv clr.text.subtle},
-        muted = 0xff${hcv clr.text.muted},
-      },
-      zone = {
-        background = function(tpf, tpfunc)
-          return tpfunc(0x${hcv clr.backgrounds.overlay}, tpf - 50)
-        end,
-        border = function(tpf, tpfunc)
-          return tpfunc(0x${hcv clr.backgrounds.highlight_med}, tpf - 20)
-        end,
-        overlay = 0xff${hcv clr.backgrounds.highlight_high}
-      },
-      colors = {
-        red = 0xff${hcv clr.colors.red},
-        orange = 0xff${hcv clr.colors.cyan},
-        yellow = 0xff${hcv clr.colors.yellow},
-        blue = 0xff${hcv clr.colors.blue},
-        cyan = 0xff${hcv clr.colors.green},
-        purple = 0xff${hcv clr.colors.purple},
-        black = 0xff${hcv clr.backgrounds.highlight_low}
-      }
-    }
-  '';
-
+  sketchybar-theme = import ../configs/sketchybar-theme.nix {
+    inherit theme themeUtils safe_theme_name;
+  };
 in
 {
   options.home-config.status-bar = {
@@ -94,7 +58,6 @@ in
         (
           lib.mkMerge [
             {
-              # [THEME DEPENDENT]
               SKETCHYBAR_CONFIG = "${pkgs.writeText "sketchybar-config.lua" (
                 ''
                   bd_display_groups = {
@@ -111,9 +74,10 @@ in
 
                   git_key = "${global-config.sops.secrets.github-token.path}"
                 ''
+                # [THEME DEPENDENT]
                 + lib.optionalString theme.enable ''
                   theme = "${safe_theme_name}"
-                  theme_file = "${palette_config}"
+                  theme_file = "${pkgs.writeText "sketchybar-${theme.name}.lua" sketchybar-theme}"
                 ''
               )}";
             }

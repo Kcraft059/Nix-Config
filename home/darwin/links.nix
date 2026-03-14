@@ -1,6 +1,8 @@
 {
   pkgs,
   lib,
+  global-config,
+  themeUtils,
   config,
   ...
 }:
@@ -32,14 +34,32 @@ let
         source = config.lib.file.mkOutOfStoreSymlink "${external-drive.path}/${value}";
       }
     ) linkedDirs;
+
+  theme = global-config.common.theme;
+
+  # [THEME DEPENDENT]
+  prismlauncher-theme = import ../configs/prismlauncher-theme.nix { inherit theme; };
+  xcode-theme = import ../configs/xcode-theme.nix { inherit theme themeUtils; };
+
+  xcode-theme-dir = pkgs.runCommand "xcode-themes" { } ''
+    mkdir -p $out;
+    cat > $out/${theme.name}.xccolortheme <<'EOF'
+    ${xcode-theme}
+    EOF
+  '';
 in
 {
   config = {
     home.file = {
-      "Library/Developer/Xcode/UserData/FontAndColorThemes".source = ../../ressources/XcodeThemes;
       "Library/Group Containers/UBF8T346G9.Office/User Content.localized/Themes.localized/Default Theme.potm".source =
         ../../ressources/Excel_Default.potm;
     }
-    // lib.optionalAttrs external-drive.enable linkedHomeFiles;
+    // (lib.optionalAttrs external-drive.enable linkedHomeFiles)
+    // (lib.optionalAttrs theme.enable {
+      "Library/Developer/Xcode/UserData/FontAndColorThemes".source = xcode-theme-dir;
+      # Ugly fix, but necessary, else can trigger "outside of home"
+      "${config.home.homeDirectory}/Library/Application Support/PrismLauncher/themes/${theme.name}/theme.json".text =
+        prismlauncher-theme;
+    });
   };
 }
