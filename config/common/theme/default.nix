@@ -236,8 +236,6 @@ in
 
         RGBtoFloatRGB = rgb: builtins.map (v: v / 255.0) rgb;
         RGBStringSep = sep: rgb: lib.concatStringsSep sep (builtins.map (v: toString v) (rgb));
-
-        debug = value: passdown: builtins.trace "${toString value}" passdown;
       };
     };
 

@@ -183,6 +183,8 @@
         ];
       };
 
+      theme-file = ./config/common/theme/rose-pine.nix;
+
     in
     {
       darwinConfigurations =
@@ -227,11 +229,7 @@
                   darwin-system.external-drive.enable = true;
                   darwin-system.external-drive.path = "/Volumes/Data";
 
-                  common.theme = import ./config/common/theme/rose-pine.nix { inherit pkgs; };
-
-                  # [SOON DEPRECATED]
-                  #stylix.enable = true;
-                  #stylix.image = darwin-system.defaults.wallpaper;
+                  common.theme = import theme-file { inherit pkgs; };
                 }
               )
 
@@ -320,18 +318,19 @@
 
               ## Main system config
               ./config/darwin/default.nix
-              rec {
-                darwin-system.window-man = {
-                  enable = true; # Might need to manually remove launchd services
-                  type = "yabai";
-                };
-                darwin-system.defaults.dock.enable = true;
-                darwin-system.defaults.wallpaper = ./ressources/Breeze.png;
+              (
+                { pkgs, ... }:
+                rec {
+                  darwin-system.window-man = {
+                    enable = true; # Might need to manually remove launchd services
+                    type = "yabai";
+                  };
+                  darwin-system.defaults.dock.enable = true;
+                  darwin-system.defaults.wallpaper = ./ressources/Breeze.png;
 
-                # [SOON DEPRECATED]
-                #stylix.enable = true;
-                #stylix.image = darwin-system.defaults.wallpaper;
-              }
+                  common.theme = import theme-file { inherit pkgs; };
+                }
+              )
 
               ## Package config
               ./packages/nix/default.nix
@@ -449,12 +448,13 @@
 
               ## Main system config
               # ./config/nixos/default.nix # Is not general enough
-              {
-                # [SOON DEPRECATED]
-                #stylix.enable = true;
-                #stylix.image = ./ressources/Breeze.png;
-                nixos-system.plasma6.enable = true;
-              }
+              (
+                { pkgs, ... }:
+                {
+                  common.theme = import theme-file { inherit pkgs; };
+                  nixos-system.plasma6.enable = true;
+                }
+              )
 
               ## Package config
               ./packages/nix/default.nix
