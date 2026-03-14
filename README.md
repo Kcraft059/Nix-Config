@@ -50,7 +50,7 @@ nix-shell -p sops --run "sops updatekeys <secrets path>"
 
 | Int  | Hex        | Color                               |
 | ---- | ---------  | ----------------------------------- |
-| -2   | multicolor | $${\color{#0059D1}{\blacksquare}}$$ |
+| -2   | multicolor | $${\color{#007AFF}{\blacksquare}}$$ |
 | -1   | `#8C8C8C`  | $${\color{#8C8C8C}{\blacksquare}}$$ |
 | 0    | `#F04F55`  | $${\color{#F04F55}{\blacksquare}}$$ |
 | 1    | `#F7821B`  | $${\color{#F7821B}{\blacksquare}}$$ |
