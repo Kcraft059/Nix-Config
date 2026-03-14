@@ -15,7 +15,7 @@
     ./ssh.nix
     ./vscode.nix
     ./firefox.nix
-    #./lazy-vim.nix
+    ./vim.nix
     ./fzf.nix
     ./zsh.nix
     ./bat.nix

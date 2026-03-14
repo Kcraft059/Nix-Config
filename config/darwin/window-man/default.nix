@@ -1,4 +1,12 @@
 { pkgs, lib, ... }:
+let
+  inherit (lib)
+    mkDefault
+    mkOption
+    mkEnableOption
+    types
+    ;
+in
 {
   imports = [
     ./yabai.nix
@@ -8,14 +16,15 @@
   ];
 
   options.darwin-system.window-man = {
-    enable = lib.mkEnableOption "Whether to enable the WM Service";
-    type = lib.mkOption {
-      type = lib.types.str;
+    enable = mkEnableOption "Whether to enable the WM Service";
+    type = mkOption {
+      type = types.enum [
+        "yabai"
+        "aerospace"
+        "rift"
+      ];
       default = "yabai";
-      example = lib.literalExpression ''yabai/aerospace/rift'';
-      description = ''
-        Which wm should be used ?
-      '';
+      description = "Macos WM";
     };
   };
 

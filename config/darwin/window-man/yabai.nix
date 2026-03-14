@@ -18,6 +18,7 @@ let
 
   # Visual options
   global-padding = common.global-padding;
+  window-padding = common.window-padding;
   barHeight = common.barHeight;
 
   # Final eval
@@ -52,7 +53,7 @@ in
         bottom_padding = global-padding;
         left_padding = global-padding;
         right_padding = global-padding;
-        window_gap = global-padding;
+        window_gap = window-padding;
       };
 
       extraConfig =
