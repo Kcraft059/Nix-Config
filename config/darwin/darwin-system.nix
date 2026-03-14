@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  themeUtils,
   ...
 }:
 let
@@ -10,11 +11,6 @@ let
     config = pkgs.config;
   };
 
-  /*
-    #(unsafe commands… etc)
-    #Needs : `--option allow-unsafe-native-code-during-evaluation true`, Awfull
-    checkExists = path: builtins.exec ["sh" "-c" ((p: ''if [ -e "${p}" ]; then echo true; else echo false; fi'') path)];
-  */
   ## [IMPURE]
   checkExists = path: builtins.pathExists path;
   pathExist = path: (lib.mkIf ((checkExists path) || ((builtins.getEnv "HOME") == ""))) path;
@@ -22,11 +18,15 @@ let
   external-drive = config.darwin-system.external-drive;
   defaults = config.darwin-system.defaults;
 
-  wallpaper = config.darwin-system.defaults.wallpaper;
+  theme = config.common.theme;
+  wallpaper = theme.wallpaper;
+
+  is_hardware_accent = (theme.darwin.accent >= 9);
+
   syspkgs = config.environment.systemPackages;
   homepkgs = config.home-manager.users.camille.home.packages;
 
-  activation-script = lib.mkAfter ''
+  activation-script = ''
     echo -e "Running postActivation scripts…" >&2
     mdutil -i off -V /nix # Ensure spotlight is turned off for nix-store
 
@@ -56,39 +56,39 @@ let
         pathsToLink = [ "/Applications" ];
       };
     in
-    lib.mkForce (
-      ''
-        # Set up applications.
-        echo "setting up /Applications..." >&2
-        rm -rf /Applications/Nix\ Apps
-        mkdir -p /Applications/Nix\ Apps
-        find ${env}/Applications -maxdepth 1 -type l -exec readlink '{}' + |
-        while read -r src; do
-          app_name=$(basename "$src")
-          echo "copying $src" >&2
-          ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
-        done
-      ''
-      + lib.optionalString external-drive.enable ''
-        rm -rf /Applications/External\ Apps
-        mkdir -p /Applications/External\ Apps
-        find ${external-drive.path}/Applications -maxdepth 1 -type d -name '*.app' |
-        while read -r src; do
-          app_name=$(basename "$src")
-          echo "copying $src" >&2
-          ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/External Apps/$app_name"
-        done
-      ''
-    );
+    ''
+      # Set up applications.
+      echo "setting up /Applications..." >&2
+      rm -rf /Applications/Nix\ Apps
+      mkdir -p /Applications/Nix\ Apps
+      find ${env}/Applications -maxdepth 1 -type l -exec readlink '{}' + |
+      while read -r src; do
+        app_name=$(basename "$src")
+        echo "copying $src" >&2
+        ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
+      done
+    ''
+    + lib.optionalString external-drive.enable ''
+      rm -rf /Applications/External\ Apps
+      mkdir -p /Applications/External\ Apps
+      find ${external-drive.path}/Applications -maxdepth 1 -type d -name '*.app' |
+      while read -r src; do
+        app_name=$(basename "$src")
+        echo "copying $src" >&2
+        ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/External Apps/$app_name"
+      done
+    '';
 
   # [THEME DEPENDENT]
-  defaults-script = lib.mkAfter (
-    (lib.optionalString defaults.enable ''
-      if sudo -u ${config.system.primaryUser} defaults read -g AppleAccentColor &>/dev/null; then
-        sudo -u ${config.system.primaryUser} defaults delete -g AppleAccentColor
-      fi
-    '')
-    + (lib.optionalString (wallpaper != "") ''
+  hardware_accent_script = ''
+    if sudo -u ${config.system.primaryUser} defaults read -g AppleAccentColor &>/dev/null; then
+      sudo -u ${config.system.primaryUser} defaults delete -g AppleAccentColor
+    fi
+  '';
+
+  defaults-script = lib.optionalString (defaults.enable && theme.enable) (
+    (if is_hardware_accent then hardware_accent_script else "")
+    + (lib.optionalString (wallpaper != null) ''
       osascript -e 'tell application "System Events" to set picture of every desktop to "${wallpaper}"' 
     '')
   );
@@ -165,9 +165,11 @@ in
       # [THEME DEPENDENT]
       NSGlobalDomain = {
         AppleICUForce24HourTime = true;
-        AppleInterfaceStyle = "Dark";
-        AppleIconAppearanceTheme = "RegularDark";
         _HIHideMenuBar = config.home-manager.users.camille.programs.sketchybar.enable;
+      }
+      // lib.optionalAttrs theme.enable {
+        AppleIconAppearanceTheme = if (theme.theme == "dark") then "RegularDark" else "RegularLight";
+        AppleInterfaceStyle = if (theme.theme == "dark") then "Dark" else "Light";
       };
 
       # Behaviour
@@ -200,13 +202,21 @@ in
         };
 
         # [THEME DEPENDENT]
-        NSGlobalDomain = {
-          AppleIconAppearanceCustomTintColor = "0.47 0.45 0.94 0.85";
-          AppleIconAppearanceTintColor = "Other";
-          NSColorSimulateHardwareAccent = true;
-          NSColorSimulatedHardwareEnclosureNumber = 7;
-          #AppleAccentColor = -2;
-        };
+        NSGlobalDomain = lib.mkIf theme.enable (
+          (
+            if (is_hardware_accent) then
+              {
+                NSColorSimulateHardwareAccent = true;
+                NSColorSimulatedHardwareEnclosureNumber = theme.darwin.accent;
+              }
+            else
+              { AppleAccentColor = theme.darwin.accent; }
+          )
+          // {
+            AppleIconAppearanceCustomTintColor = "${themeUtils.RGBStringSep " " (themeUtils.RGBtoFloatRGB (themeUtils.hexToRGB theme.colors.accent))} 0.85";
+            AppleIconAppearanceTintColor = "Other";
+          }
+        );
       };
 
       controlcenter = {
@@ -294,8 +304,8 @@ in
       };
     };
 
-    system.activationScripts.defaults.text = defaults-script;
-    system.activationScripts.applications.text = application-script;
-    system.activationScripts.postActivation.text = activation-script;
+    system.activationScripts.defaults.text = lib.mkAfter defaults-script;
+    system.activationScripts.applications.text = lib.mkForce application-script;
+    system.activationScripts.postActivation.text = lib.mkAfter activation-script;
   };
 }

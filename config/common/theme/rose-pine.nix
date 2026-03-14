@@ -1,12 +1,14 @@
 { pkgs, ... }:
 {
-  name = "Rose Pine Moon";
+  name = "rose_pine_moon";
 
-  wallpaper = ../../../ressources/Breeze.png;
+  wallpaper = ../../../ressources/Wallpaper/Breeze.png;
 
   theme = "dark";
 
   colors = {
+    accent = "#7873F0";
+    
     text = {
       primary = "#e0def4";
       subtle = "#908caa";

@@ -48,14 +48,23 @@ nix-shell -p sops --run "sops updatekeys <secrets path>"
 
 **EnclosureNumbers colors:**
 
-| Int  | Hex       | Color                               |
-| ---- | --------- | ----------------------------------- |
-| 9    | `#F3B036` | $${\color{#F3B036}{\blacksquare}}$$ |
-| 10   | `#427E82` | $${\color{#427E82}{\blacksquare}}$$ |
-| 11   | `#507790` | $${\color{#507790}{\blacksquare}}$$ |
-| 12   | `#CD565A` | $${\color{#CD565A}{\blacksquare}}$$ |
-| 13   | `#5D6291` | $${\color{#5D6291}{\blacksquare}}$$ |
-| 14   | `#EF8056` | $${\color{#EF8056}{\blacksquare}}$$ |
-| 15   | `#98A8D9` | $${\color{#98A8D9}{\blacksquare}}$$ |
-| 16   | `#B5D65A` | $${\color{#B5D65A}{\blacksquare}}$$ |
-| 16   | `#F77F9A` | $${\color{#F77F9A}{\blacksquare}}$$ |
+| Int  | Hex        | Color                               |
+| ---- | ---------  | ----------------------------------- |
+| -2   | multicolor | $${\color{#0059D1}{\blacksquare}}$$ |
+| -1   | `#8C8C8C`  | $${\color{#8C8C8C}{\blacksquare}}$$ |
+| 0    | `#F04F55`  | $${\color{#F04F55}{\blacksquare}}$$ |
+| 1    | `#F7821B`  | $${\color{#F7821B}{\blacksquare}}$$ |
+| 2    | `#FFC600`  | $${\color{#FFC600}{\blacksquare}}$$ |
+| 3    | `#62BA46`  | $${\color{#62BA46}{\blacksquare}}$$ |
+| 4    | `#007AFF`  | $${\color{#007AFF}{\blacksquare}}$$ |
+| 5    | `#A550A7`  | $${\color{#A550A7}{\blacksquare}}$$ |
+| 6    | `#F74F9E`  | $${\color{#F74F9E}{\blacksquare}}$$ |
+| 9    | `#F3B036`  | $${\color{#F3B036}{\blacksquare}}$$ |
+| 10   | `#427E82`  | $${\color{#427E82}{\blacksquare}}$$ |
+| 11   | `#507790`  | $${\color{#507790}{\blacksquare}}$$ |
+| 12   | `#CD565A`  | $${\color{#CD565A}{\blacksquare}}$$ |
+| 13   | `#5D6291`  | $${\color{#5D6291}{\blacksquare}}$$ |
+| 14   | `#EF8056`  | $${\color{#EF8056}{\blacksquare}}$$ |
+| 15   | `#98A8D9`  | $${\color{#98A8D9}{\blacksquare}}$$ |
+| 16   | `#B5D65A`  | $${\color{#B5D65A}{\blacksquare}}$$ |
+| 16   | `#F77F9A`  | $${\color{#F77F9A}{\blacksquare}}$$ |

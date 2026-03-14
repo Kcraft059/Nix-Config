@@ -2,73 +2,85 @@
   pkgs,
   lib,
   config,
+  global-config,
   ...
 }:
+let
+  theme = global-config.common.theme;
+  clrs = theme.colors;
+
+  theme_file = pkgs.writeText "alacritty-${theme.name}.toml" ''
+    [colors.primary]
+    background = '${clrs.backgrounds.base}'
+    foreground = '${clrs.text.primary}'
+
+    [colors.cursor]
+    text = '${clrs.text.primary}'
+    cursor = '${clrs.backgrounds.highlight_high}'
+
+    [colors.vi_mode_cursor]
+    text = '${clrs.text.primary}'
+    cursor = '${clrs.backgrounds.highlight_high}'
+
+    [colors.selection]
+    text = '${clrs.text.primary}'
+    background = '${clrs.backgrounds.highlight_med}'
+
+    [colors.normal]
+    black = '${clrs.backgrounds.overlay}'
+    red = '${clrs.colors.red}'
+    green = '${clrs.colors.green}'
+    yellow = '${clrs.colors.yellow}'
+    blue = '${clrs.colors.blue}'
+    magenta = '${clrs.colors.purple}'
+    cyan = '${clrs.colors.cyan}'
+    white = '${clrs.text.primary}'
+
+    [colors.bright]
+    black = '${clrs.text.muted}'
+    red = '${clrs.colors_variant.red}'
+    green = '${clrs.colors_variant.green}'
+    yellow = '${clrs.colors_variant.yellow}'
+    blue = '${clrs.colors_variant.blue}'
+    magenta = '${clrs.colors_variant.purple}'
+    cyan = '${clrs.colors_variant.cyan}'
+    white = '${clrs.text.primary}'
+
+    [colors.hints]
+    start = { foreground = '${clrs.text.subtle}', background = '${clrs.backgrounds.surface}' }
+    end = { foreground = '${clrs.text.muted}', background = '${clrs.backgrounds.surface}' }
+  '';
+in
 {
   config = {
     stylix.targets.alacritty.enable = false;
+    
     programs.alacritty = {
       enable = config.home-config.GUIapps.enable;
-      settings = {
-        font.size = 11;
-        font.normal = {
-          family = "JetBrainsMono Nerd Font";
-        };
-        window = {
-          padding = {
-            x = 5;
-            y = 0;
+      settings = (
+        {
+          font.size = 11;
+          font.normal = {
+            family = "JetBrainsMono Nerd Font";
           };
-          opacity = 0.85;
-          blur = true;
-        };
+          window = {
+            padding = {
+              x = 5;
+              y = 0;
+            };
+            opacity = 0.85;
+            blur = true;
+          };
 
+        }
         # [THEME DEPENDENT]
-        general = {
-          import = [ "${pkgs.alacritty-theme}/share/alacritty-theme/rose_pine_moon.toml" ];
-        };
-      };
+        // lib.optionalAttrs theme.enable {
+          general = {
+            import = [ theme_file ];
+            #import = [ "${pkgs.alacritty-theme}/share/alacritty-theme/rose_pine_moon.toml" ];
+          };
+        }
+      );
     };
   };
 }
-
-/* theme.toml
-  [colors.primary]
-  background = '#232136'
-  foreground = '#e0def4'
-
-  [colors.cursor]
-  text = '#e0def4'
-  cursor = '#56526e'
-
-  [colors.vi_mode_cursor]
-  text = '#e0def4'
-  cursor = '#56526e'
-
-  [colors.selection]
-  text = '#e0def4'
-  background = '#44415a'
-  [colors.normal]
-  black = '#393552'
-  red = '#eb6f92'
-  green = '#3e8fb0'
-  yellow = '#f6c177'
-  blue = '#9ccfd8'
-  magenta = '#c4a7e7'
-  cyan = '#ea9a97'
-  white = '#e0def4'
-
-  [colors.bright]
-  black = '#6e6a86'
-  red = '#eb6f92'
-  green = '#3e8fb0'
-  yellow = '#f6c177'
-  blue = '#9ccfd8'
-  magenta = '#c4a7e7'
-  cyan = '#ea9a97'
-  white = '#e0def4'
-
-  [colors.hints]
-  start = { foreground = '#908caa', background = '#2a273f' }
-  end = { foreground = '#6e6a86', background = '#2a273f' }
-*/

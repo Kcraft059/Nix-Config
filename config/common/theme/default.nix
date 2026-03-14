@@ -12,6 +12,12 @@ in
   # Colors (including accent), name, theme (dark/light), wallpaper, vs-extension
 
   options.common.theme = {
+    enable = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Enable common theming support";
+    };
+
     wallpaper = mkOption {
       type = types.nullOr types.path;
       default = null;
@@ -113,6 +119,47 @@ in
     let
       cfg = config.common.theme;
 
+      hexToDecMap = {
+        "0" = 0;
+        "1" = 1;
+        "2" = 2;
+        "3" = 3;
+        "4" = 4;
+        "5" = 5;
+        "6" = 6;
+        "7" = 7;
+        "8" = 8;
+        "9" = 9;
+        "a" = 10;
+        "b" = 11;
+        "c" = 12;
+        "d" = 13;
+        "e" = 14;
+        "f" = 15;
+      };
+
+      pow =
+        base: exponent:
+        let
+          inherit (lib) mod;
+        in
+        if exponent > 1 then
+          let
+            x = pow base (exponent / 2);
+            odd_exp = mod exponent 2 == 1;
+          in
+          x * x * (if odd_exp then base else 1)
+        else if exponent == 1 then
+          base
+        else if exponent == 0 && base == 0 then
+          throw "undefined"
+        else if exponent == 0 then
+          1
+        else
+          throw "undefined";
+
+      base16To10 = exponent: scalar: scalar * pow 16 exponent;
+
       base16_scheme = {
         system = "base16";
         name = cfg.name;
@@ -136,12 +183,60 @@ in
       };
     in
     {
-      stylix.enable = mkDefault true;
-      stylix.base16Scheme = mkDefault base16_scheme; # "${pkgs.base16-schemes}/share/themes/rose-pine-moon.yaml";
-      stylix.image = mkDefault config.common.theme.wallpaper;
+      stylix = {
+        enable = mkDefault config.common.theme.enable;
+      }
+      // lib.optionalAttrs config.common.theme.enable {
+        base16Scheme = mkDefault base16_scheme; # "${pkgs.base16-schemes}/share/themes/rose-pine-moon.yaml";
+        image = mkDefault config.common.theme.wallpaper;
+      };
 
-      _module.args.themeUtils = {
-        is_light = config.common.theme.theme == "light";
+      ## Helpers
+      _module.args.themeUtils = rec {
+        hexCharToDec =
+          hex:
+          let
+            inherit (lib) toLower;
+            lowerHex = toLower hex;
+          in
+          if builtins.stringLength hex != 1 then
+            throw "Function only accepts a single character."
+          else if hexToDecMap ? ${lowerHex} then
+            hexToDecMap."${lowerHex}"
+          else
+            throw "Character ${hex} is not a hexadecimal value.";
+
+        hexToDec =
+          hex:
+          let
+            inherit (lib)
+              stringToCharacters
+              reverseList
+              imap0
+              foldl
+              ;
+            decimals = builtins.map hexCharToDec (stringToCharacters hex);
+            decimalsAscending = reverseList decimals;
+            decimalsPowered = imap0 base16To10 decimalsAscending;
+          in
+          foldl builtins.add 0 decimalsPowered;
+
+        hexColorToHexValue = hex: builtins.substring 1 6 hex;
+
+        hexToRGB =
+          hex:
+          let
+            hexvalue = hexColorToHexValue hex;
+          in
+          [
+            (hexToDec (builtins.substring 0 2 hexvalue))
+            (hexToDec (builtins.substring 2 2 hexvalue))
+            (hexToDec (builtins.substring 4 2 hexvalue))
+          ];
+
+        RGBtoFloatRGB = rgb: builtins.map (v: v / 255.0) rgb;
+        RGBStringSep = sep: rgb: lib.concatStringsSep sep (builtins.map (v: toString v) (rgb));
+
         debug = value: passdown: builtins.trace "${toString value}" passdown;
       };
     };
