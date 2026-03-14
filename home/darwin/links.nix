@@ -20,7 +20,9 @@ let
 
   linkedDirs = {
     "Library/Containers/com.isaacmarovitz.Whisky" = "camille/Apps-Data/Whisky";
-    "Library/Application Support/PrismLauncher" = "camille/Apps-Data/Prism";
+    "Library/Application Support/PrismLauncher/instances" = "camille/Apps-Data/Prism/instances";
+    "Library/Application Support/PrismLauncher/accounts.json" = "camille/Apps-Data/Prism/accounts.json";
+    "Library/Application Support/PrismLauncher/iconthemes" = "camille/Apps-Data/Prism/iconthemes";
     "Library/Application Support/Steam/steamapps" = "camille/Apps-Data/Steam (Windows)/steamapps";
   };
 
@@ -43,7 +45,7 @@ let
 
   xcode-theme-dir = pkgs.runCommand "xcode-themes" { } ''
     mkdir -p $out;
-    cat > $out/${theme.name}.xccolortheme <<'EOF'
+    cat > $out/Custom\ Theme.xccolortheme <<'EOF'
     ${xcode-theme}
     EOF
   '';
@@ -57,9 +59,7 @@ in
     // (lib.optionalAttrs external-drive.enable linkedHomeFiles)
     // (lib.optionalAttrs theme.enable {
       "Library/Developer/Xcode/UserData/FontAndColorThemes".source = xcode-theme-dir;
-      # Ugly fix, but necessary, else can trigger "outside of home"
-      "${config.home.homeDirectory}/Library/Application Support/PrismLauncher/themes/${theme.name}/theme.json".text =
-        prismlauncher-theme;
+      "Library/Application Support/PrismLauncher/themes/custom-theme/theme.json".text = prismlauncher-theme;
     });
   };
 }

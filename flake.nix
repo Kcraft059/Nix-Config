@@ -3,7 +3,7 @@
 
   /**
     Note:
-    Tags: [IMPURE], [THEME DEPENDENT], [SOON DEPRECATED]
+    Tags: [IMPURE], [THEME DEPENDENT]
   */
 
   inputs = {
@@ -183,7 +183,7 @@
         ];
       };
 
-      theme-file = ./config/common/theme/rose-pine.nix;
+      theme-file = ./config/common/theme/gruvbox.nix;
 
     in
     {
