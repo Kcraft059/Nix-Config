@@ -4,8 +4,53 @@
   inputs,
   pkgs,
   lib,
+  themeUtils,
   ...
 }:
+let
+  theme = global-config.common.theme;
+  clr = theme.colors;
+  hcv = themeUtils.hexColorToHexValue;
+
+  safe_theme_name = "custom_theme";
+
+  palette_config = pkgs.writeText "sketchybar-${theme.name}.lua" ''
+    ${safe_theme_name} = {
+      bar = {
+        background = function(tpf, tpfunc)
+          return tpfunc(0x161616, 145)
+        end,
+        border = function(tpf, tpfunc)
+          return tpfunc(0x808080, tpf - 20)
+        end
+      },
+      text = {
+        primary = 0xff${hcv clr.text.primary},
+        subtle = 0xff${hcv clr.text.subtle},
+        muted = 0xff${hcv clr.text.muted},
+      },
+      zone = {
+        background = function(tpf, tpfunc)
+          return tpfunc(0x${hcv clr.backgrounds.overlay}, tpf - 50)
+        end,
+        border = function(tpf, tpfunc)
+          return tpfunc(0x${hcv clr.backgrounds.highlight_med}, tpf - 20)
+        end,
+        overlay = 0xff${hcv clr.backgrounds.highlight_high}
+      },
+      colors = {
+        red = 0xff${hcv clr.colors.red},
+        orange = 0xff${hcv clr.colors.cyan},
+        yellow = 0xff${hcv clr.colors.yellow},
+        blue = 0xff${hcv clr.colors.blue},
+        cyan = 0xff${hcv clr.colors.green},
+        purple = 0xff${hcv clr.colors.purple},
+        black = 0xff${hcv clr.backgrounds.highlight_low}
+      }
+    }
+  '';
+
+in
 {
   options.home-config.status-bar = {
     enable = lib.mkEnableOption "Whether to enable the Custom Menu-Bar service Service";
@@ -44,63 +89,35 @@
       ];
     };
 
-    launchd.agents.sketchybar.config.EnvironmentVariables = lib.mkMerge [
-      {
-        # [THEME DEPENDENT]
-        SKETCHYBAR_CONFIG = "${pkgs.writeText "test" ''
-          bd_display_groups = {
-            ["Dual External"]       = { icon = "􀨧" },
-            ["Built-in + External"] = { icon = "􂤓" },
-            ["Built-in"]            = { icon = "􁈸" }
-          }
+    launchd.agents.sketchybar.config.EnvironmentVariables =
+      lib.mkIf config.home-config.status-bar.enable
+        (
+          lib.mkMerge [
+            {
+              # [THEME DEPENDENT]
+              SKETCHYBAR_CONFIG = "${pkgs.writeText "sketchybar-config.lua" (
+                ''
+                  bd_display_groups = {
+                    ["Dual External"]       = { icon = "􀨧" },
+                    ["Built-in + External"] = { icon = "􂤓" },
+                    ["Built-in"]            = { icon = "􁈸" }
+                  }
 
-          controls = {
-            "Control Center,Bluetooth",
-            "Control Center,FocusModes"
-          }
+                  controls = {
+                    "Control Center,Bluetooth",
+                    "Control Center,FocusModes"
+                  }
 
-          --theme_file = {pkgs.writeText smth}
-          --theme = {global-config.common.theme.name}
 
-          git_key = "${global-config.sops.secrets.github-token.path}"
-        ''}";
-      }
-    ];
+                  git_key = "${global-config.sops.secrets.github-token.path}"
+                ''
+                + lib.optionalString theme.enable ''
+                  theme = "${safe_theme_name}"
+                  theme_file = "${palette_config}"
+                ''
+              )}";
+            }
+          ]
+        );
   };
 }
-/*
-  themes.lua (for auto-generation)
-  gruv_box = {
-    bar = {
-      background = function(tpf, tpfunc)
-        return tpfunc(0x161616, 145)
-      end,
-      border = function(tpf, tpfunc)
-        return tpfunc(0x808080, tpf - 20)
-      end
-    },
-    text = {
-      primary = 0xfffbf1c7,
-      subtle = 0xffa89984,
-      muted = 0xff7c6f64
-    },
-    zone = {
-      background = function(tpf, tpfunc)
-        return tpfunc(0x3c3836, tpf - 50)
-      end,
-      border = function(tpf, tpfunc)
-        return tpfunc(0x665c54, tpf - 20)
-      end,
-      overlay = 0xff7C6f64
-    },
-    colors = {
-      red = 0xfffb4934,
-      orange = 0xfffe8019,
-      yellow = 0xfffabd2f,
-      blue = 0xff458588,
-      cyan = 0xffb8bb26,
-      purple = 0xffd3869b,
-      black = 0xff000000
-    }
-  }
-*/

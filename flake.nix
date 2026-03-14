@@ -276,8 +276,7 @@
                   home-manager.useUserPackages = true;
                   home-manager.backupFileExtension = "hmbackup";
                   home-manager.extraSpecialArgs = {
-                    inherit inputs;
-                    inherit themeUtils;
+                    inherit inputs themeUtils;
                     global-config = config;
                   };
                   home-manager.users.camille = {
@@ -370,14 +369,14 @@
               ## Home-manager user config
               home-manager.darwinModules.home-manager
               (
-                { config, ... }:
+                { config, themeUtils, ... }:
                 {
                   # Call as a function to access input recursively
                   home-manager.useGlobalPkgs = true;
                   home-manager.useUserPackages = true;
                   home-manager.backupFileExtension = "hmbackup";
                   home-manager.extraSpecialArgs = {
-                    inherit inputs;
+                    inherit inputs themeUtils;
                     global-config = config;
                   };
                   home-manager.users.camille = {
@@ -467,14 +466,14 @@
               ## Home-manager user config
               home-manager.nixosModules.home-manager
               (
-                { config, ... }:
+                { config, themeUtils, ... }:
                 {
                   home-manager.useGlobalPkgs = true;
                   home-manager.useUserPackages = true;
                   home-manager.backupFileExtension = "hmbackup";
                   home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ];
                   home-manager.extraSpecialArgs = {
-                    inherit inputs;
+                    inherit inputs themeUtils;
                     global-config = config;
                   };
                   home-manager.users.camille = {

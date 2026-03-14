@@ -78,26 +78,26 @@ rec {
           #"C_Cpp.vcFormat.newLine.beforeElse" = false;
           #"C_Cpp.clang_format_style" = "{ BasedOnStyle: Google, ColumnLimit: 0}";
         };
-      extensions = with pkgs.vscode-marketplace; [
-        # To use, needs to overlay inputs.nix-vscode-extensions.overlays.default
+      extensions =
+        (with pkgs.vscode-marketplace; [
+          # To use, needs to overlay inputs.nix-vscode-extensions.overlays.default
 
+          jnoortheen.nix-ide # Nix code formating + completion
+          llvm-vs-code-extensions.vscode-clangd # C/C++ (obj) completion + formating
+          bmewburn.vscode-intelephense-client # PHP completion + formating
+          mkhl.shfmt # Shell completion + formating
+          yinfei.luahelper # Lua formating
+          ## ms-vscode.cpptools
+
+          ## ms-python.python
+          dnicolson.binary-plist # Allow modification of binary plists
+
+          ## ms-vscode.cpptools-extension-pack
+          ## SPGoding.datapack-language-server # Not added yet to the packages repo
+
+        ])
         # [THEME DEPENDENT]
-        mvllow.rose-pine # Theme
-
-        jnoortheen.nix-ide # Nix code formating + completion
-        llvm-vs-code-extensions.vscode-clangd # C/C++ (obj) completion + formating
-        bmewburn.vscode-intelephense-client # PHP completion + formating
-        mkhl.shfmt # Shell completion + formating
-        yinfei.luahelper # Lua formating
-        ## ms-vscode.cpptools
-
-        ## ms-python.python
-        dnicolson.binary-plist # Allow modification of binary plists
-
-        ## ms-vscode.cpptools-extension-pack
-        ## SPGoding.datapack-language-server # Not added yet to the packages repo
-
-      ];
+        ++ lib.optionals global-config.common.theme.enable [ global-config.common.theme.vs-theme ];
     };
   };
 

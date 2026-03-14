@@ -4,6 +4,26 @@
   config,
   ...
 }:
+let
+  c = {
+    black = "0";
+    red = "1";
+    green = "2";
+    yellow = "3";
+    blue = "4";
+    purple = "5";
+    cyan = "6";
+    white = "7";
+    black_ = "8";
+    red_ = "9";
+    green_ = "10";
+    yellow_ = "11";
+    blue_ = "12";
+    purple_ = "13";
+    cyan_ = "14";
+    white_ = "15";
+  };
+in
 {
   programs.zsh = {
     enable = true;
@@ -44,32 +64,32 @@
       };
 
       styles = {
-        comment = "fg=8";
-        unknown-token = "fg=1,underline,bold";
-        reserved-word = "fg=5,bold";
-        builtin = "fg=4,bold";
-        command = "fg=4";
-        alias = "fg=4,underline";
-        function = "fg=6";
-        commandseparator = "fg=8,bold";
-        path = "fg=7,underline";
-        path_pathseparator = "fg=6,underline";
-        globbing = "fg=5,bold";
-        command-substitution-delimiter-quoted = "fg=5";
-        command-substitution-delimiter-unquoted = "fg=6";
-        single-hyphen-option = "fg=2";
-        double-hyphen-option = "fg=2,bold";
-        single-quoted-argument = "fg=3,bold";
-        boudle-quoted-argument = "fg=3";
-        dollar-double-quoted-argument = "fg=5";
-        dollar-argument = "fg=5";
-        redirection = "fg=6,bold,underline";
-        arithmetic-expansion = "fg=6";
-        assign = "fg=7,underline";
-        bracket-level-1 = "fg=6";
-        bracket-level-2 = "fg=2";
-        bracket-level-3 = "fg=5";
-        bracket-level-4 = "fg=3";
+        comment = "fg=${c.black_}";
+        unknown-token = "fg=${c.red},underline,bold";
+        reserved-word = "fg=${c.purple},bold";
+        builtin = "fg=${c.green_},bold";
+        command = "fg=${c.green}";
+        alias = "fg=${c.green_},underline";
+        function = "fg=${c.cyan}";
+        commandseparator = "fg=${c.black_},bold";
+        path = "fg=${c.white},underline";
+        path_pathseparator = "fg=${c.cyan},underline";
+        globbing = "fg=${c.purple},bold";
+        command-substitution-delimiter-quoted = "fg=${c.purple}";
+        command-substitution-delimiter-unquoted = "fg=${c.cyan}";
+        single-hyphen-option = "fg=${c.blue}";
+        double-hyphen-option = "fg=${c.blue},bold";
+        single-quoted-argument = "fg=${c.yellow},bold";
+        boudle-quoted-argument = "fg=${c.yellow}";
+        dollar-double-quoted-argument = "fg=${c.purple}";
+        dollar-argument = "fg=${c.purple}";
+        redirection = "fg=${c.cyan},bold,underline";
+        arithmetic-expansion = "fg=${c.cyan}";
+        assign = "fg=${c.white},underline";
+        bracket-level-1 = "fg=${c.cyan_}";
+        bracket-level-2 = "fg=${c.blue_}";
+        bracket-level-3 = "fg=${c.purple_}";
+        bracket-level-4 = "fg=${c.yellow_}";
       };
     };
 
@@ -103,13 +123,13 @@
     enableZshIntegration = true;
     settings =
       let
-        white = "7";
-        background = "0";
-        subtle = "8";
+        white = c.white;
+        background = c.black;
+        subtle = c.black_;
 
         elems = [
           rec {
-            primary-color = "5";
+            primary-color = c.purple;
             l-fmt = [
               "[](fg:${background})"
               "$os"
@@ -127,7 +147,7 @@
             };
           }
           rec {
-            primary-color = "1";
+            primary-color = c.red;
             l-fmt = [
               "$directory"
               "[](fg:${primary-color} bg:${background})"
@@ -149,7 +169,7 @@
             };
           }
           rec {
-            primary-color = "6";
+            primary-color = c.cyan;
             l-fmt = [
               "$git_branch"
               "$git_status"
@@ -163,7 +183,7 @@
                 format = "[ $symbol $branch ]($style)";
               };
               git_status = {
-                ahead = "[⇡\${count}](fg:2 bg:${background})";
+                ahead = "[⇡\${count}](fg:4 bg:${background})";
                 diverged = "[⇕⇡\${ahead_count}⇣\${behind_count}](fg:3 bg:${background})";
                 behind = "[⇣\${count}](fg:1 bg:${background})";
                 style = "fg:${primary-color} bg:${background}";
@@ -172,7 +192,7 @@
             };
           }
           rec {
-            primary-color = "3";
+            primary-color = c.yellow;
             l-fmt = [
               "$c"
               "$cpp"
@@ -199,7 +219,7 @@
             };
           }
           rec {
-            primary-color = "4";
+            primary-color = c.green;
             l-fmt = [
               "$nix_shell"
               "[](fg:${primary-color} bg:${background})"
@@ -218,7 +238,7 @@
             };
           }
           rec {
-            primary-color = "2";
+            primary-color = c.blue;
             l-fmt = [
               "$cmd_duration"
               "[](fg:${primary-color} bg:${background})"
@@ -256,7 +276,7 @@
             };
           }
           rec {
-            primary-color = "4";
+            primary-color = c.green;
             l-fmt = [
               "$username"
             ];
@@ -272,7 +292,7 @@
             };
           }
           rec {
-            primary-color = "2";
+            primary-color = c.blue;
             l-fmt = [
               "[](fg:${primary-color} bg:${background})"
               "$hostname"
@@ -289,7 +309,7 @@
             };
           }
           rec {
-            primary-color = "5";
+            primary-color = c.purple;
             l-fmt = [
               "[](fg:${primary-color} bg:${background})"
               "$localip"
@@ -305,7 +325,7 @@
             };
           }
           rec {
-            primary-color = "7";
+            primary-color = c.white;
             l-fmt = [ ];
             r-fmt = [
               "[](fg:${background})" # "[](fg:2)"
