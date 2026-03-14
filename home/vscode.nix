@@ -17,6 +17,8 @@ let
     AllowShortBlocksOnASingleLine : Always
     AllowShortIfStatementsOnASingleLine : AllIfsAndElse
   '';
+
+  theme = global-config.common.theme;
 in
 rec {
   stylix.targets.vscode.enable = false;
@@ -34,7 +36,9 @@ rec {
         in
         {
           # Style
-          "workbench.colorTheme" = "Rosé Pine Moon";
+          "workbench.colorTheme" = lib.optionalString (
+            theme.enable && theme.vs-theme.name != ""
+          ) theme.vs-theme.name;
           "editor.fontSize" = 13.0;
           "debug.console.fontSize" = 13.0;
           "markdown.preview.fontSize" = 13.0;
@@ -97,7 +101,9 @@ rec {
 
         ])
         # [THEME DEPENDENT]
-        ++ lib.optionals global-config.common.theme.enable [ global-config.common.theme.vs-theme ];
+        ++ lib.optionals (theme.enable && theme.vs-theme.package != null) [
+          global-config.common.theme.vs-theme.package
+        ];
     };
   };
 

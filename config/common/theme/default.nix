@@ -97,9 +97,20 @@ in
     };
 
     vs-theme = mkOption {
-      type = types.nullOr types.package;
-      default = null;
-      description = "VSCode theme package";
+      type = types.submodule {
+        options = {
+          package = mkOption {
+            type = types.nullOr types.package;
+            default = null;
+            description = "VSCode theme package";
+          };
+          name = mkOption {
+            type = types.str;
+            default = "";
+            description = "VSCode theme name";
+          };
+        };
+      };
     };
 
     darwin = mkOption {

@@ -25,6 +25,6 @@ builtins.toJSON {
     FatalHighlight = theme.colors.colors.red;
     Fatal = theme.colors.colors.yellow;
   };
-  name = theme.name;
+  name = "theme.name";
   widgets = "macOS";
 }

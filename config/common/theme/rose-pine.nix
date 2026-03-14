@@ -2,13 +2,13 @@
 {
   name = "rose_pine_moon";
 
-  wallpaper = ../../../ressources/Wallpaper/Breeze.png;
+  wallpaper = ./Wallpapers/Breeze.png;
 
   theme = "dark";
 
   colors = {
     accent = "#7873F0";
-    
+
     text = {
       primary = "#e0def4";
       subtle = "#908caa";
@@ -45,5 +45,8 @@
 
   darwin.accent = 13;
 
-  vs-theme = pkgs.vscode-marketplace.mvllow.rose-pine;
+  vs-theme = {
+    package = pkgs.vscode-marketplace.mvllow.rose-pine;
+    name = "Rosé Pine Moon";
+  };
 }
