@@ -5,7 +5,7 @@
   ...
 }:
 let
-  clr = theme.colors;
+  clrs = theme.colors;
   hcv = themeUtils.hexColorToHexValue;
 in
 ''
@@ -19,27 +19,27 @@ in
       end
     },
     text = {
-      primary = 0xff${hcv clr.text.primary},
-      subtle = 0xff${hcv clr.text.subtle},
-      muted = 0xff${hcv clr.text.muted},
+      primary = 0xff${hcv clrs.text.primary},
+      subtle = 0xff${hcv clrs.text.subtle},
+      muted = 0xff${hcv clrs.text.muted},
     },
     zone = {
       background = function(tpf, tpfunc)
-        return tpfunc(0x${hcv clr.backgrounds.overlay}, tpf - 50)
+        return tpfunc(0x${hcv clrs.backgrounds.overlay}, tpf - 50)
       end,
       border = function(tpf, tpfunc)
-        return tpfunc(0x${hcv clr.backgrounds.highlight_med}, tpf - 20)
+        return tpfunc(0x${hcv clrs.backgrounds.highlight_med}, tpf - 20)
       end,
-      overlay = 0xff${hcv clr.backgrounds.highlight_high}
+      overlay = 0xff${hcv clrs.backgrounds.highlight_high}
     },
     colors = {
-      red = 0xff${hcv clr.colors.red},
-      orange = 0xff${hcv clr.colors.cyan},
-      yellow = 0xff${hcv clr.colors.yellow},
-      blue = 0xff${hcv clr.colors.blue},
-      cyan = 0xff${hcv clr.colors.green},
-      purple = 0xff${hcv clr.colors.purple},
-      black = 0xff${hcv clr.backgrounds.highlight_low}
+      red = 0xff${hcv clrs.colors.red},
+      orange = 0xff${hcv clrs.colors.cyan},
+      yellow = 0xff${hcv clrs.colors.yellow},
+      blue = 0xff${hcv clrs.colors.blue},
+      cyan = 0xff${hcv clrs.colors.green},
+      purple = 0xff${hcv clrs.colors.purple},
+      black = 0xff${hcv clrs.backgrounds.highlight_low}
     }
   }
 ''
