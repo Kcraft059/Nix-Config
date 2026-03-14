@@ -52,5 +52,6 @@
 
   # Visual
   global-padding = 6;
+  window-padding = 4;
   barHeight = if config.home-manager.users.camille.programs.sketchybar.enable then 38 else 0;
 }

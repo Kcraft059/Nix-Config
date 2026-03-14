@@ -2,9 +2,9 @@
   description = "Polyglot Nix-system config for all my devices - Kcraft059";
 
   /**
-   * Note: 
-   * Tags: [IMPURE], [THEME DEPENDANT], [SOON DEPRECATED]
-   */
+    Note:
+    Tags: [IMPURE], [THEME DEPENDANT], [SOON DEPRECATED]
+  */
 
   inputs = {
 
@@ -215,20 +215,25 @@
 
               ## Main system config
               ./config/darwin/default.nix
-              rec {
-                darwin-system.window-man = {
-                  enable = true; # Might need to manually remove launchd services
-                  type = "yabai";
-                };
-                darwin-system.defaults.dock.enable = true;
-                darwin-system.defaults.wallpaper = ./ressources/Breeze.png;
-                darwin-system.external-drive.enable = true;
-                darwin-system.external-drive.path = "/Volumes/Data";
+              (
+                { pkgs, ... }:
+                rec {
+                  darwin-system.window-man = {
+                    enable = true; # Might need to manually remove launchd services
+                    type = "yabai";
+                  };
+                  darwin-system.defaults.dock.enable = true;
+                  darwin-system.defaults.wallpaper = ./ressources/Breeze.png;
+                  darwin-system.external-drive.enable = true;
+                  darwin-system.external-drive.path = "/Volumes/Data";
 
-                # [SOON DEPRECATED]
-                common.stylix.enable = true;
-                common.stylix.wallpaper = darwin-system.defaults.wallpaper;
-              }
+                  common.theme = (import ./config/common/theme/rose-pine.nix { inherit pkgs; });
+
+                  # [SOON DEPRECATED]
+                  #stylix.enable = true;
+                  #stylix.image = darwin-system.defaults.wallpaper;
+                }
+              )
 
               ## Package config
               ./packages/nix/default.nix
@@ -264,7 +269,7 @@
               ## Home-manager user config
               home-manager.darwinModules.home-manager
               (
-                { config, ... }:
+                { config, themeUtils, ... }:
                 {
                   # Call as a function to access input recursively
                   home-manager.useGlobalPkgs = true;
@@ -272,6 +277,7 @@
                   home-manager.backupFileExtension = "hmbackup";
                   home-manager.extraSpecialArgs = {
                     inherit inputs;
+                    inherit themeUtils;
                     global-config = config;
                   };
                   home-manager.users.camille = {
@@ -324,8 +330,8 @@
                 darwin-system.defaults.wallpaper = ./ressources/Breeze.png;
 
                 # [SOON DEPRECATED]
-                common.stylix.enable = true;
-                common.stylix.wallpaper = darwin-system.defaults.wallpaper;
+                #stylix.enable = true;
+                #stylix.image = darwin-system.defaults.wallpaper;
               }
 
               ## Package config
@@ -446,8 +452,8 @@
               # ./config/nixos/default.nix # Is not general enough
               {
                 # [SOON DEPRECATED]
-                common.stylix.enable = true;
-                common.stylix.wallpaper = ./ressources/Breeze.png;
+                #stylix.enable = true;
+                #stylix.image = ./ressources/Breeze.png;
                 nixos-system.plasma6.enable = true;
               }
 

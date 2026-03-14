@@ -17,5 +17,4 @@
   darwin-system.defaults.dock.enable = lib.mkDefault false;
   darwin-system.external-drive.enable = lib.mkDefault false;
   nix-conf.garbage-collect.enable = lib.mkDefault true;
-  common.stylix.enable = lib.mkDefault true;
 }
