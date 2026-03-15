@@ -100,14 +100,6 @@ in
     defaults = {
       enable = lib.mkEnableOption "Whether to config of macos defaults";
       dock.enable = lib.mkEnableOption "Whether to config dock items";
-      wallpaper = lib.mkOption {
-        type = lib.types.path;
-        default = "";
-        example = lib.literalExpression "/ressources/wallpaper.png";
-        description = ''
-          Set the default wallpaper
-        '';
-      };
     };
     external-drive.enable = lib.mkEnableOption "Enable linking of outside ressources";
     external-drive.path = lib.mkOption {
