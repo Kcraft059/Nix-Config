@@ -14,7 +14,9 @@
     Tags: [IMPURE], [THEME DEPENDENT], [TODO]
   */
 
+  ################### Inputs ###################
   # MARK: Inputs
+
   inputs = {
 
     ################### Core Modules ###################
@@ -119,6 +121,7 @@
     ];
   };
 
+  ################### Outputs ###################
   # MARK: Outputs
   outputs =
     {
@@ -132,10 +135,13 @@
       nix-homebrew,
       stylix,
       ...
-    }@inputs: # Allow for access to optionnal inputs with inputs.optionnalInput
+    }@inputs:
     let
+      ### Values & helpers
+      theme-file = ./config/common/theme/gruvbox.nix;
 
       ################### Default general purpose configs ###################
+      # MARK: Default general purpose configs
 
       ## Global nixpkgs config, independent from system
       default-nixpkg-conf = {
@@ -181,15 +187,12 @@
             camille-passwd.neededForUsers = true;
           };
         };
-
-      ## Configure theme globally
-      theme-file = ./config/common/theme/gruvbox.nix;
     in
     {
-      # MARK: Darwin Configs
       darwinConfigurations =
         let
           ################### Default darwin-config ###################
+          # MARK: Darwin Configs
 
           system = "aarch64-darwin";
 
@@ -260,8 +263,8 @@
           ];
 
           ################### Full config generic ###################
-
           # MARK: Darwin full-generic
+
           full-generic = {
             ### Module config
             inherit system; # Inherit system for pkgs
@@ -300,8 +303,8 @@
           };
 
           ################### Minimal config generic ###################
-
           # MARK: Darwin minimal-generic
+
           minimal-generic = {
             ### Module config
             inherit system; # Inherit system for pkgs
@@ -341,9 +344,8 @@
           };
         in
         {
-          # MARK: Config assignation
-
           ################### Config assignation ###################
+          # MARK: Config assignation
 
           full = nix-darwin.lib.darwinSystem full-generic;
           minimal = nix-darwin.lib.darwinSystem minimal-generic;
@@ -388,10 +390,10 @@
           );
         };
 
-      # MARK: NixOS configs
       nixosConfigurations =
         let
           ################### Default NixOS config ###################
+          # MARK: NixOS configs
 
           default-modules = [
             ### Modules import
@@ -437,8 +439,8 @@
           ];
 
           ################### NixOS full-generic ###################
-
           # MARK: NixOS full-generic
+
           full-generic = {
             ### Module config
             # Inherit needed module args from top-level
@@ -466,8 +468,8 @@
           };
 
           ################### NixOS full-generic-regular ###################
-
           # MARK: NixOS full-generic-regular
+
           full-generic-regular = full-generic // {
             ### Module config
             system = "x86_64-linux"; # Inherit system for pkgs
@@ -484,8 +486,8 @@
           };
 
           ################### NixOS full-generic-regular ###################
-
           # MARK: NixOS full-generic-rpi5
+
           full-generic-rpi5 =
             let
               patchedLib = nixpkgs.lib.extend (
@@ -530,8 +532,8 @@
         in
         {
           ################### Config assignation ###################
-
           # MARK: Config assignation
+
           full-regular = nixpkgs.lib.nixosSystem full-generic-regular;
           full-rpi5 = nixos-raspberrypi.lib.nixosSystem full-generic-rpi5;
 
@@ -560,7 +562,11 @@
           );
         };
 
+      ################### Pkgs set exposition ###################
+      # MARK: Pkgs set exposition
       # Expose the package set, including overlays, for convenience.
+      # Eg `nix build darwinPkgs.aarch64.ft-haptics`
+
       darwinPkgs.aarch64 = self.darwinConfigurations.full.pkgs;
       linuxPkgs = {
         aarch64 = self.nixosConfigurations.full-rpi5.pkgs;
