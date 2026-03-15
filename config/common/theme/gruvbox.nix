@@ -7,7 +7,7 @@
   theme = "dark";
 
   colors = {
-    accent = "#D79920";
+    accent = "#d79921";
 
     text = {
       primary = "#ebdbb2";
@@ -36,8 +36,8 @@
     backgrounds = {
       base = "#32302F";
       surface = "#282828";
-      overlay = "#32302f";
-      highlight_low = "#3c3836";
+      overlay = "#3c3836";
+      highlight_low = "#32302f";
       highlight_med = "#504945";
       highlight_high = "#665c54";
     };
