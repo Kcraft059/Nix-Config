@@ -225,7 +225,6 @@
                     type = "yabai";
                   };
                   darwin-system.defaults.dock.enable = true;
-                  darwin-system.defaults.wallpaper = ./ressources/Breeze.png;
                   darwin-system.external-drive.enable = true;
                   darwin-system.external-drive.path = "/Volumes/Data";
 
@@ -326,7 +325,6 @@
                     type = "yabai";
                   };
                   darwin-system.defaults.dock.enable = true;
-                  darwin-system.defaults.wallpaper = ./ressources/Breeze.png;
 
                   common.theme = import theme-file { inherit pkgs; };
                 }
