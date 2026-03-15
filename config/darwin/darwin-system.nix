@@ -101,7 +101,7 @@ in
       enable = lib.mkEnableOption "Whether to config of macos defaults";
       dock.enable = lib.mkEnableOption "Whether to config dock items";
     };
-    external-drive.enable = lib.mkEnableOption "Enable linking of outside ressources";
+    external-drive.enable = lib.mkEnableOption "Enable linking of outside resources";
     external-drive.path = lib.mkOption {
       type = lib.types.str;
       default = "";

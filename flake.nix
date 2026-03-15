@@ -477,7 +477,7 @@
                   home-manager.users.camille = {
                     home-config.GUIapps.enable = true;
                     home-config.plasma.enable = true;
-                    home-config.userPicture = ./ressources/vflower-1.jpg;
+                    home-config.userPicture = ./resources/vflower-1.jpg;
                   };
                 }
               )

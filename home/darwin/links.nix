@@ -54,7 +54,7 @@ in
   config = {
     home.file = {
       "Library/Group Containers/UBF8T346G9.Office/User Content.localized/Themes.localized/Default Theme.potm".source =
-        ../../ressources/Excel_Default.potm;
+        ../../resources/Excel_Default.potm;
     }
     // (lib.optionalAttrs external-drive.enable linkedHomeFiles)
     // (lib.optionalAttrs theme.enable {

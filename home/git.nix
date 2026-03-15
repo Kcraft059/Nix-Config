@@ -17,7 +17,7 @@
       gpg.format = "ssh";
       commit.gpgsign = true;
       gpg.ssh.allowedSignersFile = "${pkgs.writeText "allowed-signers" ''
-        kcraft059.msg@gmail.com ${builtins.readFile ../ressources/ssh-id-ed25519.pub}
+        kcraft059.msg@gmail.com ${builtins.readFile ../resources/ssh-id-ed25519.pub}
       ''}";
       url."git@github.com:".insteadOf = "https://github.com/";
     };
