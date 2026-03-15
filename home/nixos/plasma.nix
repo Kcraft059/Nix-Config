@@ -2,8 +2,13 @@
   config,
   lib,
   pkgs,
+  global-config,
+  themeUtils,
   ...
 }:
+let
+  theme = global-config.common.theme;
+in
 {
   options = {
     home-config.plasma.enable = lib.mkEnableOption "Enable Plasma configuration and its plugins";
@@ -23,7 +28,12 @@
 
       ## Theming
       # [THEME DEPENDENT]
-      configFile.kdeglobals.General.AccentColor = "116,118,168";
+      configFile.kdeglobals.General.AccentColor = "${themeUtils.RGBStringSep "," (
+        themeUtils.hexToRGB theme.colors.accent
+      )}";
+      configFile.kdeglobals.General.LastUsedCustomAccentColor = "${themeUtils.RGBStringSep "," (
+        themeUtils.hexToRGB theme.colors.accent
+      )}";
 
       workspace = {
         lookAndFeel = "org.kde.breezedark.desktop";
