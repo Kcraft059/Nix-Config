@@ -484,7 +484,7 @@
                   mkRemovedOptionModule =
                     optionName: replacementInstructions:
                     { options, ... }:
-                    (prev.MkRemovedOptionModule optionName replacementInstructions { inherit options; })
+                    (prev.mkRemovedOptionModule optionName replacementInstructions { inherit options; })
                     // {
                       key = "removedOptionModule#" + final.concatStringsSep "_" optionName;
                     };
