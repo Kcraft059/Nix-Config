@@ -436,6 +436,9 @@
             )
           ];
 
+          ################### NixOS full-generic ###################
+
+          # MARK: NixOS full-generic
           full-generic = {
             ### Module config
             # Inherit needed module args from top-level
@@ -462,6 +465,9 @@
             ];
           };
 
+          ################### NixOS full-generic-regular ###################
+
+          # MARK: NixOS full-generic-regular
           full-generic-regular = full-generic // {
             ### Module config
             system = "x86_64-linux"; # Inherit system for pkgs
@@ -477,6 +483,9 @@
             ];
           };
 
+          ################### NixOS full-generic-regular ###################
+
+          # MARK: NixOS full-generic-rpi5
           full-generic-rpi5 =
             let
               patchedLib = nixpkgs.lib.extend (
@@ -519,7 +528,13 @@
               ];
             };
         in
-        rec {
+        {
+          ################### Config assignation ###################
+
+          # MARK: Config assignation
+          full-regular = nixpkgs.lib.nixosSystem full-generic-regular;
+          full-rpi5 = nixos-raspberrypi.lib.nixosSystem full-generic-rpi5;
+
           "LenovoYogaCam-i7" = nixpkgs.lib.nixosSystem (
             full-generic-regular
             // {
@@ -543,13 +558,13 @@
               ];
             }
           );
-
-          ### Config assignation
-
-          #"LenovoYogaCam-i7" = full;
-          #"RpiCam-500plus" = full-rpi5;
         };
+
       # Expose the package set, including overlays, for convenience.
-      darwinPackages = self.darwinConfigurations.full.pkgs;
+      darwinPkgs.aarch64 = self.darwinConfigurations.full.pkgs;
+      linuxPkgs = {
+        aarch64 = self.nixosConfigurations.full-rpi5.pkgs;
+        x86_64 = self.nixosConfigurations.full-regular.pkgs;
+      };
     };
 }
