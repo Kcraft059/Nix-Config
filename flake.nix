@@ -398,12 +398,23 @@
           full = nix-darwin.lib.darwinSystem full-generic;
           minimal = nix-darwin.lib.darwinSystem minimal-generic;
 
-          "MacBookAirCam-M3" = full;
+          "MacBookAirCam-M3" = nix-darwin.lib.darwinSystem (
+            full-generic
+            // {
+              modules = full-generic.modules ++ [
+                {
+                  networking.hostName = "MacBookAirCam-M3";
+                }
+              ];
+            }
+          );
+
           "MacBookAirCam-M3-minimal" = nix-darwin.lib.darwinSystem (
             minimal-generic
             // {
               modules = minimal-generic.modules ++ [
                 {
+                  networking.hostName = "MacBookAirCam-M3-minimal";
                   darwin-system.external-drive.enable = true;
                   darwin-system.external-drive.path = "/Volumes/Data";
                 }
@@ -418,6 +429,7 @@
                 (
                   { config, lib, ... }:
                   {
+                    networking.hostName = "MacExternal";
                     darwin-system.external-drive.enable = lib.mkForce false;
                   }
                 )
