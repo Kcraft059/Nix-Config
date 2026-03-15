@@ -15,22 +15,24 @@
       muted = "#6e6a86";
     };
 
-    colors = {
+    colors = rec {
       red = "#eb6f92";
       green = "#9ccfd8";
       yellow = "#f6c177";
       blue = "#3e8fb0";
       purple = "#c4a7e7";
       cyan = "#ea9a97";
+      orange = cyan;
     };
 
-    colors_variant = {
+    colors_variant = rec {
       red = "#b4637a";
       green = "#56949f";
       yellow = "#ea9d34";
       blue = "#286983";
       purple = "#907aa9";
       cyan = "#d7827e";
+      orange = cyan;
     };
 
     backgrounds = {

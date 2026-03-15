@@ -1,11 +1,20 @@
 {
-  description = "Polyglot Nix-system config for all my devices - Kcraft059";
+  description = "Multi Devices/OS Nix-Config for all my all my personnal devices - Camille - Kcraft⁰⁵⁹";
 
   /**
-    Note:
-    Tags: [IMPURE], [THEME DEPENDENT]
+    This config implements common settings over multiple devices, tho
+    it is good practice to import system-specific modules only, and
+    call common modules, from system-specific volumes. Any common module
+    should then be compatible with any system.
+
+    Device specific configs are merged from generic-configs and implements
+    device-specific options, such that generic-configs can be like their
+    name specifies it: generic.
+
+    Tags: [IMPURE], [THEME DEPENDENT], [TODO]
   */
 
+  # MARK: Inputs
   inputs = {
 
     ################### Core Modules ###################
@@ -43,13 +52,6 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     stylix.url = "github:danth/stylix";
 
-    /*
-      LazyVim = {
-         url = "github:matadaniel/LazyVim-module";
-         inputs.nixpkgs.follows = "nixpkgs";
-       };
-    */
-
     ################### Overlays Modules ###################
 
     rust-overlay = {
@@ -59,7 +61,6 @@
 
     crane = {
       url = "github:ipetkov/crane";
-      #inputs.nixpkgs.follows = "nixpkgs";
     };
 
     ################### Homebrew taps ###################
@@ -118,6 +119,7 @@
     ];
   };
 
+  # MARK: Outputs
   outputs =
     {
       self,
@@ -132,50 +134,13 @@
       ...
     }@inputs: # Allow for access to optionnal inputs with inputs.optionnalInput
     let
-      ### Default general purpose configs
-      default-secret-conf =
-        { config, lib, ... }:
-        let
-          sops-key-file =
-            let
-              ## [IMPURE]
-              file-path = builtins.getEnv "SOPS_KEY_FILE";
-            in
-            if file-path == "" then
-              throw "No $SOPS_KEY_FILE env-var, it might mean this flake is evaluated as --pure"
-            else
-              lib.traceValFn (v: "SOPS keyFile set to: ${v}") file-path;
-        in
-        rec {
-          # To edit secrets .yaml `nix-shell -p sops --run "sops secrets/secrets.yaml"`
-          # When adding new keys : `nix-shell -p sops --run "sops updatekeys secrets/secrets.yaml"`
-          sops.defaultSopsFile = ./secrets/secrets.yaml;
-          sops.age.sshKeyPaths = [ ];
-          sops.age.keyFile = sops-key-file;
-          # https://github.com/Mic92/sops-nix?tab=readme-ov-file#set-secret-permissionowner-and-allow-services-to-access-it
-          sops.secrets =
-            let
-              ssh-key-config = {
-                mode = "0400";
-                owner = config.users.users.camille.name;
-                group = "wheel";
-              };
-            in
-            {
-              "ftn/front-ssh" = ssh-key-config;
-              "ftn/node-ssh" = ssh-key-config;
-              ssh-id-ed25519 = ssh-key-config;
-              github-token = ssh-key-config;
-              camille-passwd.neededForUsers = true;
-            };
-        };
 
+      ################### Default general purpose configs ###################
+
+      ## Global nixpkgs config, independent from system
       default-nixpkg-conf = {
-        #inherit system;
         config = {
           allowUnfree = true;
-          #allowUnsupportedSystem = true;
-          #allowBroken = true;
         };
         overlays = [
           inputs.nix-vscode-extensions.overlays.default
@@ -183,64 +148,95 @@
         ];
       };
 
-      theme-file = ./config/common/theme/gruvbox.nix;
+      ## Sops secrets config - necessary for system build
+      default-secret-conf =
+        { config, lib, ... }:
+        let
+          # Sops key configuration, fetched from env VAR since it shouldn't be in store. Which makes it impure.
+          ## [IMPURE]
+          file-path = builtins.getEnv "SOPS_KEY_FILE";
 
+          sops-key-file =
+            if file-path == "" then
+              throw "No $SOPS_KEY_FILE env-var, it might mean this flake is evaluated as --pure"
+            else
+              lib.traceValFn (v: "SOPS keyFile set to: ${v}") file-path;
+
+          # Default key configuration for user
+          user-key-config = {
+            mode = "0400";
+            owner = config.users.users.camille.name;
+            group = "wheel";
+          };
+        in
+        {
+          sops.defaultSopsFile = ./secrets/secrets.yaml;
+          sops.age.sshKeyPaths = [ ];
+          sops.age.keyFile = sops-key-file;
+          sops.secrets = {
+            "ftn/front-ssh" = user-key-config;
+            "ftn/node-ssh" = user-key-config;
+            ssh-id-ed25519 = user-key-config;
+            github-token = user-key-config;
+            camille-passwd.neededForUsers = true;
+          };
+        };
+
+      ## Configure theme globally
+      theme-file = ./config/common/theme/gruvbox.nix;
     in
     {
+      # MARK: Darwin Configs
       darwinConfigurations =
         let
-          system = "aarch64-darwin"; # Build system
+          system = "aarch64-darwin";
 
-          full-generic = {
-            ### Module parameter inheritance
-            inherit system;
-            specialArgs = {
-              inherit
-                self # Needed in nix-conf
-                inputs # Needed throughout the config
-                ;
-            };
+          ### Default module import
+          default-modules = [
+            ### Modules import
+            # Utils
+            sops-nix.darwinModules.sops
+            home-manager.darwinModules.home-manager
+            nix-homebrew.darwinModules.nix-homebrew
+            stylix.darwinModules.stylix
 
-            ### Module & module configuration
-            modules = [
-              ## Pkgs set configuration
+            # Personnal
+            ./config/darwin/default.nix
+            ./packages/nix/default.nix
+            ./packages/homebrew/default.nix
+
+            ### Modules config
+            default-secret-conf
+
+            (
               {
-                nixpkgs = {
-                  inherit system;
-                }
-                // default-nixpkg-conf;
-              }
+                pkgs,
+                config,
+                themeUtils,
+                ...
+              }:
+              {
+                ## Nixpks config
+                nixpkgs = default-nixpkg-conf;
 
-              ## Secret module import
-              sops-nix.darwinModules.sops
-              default-secret-conf # Gets evaluated as a function
+                ## Theme config
+                common.theme = import theme-file { inherit pkgs; };
 
-              ## Main system config
-              ./config/darwin/default.nix
-              (
-                { pkgs, ... }:
-                rec {
-                  darwin-system.window-man = {
-                    enable = true; # Might need to manually remove launchd services
-                    type = "yabai";
+                ## Home-manager top-config
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  backupFileExtension = "hmbackup";
+                  extraSpecialArgs = {
+                    inherit inputs themeUtils;
+                    global-config = config;
                   };
-                  darwin-system.defaults.dock.enable = true;
-                  darwin-system.external-drive.enable = true;
-                  darwin-system.external-drive.path = "/Volumes/Data";
+                  users.camille.imports = [
+                    ./home/darwin/default.nix
+                  ];
+                };
 
-                  common.theme = import theme-file { inherit pkgs; };
-                }
-              )
-
-              ## Package config
-              ./packages/nix/default.nix
-              {
-                NIXPKG.darwinApps.enable = true;
-              }
-
-              ## Homebrew packages config
-              nix-homebrew.darwinModules.nix-homebrew
-              {
+                ## Nix-homebrew top-config
                 nix-homebrew = {
                   enable = true;
                   enableRosetta = true;
@@ -258,142 +254,89 @@
                   };
                 };
               }
-              ./packages/homebrew/default.nix
+            )
+          ];
+
+          ################### Full config generic ###################
+
+          # MARK: Darwin full-generic
+          full-generic = {
+            ### Module config
+            inherit system; # Inherit system for pkgs
+
+            # Inherit needed module args from top-level
+            specialArgs = {
+              inherit self inputs;
+            };
+
+            modules = default-modules ++ [
+              ### Modules config
               {
+                ## Main system config
+                darwin-system.window-man = {
+                  enable = true; # Might need to manually remove launchd services
+                  type = "yabai";
+                };
+                darwin-system.defaults.dock.enable = true;
+                darwin-system.external-drive.enable = true;
+                darwin-system.external-drive.path = "/Volumes/Data";
+
+                ## Packages config
+                NIXPKG.darwinApps.enable = true;
+
+                ## Homebrew packages config
                 HMB.masApps.enable = true; # mdutil #check for spotlight indexing
+
+                ## Home-manager user config
+                home-manager.users.camille = {
+                  home-config.status-bar.enable = true;
+                  home-config.GUIapps.enable = true;
+                  home-config.darwinApps.enable = true;
+                };
               }
-
-              ## Home-manager user config
-              home-manager.darwinModules.home-manager
-              (
-                { config, themeUtils, ... }:
-                {
-                  # Call as a function to access input recursively
-                  home-manager.useGlobalPkgs = true;
-                  home-manager.useUserPackages = true;
-                  home-manager.backupFileExtension = "hmbackup";
-                  home-manager.extraSpecialArgs = {
-                    inherit inputs themeUtils;
-                    global-config = config;
-                  };
-                  home-manager.users.camille = {
-                    # {...} can be replaced by import ./path/to/module.nix
-                    imports = [
-                      ./home/darwin/default.nix
-                    ];
-                    home-config.status-bar.enable = true;
-                    home-config.GUIapps.enable = true;
-                    home-config.darwinApps.enable = true;
-                  };
-                }
-              )
-
-              ## Stylix
-              stylix.darwinModules.stylix
             ];
           };
+
+          # MARK: Darwin minimal-generic
           minimal-generic = {
-            ### Module parameter inheritance
-            inherit system;
+            ### Module config
+            inherit system; # Inherit system for pkgs
+
+            # Inherit needed module args from top-level
             specialArgs = {
-              inherit
-                self # Needed in nix-conf
-                inputs # Needed throughout the config
-                ;
+              inherit self inputs;
             };
-            ### Module & module configuration
-            modules = [
-              ## Pkgs set configuration
+
+            modules = default-modules ++ [
+              ### Modules config
+
               {
-                nixpkgs = {
-                  inherit system;
-                }
-                // default-nixpkg-conf;
-              }
-
-              ## Secret module import
-              sops-nix.darwinModules.sops
-              default-secret-conf
-
-              ## Main system config
-              ./config/darwin/default.nix
-              (
-                { pkgs, ... }:
-                rec {
-                  darwin-system.window-man = {
-                    enable = true; # Might need to manually remove launchd services
-                    type = "yabai";
-                  };
-                  darwin-system.defaults.dock.enable = true;
-
-                  common.theme = import theme-file { inherit pkgs; };
-                }
-              )
-
-              ## Package config
-              ./packages/nix/default.nix
-              {
-                NIXPKG.darwinApps.enable = false;
-              }
-
-              ## Homebrew packages config
-              nix-homebrew.darwinModules.nix-homebrew
-              {
-                nix-homebrew = {
-                  enable = true;
-                  enableRosetta = true;
-                  user = "camille";
-                  mutableTaps = false;
-                  taps = {
-                    "homebrew/homebrew-core" = inputs.homebrew-core;
-                    "homebrew/homebrew-cask" = inputs.homebrew-cask;
-                    "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
-                    "gromgit/homebrew-fuse" = inputs.homebrew-fuse;
-                    "waydabber/homebrew-betterdisplay" = inputs.homebrew-betterdisplay;
-                    "Sirakugir-App/homebrew-sirakugir" = inputs.homebrew-sirakugir;
-                    "keith/homebrew-formulae" = inputs.homebrew-keith;
-                    "deskflow/homebrew-tap" = inputs.homebrew-deskflow;
-                  };
+                ## Main system config
+                darwin-system.window-man = {
+                  enable = true; # Might need to manually remove launchd services
+                  type = "yabai";
                 };
-              }
-              ./packages/homebrew/default.nix
-              {
-                HMB.masApps.enable = false; # mdutil #check for spotlight indexing
+                darwin-system.defaults.dock.enable = true;
+
+                ## Package config
+                NIXPKG.darwinApps.enable = false;
+
+                ## Homebrew packages config
+                HMB.masApps.enable = false; # mdutil check for spotlight indexing
                 HMB.casks.enable = false;
                 HMB.brews.enable = false;
+
+                ## Home-manager user config
+                home-manager.users.camille = {
+                  home-config.status-bar.enable = true;
+                  home-config.GUIapps.enable = true;
+                  home-config.darwinApps.enable = true;
+                };
               }
-
-              ## Home-manager user config
-              home-manager.darwinModules.home-manager
-              (
-                { config, themeUtils, ... }:
-                {
-                  # Call as a function to access input recursively
-                  home-manager.useGlobalPkgs = true;
-                  home-manager.useUserPackages = true;
-                  home-manager.backupFileExtension = "hmbackup";
-                  home-manager.extraSpecialArgs = {
-                    inherit inputs themeUtils;
-                    global-config = config;
-                  };
-                  home-manager.users.camille = {
-                    # {...} can be replaced by import ./path/to/module.nix
-                    imports = [
-                      ./home/darwin/default.nix
-                    ];
-                    home-config.status-bar.enable = true;
-                    home-config.GUIapps.enable = true;
-                    home-config.darwinApps.enable = false;
-                  };
-                }
-              )
-
-              ## Stylix
-              stylix.darwinModules.stylix
             ];
           };
         in
-        rec {
+        {
           # Config assignation
           full = nix-darwin.lib.darwinSystem full-generic;
           minimal = nix-darwin.lib.darwinSystem minimal-generic;
@@ -427,7 +370,7 @@
             // {
               modules = full-generic.modules ++ [
                 (
-                  { config, lib, ... }:
+                  { lib, ... }:
                   {
                     networking.hostName = "MacExternal";
                     darwin-system.external-drive.enable = lib.mkForce false;

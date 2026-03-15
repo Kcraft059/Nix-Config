@@ -63,6 +63,7 @@ in
                 blue = mkOption { type = types.str; };
                 purple = mkOption { type = types.str; };
                 cyan = mkOption { type = types.str; };
+                orange = mkOption { type = types.nullOr types.str; }; # Orange being non-standard, it is nullable
               };
             };
           };
@@ -76,6 +77,7 @@ in
                 blue = mkOption { type = types.str; };
                 purple = mkOption { type = types.str; };
                 cyan = mkOption { type = types.str; };
+                orange = mkOption { type = types.nullOr types.str; }; # Orange being non-standard, it is nullable
               };
             };
           };
