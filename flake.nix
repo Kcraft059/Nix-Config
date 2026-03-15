@@ -443,7 +443,7 @@
               inherit self inputs;
             };
 
-            modules = [
+            modules = default-modules ++ [
               {
                 ## Main system config
                 nixos-system.plasma6.enable = true;
