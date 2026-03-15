@@ -22,6 +22,7 @@
       blue = "#458588";
       purple = "#b16286";
       cyan = "#689d6a";
+      orange = "#d65d0e";
     };
 
     colors_variant = {
@@ -31,6 +32,7 @@
       blue = "#83a598";
       purple = "#d3869b";
       cyan = "#8ec07c";
+      orange = "#fe8019";
     };
 
     backgrounds = {

@@ -1,6 +1,7 @@
 { theme, themeUtils, ... }:
 let
   clrs = theme.colors;
+  chck = test_value: fallback: if test_value != null then test_value else fallback;
   rgbFormat = hex: themeUtils.RGBStringSep " " (themeUtils.RGBtoFloatRGB (themeUtils.hexToRGB hex));
 in
 ''
@@ -127,7 +128,7 @@ in
   		<key>xcode.syntax.identifier.constant.system</key>
   		<string>${rgbFormat clrs.colors.red} 1</string>
   		<key>xcode.syntax.identifier.function</key>
-  		<string>${rgbFormat clrs.colors.green} 1</string>
+  		<string>${rgbFormat (chck clrs.colors.orange clrs.colors.green)} 1</string>
   		<key>xcode.syntax.identifier.function.system</key>
   		<string>${rgbFormat clrs.colors.red} 1</string>
   		<key>xcode.syntax.identifier.macro</key>

@@ -34,7 +34,9 @@ in
     },
     colors = {
       red = 0xff${hcv clrs.colors.red},
-      orange = 0xff${hcv clrs.colors.cyan},
+      orange = 0xff${
+        hcv (if clrs.colors.orange != null then clrs.colors.orange else clrs.colors.yellow)
+      },
       yellow = 0xff${hcv clrs.colors.yellow},
       blue = 0xff${hcv clrs.colors.blue},
       cyan = 0xff${hcv clrs.colors.green},

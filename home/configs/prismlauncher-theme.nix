@@ -1,29 +1,33 @@
 { theme, ... }:
+let
+  clrs = theme.colors;
+  chck = test_value: fallback: if test_value != null then test_value else fallback;
+in
 builtins.toJSON {
   colors = {
-    AlternateBase = theme.colors.backgrounds.overlay;
-    Base = theme.colors.backgrounds.base;
-    BrightText = theme.colors.colors.green;
+    AlternateBase = clrs.backgrounds.overlay;
+    Base = clrs.backgrounds.base;
+    BrightText = clrs.colors.green;
     Button = "#000000";
-    ButtonText = theme.colors.text.primary;
-    Highlight = theme.colors.backgrounds.highlight_high;
-    HighlightedText = theme.colors.colors.blue;
-    Link = theme.colors.colors.purple;
-    Text = theme.colors.text.primary;
-    ToolTipBase = theme.colors.backgrounds.surface;
-    ToolTipText = theme.colors.text.primary;
-    Window = theme.colors.backgrounds.base;
-    WindowText = theme.colors.text.primary;
+    ButtonText = clrs.text.primary;
+    Highlight = clrs.backgrounds.highlight_high;
+    HighlightedText = clrs.colors.blue;
+    Link = clrs.colors.purple;
+    Text = clrs.text.primary;
+    ToolTipBase = clrs.backgrounds.surface;
+    ToolTipText = clrs.text.primary;
+    Window = clrs.backgrounds.base;
+    WindowText = clrs.text.primary;
     fadeAmount = 0.5;
-    fadeColor = theme.colors.text.muted;
+    fadeColor = clrs.text.muted;
   };
   logColors = {
-    Launcher = theme.colors.colors.purple;
-    Error = theme.colors.colors.yellow;
-    Warning = theme.colors.colors.yellow;
-    Debug = theme.colors.colors.green;
-    FatalHighlight = theme.colors.colors.red;
-    Fatal = theme.colors.colors.yellow;
+    Launcher = clrs.colors.purple;
+    Error = chck clrs.colors.orange clrs.colors.red;
+    Warning = clrs.colors.yellow;
+    Debug = clrs.colors.green;
+    FatalHighlight = clrs.colors.red;
+    Fatal = chck clrs.colors.orange clrs.colors.yellow;
   };
   name = "theme.name";
   widgets = "macOS";
