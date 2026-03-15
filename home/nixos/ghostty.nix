@@ -40,7 +40,7 @@ in
       }
       # [THEME DEPENDENT]
       // lib.optionalAttrs theme.enable {
-        theme = pkgs.writeText "ghostty-theme-${theme.name}" ghostty-theme;
+        theme = "${pkgs.writeText "ghostty-theme-${theme.name}" ghostty-theme}";
       }
     );
   };
