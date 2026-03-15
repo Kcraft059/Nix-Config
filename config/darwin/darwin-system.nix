@@ -145,7 +145,7 @@ in
         "1.1.1.1"
         "8.8.8.4"
       ];
-      #computerName = hostName;
+      computerName = config.networking.hostName;
       #hostName = "HostName";
     };
 
