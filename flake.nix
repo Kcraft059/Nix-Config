@@ -535,7 +535,7 @@
           "RpiCam-500plus" = nixos-raspberrypi.lib.nixosSystem (
             full-generic-rpi5
             // {
-              modules = full-generic-regular.modules ++ [
+              modules = full-generic-rpi5.modules ++ [
                 {
                   ## Hostname config
                   networking.hostName = "RpiCam-500plus";
