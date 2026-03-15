@@ -138,6 +138,10 @@
     }@inputs:
     let
       ### Values & helpers
+      mkFinalConfig =
+        builder: config-base: option-set:
+        builder (config-base // { modules = config-base.modules ++ [ option-set ]; });
+
       theme-file = ./config/common/theme/gruvbox.nix;
 
       ################### Default general purpose configs ###################
@@ -350,42 +354,21 @@
           full = nix-darwin.lib.darwinSystem full-generic;
           minimal = nix-darwin.lib.darwinSystem minimal-generic;
 
-          "MacBookAirCam-M3" = nix-darwin.lib.darwinSystem (
-            full-generic
-            // {
-              modules = full-generic.modules ++ [
-                {
-                  networking.hostName = "MacBookAirCam-M3";
-                }
-              ];
-            }
-          );
+          "MacBookAirCam-M3" = mkFinalConfig nix-darwin.lib.darwinSystem full-generic {
+            networking.hostName = "MacBookAirCam-M3";
+          };
 
-          "MacBookAirCam-M3-minimal" = nix-darwin.lib.darwinSystem (
-            minimal-generic
-            // {
-              modules = minimal-generic.modules ++ [
-                {
-                  networking.hostName = "MacBookAirCam-M3-minimal";
-                  darwin-system.external-drive.enable = true;
-                  darwin-system.external-drive.path = "/Volumes/Data";
-                }
-              ];
-            }
-          );
+          "MacBookAirCam-M3-minimal" = mkFinalConfig nix-darwin.lib.darwinSystem minimal-generic {
+            networking.hostName = "MacBookAirCam-M3-minimal";
+            darwin-system.external-drive.enable = true;
+            darwin-system.external-drive.path = "/Volumes/Data";
+          };
 
-          "MacExternal" = nix-darwin.lib.darwinSystem (
-            full-generic
-            // {
-              modules = full-generic.modules ++ [
-                (
-                  { lib, ... }:
-                  {
-                    networking.hostName = "MacExternal";
-                    darwin-system.external-drive.enable = lib.mkForce false;
-                  }
-                )
-              ];
+          "MacExternal" = mkFinalConfig nix-darwin.lib.darwinSystem full-generic (
+            { lib, ... }:
+            {
+              networking.hostName = "MacExternal";
+              darwin-system.external-drive.enable = lib.mkForce false;
             }
           );
         };
@@ -537,29 +520,13 @@
           full-regular = nixpkgs.lib.nixosSystem full-generic-regular;
           full-rpi5 = nixos-raspberrypi.lib.nixosSystem full-generic-rpi5;
 
-          "LenovoYogaCam-i7" = nixpkgs.lib.nixosSystem (
-            full-generic-regular
-            // {
-              modules = full-generic-regular.modules ++ [
-                {
-                  ## Hostname config
-                  networking.hostName = "LenovoYogaCam-i7";
-                }
-              ];
-            }
-          );
+          "LenovoYogaCam-i7" = mkFinalConfig nixpkgs.lib.nixosSystem full-generic-regular {
+            networking.hostName = "LenovoYogaCam-i7";
+          };
 
-          "RpiCam-500plus" = nixos-raspberrypi.lib.nixosSystem (
-            full-generic-rpi5
-            // {
-              modules = full-generic-rpi5.modules ++ [
-                {
-                  ## Hostname config
-                  networking.hostName = "RpiCam-500plus";
-                }
-              ];
-            }
-          );
+          "RpiCam-500plus" = mkFinalConfig nixos-raspberrypi.lib.nixosSystem full-generic-rpi5 {
+            networking.hostName = "RpiCam-500plus";
+          };
         };
 
       ################### Pkgs set exposition ###################
