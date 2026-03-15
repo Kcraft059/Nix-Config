@@ -28,12 +28,12 @@ in
 
       ## Theming
       # [THEME DEPENDENT]
-      configFile.kdeglobals.General.AccentColor = "${themeUtils.RGBStringSep "," (
-        themeUtils.hexToRGB theme.colors.accent
-      )}";
-      configFile.kdeglobals.General.LastUsedCustomAccentColor = "${themeUtils.RGBStringSep "," (
-        themeUtils.hexToRGB theme.colors.accent
-      )}";
+      configFile.kdeglobals.General = lib.optionalAttrs theme.enable {
+        AccentColor = "${themeUtils.RGBStringSep "," (themeUtils.hexToRGB theme.colors.accent)}";
+        LastUsedCustomAccentColor = "${themeUtils.RGBStringSep "," (
+          themeUtils.hexToRGB theme.colors.accent
+        )}";
+      };
 
       workspace = {
         lookAndFeel = "org.kde.breezedark.desktop";
@@ -46,6 +46,8 @@ in
         soundTheme = "ocean";
         wallpaper = "${config.home-config.desktopManager.wallpaper}";
       };
+
+      kscreenlocker.appearance.wallpaper = "${config.home-config.desktopManager.wallpaper}";
 
       fonts = {
         general = {
