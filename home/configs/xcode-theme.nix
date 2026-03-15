@@ -101,7 +101,7 @@ in
   	<key>DVTSourceTextInvisiblesColor</key>
   	<string>0.254902 0.313725 0.368627 1</string>
   	<key>DVTSourceTextSelectionColor</key>
-  	<string>0.192157 0.180392 0.270588 1</string>
+  	<string>${rgbFormat clrs.colors.blue} 0.35</string>
   	<key>DVTSourceTextSyntaxColors</key>
   	<dict>
   		<key>xcode.syntax.attribute</key>
