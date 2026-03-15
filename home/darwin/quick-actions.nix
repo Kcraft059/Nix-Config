@@ -5,6 +5,6 @@
   ...
 }:
 {
-  home.file."Library/Services/Force Unmount.workflow".source = ../../ressources/Force-Unmount.workflow;
-  home.file."Library/Services/Make Symlink.workflow".source = ../../ressources/Make-SymLink.workflow;
+  home.file."Library/Services/Force Unmount.workflow".source = ../../resources/Force-Unmount.workflow;
+  home.file."Library/Services/Make Symlink.workflow".source = ../../resources/Make-SymLink.workflow;
 }

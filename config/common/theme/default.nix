@@ -21,7 +21,7 @@ in
     wallpaper = mkOption {
       type = types.nullOr types.path;
       default = null;
-      example = lib.literalExpression "./ressources/wallpaper.png";
+      example = lib.literalExpression "./resources/wallpaper.png";
       description = "Wallpaper";
     };
 

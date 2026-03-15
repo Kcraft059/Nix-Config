@@ -9,7 +9,7 @@
     home-config.desktopManager.wallpaper = lib.mkOption {
       type = lib.types.path;
       default = "";
-      example = lib.literalExpression ''/ressources/wallpaper.png'';
+      example = lib.literalExpression ''/resources/wallpaper.png'';
       description = ''
         Set the default wallpaper
       '';
@@ -17,7 +17,7 @@
     home-config.userPicture = lib.mkOption {
       type = lib.types.path;
       default = "";
-      example = lib.literalExpression ''/ressources/user-picture.png'';
+      example = lib.literalExpression ''/resources/user-picture.png'';
       description = ''
         Sets the default user picture
       '';

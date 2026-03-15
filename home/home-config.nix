@@ -23,7 +23,7 @@
 
   options = {
     home-config.GUIapps.enable = lib.mkEnableOption "Install GUI-Apps ?";
-    home-config.external-drive.enable = lib.mkEnableOption "Enable linking of outside ressources";
+    home-config.external-drive.enable = lib.mkEnableOption "Enable linking of outside resources";
     home-config.external-drive.path = lib.mkOption {
       type = lib.types.str;
       default = "/Volumes/Data";
