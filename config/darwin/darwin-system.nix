@@ -32,6 +32,13 @@ let
 
     # ${pkgs.skhd}/bin/skhd -r # Reloads skhd
 
+    ${lib.optionalString (builtins.elem pkgs.openjdk21 syspkgs) "ln -sf ${pkgs.openjdk21}/Library/Java/JavaVirtualMachines/zulu-21.jdk /Library/Java/JavaVirtualMachines "}
+    ${lib.optionalString (builtins.elem pkgsX86.openjdk17 syspkgs) "ln -sf ${pkgsX86.openjdk17}/Library/Java/JavaVirtualMachines/zulu-17.jdk /Library/Java/JavaVirtualMachines "}
+    ${lib.optionalString (builtins.elem pkgs.openjdk8 syspkgs) "ln -sf ${pkgs.openjdk8}/Library/Java/JavaVirtualMachines/zulu-8.jdk /Library/Java/JavaVirtualMachines "}
+    ${lib.optionalString (builtins.elem pkgs.ffmpeg syspkgs) "ln -sf ${pkgs.ffmpeg.lib}/lib/* /usr/local/lib/ "} 
+  '';
+  
+  /*
     if [ -f /opt/homebrew/bin/tccutil ];then
       echo -e "Setting up tcc permissions..." >&2
       /opt/homebrew/bin/tccutil -i ${pkgs.bashNonInteractive}/bin/bash
@@ -41,12 +48,7 @@ let
       ${lib.optionalString (builtins.elem pkgs.rift syspkgs) "/opt/homebrew/bin/tccutil  -i ${pkgs.rift}/bin/rift"}
       ${lib.optionalString (builtins.elem pkgs.aerospace syspkgs) "/opt/homebrew/bin/tccutil  -i ${pkgs.aerospace}/bin/aerospace"}
     fi
-
-    ${lib.optionalString (builtins.elem pkgs.openjdk21 syspkgs) "ln -sf ${pkgs.openjdk21}/Library/Java/JavaVirtualMachines/zulu-21.jdk /Library/Java/JavaVirtualMachines "}
-    ${lib.optionalString (builtins.elem pkgsX86.openjdk17 syspkgs) "ln -sf ${pkgsX86.openjdk17}/Library/Java/JavaVirtualMachines/zulu-17.jdk /Library/Java/JavaVirtualMachines "}
-    ${lib.optionalString (builtins.elem pkgs.openjdk8 syspkgs) "ln -sf ${pkgs.openjdk8}/Library/Java/JavaVirtualMachines/zulu-8.jdk /Library/Java/JavaVirtualMachines "}
-    ${lib.optionalString (builtins.elem pkgs.ffmpeg syspkgs) "ln -sf ${pkgs.ffmpeg.lib}/lib/* /usr/local/lib/ "} 
-  '';
+  */
 
   application-script =
     let
