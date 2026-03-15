@@ -189,6 +189,8 @@
       # MARK: Darwin Configs
       darwinConfigurations =
         let
+          ################### Default darwin-config ###################
+
           system = "aarch64-darwin";
 
           ### Default module import
@@ -297,6 +299,8 @@
             ];
           };
 
+          ################### Minimal config generic ###################
+
           # MARK: Darwin minimal-generic
           minimal-generic = {
             ### Module config
@@ -337,7 +341,10 @@
           };
         in
         {
-          # Config assignation
+          # MARK: Config assignation
+
+          ################### Config assignation ###################
+
           full = nix-darwin.lib.darwinSystem full-generic;
           minimal = nix-darwin.lib.darwinSystem minimal-generic;
 
@@ -379,166 +386,168 @@
               ];
             }
           );
-
         };
+
+      # MARK: NixOS configs
       nixosConfigurations =
         let
-          full-generic = {
-            ### Module parameter inheritance
-            #inherit system;
-            specialArgs = {
-              inherit
-                self # Needed in nix-conf
-                inputs # Needed throughout the config
-                ;
-            };
+          ################### Default NixOS config ###################
 
-            ### Module & module configuration
-            modules = [
-              ## Secret module import
-              sops-nix.nixosModules.sops
-              default-secret-conf
+          default-modules = [
+            ### Modules import
+            # Utils
+            sops-nix.nixosModules.sops
+            stylix.nixosModules.stylix
+            home-manager.nixosModules.home-manager
 
-              ## Main system config
-              # ./config/nixos/default.nix # Is not general enough
-              (
-                { pkgs, ... }:
-                {
-                  common.theme = import theme-file { inherit pkgs; };
-                  nixos-system.plasma6.enable = true;
-                }
-              )
+            # Personnal
+            # ./config/nixos/default.nix # Is not general enough
+            ./packages/nix/default.nix
 
-              ## Package config
-              ./packages/nix/default.nix
+            ### Modules config
+            default-secret-conf
+
+            (
               {
-                NIXPKG.linuxApps.enable = true;
-                NIXPKG.GUIapps.enable = true;
-              }
+                pkgs,
+                config,
+                themeUtils,
+                ...
+              }:
+              {
+                ## Nixpks config
+                nixpkgs = default-nixpkg-conf;
 
-              ## Home-manager user config
-              home-manager.nixosModules.home-manager
-              (
-                { config, themeUtils, ... }:
-                {
-                  home-manager.useGlobalPkgs = true;
-                  home-manager.useUserPackages = true;
-                  home-manager.backupFileExtension = "hmbackup";
-                  home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ];
-                  home-manager.extraSpecialArgs = {
+                ## Theme
+                common.theme = import theme-file { inherit pkgs; };
+
+                ## Home-manager top-config
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  backupFileExtension = "hmbackup";
+                  sharedModules = [ plasma-manager.homeModules.plasma-manager ];
+                  extraSpecialArgs = {
                     inherit inputs themeUtils;
                     global-config = config;
                   };
-                  home-manager.users.camille = {
-                    home-config.GUIapps.enable = true;
-                    home-config.plasma.enable = true;
-                    home-config.userPicture = ./resources/vflower-1.jpg;
-                  };
-                }
-              )
+                };
+              }
+            )
+          ];
 
-              ## Stylix
-              stylix.nixosModules.stylix
+          full-generic = {
+            ### Module config
+            # Inherit needed module args from top-level
+            specialArgs = {
+              inherit self inputs;
+            };
+
+            modules = [
+              {
+                ## Main system config
+                nixos-system.plasma6.enable = true;
+
+                ## Package config
+                NIXPKG.linuxApps.enable = true;
+                NIXPKG.GUIapps.enable = true;
+
+                ## Home-manager user config
+                home-manager.users.camille = {
+                  home-config.GUIapps.enable = true;
+                  home-config.plasma.enable = true;
+                  home-config.userPicture = ./resources/vflower-1.jpg;
+                };
+              }
             ];
           };
-        in
-        rec {
-          full =
-            let
-              system = "x86_64-linux";
-            in
-            nixpkgs.lib.nixosSystem (
-              full-generic
-              // {
-                inherit system;
-                modules = full-generic.modules ++ [
-                  {
-                    ## Pkgs set configuration
-                    nixpkgs = {
-                      inherit system;
-                    }
-                    // default-nixpkg-conf;
 
-                    ## Hostname config
-                    networking.hostName = "LenovoYogaCam-i7";
+          full-generic-regular = full-generic // {
+            ### Module config
+            system = "x86_64-linux"; # Inherit system for pkgs
 
-                    ## Home manager config
-                    home-manager.users.camille.imports = [ ./home/nixos/regular/default.nix ];
-                  }
+            modules = full-generic.modules ++ [
+              ## Main system config
+              ./config/nixos/regular/default.nix
 
-                  ## Main system config
-                  ./config/nixos/regular/default.nix
-                ];
+              {
+                ## Home manager config
+                home-manager.users.camille.imports = [ ./home/nixos/regular/default.nix ];
               }
-            );
+            ];
+          };
 
-          full-rpi5 =
+          full-generic-rpi5 =
             let
-              system = "aarch64-linux";
-
-              ## Lib patch for removed options (bootloader)
-              lib = nixpkgs.lib;
-              baseLib = nixpkgs.lib;
-              origMkRemovedOptionModule = baseLib.mkRemovedOptionModule;
-              patchedLib = lib.extend (
+              patchedLib = nixpkgs.lib.extend (
                 final: prev: {
                   mkRemovedOptionModule =
                     optionName: replacementInstructions:
-                    let
-                      key = "removedOptionModule#" + final.concatStringsSep "_" optionName;
-                    in
                     { options, ... }:
-                    (origMkRemovedOptionModule optionName replacementInstructions { inherit options; })
+                    (prev.MkRemovedOptionModule optionName replacementInstructions { inherit options; })
                     // {
-                      inherit key;
+                      key = "removedOptionModule#" + final.concatStringsSep "_" optionName;
                     };
                 }
               );
-
             in
-            nixos-raspberrypi.lib.nixosSystem (
-              full-generic
-              // {
-                inherit system;
-                lib = patchedLib;
+            full-generic
+            // {
+              ### Module config
+              system = "aarch64-linux";
+              lib = patchedLib;
 
-                # Append required special-args
-                specialArgs = full-generic.specialArgs // {
-                  inherit nixos-raspberrypi;
-                };
+              # Append required special-args
+              specialArgs = full-generic.specialArgs // {
+                inherit nixos-raspberrypi;
+              };
 
-                # Append other modules
-                modules = full-generic.modules ++ [
-                  {
-                    imports = with nixos-raspberrypi.nixosModules; [
-                      raspberry-pi-5.base
-                      raspberry-pi-5.page-size-16k
-                      raspberry-pi-5.display-vc4
-                      raspberry-pi-5.bluetooth
-                    ];
+              modules = full-generic.modules ++ [
+                ## Main system config
+                ./config/nixos/rpi5/default.nix
+                {
+                  imports = with nixos-raspberrypi.nixosModules; [
+                    raspberry-pi-5.base
+                    raspberry-pi-5.page-size-16k
+                    raspberry-pi-5.display-vc4
+                    raspberry-pi-5.bluetooth
+                  ];
 
-                    nixpkgs = {
-                      inherit system;
-                    }
-                    // default-nixpkg-conf;
+                  ## Home manager config
+                  home-manager.users.camille.imports = [ ./home/nixos/rpi5/default.nix ];
+                }
+              ];
+            };
+        in
+        rec {
+          "LenovoYogaCam-i7" = nixpkgs.lib.nixosSystem (
+            full-generic-regular
+            // {
+              modules = full-generic-regular.modules ++ [
+                {
+                  ## Hostname config
+                  networking.hostName = "LenovoYogaCam-i7";
+                }
+              ];
+            }
+          );
 
-                    ## Hostname config
-                    networking.hostName = "RpiCam-500plus";
-
-                    ## Home manager config
-                    home-manager.users.camille.imports = [ ./home/nixos/rpi5/default.nix ];
-                  }
-
-                  ## Main system config
-                  ./config/nixos/rpi5/default.nix
-                ];
-              }
-            );
+          "RpiCam-500plus" = nixos-raspberrypi.lib.nixosSystem (
+            full-generic-rpi5
+            // {
+              modules = full-generic-regular.modules ++ [
+                {
+                  ## Hostname config
+                  networking.hostName = "RpiCam-500plus";
+                }
+              ];
+            }
+          );
 
           ### Config assignation
 
-          "LenovoYogaCam-i7" = full;
-          "RpiCam-500plus" = full-rpi5;
+          #"LenovoYogaCam-i7" = full;
+          #"RpiCam-500plus" = full-rpi5;
         };
       # Expose the package set, including overlays, for convenience.
       darwinPackages = self.darwinConfigurations.full.pkgs;
