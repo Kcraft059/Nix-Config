@@ -25,6 +25,7 @@
     "Alcove"
     "Raycast"
     "DockDoor"
+    "Stickies"
   ];
 
   quit-all-apps = "${pkgs.writeShellScriptBin "quit-all-apps" ''
@@ -49,6 +50,68 @@
   ''}/bin/restart";
 
   screensaver = "/System/Library/CoreServices/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine";
+
+  stickies-toggle = "${pkgs.writeShellScriptBin "stickies-toggle" ''
+    if pid=$(pgrep Stickies); then
+      kill -9 $pid
+    else
+      open -a /System/Applications/Stickies.app
+    fi
+  ''}/bin/stickies-toggle";
+
+  stickies-new = "${pkgs.writeShellScriptBin "stickies-new" ''
+    osascript -e '
+      tell application "Stickies" to activate
+      tell application "System Events" to tell process "Stickies"
+        repeat until menu "File" of menu bar 1 exists
+          delay 0.02
+        end repeat
+        click menu item "New Note" of menu "File" of menu bar 1
+        
+        set frontmost to true
+      end tell'
+  ''}/bin/stickies-new";
+
+  stickies-clipboard = "${pkgs.writeShellScriptBin "stickies-clipboard" ''
+    osascript -e '
+      tell application "Stickies" to activate
+      tell application "System Events" to tell process "Stickies"
+        repeat until menu "File" of menu bar 1 exists
+          delay 0.02
+        end repeat
+        click menu item "New Note" of menu "File" of menu bar 1
+
+        set frontmost to true
+
+		    repeat until menu "Edit" of menu bar 1 exists
+		    	delay 0.02
+		    end repeat
+		    click menu item "Paste" of menu "Edit" of menu bar 1
+      end tell'
+  ''}/bin/stickies-clipboard";
+
+  stickies-clear = "${pkgs.writeShellScriptBin "stickies-clear" ''
+    osascript -e 'tell application "System Events" to tell process "Stickies"
+      try
+        set frontmost to true
+      on error -- the Stickie app is not running
+        return
+      end try
+
+      repeat until menu "File" of menu bar 1 exists
+        delay 0.02
+      end repeat
+
+      set windowCount to (count windows)
+      repeat with i from windowCount to 1 by -1
+        perform action "AXRaise" of window 1
+        click menu item "Close" of menu "File" of menu bar 1
+        try
+          click button "Delete Note" of window 1
+        end try
+      end repeat
+    end tell'
+  ''}/bin/stickies-clear";
 
   # Visual
   global-padding = 6;

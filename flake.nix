@@ -168,7 +168,7 @@
 
           sops-key-file =
             if file-path == "" then
-              throw "No $SOPS_KEY_FILE env-var, it might mean this flake is evaluated as --pure"
+              builtins.trace "Error: No/Empty $SOPS_KEY_FILE env-var, it might mean this flake is evaluated as --pure. This will fail upon rebuild." file-path
             else
               lib.traceValFn (v: "SOPS keyFile set to: ${v}") file-path;
 

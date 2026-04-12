@@ -556,11 +556,11 @@
     "rift": {
       "flake": false,
       "locked": {
-        "lastModified": 1770507854,
-        "narHash": "sha256-FUiLtUFaGrsz1LzxWKa1t4NHUWb9tlfoHKiYwllI3a8=",
+        "lastModified": 1775492815,
+        "narHash": "sha256-XPqTfUd0Bz+UgMaAjZKJX8rDiSEA7OcitWbUub3WYaY=",
         "owner": "acsandmann",
         "repo": "rift",
-        "rev": "966b8fe8b3fb4182ab1e2abf85a77cb778168c98",
+        "rev": "5d1bc88eb83ba7f12a3c4adc81649bcdae367db2",
         "type": "github"
       },
       "original": {
@@ -617,11 +617,11 @@
     "sketchybar-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1773435988,
-        "narHash": "sha256-SFCb19Zc+E7WtO13T4zjkc+ep1g5495EjUbjBKPE8Ro=",
+        "lastModified": 1775929826,
+        "narHash": "sha256-GIR7wSfVBVpRoYmdxd/wkfhJhCAdv3RkCTxGfC0Q4A8=",
         "owner": "Kcraft059",
         "repo": "sketchybar-config",
-        "rev": "80c6f5315e5ec2a892c77f96b2fac769c8193704",
+        "rev": "6935700285905587ae71e8753f6b2be37f05b91f",
         "type": "github"
       },
       "original": {

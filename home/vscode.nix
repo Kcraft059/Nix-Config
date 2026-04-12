@@ -88,17 +88,10 @@ rec {
 
           jnoortheen.nix-ide # Nix code formating + completion
           llvm-vs-code-extensions.vscode-clangd # C/C++ (obj) completion + formating
-          bmewburn.vscode-intelephense-client # PHP completion + formating
+
           mkhl.shfmt # Shell completion + formating
           yinfei.luahelper # Lua formating
-          ## ms-vscode.cpptools
-
-          ## ms-python.python
-          dnicolson.binary-plist # Allow modification of binary plists
-
-          ## ms-vscode.cpptools-extension-pack
-          ## SPGoding.datapack-language-server # Not added yet to the packages repo
-
+          golang.go # Golang support
         ])
         # [THEME DEPENDENT]
         ++ lib.optionals (theme.enable && theme.vs-theme.package != null) [

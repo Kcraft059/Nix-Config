@@ -132,12 +132,33 @@ in
   services.skhd = {
     enable = common.enable-wm;
     skhdConfig = skhd-final-conf + ''
-      # App launch
+      # === Utilities ===
       ctrl + cmd + alt - t : open /Applications/Ghostty.app
       ctrl + cmd + alt - q : ${common.quit-all-apps}
       shift + ctrl + alt - q : ${common.screensaver}
       alt + ctrl - escape : ${common.shutdown}
       cmd + ctrl - escape : ${common.restart}
+      ${super} + ${mod} - space : sketchybar --trigger menu_toggle
+
+      # === Key Blocking ===
+      :: block @ : ${pkgs.writeShellScriptBin "blck-dialog" ''
+        BUTTON=$(osascript -e 'set B to button returned of (display dialog "Keyboard inputs are now blocked, press ⌃⌘⌥⇥ again to exit." buttons {"OK","Exit"} default button 1 with icon 2)')
+        if [[ $BUTTON == "Exit" ]]; then
+          skhd -k "ctrl + cmd + alt - tab"
+        fi
+      ''}/bin/blck-dialog
+      ctrl + cmd + alt - tab ; block
+      block < ctrl + cmd + alt - tab ; default
+      
+      # === Stickies ===
+      :: stickies
+      ctrl + cmd + alt - y : ${common.stickies-toggle} 
+      shift + ctrl + cmd - y ; stickies
+      stickies < t : skhd -k "escape"; 
+      stickies < c : skhd -k "escape"; ${common.stickies-clipboard} 
+      stickies < n : skhd -k "escape"; ${common.stickies-new} 
+      stickies < backspace : skhd -k "escape"; ${common.stickies-clear}
+      stickies < escape ; default
     '';
   };
 }

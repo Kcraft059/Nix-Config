@@ -65,7 +65,7 @@
           # Other
           # "libreoffice"
           "sf-symbols"
-          "chatgpt"
+          "claude"
           "discord"
           #"firefox"
           "google-chrome"
