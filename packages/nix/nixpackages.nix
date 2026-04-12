@@ -54,7 +54,7 @@ in
         #pkgs.rift
         pkgs.smc-fuzzer
         pkgs.mkalias
-        pkgs.wifi-unredactor
+        #pkgs.wifi-unredactor
         pkgs.mas
         #pkgs.battery-toolkit
         pkgs.utm

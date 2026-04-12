@@ -18,8 +18,6 @@ in
 
         background-blur = 15;
         background-opacity = 0.85;
-        window-height = 30;
-        window-width = 109;
         window-padding-x = 5;
 
         #term = "xterm-256color";
