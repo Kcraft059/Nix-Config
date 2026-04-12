@@ -67,9 +67,9 @@ in
         comment = "fg=${c.black_}";
         unknown-token = "fg=${c.red},underline,bold";
         reserved-word = "fg=${c.purple},bold";
-        builtin = "fg=${c.green_},bold";
-        command = "fg=${c.green}";
-        alias = "fg=${c.green_},underline";
+        builtin = "fg=${c.blue_},bold";
+        command = "fg=${c.blue}";
+        alias = "fg=${c.blue_},underline";
         function = "fg=${c.cyan}";
         commandseparator = "fg=${c.black_},bold";
         path = "fg=${c.white},underline";
@@ -77,8 +77,8 @@ in
         globbing = "fg=${c.purple},bold";
         command-substitution-delimiter-quoted = "fg=${c.purple}";
         command-substitution-delimiter-unquoted = "fg=${c.cyan}";
-        single-hyphen-option = "fg=${c.blue}";
-        double-hyphen-option = "fg=${c.blue},bold";
+        single-hyphen-option = "fg=${c.green_}";
+        double-hyphen-option = "fg=${c.green},bold";
         single-quoted-argument = "fg=${c.yellow},bold";
         boudle-quoted-argument = "fg=${c.yellow}";
         dollar-double-quoted-argument = "fg=${c.purple}";

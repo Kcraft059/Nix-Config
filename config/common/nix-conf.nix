@@ -26,7 +26,7 @@
     extra-platforms = x86_64-darwin aarch64-darwin
   '';
 
-  nix.gc.options = "-d --delete-older-than 15d";
+  nix.gc.options = "--delete-older-than 15d";
 
   # Set Git commit hash for darwin-version.
   system.configurationRevision = self.rev or self.dirtyRev or null;
