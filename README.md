@@ -21,9 +21,10 @@ nix-shell -p ssh-to-age --run "ssh-to-age -private-key -i <path to ssh id> > <pa
 
 # Rebuild config without darwin-rebuild cmd
 export SOPS_KEY_FILE=<path to sops key> # Needed for secrets decrypt
-sudo --preserve-env=SOPS_KEY_FILE nix run nix-darwin/master#darwin-rebuild -- switch \ 
-    --flake <path>#<configName> \
-    --impure
+sudo --preserve-env=SOPS_KEY_FILE nix run nix-darwin/master#darwin-rebuild \
+  --extra-experimental-features nix-command --extra-experimental-features flakes -- switch \ 
+  --flake <path>#<configName> \
+  --impure
 
 # Recommended
 sudo reboot

@@ -52,7 +52,7 @@
           "suspicious-package"
           "protonvpn"
           #"binary-ninja-free"
-          "picoscope"
+          #"picoscope"
 
           # Media
           "vlc"
@@ -74,17 +74,17 @@
           # Games
           "steamcmd"
           "prismlauncher"
-          "gog-galaxy"
+          #"gog-galaxy"
           "steam"
         ];
       brews =
         lib.optionals config.HMB.coreUtils [
-          "tccutil"
+          #"tccutil"
         ]
         ++ lib.optionals config.HMB.brews.enable [
           "betterdisplaycli"
 
-          "dyld-shared-cache-extractor"
+          #"dyld-shared-cache-extractor"
 
           "ext4fuse-mac" # sudo ext4fuse <diskXsX> <mountPoint> -o allow_other -o umask=000
           "sshfs-mac" # sshfs <user>@<host>:<dir> <mountPoint> -o identityFile=<pathToSSH-Key>
