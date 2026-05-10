@@ -40,9 +40,9 @@ in
       ++ lib.optionals config.NIXPKG.additionnals.enable [
         pkgs.bindfs
         pkgs.ffmpeg
-        pkgs.openjdk8
-        pkgs.openjdk21
-        effectivePkgsX86.openjdk17
+        #pkgs.openjdk8
+        #pkgs.openjdk21
+        #effectivePkgsX86.openjdk17
       ]
       ++ lib.optionals config.NIXPKG.GUIapps.enable [
         pkgs.vscode

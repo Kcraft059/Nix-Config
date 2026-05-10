@@ -46,11 +46,12 @@
           "deskflow"
           "appcleaner"
           "whisky"
-          #"sirakugir"
           "the-unarchiver"
           "balenaetcher"
           "suspicious-package"
           "protonvpn"
+          "sf-symbols"
+          #"sirakugir"
           #"binary-ninja-free"
           #"picoscope"
 
@@ -58,43 +59,34 @@
           "vlc"
           "iina"
           "kid3"
-          #"audacity" # Provided by nix
-          #"makemkv"
           "gimp"
+          #"makemkv"
 
           # Other
-          # "libreoffice"
-          "sf-symbols"
           "claude"
           "discord"
-          #"firefox"
           "google-chrome"
-          #"Alcove"
+          #"dockdoor"
+          #"alcove"
 
           # Games
           "steamcmd"
           "prismlauncher"
-          #"gog-galaxy"
           "steam"
+          #"gog-galaxy"
         ];
-      brews =
+      brews = # See https://nix-darwin.github.io/nix-darwin/manual/#opt-homebrew.brews
         lib.optionals config.HMB.coreUtils [
           #"tccutil"
         ]
         ++ lib.optionals config.HMB.brews.enable [
+          #"batt"
           "betterdisplaycli"
 
           #"dyld-shared-cache-extractor"
-
           "ext4fuse-mac" # sudo ext4fuse <diskXsX> <mountPoint> -o allow_other -o umask=000
           "sshfs-mac" # sshfs <user>@<host>:<dir> <mountPoint> -o identityFile=<pathToSSH-Key>
           "ntfs-3g-mac"
-          /*
-            { # https://nix-darwin.github.io/nix-darwin/manual/#opt-homebrew.brews._.restart_service
-              name = "batt";
-              restart_service = "changed"; # maybe see environment.launchDaemons.<name>.enable instead
-            }
-          */
 
           # dependencies -> declare to prevent uninstall
           "ca-certificates"
@@ -110,10 +102,16 @@
           "python@3.13"
           "glib"
         ]
-        ++ lib.optionals config.HMB.masApps.enable [ "mas" ]
-        ++ lib.optionals config.home-manager.users.camille.programs.sketchybar.enable [ "media-control" ];
+        ++ lib.optionals config.HMB.masApps.enable [
+          "mas"
+        ]
+        ++ lib.optionals config.home-manager.users.camille.programs.sketchybar.enable [
+          "media-control"
+        ];
 
       masApps = lib.mkIf config.HMB.masApps.enable {
+        # See https://nix-darwin.github.io/nix-darwin/manual/#opt-homebrew.masApps
+        # "unfortunately apps removed from this option will not be uninstalled automatically even if homebrew.onActivation.cleanup is set to "uninstall" or "zap""
         actions = 1586435171;
         Ferromagnetic = 1546537151;
         Pdf-Gear = 6469021132;

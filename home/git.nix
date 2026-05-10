@@ -19,7 +19,10 @@
       gpg.ssh.allowedSignersFile = "${pkgs.writeText "allowed-signers" ''
         kcraft059.msg@gmail.com ${builtins.readFile ../resources/ssh-id-ed25519.pub}
       ''}";
-      url."git@github.com:".insteadOf = "https://github.com/";
+      url = {
+        "git@github.com:".insteadOf = "https://github.com/";
+        "git@codeberg.org:".insteadOf = "https://codeberg.org/";
+      };
     };
     ignores = [
       "*~"
@@ -27,7 +30,8 @@
     ];
   };
 
-  programs.ssh.matchBlocks."github.com" = {
-    identityFile = "${global-config.sops.secrets.ssh-id-ed25519.path}";
+  programs.ssh.matchBlocks = {
+    "github.com".identityFile = "${global-config.sops.secrets.ssh-id-ed25519.path}";
+    "codeberg.org".identityFile = "${global-config.sops.secrets.ssh-id-ed25519.path}";
   };
 }
