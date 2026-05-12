@@ -1,9 +1,4 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}:
+{ lib, config, ... }:
 {
   programs.atuin = {
     enable = true;

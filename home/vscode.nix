@@ -102,6 +102,7 @@ rec {
 
   home.packages = with pkgs; [
     nixfmt # Nix formating
+    nixd
   ];
 
   # Only build file if clangd extension

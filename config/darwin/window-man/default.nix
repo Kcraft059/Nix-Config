@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{  lib, ... }:
 let
   inherit (lib)
     mkDefault
@@ -29,6 +29,6 @@ in
   };
 
   config = {
-    darwin-system.window-man.enable = lib.mkDefault false;
+    darwin-system.window-man.enable = mkDefault false;
   };
 }

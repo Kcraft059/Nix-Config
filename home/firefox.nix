@@ -1,9 +1,4 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}:
+{ config, ... }:
 {
   # Programs
   programs.firefox = {

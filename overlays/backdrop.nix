@@ -2,7 +2,7 @@
 let
   packageHelper = import ./utils/app-install.nix { inherit pkgs lib; };
 in
-packageHelper.installMacApp rec {
+packageHelper.installMacApp {
   name = "backdrop-app";
   appname = "Backdrop";
   version = "1.0";

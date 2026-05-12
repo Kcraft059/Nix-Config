@@ -1,9 +1,4 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}:
+{ lib, ... }:
 {
   imports = [
     ../common/theme/default.nix

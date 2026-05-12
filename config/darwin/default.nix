@@ -1,9 +1,4 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}:
+{ lib, ... }:
 {
   imports = [
     ./nix-conf.nix

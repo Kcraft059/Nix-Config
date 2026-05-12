@@ -32,7 +32,7 @@ let
     })
     // lib.mapAttrs' (
       name: value:
-      lib.nameValuePair (name) {
+      lib.nameValuePair name {
         source = config.lib.file.mkOutOfStoreSymlink "${external-drive.path}/${value}";
       }
     ) linkedDirs;
@@ -59,7 +59,8 @@ in
     // (lib.optionalAttrs external-drive.enable linkedHomeFiles)
     // (lib.optionalAttrs theme.enable {
       "Library/Developer/Xcode/UserData/FontAndColorThemes".source = xcode-theme-dir;
-      "Library/Application Support/PrismLauncher/themes/custom-theme/theme.json".text = prismlauncher-theme;
+      "Library/Application Support/PrismLauncher/themes/custom-theme/theme.json".text =
+        prismlauncher-theme;
     });
   };
 }

@@ -1,10 +1,5 @@
 # Rift configuration module
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}:
+{ pkgs, config, ... }:
 let
   common = import ./common-options.nix { inherit config pkgs; };
 

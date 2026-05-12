@@ -1,5 +1,5 @@
-{ pkgs, lib, ... }:
-pkgs.stdenv.mkDerivation rec {
+{ pkgs, ... }:
+pkgs.stdenv.mkDerivation {
 
   name = "ft-haptic";
   version = "1.0";

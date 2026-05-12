@@ -2,8 +2,6 @@
   pkgs,
   config,
   lib,
-  #system,
-  inputs,
   ...
 }:
 let
@@ -14,9 +12,7 @@ let
         config = pkgs.config;
       }
     else
-      null;
-
-  effectivePkgsX86 = if pkgsX86 != null then pkgsX86 else pkgs;
+      pkgs;
 in
 {
   options.NIXPKG = {

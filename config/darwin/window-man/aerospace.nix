@@ -41,7 +41,7 @@ let
       "2"
     ]));
 
-  workspaceListString = lib.concatStringsSep " " (builtins.map (name: "\"${name}\"") workspaceNames);
+  workspaceListString = lib.concatStringsSep " " (map (name: "\"${name}\"") workspaceNames);
   primaryWorkspace = builtins.head workspaceNames; # equivalent to 1
 
   # Execs

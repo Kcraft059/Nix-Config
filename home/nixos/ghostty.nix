@@ -6,7 +6,6 @@
   ...
 }:
 let
-  inherit (lib.generators) toKeyValue mkKeyValueDefault;
   theme = global-config.common.theme;
   ghostty-theme = import ../configs/ghostty-theme.nix { inherit theme; };
 in

@@ -1,5 +1,5 @@
-{ pkgs, lib, ... }:
-pkgs.stdenv.mkDerivation rec {
+{ pkgs, ... }:
+pkgs.stdenv.mkDerivation {
 
   name = "menubar-cli";
   version = "1.0";

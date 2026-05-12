@@ -1,9 +1,4 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 {
   options.HMB = {
     enable = lib.mkEnableOption "Whether to enable the whole homebrew module";

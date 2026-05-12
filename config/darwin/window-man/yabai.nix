@@ -14,7 +14,7 @@ let
 
   # Behaviour options
   non-managed-apps-config = lib.concatStringsSep "\n" (
-    builtins.map (name: "yabai -m rule --add app=\"^${name}$\" manage=off") common.non-managed-apps
+    map (name: "yabai -m rule --add app=\"^${name}$\" manage=off") common.non-managed-apps
   );
 
   # Visual options

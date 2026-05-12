@@ -1,9 +1,4 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}:
+{ lib, config, ... }:
 let
   inherit (lib) mkDefault mkOption types;
 in
@@ -228,7 +223,7 @@ in
               imap0
               foldl
               ;
-            decimals = builtins.map hexCharToDec (stringToCharacters hex);
+            decimals = map hexCharToDec (stringToCharacters hex);
             decimalsAscending = reverseList decimals;
             decimalsPowered = imap0 base16To10 decimalsAscending;
           in
@@ -247,8 +242,8 @@ in
             (hexToDec (builtins.substring 4 2 hexvalue))
           ];
 
-        RGBtoFloatRGB = rgb: builtins.map (v: v / 255.0) rgb;
-        RGBStringSep = sep: rgb: lib.concatStringsSep sep (builtins.map (v: toString v) (rgb));
+        RGBtoFloatRGB = rgb: map (v: v / 255.0) rgb;
+        RGBStringSep = sep: rgb: lib.concatStringsSep sep (map (v: toString v) rgb);
       };
     };
 

@@ -1,11 +1,4 @@
-{
-  pkgs,
-  config,
-  self,
-  lib,
-  #system,
-  ...
-}:
+{ config, lib, ... }:
 {
   options.nix-conf = {
     garbage-collect.enable = lib.mkEnableOption "Whether to enable GC & OPTIMISE periodically";

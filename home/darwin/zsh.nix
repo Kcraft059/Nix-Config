@@ -1,9 +1,4 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}:
+{ pkgs, lib, ... }:
 let
   os-switch = "${pkgs.writeShellScriptBin "os-switch" ''
     #!/bin/bash

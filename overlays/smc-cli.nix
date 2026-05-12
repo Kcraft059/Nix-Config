@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 pkgs.stdenv.mkDerivation rec {
   name = "smc-cli";
   version = "master";
