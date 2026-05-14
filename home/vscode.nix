@@ -78,6 +78,19 @@ rec {
           "luahelper.format.continuation_indent_width" = 2;
           "luahelper.format.indent_width" = 2;
 
+          "nix.enableLanguageServer" = true;
+          "nix.serverPath" = "nixd";
+          "nix.serverSettings" = {
+            nixd = {
+              formatting.command = "nixfmt";
+/*               options = {
+                nix-darwin.expr = "(builtins.getFlake \${workspaceFolder}).darwinConfigurations.default";
+                nixos.expr = "(builtins.getFlake \${workspaceFolder}).nixosConfigurations.default";
+                home-manager.expr = "(builtins.getFlake \${workspaceFolder}).options.home-manager.users.type.getSubOptions []";
+              }; */
+            };
+          };
+
           #"C_Cpp.vcFormat.newLine.beforeCatch" = false;
           #"C_Cpp.vcFormat.newLine.beforeElse" = false;
           #"C_Cpp.clang_format_style" = "{ BasedOnStyle: Google, ColumnLimit: 0}";

@@ -371,6 +371,8 @@
               darwin-system.external-drive.enable = lib.mkForce false;
             }
           );
+
+          default = mkFinalConfig nix-darwin.lib.darwinSystem full-generic { };
         };
 
       nixosConfigurations =
@@ -532,12 +534,12 @@
       ################### Pkgs set exposition ###################
       # MARK: Pkgs set exposition
       # Expose the package set, including overlays, for convenience.
-      # Eg `nix build darwinPkgs.aarch64.ft-haptics`
+      # Eg `nix build nix build .#ft-haptics`
 
-      darwinPkgs.aarch64 = self.darwinConfigurations.full.pkgs;
-      linuxPkgs = {
-        aarch64 = self.nixosConfigurations.full-rpi5.pkgs;
-        x86_64 = self.nixosConfigurations.full-regular.pkgs;
+      packages = {
+        aarch64-darwin = self.darwinConfigurations.full.pkgs;
+        aarch64-linux = self.nixosConfigurations.full-rpi5.pkgs;
+        x86_64-linux = self.nixosConfigurations.full-regular.pkgs;
       };
     };
 }

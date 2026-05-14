@@ -46,13 +46,10 @@ in
       ]
       ++ lib.optionals config.NIXPKG.darwinApps.enable [
         # Darwin Apps
-        #pkgs.smc-cli
         #pkgs.rift
         pkgs.smc-fuzzer
         pkgs.mkalias
-        #pkgs.wifi-unredactor
         pkgs.mas
-        #pkgs.battery-toolkit
         pkgs.utm
       ]
       ++ lib.optionals config.NIXPKG.linuxApps.enable [

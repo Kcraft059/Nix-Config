@@ -78,7 +78,10 @@
           #"batt"
           "betterdisplaycli"
 
-          #"dyld-shared-cache-extractor"
+          # System tooling
+          "dyld-shared-cache-extractor"
+          "ldid"
+
           "ext4fuse-mac" # sudo ext4fuse <diskXsX> <mountPoint> -o allow_other -o umask=000
           "sshfs-mac" # sshfs <user>@<host>:<dir> <mountPoint> -o identityFile=<pathToSSH-Key>
           "ntfs-3g-mac"
