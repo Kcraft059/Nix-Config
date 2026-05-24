@@ -108,7 +108,7 @@ rec {
         ])
         # [THEME DEPENDENT]
         ++ lib.optionals (theme.enable && theme.vs-theme.package != null) [
-          global-config.common.theme.vs-theme.package
+          theme.vs-theme.package
         ];
     };
   };

@@ -1,5 +1,12 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  global-config,
+  ...
+}:
 let
+  theme = global-config.common.theme;
+
   nvim-plugins = [
     {
       package = pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [
@@ -106,16 +113,9 @@ let
       name = "web-devicons";
       autoLoad = false;
     }
-    {
-      package = pkgs.vimPlugins.gruvbox-nvim;
-      name = "gruvbox";
-      options = {
-        transparent_mode = true;
-      };
-      extraLua = ''
-        vim.cmd.colorscheme("gruvbox")
-      '';
-    }
+  ]
+  ++ lib.optionals (theme.nvim-theme != null) [
+    ({ extraLua = "vim.cmd.colorscheme('${theme.nvim-theme.name}')"; } // theme.nvim-theme)
   ];
 
   nvim-lsps = [

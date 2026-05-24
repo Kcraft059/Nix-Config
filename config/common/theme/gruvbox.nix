@@ -51,4 +51,12 @@
     package = pkgs.vscode-marketplace.jdinhlife.gruvbox;
     name = "Gruvbox Dark Soft";
   };
+
+  nvim-theme = {
+    package = pkgs.vimPlugins.gruvbox-nvim;
+    name = "gruvbox";
+    options = {
+      transparent_mode = true;
+    };
+  };
 }

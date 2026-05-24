@@ -94,7 +94,7 @@ in
     };
 
     vs-theme = mkOption {
-      type = types.submodule {
+      type = types.nullOr (types.submodule {
         options = {
           package = mkOption {
             type = types.nullOr types.package;
@@ -103,11 +103,32 @@ in
           };
           name = mkOption {
             type = types.str;
-            default = "";
             description = "VSCode theme name";
           };
         };
-      };
+      });
+      default = null;
+    };
+
+    nvim-theme = mkOption {
+      type = types.nullOr (types.submodule {
+        options = {
+          package = mkOption {
+            type = types.package;
+            description = "NVIM theme package";
+          };
+          name = mkOption {
+            type = types.str;
+            description = "NVIM theme name";
+          };
+          options = mkOption {
+            type = types.nullOr types.attrs;
+            default = null;
+            description = "NVIM theme options";
+          };
+        };
+      });
+      default = null;
     };
 
     darwin = mkOption {

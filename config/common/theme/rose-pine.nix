@@ -51,4 +51,13 @@
     package = pkgs.vscode-marketplace.mvllow.rose-pine;
     name = "Rosé Pine Moon";
   };
+
+  nvim-theme = {
+    package = pkgs.vimPlugins.rose-pine;
+    name = "rose-pine";
+    options = {
+      variant = "moon";
+      styles.transparency = true;
+    };
+  };
 }
