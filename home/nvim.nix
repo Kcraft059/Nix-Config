@@ -24,7 +24,7 @@ let
     {
       package = pkgs.vimPlugins.neo-tree-nvim;
       name = "neo-tree";
-			options = {};
+      options = { };
     }
     {
       package = pkgs.vimPlugins.telescope-nvim;
@@ -99,7 +99,7 @@ let
     {
       package = pkgs.vimPlugins.which-key-nvim;
       name = "which-key";
-			options = {};
+      options = { };
     }
     {
       package = pkgs.vimPlugins.nvim-web-devicons;
@@ -142,7 +142,7 @@ let
       package = pkgs.clang;
       luaOptions = ''
         {
-        		cmd = { 'clangd' },
+        	cmd = { 'clangd' },
         	filetypes = { 'c' },
         	capabilities = vim.lsp.protocol.make_client_capabilities(),
         }
@@ -176,14 +176,12 @@ let
 
   nvim-lsp-configs = lib.concatStringsSep "\n" (
     map (lsp: ''
-      				vim.lsp.config('${lsp.name}', ${lsp.luaOptions})
-              vim.lsp.enable('${lsp.name}')
-      	'') nvim-lsps
+      vim.lsp.config('${lsp.name}', ${lsp.luaOptions})
+      vim.lsp.enable('${lsp.name}')
+    '') nvim-lsps
   );
   nvim-plugin-extrapkgs = builtins.concatLists (
-    builtins.filter (pkg: pkg != null) (
-      map (plugin: plugin.extraPackages or null) nvim-plugins
-    )
+    builtins.filter (pkg: pkg != null) (map (plugin: plugin.extraPackages or null) nvim-plugins)
   );
   nvim-lsp-pkgs = map (lsp: lsp.package) nvim-lsps;
   nvim-plugin-pkgs = builtins.filter (pkg: pkg != null) (
@@ -221,8 +219,8 @@ let
   );
   nvim-config = lib.concatStringsSep "\n" [
     nvim-options
-    nvim-keymaps 
-		nvim-lsp-configs
+    nvim-keymaps
+    nvim-lsp-configs
     nvim-plugin-configs
   ];
 in
@@ -231,12 +229,8 @@ in
 
   programs.neovim = {
     enable = true;
-
     extraPackages = nvim-lsp-pkgs ++ nvim-plugin-extrapkgs;
-
-    # https://search.nixos.org/packages?buckets={%22package_attr_set%22:[%22vimPlugins%22],%22package_license_set%22:[],%22package_maintainers_set%22:[],%22package_teams_set%22:[],%22package_platforms%22:[]}&channel=25.11&query=gruvbox
     plugins = nvim-plugin-pkgs;
-
     initLua = nvim-config;
   };
 }
