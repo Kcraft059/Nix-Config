@@ -3,16 +3,14 @@
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks = {
+    settings = {
       FTN-Server = {
         port = 22;
         hostname = "ftnetwork.duckdns.org";
         user = "server";
         identityFile = "${global-config.sops.secrets."ftn/front-ssh".path}";
         addKeysToAgent = "yes";
-        extraOptions = {
-          UseKeychain = "yes";
-        };
+        UseKeychain = "yes";
       };
       FTN-Server-Node = {
         port = 22;
@@ -21,9 +19,7 @@
         proxyJump = "FTN-Server";
         identityFile = "${global-config.sops.secrets."ftn/node-ssh".path}";
         addKeysToAgent = "yes";
-        extraOptions = {
-          UseKeychain = "yes";
-        };
+        UseKeychain = "yes";
       };
       FTN-Camille = {
         port = 22;
@@ -31,9 +27,7 @@
         user = "camille";
         identityFile = "${global-config.sops.secrets."ftn/front-ssh".path}";
         addKeysToAgent = "yes";
-        extraOptions = {
-          UseKeychain = "yes";
-        };
+        UseKeychain = "yes";
       };
       "*" = {
         forwardAgent = false;

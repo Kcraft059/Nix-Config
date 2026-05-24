@@ -52,7 +52,7 @@
 
           # Media
           "vlc"
-          "iina"
+          #"iina"
           "kid3"
           "gimp"
           #"makemkv"

@@ -15,7 +15,7 @@
     ./ssh.nix
     ./vscode.nix
     ./firefox.nix
-    ./vim.nix
+    ./nvim.nix
     ./fzf.nix
     ./zsh.nix
     ./bat.nix

@@ -20,7 +20,7 @@
   ];
 
   config = {
-    home.stateVersion = "24.11";
+    home.stateVersion = "26.05";
 
     home.packages =
       with pkgs;
@@ -48,13 +48,13 @@
         (pkgs.writeShellScriptBin "chlimit" ''
           # Usage: -[pt] <limit>
 
-          : ''${1:=-p}
+          ARG=''${1:--p}
           LIMIT="$2"
           VALID=(80 85 90 95 100)
 
-          if [ "$1" = "-p" ];then 
+          if [ "$ARG" = "-p" ];then 
             PERM=true
-          elif [ "$1" = "-t" ];then
+          elif [ "$ARG" = "-t" ];then
             PERM=false
           fi
 

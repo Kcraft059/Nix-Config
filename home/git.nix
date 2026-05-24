@@ -24,7 +24,7 @@
     ];
   };
 
-  programs.ssh.matchBlocks = {
+  programs.ssh.settings = {
     "github.com".identityFile = "${global-config.sops.secrets.ssh-id-ed25519.path}";
     "codeberg.org".identityFile = "${global-config.sops.secrets.ssh-id-ed25519.path}";
   };

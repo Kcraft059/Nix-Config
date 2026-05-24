@@ -4,16 +4,6 @@
   lib,
   ...
 }:
-let
-  pkgsX86 =
-    if pkgs.stdenv.hostPlatform.system == "aarch64-darwin" then
-      import pkgs.path {
-        system = "x86_64-darwin";
-        config = pkgs.config;
-      }
-    else
-      pkgs;
-in
 {
   options.NIXPKG = {
     coreUtils = lib.mkEnableOption "Install core utilities ?";
@@ -38,10 +28,10 @@ in
         pkgs.ffmpeg
         #pkgs.openjdk8
         #pkgs.openjdk21
-        #effectivePkgsX86.openjdk17
       ]
       ++ lib.optionals config.NIXPKG.GUIapps.enable [
         pkgs.vscode
+        pkgs.iina
         # Gui Apps
       ]
       ++ lib.optionals config.NIXPKG.darwinApps.enable [
