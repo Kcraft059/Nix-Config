@@ -42,7 +42,7 @@ in
         # Appearance
         window_opacity = "on";
         active_window_opacity = 1.0;
-        normal_window_opacity = 0.93;
+        normal_window_opacity = 0.97;
         window_opacity_duration = 0.15;
         window_animation_duration = 0.22;
 
