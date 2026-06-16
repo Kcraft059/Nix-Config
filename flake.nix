@@ -142,7 +142,7 @@
         builder: config-base: option-set:
         builder (config-base // { modules = config-base.modules ++ [ option-set ]; });
 
-      theme-file = ./config/common/theme/rose-pine-dawn.nix;
+      theme-file = ./config/common/theme/gruvbox.nix;
 
       ################### Default general purpose configs ###################
       # MARK: Default general purpose configs

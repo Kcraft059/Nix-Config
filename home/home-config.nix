@@ -27,7 +27,7 @@
     home-config.external-drive.path = lib.mkOption {
       type = lib.types.str;
       default = "/Volumes/Data";
-      example = lib.literalExpression '''';
+      example = lib.literalExpression "";
       description = ''
         Mount point for the shared disk
       '';
