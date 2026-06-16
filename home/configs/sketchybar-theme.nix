@@ -12,7 +12,7 @@ in
   ${safe_theme_name} = {
     bar = {
       background = function(tpf, tpfunc)
-        return tpfunc(0x161616, 145)
+        return tpfunc(0x${hcv clrs.backgrounds.base}, 145)
       end,
       border = function(tpf, tpfunc)
         return tpfunc(0x808080, tpf - 20)

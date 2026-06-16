@@ -192,7 +192,7 @@ in
         # [THEME DEPENDENT]
         NSGlobalDomain = lib.mkIf theme.enable (
           (
-            if (is_hardware_accent) then
+            if is_hardware_accent then
               {
                 NSColorSimulateHardwareAccent = true;
                 NSColorSimulatedHardwareEnclosureNumber = theme.darwin.accent;

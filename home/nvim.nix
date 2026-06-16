@@ -10,6 +10,7 @@ let
   nvim-plugins = [
     {
       package = pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [
+        p.asm
         p.javascript
         p.nix
         p.c
@@ -22,8 +23,22 @@ let
       ]);
       name = "nvim-treesitter";
       extraLua = ''
+        vim.treesitter.query.set('asm', 'highlights', [[
+        		((ident) @variable)
+        		((label) @comment)
+        		((meta_ident) @function.builtin)
+        		((instruction kind: (word) @keyword.function))
+        		((reg) @parameter)
+        		((int) @number)
+        		((float) @float)
+        		((string) @string)
+        		((ptr) @variable)
+        		((tc_infix op: _ @operator))
+        		((line_comment) @comment)
+        		((block_comment) @comment)
+        ]])
         vim.api.nvim_create_autocmd('FileType', {
-          pattern = { 'javascript', 'nix', 'lua', 'c', 'bash', 'json', 'html', 'css', 'markdown' },
+          pattern = { 'javascript', 'nix', 'lua', 'c', 'asm', 'bash', 'json', 'html', 'css', 'markdown' },
           callback = function() vim.treesitter.start() end,
         })
       '';
@@ -79,7 +94,7 @@ let
             };
           };
           menu = {
-            auto_show = false;
+            auto_show = true;
           };
           documentation = {
             auto_show = true;
@@ -143,8 +158,13 @@ let
       luaOptions = ''
         {
         	cmd = { 'clangd' },
-        	filetypes = { 'c' },
-        	capabilities = vim.lsp.protocol.make_client_capabilities(),
+        	filetypes = { 'c', 'cpp' },
+        	capabilities = vim.lsp.protocol.make_client_capabilities(),  
+        	root_dir = function(bufnr, on_dir)
+            local fname = vim.api.nvim_buf_get_name(bufnr)
+            on_dir(vim.fs.dirname(vim.fs.find('compile_commands.json', { path = fname, upward = true })[1])
+             or vim.fs.dirname(fname))
+           end,
         }
       '';
     }
@@ -155,6 +175,7 @@ let
     vim.o.relativenumber = true
     vim.o.cursorline = true
     vim.o.list = true
+    vim.o.wrap = false
 
     vim.o.ignorecase = true
     vim.o.smartcase = true
@@ -225,7 +246,7 @@ let
   ];
 in
 {
-  stylix.targets.neovim.enable = false;
+  stylix.targets.neovim.enable = theme.nvim-theme == null;
 
   programs.neovim = {
     enable = true;
