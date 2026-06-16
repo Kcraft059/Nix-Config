@@ -2,12 +2,12 @@
 {
   name = "rose_pine_moon";
 
-  wallpaper = ./Wallpapers/Snowy_Sunrise.png;
+  wallpaper = ./Wallpapers/Cherry_Blossom.png;
 
   theme = "light";
 
   colors = {
-    accent = "#7873F0";
+    accent = "#EB6F92";
 
     text = {
       primary = "#575279";
@@ -45,7 +45,7 @@
     };
   };
 
-  darwin.accent = 16;
+  darwin.accent = 17;
 
   vs-theme = {
     package = pkgs.vscode-marketplace.mvllow.rose-pine;

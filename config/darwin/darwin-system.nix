@@ -156,8 +156,8 @@ in
         _HIHideMenuBar = config.home-manager.users.camille.programs.sketchybar.enable;
       }
       // lib.optionalAttrs theme.enable {
-        AppleIconAppearanceTheme = if (theme.theme == "dark") then "RegularDark" else "RegularLight";
-        AppleInterfaceStyle = if (theme.theme == "dark") then "Dark" else "Light";
+        AppleIconAppearanceTheme = if (theme.theme == "dark") then "RegularDark" else null;
+        AppleInterfaceStyle = if (theme.theme == "dark") then "Dark" else null;
       };
 
       # Behaviour
