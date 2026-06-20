@@ -5,4 +5,5 @@ self: super: {
   ft-haptic = super.callPackage ./ft-haptic.nix { };
   raycast = super.callPackage ./raycast.nix { };
   rift = super.callPackage ./rift.nix { inherit inputs; };
+  libresprite-app = super.callPackage ./libresprite-app.nix { };
 }

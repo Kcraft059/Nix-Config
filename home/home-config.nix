@@ -43,13 +43,11 @@
         speedtest-go # Speedtest
         mtr # My traceroute
         eza # ls replacement
-        # mailsy # Temp email
-        # posting # Tui http request sender
         viu # image viewer
         sops # Secret management
-
         bear # generate compile_comand
-
+        # mailsy # Temp email
+        # posting # Tui http request sender
         # gum for clis
         # mcrcon
         # devenv maybe later see https://devenv.sh - alternative to nix-shells
@@ -58,6 +56,7 @@
         with pkgs;
         [
           audacity
+          libresprite-app
         ]
       );
   };
