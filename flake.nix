@@ -359,7 +359,7 @@
           };
 
           "MacBookAirCam-M3-minimal" = mkFinalConfig nix-darwin.lib.darwinSystem minimal-generic {
-            networking.hostName = "MacBookAirCam-M3-minimal";
+            networking.hostName = "MacBookAirCam-M3";
             darwin-system.external-drive.enable = true;
             darwin-system.external-drive.path = "/Volumes/Data";
           };

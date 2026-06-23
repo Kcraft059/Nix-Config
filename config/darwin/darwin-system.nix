@@ -250,7 +250,7 @@ in
           "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app"
           (pathExist "/Users/camille/Applications/YouTube.app")
           (pathExist "/Applications/Prism Launcher.app/")
-          (pathExist "/Applications/Whisky.app/")
+          # (pathExist "/Applications/Whisky.app/")
           "/System/Applications/Messages.app"
           "/System/Applications/Mail.app"
           "/System/Applications/Calendar.app"
@@ -262,7 +262,7 @@ in
           }
           "/System/Applications/Photos.app"
           "/System/Applications/Music.app"
-          (lib.mkIf (builtins.elem pkgs.audacity config.home-manager.users.camille.home.packages) "${pkgs.audacity}/Applications/Audacity.app")
+          # (lib.mkIf (builtins.elem pkgs.audacity config.home-manager.users.camille.home.packages) "${pkgs.audacity}/Applications/Audacity.app")
           (pathExist "/Applications/VLC.app")
           (lib.mkIf external-drive.enable "${external-drive.path}/Applications/Microsoft Word.app")
           (lib.mkIf external-drive.enable "${external-drive.path}/Applications/Microsoft PowerPoint.app")
