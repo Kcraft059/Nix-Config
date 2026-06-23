@@ -31,7 +31,6 @@
       ]
       ++ lib.optionals config.NIXPKG.GUIapps.enable [
         pkgs.vscode
-        pkgs.iina
         # Gui Apps
       ]
       ++ lib.optionals config.NIXPKG.darwinApps.enable [
@@ -41,6 +40,7 @@
         pkgs.mkalias
         pkgs.mas
         pkgs.utm
+        pkgs.iina
       ]
       ++ lib.optionals config.NIXPKG.linuxApps.enable [
         pkgs.sshfs

@@ -28,7 +28,7 @@
     };
 
     nixos-raspberrypi = {
-      url = "github:nvmd/nixos-raspberrypi/main";
+      url = "github:nvmd/nixos-raspberrypi/nixos-unstable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -474,7 +474,7 @@
           # MARK: NixOS full-generic-rpi5
 
           full-generic-rpi5 =
-            let
+            /*let
               patchedLib = nixpkgs.lib.extend (
                 final: prev: {
                   mkRemovedOptionModule =
@@ -486,12 +486,12 @@
                     };
                 }
               );
-            in
+            in*/
             full-generic
             // {
               ### Module config
               system = "aarch64-linux";
-              lib = patchedLib;
+              #lib = patchedLib;
 
               # Append required special-args
               specialArgs = full-generic.specialArgs // {

@@ -11,9 +11,9 @@
     /etc/nixos/hardware-configuration.nix
   ];
 
-  disabledModules = [
+  /*disabledModules = [
     "nixos/modules/rename.nix"
-  ];
+  ];*/
 
   config = {
     environment.systemPackages =

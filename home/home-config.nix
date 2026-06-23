@@ -56,7 +56,6 @@
         with pkgs;
         [
           audacity
-          libresprite-app
         ]
       );
   };

@@ -81,6 +81,7 @@
       ]
       ++ lib.optionals (config.home-config.darwinApps.enable && config.home-config.GUIapps.enable) [
         raycast
+	libresprite-app
       ];
   };
 }
