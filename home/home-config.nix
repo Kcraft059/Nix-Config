@@ -56,6 +56,7 @@
         with pkgs;
         [
           audacity
+          prismlauncher
         ]
       );
   };

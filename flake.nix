@@ -292,6 +292,7 @@
 
                 ## Packages config
                 NIXPKG.darwinApps.enable = true;
+								nix.linux-builder.enable = true;
 
                 ## Homebrew packages config
                 HMB.masApps.enable = true; # mdutil #check for spotlight indexing

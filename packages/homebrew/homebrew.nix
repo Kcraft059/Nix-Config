@@ -71,7 +71,6 @@
 
           # Games
           "steamcmd"
-          "prismlauncher"
           "steam"
           #"gog-galaxy"
         ];

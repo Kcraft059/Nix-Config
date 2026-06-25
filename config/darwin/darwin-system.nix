@@ -246,10 +246,10 @@ in
             };
           }
           "/System/Applications/Passwords.app"
-          (lib.mkIf (builtins.elem pkgs.firefox config.home-manager.users.camille.home.packages) "${pkgs.firefox}/Applications/Firefox.app")
+          (lib.mkIf (builtins.elem pkgs.firefox homepkgs) "${pkgs.firefox}/Applications/Firefox.app")
           "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app"
           (pathExist "/Users/camille/Applications/YouTube.app")
-          (pathExist "/Applications/Prism Launcher.app/")
+          (lib.mkIf (builtins.elem pkgs.prismlauncher homepkgs) "${pkgs.prismlauncher}/Applications/PrismLauncher.app")
           # (pathExist "/Applications/Whisky.app/")
           "/System/Applications/Messages.app"
           "/System/Applications/Mail.app"
