@@ -280,7 +280,7 @@
 
             modules = default-modules ++ [
               ### Modules config
-              {
+              ({ pkgs, lib, ... }: {
                 ## Main system config
                 darwin-system.window-man = {
                   enable = true; # Might need to manually remove launchd services
@@ -292,7 +292,25 @@
 
                 ## Packages config
                 NIXPKG.darwinApps.enable = true;
-								nix.linux-builder.enable = true;
+                nix.linux-builder = {
+                  enable = true;
+                  package =
+                    let
+                      fixedPkgs = pkgs.extend (
+                        final: prev: {
+                          qemu = prev.qemu.overrideAttrs (old: {
+                            buildInputs = (old.buildInputs or [ ]) ++ [ prev.apple-sdk_15 ];
+                          });
+                        }
+                      );
+                    in
+                    fixedPkgs.darwin.linux-builder;
+                  config = {
+                    virtualisation.cores = lib.mkForce 8;
+                    virtualisation.memorySize = lib.mkForce 8192; # 8GB RAM while you're at it
+                  };
+                  maxJobs = 6;
+                };
 
                 ## Homebrew packages config
                 HMB.masApps.enable = true; # mdutil #check for spotlight indexing
@@ -303,7 +321,7 @@
                   home-config.GUIapps.enable = true;
                   home-config.darwinApps.enable = true;
                 };
-              }
+              })
             ];
           };
 
@@ -475,21 +493,22 @@
           # MARK: NixOS full-generic-rpi5
 
           full-generic-rpi5 =
-            /*let
-              patchedLib = nixpkgs.lib.extend (
-                final: prev: {
-                  mkRemovedOptionModule =
-                    optionName: replacementInstructions:
-                    { options, ... }:
-                    (prev.mkRemovedOptionModule optionName replacementInstructions { inherit options; })
-                    // {
-                      key = "removedOptionModule#" + final.concatStringsSep "_" optionName;
-                    };
-                }
-              );
-            in*/
-            full-generic
-            // {
+            /*
+              let
+                patchedLib = nixpkgs.lib.extend (
+                  final: prev: {
+                    mkRemovedOptionModule =
+                      optionName: replacementInstructions:
+                      { options, ... }:
+                      (prev.mkRemovedOptionModule optionName replacementInstructions { inherit options; })
+                      // {
+                        key = "removedOptionModule#" + final.concatStringsSep "_" optionName;
+                      };
+                  }
+                );
+              in
+            */
+            full-generic // {
               ### Module config
               system = "aarch64-linux";
               #lib = patchedLib;
