@@ -1,4 +1,17 @@
-{ global-config, ... }:
+{
+  pkgs,
+  lib,
+  global-config,
+  ...
+}:
+let
+  isDarwin =
+    (pkgs.stdenv.hostPlatform.system == "aarch64-darwin")
+    || (pkgs.stdenv.hostPlatform.system == "x86_64-darwin");
+  darwinKeychainOption = {
+    UseKeychain = "yes";
+  };
+in
 {
   programs.ssh = {
     enable = true;
@@ -10,8 +23,8 @@
         user = "server";
         identityFile = "${global-config.sops.secrets."ftn/front-ssh".path}";
         addKeysToAgent = "yes";
-        UseKeychain = "yes";
-      };
+      }
+      // lib.optionalAttrs isDarwin darwinKeychainOption;
       FTN-Server-Node = {
         port = 22;
         hostname = "10.0.0.2";
@@ -19,16 +32,16 @@
         proxyJump = "FTN-Server";
         identityFile = "${global-config.sops.secrets."ftn/node-ssh".path}";
         addKeysToAgent = "yes";
-        UseKeychain = "yes";
-      };
+      }
+      // lib.optionalAttrs isDarwin darwinKeychainOption;
       FTN-Camille = {
         port = 22;
         hostname = "ftnetwork.duckdns.org";
         user = "camille";
         identityFile = "${global-config.sops.secrets."ftn/front-ssh".path}";
         addKeysToAgent = "yes";
-        UseKeychain = "yes";
-      };
+      }
+      // lib.optionalAttrs isDarwin darwinKeychainOption;
       "*" = {
         forwardAgent = false;
         serverAliveInterval = 0;
@@ -42,6 +55,6 @@
         controlPersist = "no";
       };
     };
-    extraConfig = "IgnoreUnknown UseKeychain";
+    #extraConfig = "IgnoreUnknown UseKeychain";
   };
 }

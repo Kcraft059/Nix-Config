@@ -115,8 +115,12 @@
 
   ################### Additionnal binary caches ###################
   nixConfig = {
-    extra-substituters = [ "https://nixos-raspberrypi.cachix.org" ];
+    extra-substituters = [
+      "https://nix-community.cachix.org"
+      "https://nixos-raspberrypi.cachix.org"
+    ];
     extra-trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
     ];
   };
@@ -292,7 +296,7 @@
 
                 ## Packages config
                 NIXPKG.darwinApps.enable = true;
-								nix.linux-builder.enable = true;
+                nix.linux-builder.enable = true;
 
                 ## Homebrew packages config
                 HMB.masApps.enable = true; # mdutil #check for spotlight indexing
@@ -474,47 +478,81 @@
           ################### NixOS full-generic-regular ###################
           # MARK: NixOS full-generic-rpi5
 
-          full-generic-rpi5 =
-            /*let
-              patchedLib = nixpkgs.lib.extend (
-                final: prev: {
-                  mkRemovedOptionModule =
-                    optionName: replacementInstructions:
-                    { options, ... }:
-                    (prev.mkRemovedOptionModule optionName replacementInstructions { inherit options; })
-                    // {
-                      key = "removedOptionModule#" + final.concatStringsSep "_" optionName;
-                    };
-                }
-              );
-            in*/
-            full-generic
-            // {
-              ### Module config
-              system = "aarch64-linux";
-              #lib = patchedLib;
+          full-generic-rpi5 = full-generic // {
+            ### Module config
+            system = "aarch64-linux";
 
-              # Append required special-args
-              specialArgs = full-generic.specialArgs // {
-                inherit nixos-raspberrypi;
-              };
+            #lib = patchedLib;
 
-              modules = full-generic.modules ++ [
-                ## Main system config
-                ./config/nixos/rpi5/default.nix
-                {
-                  imports = with nixos-raspberrypi.nixosModules; [
-                    raspberry-pi-5.base
-                    raspberry-pi-5.page-size-16k
-                    raspberry-pi-5.display-vc4
-                    raspberry-pi-5.bluetooth
-                  ];
-
-                  ## Home manager config
-                  home-manager.users.camille.imports = [ ./home/nixos/rpi5/default.nix ];
-                }
-              ];
+            # Append required special-args
+            specialArgs = full-generic.specialArgs // {
+              inherit nixos-raspberrypi;
             };
+
+            modules = full-generic.modules ++ [
+              ## Main system config
+              ./config/nixos/rpi5/default.nix
+              {
+                imports = with nixos-raspberrypi.nixosModules; [
+                  raspberry-pi-5.base
+                  raspberry-pi-5.page-size-16k
+                  raspberry-pi-5.display-vc4
+                  raspberry-pi-5.bluetooth
+                ];
+
+                ## Home manager config
+                home-manager.users.camille.imports = [ ./home/nixos/rpi5/default.nix ];
+
+                ## Patches
+                nixpkgs.overlays = [
+                  (
+                    final: prev:
+                    let
+                      patchedQtbase = prev.qt6.qtbase.overrideAttrs (
+                        oldAttrs:
+                        if oldAttrs.version == "6.11.0" then
+                          {
+                            patches = (oldAttrs.patches or [ ]) ++ [
+                              # https://codereview.qt-project.org/c/qt/qtbase/+/726211/1
+                              (prev.fetchpatch {
+                                name = "qtbase-gerrit-726211.patch";
+                                url = "https://codereview.qt-project.org/changes/qt%2Fqtbase~726211/revisions/1/patch?download&raw";
+                                hash = "sha256-xRYPWuFZGf7JZmYBiGoSaN/3v3c7+GxtHIYFtaekP70=";
+                              })
+                            ];
+                          }
+                        else
+                          oldAttrs
+                      );
+
+                      overrideQtScope =
+                        scope:
+                        let
+                          patchedScope = scope.overrideScope (
+                            qfinal: qprev: {
+                              qtbase = patchedQtbase;
+                            }
+                          );
+                        in
+                        # preserve original .override functions
+                        # required by python-packages.nix and other deep framework evaluators
+                        patchedScope // (if scope ? override then { inherit (scope) override; } else { });
+                    in
+                    {
+                      jdk17 = prev.jdk17.overrideAttrs (_: {
+                        enableParallelBuilding = false;
+                      });
+                      sdl3 = prev.sdl3.overrideAttrs (old: {
+                        doCheck = false;
+                      });
+                      qt6 = overrideQtScope prev.qt6;
+                      qt6Packages = overrideQtScope prev.qt6Packages;
+                    }
+                  )
+                ];
+              }
+            ];
+          };
         in
         {
           ################### Config assignation ###################
