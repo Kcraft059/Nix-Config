@@ -7,12 +7,12 @@ case $system in
 Darwin)
 	sudo --preserve-env=SOPS_KEY_FILE \
 		darwin-rebuild switch --flake .\#$2 \
-		--impure
+		--impure --accept-flake-config
 	;;
 *NixOS)
 	sudo --preserve-env=SOPS_KEY_FILE \
 		nixos-rebuild switch --flake .\#$2 \
-		--impure
+		--impure --accept-flake-config
 	;;
 *)
 	echo "OS not supported."
