@@ -7,7 +7,7 @@ case $system in
 Darwin)
 	sudo --preserve-env=SOPS_KEY_FILE \
 		darwin-rebuild switch --flake .\#$2 \
-		--impure --accept-flake-config
+		--impure
 	;;
 *NixOS)
 	sudo --preserve-env=SOPS_KEY_FILE \
