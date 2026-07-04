@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 pkgs.stdenv.mkDerivation {
 
   name = "ft-haptic";
@@ -16,4 +16,6 @@ pkgs.stdenv.mkDerivation {
     mkdir -p $out/bin
     cp bin/ft-haptic $out/bin/
   '';
+
+  meta.platforms = lib.platforms.darwin;
 }

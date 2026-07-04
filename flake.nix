@@ -146,7 +146,7 @@
         builder: config-base: option-set:
         builder (config-base // { modules = config-base.modules ++ [ option-set ]; });
 
-      theme-file = ./config/common/theme/gruvbox.nix;
+      theme-file = ./system/common/theme/gruvbox.nix;
 
       ################### Default general purpose configs ###################
       # MARK: Default general purpose configs
@@ -214,7 +214,7 @@
             stylix.darwinModules.stylix
 
             # Personnal
-            ./config/darwin/default.nix
+            ./system/darwin/default.nix
             ./packages/nix/default.nix
             ./packages/homebrew/default.nix
 
@@ -486,7 +486,7 @@
 
             modules = full-generic.modules ++ [
               ## Main system config
-              ./config/nixos/regular/default.nix
+              ./system/nixos/regular/default.nix
 
               {
                 ## Home manager config
@@ -509,7 +509,7 @@
 
             modules = full-generic.modules ++ [
               ## Main system config
-              ./config/nixos/rpi5/default.nix
+              ./system/nixos/rpi5/default.nix
               {
                 imports = with nixos-raspberrypi.nixosModules; [
                   raspberry-pi-5.base

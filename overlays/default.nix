@@ -6,4 +6,5 @@ self: super: {
   raycast = super.callPackage ./raycast.nix { };
   rift = super.callPackage ./rift.nix { inherit inputs; };
   libresprite-app = super.callPackage ./libresprite-app.nix { };
+  wacom-tablet-driver = super.callPackage ./wacom-tablet-driver.nix { };
 }

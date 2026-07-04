@@ -8,7 +8,7 @@
 let
   theme = global-config.common.theme;
 
-  alacritty-theme = import ./configs/alacritty-theme.nix { inherit theme;  };
+  alacritty-theme = import ../configs/alacritty-theme.nix { inherit theme;  };
 in
 {
   config = {

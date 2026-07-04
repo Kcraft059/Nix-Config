@@ -1,10 +1,10 @@
 { lib, ... }:
 {
   imports = [
-    ../common/theme/default.nix
     ./nixos-system.nix
     ./nix-conf.nix
     ./plasma.nix
+    ../common/default.nix
   ];
 
   nixos-system.plasma6.enable = lib.mkDefault false;

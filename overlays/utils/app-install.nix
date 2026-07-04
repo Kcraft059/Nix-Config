@@ -20,11 +20,13 @@
       buildInputs = [
         unzip
       ];
+
       sourceRoot = sourceRoot;
       phases = [
         "unpackPhase"
         "installPhase"
       ];
+
       unpackCmd = ''
         echo "File to unpack: $curSrc"
         if ! [[ "$curSrc" =~ \.dmg$ ]]; then return 1; fi
@@ -48,11 +50,13 @@
         DEST="$PWD"
         (cd "$mnt"; cp -a !(Applications) "$DEST/")
       '';
+
       installPhase = ''
         mkdir -p "$out/Applications/${appname}.app"
         cp -pR * "$out/Applications/${appname}.app"
       ''
       + postInstall;
+
       meta = with lib; {
         description = description;
         homepage = homepage;

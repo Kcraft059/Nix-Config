@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 pkgs.stdenv.mkDerivation {
 
   name = "libresprite-app";
@@ -40,4 +40,6 @@ pkgs.stdenv.mkDerivation {
     mkdir -p $out/Applications
     cp -r Applications/ $out/
   '';
+
+  meta.platforms = lib.platforms.darwin;
 }

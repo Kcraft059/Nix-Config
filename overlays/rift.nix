@@ -25,13 +25,17 @@ let
   commonArgs = {
     pname = "rift";
     version = src.rev or "unstable";
+
     src = lib.cleanSourceWith {
       src = inputs.rift;
       filter =
         path: type: (craneLib.filterCargoSources path type) || (lib.hasSuffix "assets/Info.plist" path);
     };
+
     buildInputs = [ ];
     doCheck = false; # disable tests for now
+
+    meta.platforms = lib.platforms.darwin;
   };
 
   cargoArtifacts = craneLib.buildDepsOnly commonArgs;

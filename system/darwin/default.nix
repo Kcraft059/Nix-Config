@@ -5,7 +5,7 @@
     ./darwin-system.nix
     #./window-man.nix
     ./window-man/default.nix
-    ../common/theme/default.nix
+    ../common/default.nix
   ];
   darwin-system.enable = lib.mkDefault true;
   darwin-system.defaults.enable = lib.mkDefault true;

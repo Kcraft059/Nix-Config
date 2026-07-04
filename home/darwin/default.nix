@@ -1,7 +1,7 @@
 { lib, global-config, ... }:
 {
   imports = [
-    ../default.nix
+    ../common/default.nix
     ./home-config.nix
   ];
   home-config.GUIapps.enable = lib.mkDefault false;

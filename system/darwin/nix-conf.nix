@@ -4,10 +4,6 @@
     garbage-collect.enable = lib.mkEnableOption "Whether to enable GC & OPTIMISE periodically";
   };
 
-  imports = [
-    ./../common/nix-conf.nix
-  ];
-
   config = {
     # Auto upgrade nix package and the daemon service.
     # services.nix-daemon.enable = true;

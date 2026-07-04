@@ -1,7 +1,7 @@
 { lib, global-config, ... }:
 {
   imports = [
-    ../default.nix
+    ../common/default.nix
     ./home-config.nix
   ];
 

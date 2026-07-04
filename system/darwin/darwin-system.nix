@@ -31,18 +31,6 @@ let
     # ${lib.optionalString (builtins.elem pkgs.openjdk8 syspkgs) "ln -sf ${pkgs.openjdk8}/Library/Java/JavaVirtualMachines/zulu-8.jdk /Library/Java/JavaVirtualMachines "}
     # ${lib.optionalString (builtins.elem pkgs.ffmpeg syspkgs) "ln -sf ${pkgs.ffmpeg.lib}/lib/* /usr/local/lib/ "} 
   '';
-  
-  /*
-    if [ -f /opt/homebrew/bin/tccutil ];then
-      echo -e "Setting up tcc permissions..." >&2
-      /opt/homebrew/bin/tccutil -i ${pkgs.bashNonInteractive}/bin/bash
-      ${lib.optionalString config.home-manager.users.camille.programs.sketchybar.enable "/opt/homebrew/bin/tccutil  -i ${pkgs.sketchybar}/bin/sketchybar"}
-      ${lib.optionalString (builtins.elem pkgs.yabai syspkgs) "/opt/homebrew/bin/tccutil  -i ${pkgs.yabai}/bin/yabai"}
-      ${lib.optionalString (builtins.elem pkgs.skhd syspkgs) "/opt/homebrew/bin/tccutil  -i ${pkgs.skhd}/bin/skhd"}
-      ${lib.optionalString (builtins.elem pkgs.rift syspkgs) "/opt/homebrew/bin/tccutil  -i ${pkgs.rift}/bin/rift"}
-      ${lib.optionalString (builtins.elem pkgs.aerospace syspkgs) "/opt/homebrew/bin/tccutil  -i ${pkgs.aerospace}/bin/aerospace"}
-    fi
-  */
 
   application-script =
     let

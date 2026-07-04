@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 pkgs.stdenv.mkDerivation {
 
   name = "menubar-cli";
@@ -16,4 +16,6 @@ pkgs.stdenv.mkDerivation {
     mkdir -p $out/bin
     cp bin/menubar $out/bin/
   '';
+
+  meta.platforms = lib.platforms.darwin;
 }
