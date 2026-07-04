@@ -13,21 +13,22 @@
 
   config =
     let
-      link-script = target: destination: ''
-        if ${if config.darwin-system.wacom-driver.enable then "true" else "false"}; then 
-          ln -sf "${target}" "${destination}"
+      link-script =
+        abs_path:
+        if config.darwin-system.wacom-driver.enable then
+          ''[ -e "${abs_path}" ] || ln -s "${pkgs.wacom-tablet-driver}/${abs_path}" "${abs_path}"''
         else
-          [ -e "${destination}" ] && rm -rf "${destination}"
-        fi
-      '';
+          ''
+            [ -e "${abs_path}" ] && rm -rf "${abs_path}"
+          '';
     in
     {
       system.activationScripts.postActivation.text = lib.mkAfter (
         lib.concatStringsSep "\n" [
-          (link-script "${pkgs.wacom-tablet-driver}/Library/Frameworks/WacomMultiTouch.framework" "/Library/Frameworks/WacomMultiTouch.framework")
-          (link-script "${pkgs.wacom-tablet-driver}/Library/Internet Plug-Ins/WacomTabletPlugin.plugin" "/Library/Internet Plug-Ins/WacomTabletPlugin.plugin")
-          (link-script "${pkgs.wacom-tablet-driver}/Library/PreferencePanes/PenTablet.prefpane" "/Library/PreferencePanes/PenTablet.prefpane")
-          (link-script "${pkgs.wacom-tablet-driver}/Library/PrivilegedHelperTools/com.wacom.TabletHelper.app" "/Library/PrivilegedHelperTools/com.wacom.TabletHelper.app")
+          (link-script "/Library/Frameworks/WacomMultiTouch.framework")
+          (link-script "/Library/Internet Plug-Ins/WacomTabletPlugin.plugin")
+          (link-script "/Library/PreferencePanes/PenTablet.prefpane")
+          (link-script "/Library/PrivilegedHelperTools/com.wacom.TabletHelper.app")
         ]
       );
 
