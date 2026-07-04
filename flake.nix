@@ -294,6 +294,8 @@
                 darwin-system.external-drive.enable = true;
                 darwin-system.external-drive.path = "/Volumes/Data";
 
+                darwin-system.wacom-driver.enable = true;
+
                 ## Packages config
                 NIXPKG.darwinApps.enable = true;
                 nix.linux-builder = {
