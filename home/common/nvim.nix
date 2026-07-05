@@ -60,6 +60,12 @@ let
       extraPackages = [ pkgs.ripgrep ];
     }
     {
+      package = pkgs.vimPlugins.image-nvim;
+      name = "image";
+      extraLuaPkgs = [ "magick" ];
+      extraPkgs = [ pkgs.magick ];
+    }
+    {
       package = pkgs.vimPlugins.blink-cmp;
       name = "blink.cmp";
       options = {
@@ -201,13 +207,27 @@ let
       vim.lsp.enable('${lsp.name}')
     '') nvim-lsps
   );
+
+  nvim-lsp-pkgs = map (lsp: lsp.package) nvim-lsps;
+
+  nvim-lua-pkgs =
+    ps:
+    builtins.concatLists (
+      builtins.filter (pkg: pkg != null) (
+        map (
+          plugin: if plugin.extraLuaPackages or false then ps."${plugin.extraLuaPackages}" else null
+        ) nvim-plugins
+      )
+    );
+
   nvim-plugin-extrapkgs = builtins.concatLists (
     builtins.filter (pkg: pkg != null) (map (plugin: plugin.extraPackages or null) nvim-plugins)
   );
-  nvim-lsp-pkgs = map (lsp: lsp.package) nvim-lsps;
+
   nvim-plugin-pkgs = builtins.filter (pkg: pkg != null) (
     map (plugin: plugin.package or null) nvim-plugins
   );
+
   nvim-plugin-configs = lib.concatStringsSep "\n" (
     map (
       plugin:
@@ -251,6 +271,7 @@ in
   programs.neovim = {
     enable = true;
     extraPackages = nvim-lsp-pkgs ++ nvim-plugin-extrapkgs;
+    extraLuaPackages = nvim-lua-pkgs;
     plugins = nvim-plugin-pkgs;
     initLua = nvim-config;
   };
