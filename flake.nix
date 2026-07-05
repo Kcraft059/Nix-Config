@@ -295,33 +295,33 @@
                 darwin-system.external-drive.path = "/Volumes/Data";
 
                 darwin-system.wacom-driver.enable = true;
+                system-pkgs.darwinApps.enable = true;
 
                 ## Packages config
-                NIXPKG.darwinApps.enable = true;
-                nix.linux-builder = {
-                  enable = true;
-                  package =
-                    let
-                      fixedPkgs = pkgs.extend (
-                        final: prev: {
-                          qemu = prev.qemu.overrideAttrs (old: {
-                            buildInputs = (old.buildInputs or [ ]) ++ [ prev.apple-sdk_15 ];
-                          });
-                        }
-                      );
-                    in
-                    fixedPkgs.darwin.linux-builder;
-                  config = {
-                    virtualisation.cores = lib.mkForce 8;
-                    virtualisation.memorySize = lib.mkForce 8192; # 8GB RAM while you're at it
-                  };
-                  maxJobs = 6;
-                };
-                launchd.daemons.linux-builder.serviceConfig.RunAtLoad = lib.mkForce false;
-                launchd.daemons.linux-builder.serviceConfig.KeepAlive = lib.mkForce false;
+                # nix.linux-builder = {
+                #   enable = true;
+                #   package =
+                #     let
+                #       fixedPkgs = pkgs.extend (
+                #         final: prev: {
+                #           qemu = prev.qemu.overrideAttrs (old: {
+                #             buildInputs = (old.buildInputs or [ ]) ++ [ prev.apple-sdk_15 ];
+                #           });
+                #         }
+                #       );
+                #     in
+                #     fixedPkgs.darwin.linux-builder;
+                #   config = {
+                #     virtualisation.cores = lib.mkForce 8;
+                #     virtualisation.memorySize = lib.mkForce 8192; # 8GB RAM while you're at it
+                #   };
+                #   maxJobs = 6;
+                # };
+                # launchd.daemons.linux-builder.serviceConfig.RunAtLoad = lib.mkForce false;
+                # launchd.daemons.linux-builder.serviceConfig.KeepAlive = lib.mkForce false;
 
                 ## Homebrew packages config
-                HMB.masApps.enable = true; # mdutil #check for spotlight indexing
+                homebrew-pkgs.masApps.enable = true; # mdutil #check for spotlight indexing
 
                 ## Home-manager user config
                 home-manager.users.camille = {
@@ -357,12 +357,12 @@
                 darwin-system.defaults.dock.enable = true;
 
                 ## Package config
-                NIXPKG.darwinApps.enable = false;
+                system-pkgs.darwinApps.enable = false;
 
                 ## Homebrew packages config
-                HMB.masApps.enable = false; # mdutil check for spotlight indexing
-                HMB.casks.enable = false;
-                HMB.brews.enable = false;
+                homebrew-pkgs.masApps.enable = false; # mdutil check for spotlight indexing
+                homebrew-pkgs.casks.enable = false;
+                homebrew-pkgs.brews.enable = false;
 
                 ## Home-manager user config
                 home-manager.users.camille = {
@@ -466,8 +466,8 @@
                 nixos-system.plasma6.enable = true;
 
                 ## Package config
-                NIXPKG.linuxApps.enable = true;
-                NIXPKG.GUIapps.enable = true;
+                system-pkgs.linuxApps.enable = true;
+                system-pkgs.GUIapps.enable = true;
 
                 ## Home-manager user config
                 home-manager.users.camille = {

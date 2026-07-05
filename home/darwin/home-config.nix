@@ -23,9 +23,21 @@
     home.stateVersion = "26.05";
 
     home.packages =
+      let
+        x86_pkgs = import pkgs.path {
+          system = "x86_64-darwin";
+          config = pkgs.config;
+        };
+      in
       with pkgs;
       [
         macmon
+      ]
+      ++ lib.optionals (config.home-config.darwinApps.enable && config.home-config.GUIapps.enable) [
+        raycast
+        libresprite-app
+        prismlauncher
+        x86_pkgs.disk-inventory-x
       ]
       ++ [
         (pkgs.writeShellScriptBin "mountsftp" ''
@@ -78,11 +90,6 @@
           echo "$LIMIT,$PERM" | shortcuts run "Set Charge Limit" --input-path -
           echo -e "Set limit to $LIMIT% $([ "$PERM" = "false" ] && echo "until tomorrow")"
         '')
-      ]
-      ++ lib.optionals (config.home-config.darwinApps.enable && config.home-config.GUIapps.enable) [
-        raycast
-        libresprite-app
-        prismlauncher
       ];
   };
 }

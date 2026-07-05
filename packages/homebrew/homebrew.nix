@@ -1,6 +1,6 @@
 { config, lib, ... }:
 {
-  options.HMB = {
+  options.homebrew-pkgs = {
     enable = lib.mkEnableOption "Whether to enable the whole homebrew module";
     coreUtils = lib.mkEnableOption "Core utilities ?";
     brews.enable = lib.mkEnableOption "Whether to enable brews";
@@ -26,20 +26,19 @@
     );
 
     homebrew = {
-      enable = config.HMB.enable;
+      enable = config.homebrew-pkgs.enable;
       casks = # See https://nix-darwin.github.io/nix-darwin/manual/#opt-homebrew.casks
-        lib.optionals config.HMB.coreUtils [
+        lib.optionals config.homebrew-pkgs.coreUtils [
           "ghostty"
           "font-sf-pro"
           "BetterDisplay"
           "Raycast"
         ]
-        ++ lib.optionals config.HMB.brews.enable [
+        ++ lib.optionals config.homebrew-pkgs.brews.enable [
           "macfuse"
         ]
-        ++ lib.optionals config.HMB.casks.enable [
+        ++ lib.optionals config.homebrew-pkgs.casks.enable [
           # Utilities
-          "disk-inventory-x"
           "lulu"
           "knockknock"
           "hex-fiend"
@@ -51,40 +50,29 @@
           "suspicious-package"
           "protonvpn"
           "sf-symbols"
-          #"sirakugir"
-          #"binary-ninja-free"
+          "macusb"
           #"picoscope"
 
           # Media
           "vlc"
-          #"iina"
           "kid3"
           "gimp"
-          #"makemkv"
 
           # Other
           "claude"
           "discord"
-          "google-chrome"
-          #"dockdoor"
-          #"alcove"
 
           # Games
           "steamcmd"
           "steam"
-          #"gog-galaxy"
         ];
       brews = # See https://nix-darwin.github.io/nix-darwin/manual/#opt-homebrew.brews
-        lib.optionals config.HMB.coreUtils [
-          #"tccutil"
-        ]
-        ++ lib.optionals config.HMB.brews.enable [
-          #"batt"
-          "betterdisplaycli"
-
+        lib.optionals config.homebrew-pkgs.coreUtils [
           # System tooling
           "dyld-shared-cache-extractor"
-          "ldid"
+        ]
+        ++ lib.optionals config.homebrew-pkgs.brews.enable [
+          "betterdisplaycli"
 
           "ext4fuse-mac" # sudo ext4fuse <diskXsX> <mountPoint> -o allow_other -o umask=000
           "sshfs-mac" # sshfs <user>@<host>:<dir> <mountPoint> -o identityFile=<pathToSSH-Key>
@@ -104,14 +92,14 @@
           "python@3.13"
           "glib"
         ]
-        ++ lib.optionals config.HMB.masApps.enable [
+        ++ lib.optionals config.homebrew-pkgs.masApps.enable [
           "mas"
         ]
         ++ lib.optionals config.home-manager.users.camille.programs.sketchybar.enable [
           "media-control"
         ];
 
-      masApps = lib.mkIf config.HMB.masApps.enable {
+      masApps = lib.mkIf config.homebrew-pkgs.masApps.enable {
         # See https://nix-darwin.github.io/nix-darwin/manual/#opt-homebrew.masApps
         # "unfortunately apps removed from this option will not be uninstalled automatically even if homebrew.onActivation.cleanup is set to "uninstall" or "zap""
         actions = 1586435171;
@@ -123,10 +111,6 @@
         KeyNote = 409183694;
         FolderQuickLook = 6753110395;
         wBlock = 6746388723;
-        #AppleConfigurator = 1037126344;
-        #amphetamine = 937984704;
-        #Testflight = 899247664;
-        #CrystalFetch = 6454431289;
       };
 
       taps = [

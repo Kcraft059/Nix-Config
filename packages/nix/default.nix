@@ -3,9 +3,9 @@
   imports = [
     ./nixpackages.nix
   ];
-  NIXPKG.coreUtils = lib.mkDefault true;
-  NIXPKG.additionnals.enable = lib.mkDefault true;
-  NIXPKG.GUIapps.enable = lib.mkDefault true;
-  NIXPKG.darwinApps.enable = lib.mkDefault false;
-  NIXPKG.linuxApps.enable = lib.mkDefault false;
+  system-pkgs.coreUtils = lib.mkDefault true;
+  system-pkgs.additionnals.enable = lib.mkDefault true;
+  system-pkgs.GUIapps.enable = lib.mkDefault true;
+  system-pkgs.darwinApps.enable = lib.mkDefault false;
+  system-pkgs.linuxApps.enable = lib.mkDefault false;
 }
