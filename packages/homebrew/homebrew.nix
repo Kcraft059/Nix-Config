@@ -65,6 +65,7 @@
           # Games
           "steamcmd"
           "steam"
+          "gog-galaxy"
         ];
       brews = # See https://nix-darwin.github.io/nix-darwin/manual/#opt-homebrew.brews
         lib.optionals config.homebrew-pkgs.coreUtils [

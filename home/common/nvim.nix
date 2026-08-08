@@ -164,7 +164,7 @@ let
       luaOptions = ''
         {
         	cmd = { 'clangd' },
-        	filetypes = { 'c', 'cpp' },
+        	filetypes = { 'c', 'cpp', 'objc' },
         	capabilities = vim.lsp.protocol.make_client_capabilities(),  
         	root_dir = function(bufnr, on_dir)
             local fname = vim.api.nvim_buf_get_name(bufnr)

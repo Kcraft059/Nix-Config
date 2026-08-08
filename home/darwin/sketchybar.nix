@@ -67,8 +67,8 @@ in
                   }
 
                   controls = {
-                    "Control Center,Bluetooth",
-                    "Control Center,FocusModes"
+                    { icon = "􀉣", app = "com.apple.MenuBarAgent", id = "com.apple.menuextra.bluetooth" },
+                    { icon = "􀆺", app = "com.apple.MenuBarAgent", id = "com.apple.menuextra.focusmode" },
                   }
 
 

@@ -298,27 +298,28 @@
                 system-pkgs.darwinApps.enable = true;
 
                 ## Packages config
-                # nix.linux-builder = {
-                #   enable = true;
-                #   package =
-                #     let
-                #       fixedPkgs = pkgs.extend (
-                #         final: prev: {
-                #           qemu = prev.qemu.overrideAttrs (old: {
-                #             buildInputs = (old.buildInputs or [ ]) ++ [ prev.apple-sdk_15 ];
-                #           });
-                #         }
-                #       );
-                #     in
-                #     fixedPkgs.darwin.linux-builder;
-                #   config = {
-                #     virtualisation.cores = lib.mkForce 8;
-                #     virtualisation.memorySize = lib.mkForce 8192; # 8GB RAM while you're at it
-                #   };
-                #   maxJobs = 6;
-                # };
-                # launchd.daemons.linux-builder.serviceConfig.RunAtLoad = lib.mkForce false;
-                # launchd.daemons.linux-builder.serviceConfig.KeepAlive = lib.mkForce false;
+                nix.linux-builder = {
+                  enable = true;
+                  package =
+                    let
+                      fixedPkgs = pkgs.extend (
+                        final: prev: {
+                          qemu = prev.qemu.overrideAttrs (old: {
+                            buildInputs = (old.buildInputs or [ ]) ++ [ prev.apple-sdk_15 ];
+                          });
+                        }
+                      );
+                    in
+                    fixedPkgs.darwin.linux-builder;
+                  config = {
+                    virtualisation.cores = lib.mkForce 8;
+                    virtualisation.memorySize = lib.mkForce 8192; # 8GB RAM while you're at it
+                  };
+                  ephemeral = true;
+                  maxJobs = 6;
+                };
+                launchd.daemons.linux-builder.serviceConfig.RunAtLoad = lib.mkForce false;
+                launchd.daemons.linux-builder.serviceConfig.KeepAlive = lib.mkForce false;
 
                 ## Homebrew packages config
                 homebrew-pkgs.masApps.enable = true; # mdutil #check for spotlight indexing
