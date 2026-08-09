@@ -5,6 +5,7 @@
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
+    historyWidget.command = "";
     defaultOptions = [
       "--style full"
       "--height 80%"

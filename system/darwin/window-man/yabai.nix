@@ -31,6 +31,7 @@ in
 
       enable = enable-yabai;
       enableScriptingAddition = true; # `sudo nvram boot-args="-arm64e_preview_abi"`
+      package = pkgs.yabai-patch;
 
       config = {
         layout = "bsp";

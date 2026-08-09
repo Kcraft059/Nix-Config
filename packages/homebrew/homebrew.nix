@@ -51,6 +51,7 @@
           "protonvpn"
           "sf-symbols"
           "macusb"
+          "disk-inventory-x"
           #"picoscope"
 
           # Media
@@ -75,23 +76,23 @@
         ++ lib.optionals config.homebrew-pkgs.brews.enable [
           "betterdisplaycli"
 
-          "ext4fuse-mac" # sudo ext4fuse <diskXsX> <mountPoint> -o allow_other -o umask=000
-          "sshfs-mac" # sshfs <user>@<host>:<dir> <mountPoint> -o identityFile=<pathToSSH-Key>
-          "ntfs-3g-mac"
-
-          # dependencies -> declare to prevent uninstall
-          "ca-certificates"
-          "libunistring"
-          "gettext"
-          "mpdecimal"
-          "openssl@3"
-          "pcre2"
-          "python-packaging"
-          "readline"
-          "sqlite"
-          "xz"
-          "python@3.13"
-          "glib"
+          # "ext4fuse-mac" # sudo ext4fuse <diskXsX> <mountPoint> -o allow_other -o umask=000
+          # "sshfs-mac" # sshfs <user>@<host>:<dir> <mountPoint> -o identityFile=<pathToSSH-Key>
+          # "ntfs-3g-mac"
+          #
+          # # dependencies -> declare to prevent uninstall
+          # "ca-certificates"
+          # "libunistring"
+          # "gettext"
+          # "mpdecimal"
+          # "openssl@3"
+          # "pcre2"
+          # "python-packaging"
+          # "readline"
+          # "sqlite"
+          # "xz"
+          # "python@3.13"
+          # "glib"
         ]
         ++ lib.optionals config.homebrew-pkgs.masApps.enable [
           "mas"
@@ -108,9 +109,6 @@
         Pdf-Gear = 6469021132;
         prettyJsonSafari = 1445328303;
         Xcode = 497799835;
-        Whatsapp = 310633997;
-        KeyNote = 409183694;
-        FolderQuickLook = 6753110395;
         wBlock = 6746388723;
       };
 

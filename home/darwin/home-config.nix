@@ -23,12 +23,12 @@
     home.stateVersion = "26.05";
 
     home.packages =
-      let
-        x86_pkgs = import pkgs.path {
-          system = "x86_64-darwin";
-          config = pkgs.config;
-        };
-      in
+      # let
+      #   x86_pkgs = import pkgs.path {
+      #     system = "x86_64-darwin";
+      #     config = pkgs.config;
+      #   };
+      # in
       with pkgs;
       [
         macmon
@@ -37,18 +37,9 @@
         raycast
         libresprite-app
         prismlauncher
-        x86_pkgs.disk-inventory-x
       ]
       ++ [
-        (pkgs.writeShellScriptBin "mountsftp" ''
-          [[ -z "$1" ]] && exit 1
-          sshfs $1:/ /Volumes/$1 \
-                      -o reconnect,ServerAliveInterval=15,ServerAliveCountMax=10 \
-                      -o volname="$1 - SFTP" \
-                      -o volicon="${../../resources/Shared_Volume.tiff}" \
-                      ''${2:+"-o"} ''${2:+"umask=$2"}
-        '')
-        (pkgs.writeShellScriptBin "osswitch" ''
+                (pkgs.writeShellScriptBin "os-switch" ''
           sudo bless -mount "/Volumes/$(ls /Volumes/ | fzf)" -setBoot
           echo -ne "Reboot? (y/n): "
           read reboot_cf
