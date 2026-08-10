@@ -32,7 +32,7 @@
           "ghostty"
           "font-sf-pro"
           "BetterDisplay"
-          "Raycast"
+          # "Raycast"
         ]
         ++ lib.optionals config.homebrew-pkgs.brews.enable [
           "macfuse"

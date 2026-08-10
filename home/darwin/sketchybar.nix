@@ -66,9 +66,16 @@ in
                     ["Built-in"]            = { icon = "􁈸" }
                   }
 
+                  local system_menu_host
+                  if tonumber(os_version[1]) >= 27 then 
+                  	system_menu_host = "com.apple.MenuBarAgent"
+                  else 
+                  	system_menu_host = "com.apple.controlcenter"
+                  end
+
                   controls = {
-                    { icon = "􀉣", app = "com.apple.MenuBarAgent", id = "com.apple.menuextra.bluetooth" },
-                    { icon = "􀆺", app = "com.apple.MenuBarAgent", id = "com.apple.menuextra.focusmode" },
+                    { icon = "􀉣", app = system_menu_host, id = "com.apple.menuextra.bluetooth" },
+                    { icon = "􀆺", app = system_menu_host, id = "com.apple.menuextra.focusmode" },
                   }
 
 

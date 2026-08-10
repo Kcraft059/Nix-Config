@@ -1,5 +1,5 @@
-bin/menubar: menus.c | bin
-	clang -std=c99 -O3 -F/System/Library/PrivateFrameworks/ -framework Carbon -framework SkyLight $< -o $@
+bin/menubar: main.m | bin
+	clang -O3 -F/System/Library/PrivateFrameworks/ -framework Foundation -framework Cocoa -framework Carbon -framework ApplicationServices -framework SkyLight $< -o $@
 
 bin:
 	mkdir bin

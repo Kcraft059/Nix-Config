@@ -34,12 +34,12 @@
         macmon
       ]
       ++ lib.optionals (config.home-config.darwinApps.enable && config.home-config.GUIapps.enable) [
-        raycast
+        raycast-beta
         libresprite-app
         prismlauncher
       ]
       ++ [
-                (pkgs.writeShellScriptBin "os-switch" ''
+        (pkgs.writeShellScriptBin "os-switch" ''
           sudo bless -mount "/Volumes/$(ls /Volumes/ | fzf)" -setBoot
           echo -ne "Reboot? (y/n): "
           read reboot_cf

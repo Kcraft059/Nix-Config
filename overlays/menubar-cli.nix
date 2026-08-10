@@ -2,9 +2,9 @@
 pkgs.stdenv.mkDerivation {
 
   name = "menubar-cli";
-  version = "1.0";
+  version = "2.2";
 
-  src = ./src/menubar; # Or fetchFromGitHub if remote
+  src = ./src/menubar-cli; # Or fetchFromGitHub if remote
 
   nativeBuildInputs = [ pkgs.clang ]; # or gcc if needed
 
