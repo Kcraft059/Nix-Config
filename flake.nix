@@ -368,7 +368,7 @@
                 ## Home-manager user config
                 home-manager.users.camille = {
                   home-config.status-bar.enable = true;
-                  home-config.GUIapps.enable = true;
+                  home-config.GUIapps.enable = false;
                   home-config.darwinApps.enable = true;
                 };
               }
@@ -382,9 +382,12 @@
           full = nix-darwin.lib.darwinSystem full-generic;
           minimal = nix-darwin.lib.darwinSystem minimal-generic;
 
-          "MacBookAirCam-M3" = mkFinalConfig nix-darwin.lib.darwinSystem full-generic {
-            networking.hostName = "MacBookAirCam-M3";
-          };
+          "MacBookAirCam-M3" = mkFinalConfig nix-darwin.lib.darwinSystem full-generic (
+            { lib, ... }: {
+              networking.hostName = "MacBookAirCam-M3";
+              common.theme.wallpaper = lib.mkForce ./system/common/theme/wallpapers/Golden_Gate_Light.png;
+            }
+          );
 
           "MacBookAirCam-M3-minimal" = mkFinalConfig nix-darwin.lib.darwinSystem minimal-generic {
             networking.hostName = "MacBookAirCam-M3";

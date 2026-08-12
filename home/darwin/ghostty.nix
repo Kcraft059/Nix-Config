@@ -1,6 +1,5 @@
 {
   lib,
-  config,
   global-config,
   pkgs,
   ...
@@ -11,7 +10,7 @@ let
   ghostty-theme = import ../configs/ghostty-theme.nix { inherit theme; };
 in
 {
-  home.file.".config/ghostty/config".text = lib.optionalString config.home-config.GUIapps.enable (
+  home.file.".config/ghostty/config".text = (
     toKeyValue { mkKeyValue = mkKeyValueDefault { } " = "; } (
       {
         #theme = "dark:Rose Pine Moon,light:Rose Pine Dawn";

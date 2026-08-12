@@ -7,8 +7,7 @@
 }:
 let
   ## [IMPURE]
-  checkExists = path: builtins.pathExists path;
-  pathExist = path: (lib.mkIf ((checkExists path) || ((builtins.getEnv "HOME") == ""))) path;
+  ifPathExists = path: lib.mkIf (builtins.pathExists path) path;
 
   external-drive = config.darwin-system.external-drive;
   defaults = config.darwin-system.defaults;
@@ -224,9 +223,17 @@ in
           "/System/Applications/System Settings.app"
           "/System/Applications/App Store.app"
           "/System/Applications/Utilities/Disk Utility.app"
-          (pathExist "/Applications/Ghostty.app")
+          (ifPathExists "/Applications/Ghostty.app")
           (lib.mkIf (builtins.elem pkgs.vscode syspkgs) "${pkgs.vscode}/Applications/Visual Studio Code.app")
-          (pathExist "/Applications/Xcode.app")
+          (
+            let
+              xcode-path = lib.lists.findFirst (path: builtins.pathExists path) null [
+                "/Applications/Xcode-beta.app"
+                "/Applications/Xcode.app"
+              ];
+            in
+            lib.mkIf (xcode-path != null) xcode-path
+          )
           "/System/Applications/TextEdit.app"
           {
             spacer = {
@@ -236,7 +243,7 @@ in
           "/System/Applications/Passwords.app"
           (lib.mkIf (builtins.elem pkgs.firefox homepkgs) "${pkgs.firefox}/Applications/Firefox.app")
           "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app"
-          (pathExist "/Users/camille/Applications/YouTube.app")
+          (ifPathExists "/Users/camille/Applications/YouTube.app")
           (lib.mkIf (builtins.elem pkgs.prismlauncher homepkgs) "${pkgs.prismlauncher}/Applications/PrismLauncher.app")
           # (pathExist "/Applications/Whisky.app/")
           "/System/Applications/Messages.app"
@@ -251,12 +258,12 @@ in
           "/System/Applications/Photos.app"
           "/System/Applications/Music.app"
           # (lib.mkIf (builtins.elem pkgs.audacity config.home-manager.users.camille.home.packages) "${pkgs.audacity}/Applications/Audacity.app")
-          (pathExist "/Applications/VLC.app")
+          (ifPathExists "/Applications/VLC.app")
           (lib.mkIf external-drive.enable "${external-drive.path}/Applications/Microsoft Word.app")
           (lib.mkIf external-drive.enable "${external-drive.path}/Applications/Microsoft PowerPoint.app")
           (lib.mkIf external-drive.enable "${external-drive.path}/Applications/Microsoft Excel.app")
           "/System/Applications/Notes.app"
-          (pathExist "/Applications/PDFgear.app")
+          (ifPathExists "/Applications/PDFgear.app")
         ];
         persistent-others = [
           {

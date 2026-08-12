@@ -52,6 +52,7 @@
           "sf-symbols"
           "macusb"
           "disk-inventory-x"
+          # "aerial"
           #"picoscope"
 
           # Media

@@ -74,7 +74,7 @@ in
                   end
 
                   controls = {
-                    { icon = "􀉣", app = system_menu_host, id = "com.apple.menuextra.bluetooth" },
+                    -- { icon = "􀉣", app = system_menu_host, id = "com.apple.menuextra.bluetooth" },
                     { icon = "􀆺", app = system_menu_host, id = "com.apple.menuextra.focusmode" },
                   }
 

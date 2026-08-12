@@ -2,7 +2,7 @@
 {
   name = "rose_pine_moon";
 
-  wallpaper = ./Wallpapers/Cherry_Blossom.png;
+  wallpaper = ./wallpapers/Cherry_Blossom.png;
 
   theme = "light";
 

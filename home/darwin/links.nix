@@ -12,6 +12,7 @@ let
   directLinkedDirs = [
     # Directly links ${diskPath}/camille/${file} to ~/${file}
     "Developper"
+    "Projects"
     "Documents"
     "Movies"
     "Nix-Config"

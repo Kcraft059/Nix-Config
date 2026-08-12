@@ -23,12 +23,6 @@
     home.stateVersion = "26.05";
 
     home.packages =
-      # let
-      #   x86_pkgs = import pkgs.path {
-      #     system = "x86_64-darwin";
-      #     config = pkgs.config;
-      #   };
-      # in
       with pkgs;
       [
         macmon

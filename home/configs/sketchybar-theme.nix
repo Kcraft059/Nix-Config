@@ -12,8 +12,12 @@ in
   ${safe_theme_name} = {
     bar = {
       background = function(tpf, tpfunc)
-        return tpfunc(0x${if (theme.theme == "dark") then "161616" else "ffffff"}, 145)
-      end,
+  	    if tonumber(os_version[1]) >= 27 then 
+  				return tpfunc(0x${if (theme.theme == "dark") then "080808" else "ffffff"}, 160)
+  			else
+  				return tpfunc(0x${if (theme.theme == "dark") then "161616" else "ffffff"}, 145)
+  	    end
+  		end,
       border = function(tpf, tpfunc)
         return tpfunc(0x808080, tpf - 20)
       end
