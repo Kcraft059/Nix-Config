@@ -16,6 +16,5 @@
     ./bat.nix
   ];
 
-  home-config.GUIapps.enable = lib.mkDefault false;
-  home-config.external-drive.enable = lib.mkDefault false;
+  home-config.gui = lib.mkDefault false;
 }

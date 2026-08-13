@@ -15,7 +15,7 @@ in
     stylix.targets.alacritty.enable = false;
 
     programs.alacritty = {
-      enable = config.home-config.GUIapps.enable;
+      enable = config.home-config.gui;
       settings = (
         {
           font.size = 11;

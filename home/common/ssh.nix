@@ -5,9 +5,7 @@
   ...
 }:
 let
-  isDarwin =
-    (pkgs.stdenv.hostPlatform.system == "aarch64-darwin")
-    || (pkgs.stdenv.hostPlatform.system == "x86_64-darwin");
+  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
   darwinKeychainOption = {
     UseKeychain = "yes";
   };

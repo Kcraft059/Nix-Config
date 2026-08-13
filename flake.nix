@@ -213,9 +213,8 @@
             nix-homebrew.darwinModules.nix-homebrew
             stylix.darwinModules.stylix
 
-            # Personnal
+            # System
             ./system/darwin/default.nix
-            ./packages/default.nix
 
             ### Modules config
             default-secret-conf
@@ -292,9 +291,7 @@
                 darwin-system.defaults.dock.enable = true;
                 darwin-system.external-drive.enable = true;
                 darwin-system.external-drive.path = "/Volumes/Data";
-
                 darwin-system.wacom-driver.enable = true;
-                system-pkgs.darwinApps.enable = true;
 
                 ## Packages config
                 nix.linux-builder = {
@@ -321,12 +318,12 @@
                 launchd.daemons.linux-builder.serviceConfig.KeepAlive = lib.mkForce false;
 
                 ## Homebrew packages config
-                homebrew-pkgs.masApps.enable = true; # mdutil #check for spotlight indexing
+                homebrew-pkgs.mas = true;
 
                 ## Home-manager user config
                 home-manager.users.camille = {
                   home-config.status-bar.enable = true;
-                  home-config.GUIapps.enable = true;
+                  home-config.gui = true;
                   home-config.darwinApps.enable = true;
                 };
               })
@@ -356,18 +353,19 @@
                 };
                 darwin-system.defaults.dock.enable = true;
 
-                ## Package config
-                system-pkgs.darwinApps.enable = false;
+                ## System packages
+                system-pkgs.gui = false;
+                system-pkgs.additionnals = false;
 
                 ## Homebrew packages config
-                homebrew-pkgs.masApps.enable = false; # mdutil check for spotlight indexing
-                homebrew-pkgs.casks.enable = false;
-                homebrew-pkgs.brews.enable = false;
+                homebrew-pkgs.mas = false; # mdutil check for spotlight indexing
+                homebrew-pkgs.casks = false;
+                homebrew-pkgs.brews = false;
 
                 ## Home-manager user config
                 home-manager.users.camille = {
                   home-config.status-bar.enable = true;
-                  home-config.GUIapps.enable = false;
+                  home-config.gui = false;
                   home-config.darwinApps.enable = true;
                 };
               }
@@ -417,10 +415,6 @@
             stylix.nixosModules.stylix
             home-manager.nixosModules.home-manager
 
-            # Personnal
-            # ./config/nixos/default.nix # Is not general enough
-            ./packages/default.nix
-
             ### Modules config
             default-secret-conf
 
@@ -469,13 +463,13 @@
                 nixos-system.plasma6.enable = true;
 
                 ## Package config
-                system-pkgs.linuxApps.enable = true;
-                system-pkgs.GUIapps.enable = true;
+                system-pkgs.gui = true;
+                system-pkgs.additionnals = true;
 
                 ## Home-manager user config
                 home-manager.users.camille = {
-                  home-config.GUIapps.enable = true;
-                  home-config.plasma.enable = true;
+                  home-config.gui = true;
+                  home-config.plasma = true;
                   home-config.userPicture = ./resources/vflower-1.jpg;
                 };
               }

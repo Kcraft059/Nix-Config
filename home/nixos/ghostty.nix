@@ -13,7 +13,7 @@ in
   stylix.targets.ghostty.enable = false;
 
   programs.ghostty = {
-    enable = config.home-config.GUIapps.enable;
+    enable = config.home-config.gui;
     settings = (
       {
         #theme = "dark:Rose Pine Moon,light:Rose Pine Dawn";

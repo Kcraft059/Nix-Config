@@ -25,7 +25,7 @@ rec {
 
   programs.vscode = {
     package = pkgs.vscode;
-    enable = config.home-config.GUIapps.enable;
+    enable = config.home-config.gui;
     profiles.default = {
       userSettings =
         let

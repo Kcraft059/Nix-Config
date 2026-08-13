@@ -8,9 +8,7 @@
   config = {
     home.stateVersion = "26.05";
 
-    home.packages = [
-    ]
-    ++ lib.optionals config.home-config.GUIapps.enable [
+    home.packages = lib.optionals config.home-config.gui [
       pkgs.deskflow
     ];
   };

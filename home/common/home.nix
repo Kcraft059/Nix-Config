@@ -6,16 +6,7 @@
 }:
 {
   options = {
-    home-config.GUIapps.enable = lib.mkEnableOption "Install GUI-Apps ?";
-    home-config.external-drive.enable = lib.mkEnableOption "Enable linking of outside resources";
-    home-config.external-drive.path = lib.mkOption {
-      type = lib.types.str;
-      default = "/Volumes/Data";
-      example = lib.literalExpression "";
-      description = ''
-        Mount point for the shared disk
-      '';
-    };
+    home-config.gui = lib.mkEnableOption "Install GUI-Apps ?";
   };
 
   config = {
@@ -30,17 +21,9 @@
         viu # image viewer
         sops # Secret management
         bear # generate compile_comand
-        # mailsy # Temp email
-        # posting # Tui http request sender
-        # gum for clis
-        # mcrcon
-        # devenv maybe later see https://devenv.sh - alternative to nix-shells
-      ]
-      ++ lib.optionals config.home-config.GUIapps.enable (
-        with pkgs;
-        [
-          audacity
-        ]
-      );
+			]
+      ++ lib.optionals config.home-config.gui [
+        audacity
+      ];
   };
 }

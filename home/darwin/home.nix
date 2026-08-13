@@ -5,8 +5,17 @@
   ...
 }:
 {
-  options.home-config = {
-    darwinApps.enable = lib.mkEnableOption "Install Darwin-Apps ?";
+
+  options = {
+    home-config.external-drive.enable = lib.mkEnableOption "Enable linking of outside resources";
+    home-config.external-drive.path = lib.mkOption {
+      type = lib.types.str;
+      default = "/Volumes/Data";
+      example = lib.literalExpression "";
+      description = ''
+        Mount point for the shared disk
+      '';
+    };
   };
 
   config = {
@@ -17,7 +26,7 @@
       [
         macmon
       ]
-      ++ lib.optionals (config.home-config.darwinApps.enable && config.home-config.GUIapps.enable) [
+      ++ lib.optionals config.home-config.gui [
         raycast-beta
         libresprite-app
         prismlauncher

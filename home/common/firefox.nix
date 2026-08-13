@@ -2,7 +2,7 @@
 {
   # Programs
   programs.firefox = {
-    enable = config.home-config.GUIapps.enable;
+    enable = config.home-config.gui;
 
     profiles = {
       "default" = {

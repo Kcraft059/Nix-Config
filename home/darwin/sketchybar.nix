@@ -16,11 +16,9 @@ let
   };
 in
 {
-  options.home-config.status-bar = {
-    enable = lib.mkEnableOption "Whether to enable the Custom Menu-Bar service Service";
-  };
+  options.home-config.status-bar = lib.mkEnableOption "Whether to enable the Custom Menu-Bar service Service";
 
-  config = lib.mkIf config.home-config.status-bar.enable {
+  config = lib.mkIf config.home-config.status-bar {
     home.packages = with pkgs; [
       sketchybar-app-font
       menubar-cli
@@ -50,6 +48,7 @@ in
         sketchybar-app-font
         nix
         yabai
+        jq
       ];
     };
 
