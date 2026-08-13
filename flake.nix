@@ -537,7 +537,7 @@
                             ];
                           }
                         else
-                          oldAttrs
+                          builtins.trace "qt6 patch is not applied anymore" oldAttrs
                       );
 
                       overrideQtScope =

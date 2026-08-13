@@ -8,6 +8,7 @@
     ./sketchybar.nix
     ./files.nix
     ./rift.nix
+    ./atuin.nix
   ];
 
   home-config.status-bar = lib.mkDefault false;

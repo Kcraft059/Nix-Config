@@ -6,21 +6,9 @@
   ...
 }:
 let
-  clangd-config = ''
-    BasedOnStyle: LLVM
-    IndentWidth: 2
-    ColumnLimit: 0          # disables auto line wrapping
-    BreakBeforeBraces: Attach
-    DerivePointerAlignment: false
-    PointerAlignment: Left
-    BinPackParameters: false
-    AllowShortBlocksOnASingleLine : Always
-    AllowShortIfStatementsOnASingleLine : AllIfsAndElse
-  '';
-
   theme = global-config.common.theme;
 in
-rec {
+{
   stylix.targets.vscode.enable = false;
 
   programs.vscode = {
@@ -83,11 +71,13 @@ rec {
           "nix.serverSettings" = {
             nixd = {
               formatting.command = "nixfmt";
-/*               options = {
-                nix-darwin.expr = "(builtins.getFlake \${workspaceFolder}).darwinConfigurations.default";
-                nixos.expr = "(builtins.getFlake \${workspaceFolder}).nixosConfigurations.default";
-                home-manager.expr = "(builtins.getFlake \${workspaceFolder}).options.home-manager.users.type.getSubOptions []";
-              }; */
+              /*
+                options = {
+                             nix-darwin.expr = "(builtins.getFlake \${workspaceFolder}).darwinConfigurations.default";
+                             nixos.expr = "(builtins.getFlake \${workspaceFolder}).nixosConfigurations.default";
+                             home-manager.expr = "(builtins.getFlake \${workspaceFolder}).options.home-manager.users.type.getSubOptions []";
+                           };
+              */
             };
           };
 
@@ -117,20 +107,4 @@ rec {
     nixfmt # Nix formating
     nixd
   ];
-
-  # Only build file if clangd extension
-  home.file.".clang-format".text =
-    lib.optionalString (builtins.elem pkgs.vscode-marketplace.llvm-vs-code-extensions.vscode-clangd programs.vscode.profiles.default.extensions) clangd-config;
-
-  home.activation.externalDriveLinks =
-    lib.mkIf
-      (
-        (builtins.elem pkgs.vscode-marketplace.llvm-vs-code-extensions.vscode-clangd programs.vscode.profiles.default.extensions)
-        && config.home-config.external-drive.enable
-      )
-      (
-        lib.hm.dag.entryAfter [
-          "writeBoundary"
-        ] ''ln -sfn "${pkgs.writeText "clang-format" clangd-config}" "$HOME/Projects/.clang-format"''
-      );
 }

@@ -53,7 +53,8 @@ in
 {
   config = {
     home.file = {
-      "Library/Group Containers/UBF8T346G9.Office/User Content.localized/Themes.localized/Default Theme.potm".source = ../../resources/Excel_Default.potm;
+      "Library/Group Containers/UBF8T346G9.Office/User Content.localized/Themes.localized/Default Theme.potm".source =
+        ../../resources/Excel_Default.potm;
       "Library/Services/Force Unmount.workflow".source = ../../resources/Force-Unmount.workflow;
       "Library/Services/Make Symlink.workflow".source = ../../resources/Make-SymLink.workflow;
     }
@@ -63,5 +64,11 @@ in
       "Library/Application Support/PrismLauncher/themes/custom-theme/theme.json".text =
         prismlauncher-theme;
     });
+
+    home.activation.externalDriveLinks = lib.mkIf config.home-config.external-drive.enable (
+      lib.hm.dag.entryAfter [
+        "writeBoundary"
+      ] ''ln -sfn "$HOME/.clang-format" "$HOME/Projects/.clang-format"''
+    );
   };
 }

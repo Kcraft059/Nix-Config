@@ -7,6 +7,18 @@
 let
   theme = global-config.common.theme;
 
+  clangd-config = ''
+    BasedOnStyle: LLVM
+    IndentWidth: 2
+    ColumnLimit: 0          # disables auto line wrapping
+    BreakBeforeBraces: Attach
+    DerivePointerAlignment: false
+    PointerAlignment: Left
+    BinPackParameters: false
+    AllowShortBlocksOnASingleLine : Always
+    AllowShortIfStatementsOnASingleLine : AllIfsAndElse
+  '';
+
   nvim-plugins = [
     {
       package = pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [
@@ -275,4 +287,6 @@ in
     plugins = nvim-plugin-pkgs;
     initLua = nvim-config;
   };
+
+  home.file.".clang-format".text = clangd-config;
 }
