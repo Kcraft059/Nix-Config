@@ -324,7 +324,6 @@
                 home-manager.users.camille = {
                   home-config.status-bar.enable = true;
                   home-config.gui = true;
-                  home-config.darwinApps.enable = true;
                 };
               })
             ];
@@ -366,7 +365,6 @@
                 home-manager.users.camille = {
                   home-config.status-bar.enable = true;
                   home-config.gui = false;
-                  home-config.darwinApps.enable = true;
                 };
               }
             ];
