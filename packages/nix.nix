@@ -37,7 +37,7 @@
             ${pkgs.sshfs}/bin/sshfs $1:/ /Volumes/$1 \
             	-o reconnect,ServerAliveInterval=15,ServerAliveCountMax=10 \
             	-o volname="$1 - SFTP" \
-            	-o modules=volicon -o iconpath="${../../resources/Shared_Volume.tiff}" \
+            	-o modules=volicon -o iconpath="${../resources/Shared_Volume.tiff}" \
             	''${2:+"-o"} ''${2:+"umask=$2"}
           '')
         ]

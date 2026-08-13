@@ -5,16 +5,6 @@
   ...
 }:
 {
-  imports = [
-    # Include the results of the hardware scan.
-    ## [IMPURE]
-    ./hardware-configuration.nix
-  ];
-
-  /*disabledModules = [
-    "nixos/modules/rename.nix"
-  ];*/
-
   config = {
     environment.systemPackages =
       with pkgs;

@@ -160,7 +160,7 @@ let
     }
     {
       name = "clangd";
-      package = pkgs.clang;
+      package = pkgs.clang-tools;
       luaOptions = ''
         {
         	cmd = { 'clangd' },

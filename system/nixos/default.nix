@@ -1,8 +1,8 @@
 { lib, ... }:
 {
   imports = [
-    ./nixos-system.nix
-    ./nix-conf.nix
+    ./system.nix
+    ./nix.nix
     ./plasma.nix
     ../common/default.nix
   ];

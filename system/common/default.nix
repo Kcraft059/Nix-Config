@@ -1,6 +1,6 @@
 { ... }: {
   imports = [
-    ./nix-conf.nix
+    ./nix.nix
     ./theme/default.nix
   ];
 }

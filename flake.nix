@@ -184,7 +184,7 @@
           };
         in
         {
-          sops.defaultSopsFile = ./secrets/secrets.yaml;
+          sops.defaultSopsFile = ./secrets.yaml;
           sops.age.sshKeyPaths = [ ];
           sops.age.keyFile = sops-key-file;
           sops.secrets = {
@@ -215,8 +215,7 @@
 
             # Personnal
             ./system/darwin/default.nix
-            ./packages/nix/default.nix
-            ./packages/homebrew/default.nix
+            ./packages/default.nix
 
             ### Modules config
             default-secret-conf
@@ -420,7 +419,7 @@
 
             # Personnal
             # ./config/nixos/default.nix # Is not general enough
-            ./packages/nix/default.nix
+            ./packages/default.nix
 
             ### Modules config
             default-secret-conf

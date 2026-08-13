@@ -1,8 +1,8 @@
 { lib, ... }:
 {
   imports = [
-    ./nix-conf.nix
-    ./darwin-system.nix
+    ./nix.nix
+    ./system.nix
     ./wacom-driver.nix
     ./window-man/default.nix
     ../common/default.nix

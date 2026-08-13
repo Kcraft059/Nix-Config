@@ -9,16 +9,6 @@
     darwinApps.enable = lib.mkEnableOption "Install Darwin-Apps ?";
   };
 
-  imports = [
-    ./ghostty.nix
-    ./zsh.nix
-    ./quick-actions.nix
-    ./sketchybar.nix
-    ./app-defaults.nix
-    ./links.nix
-    ./rift.nix
-  ];
-
   config = {
     home.stateVersion = "26.05";
 

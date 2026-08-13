@@ -5,22 +5,6 @@
   ...
 }:
 {
-
-  imports = [
-    ./fastfetch.nix
-    ./git.nix
-    ./btop.nix
-    ./atuin.nix
-    ./alacritty.nix
-    ./ssh.nix
-    ./vscode.nix
-    ./firefox.nix
-    ./nvim.nix
-    ./fzf.nix
-    ./zsh.nix
-    ./bat.nix
-  ];
-
   options = {
     home-config.GUIapps.enable = lib.mkEnableOption "Install GUI-Apps ?";
     home-config.external-drive.enable = lib.mkEnableOption "Enable linking of outside resources";

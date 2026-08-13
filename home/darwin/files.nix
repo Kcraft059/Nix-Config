@@ -11,7 +11,6 @@ let
 
   directLinkedDirs = [
     # Directly links ${diskPath}/camille/${file} to ~/${file}
-    "Developper"
     "Projects"
     "Documents"
     "Movies"
@@ -54,8 +53,9 @@ in
 {
   config = {
     home.file = {
-      "Library/Group Containers/UBF8T346G9.Office/User Content.localized/Themes.localized/Default Theme.potm".source =
-        ../../resources/Excel_Default.potm;
+      "Library/Group Containers/UBF8T346G9.Office/User Content.localized/Themes.localized/Default Theme.potm".source = ../../resources/Excel_Default.potm;
+      "Library/Services/Force Unmount.workflow".source = ../../resources/Force-Unmount.workflow;
+      "Library/Services/Make Symlink.workflow".source = ../../resources/Make-SymLink.workflow;
     }
     // (lib.optionalAttrs external-drive.enable linkedHomeFiles)
     // (lib.optionalAttrs theme.enable {

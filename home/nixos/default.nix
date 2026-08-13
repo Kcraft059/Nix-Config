@@ -2,7 +2,9 @@
 {
   imports = [
     ../common/default.nix
-    ./home-config.nix
+    ./home.nix
+    ./plasma.nix
+    ./ghostty.nix
   ];
 
   options = {

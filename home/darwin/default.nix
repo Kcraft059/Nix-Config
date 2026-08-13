@@ -2,8 +2,14 @@
 {
   imports = [
     ../common/default.nix
-    ./home-config.nix
+    ./home.nix
+    ./ghostty.nix
+    ./zsh.nix
+    ./sketchybar.nix
+    ./files.nix
+    ./rift.nix
   ];
+
   home-config.GUIapps.enable = lib.mkDefault false;
   home-config.status-bar.enable = lib.mkDefault false;
   home-config.darwinApps.enable = lib.mkDefault false;
