@@ -322,7 +322,7 @@
 
                 ## Home-manager user config
                 home-manager.users.camille = {
-                  home-config.status-bar.enable = true;
+                  home-config.status-bar = true;
                   home-config.gui = true;
                 };
               })
@@ -363,7 +363,7 @@
 
                 ## Home-manager user config
                 home-manager.users.camille = {
-                  home-config.status-bar.enable = true;
+                  home-config.status-bar = true;
                   home-config.gui = false;
                 };
               }

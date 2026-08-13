@@ -52,42 +52,40 @@ in
       ];
     };
 
-    launchd.agents.sketchybar.config.EnvironmentVariables =
-      lib.mkIf config.home-config.status-bar.enable
-        (
-          lib.mkMerge [
-            {
-              SKETCHYBAR_CONFIG = "${pkgs.writeText "sketchybar-config.lua" (
-                ''
-                  bd_display_groups = {
-                    ["Dual External"]       = { icon = "􀨧" },
-                    ["Built-in + External"] = { icon = "􂤓" },
-                    ["Built-in"]            = { icon = "􁈸" }
-                  }
+    launchd.agents.sketchybar.config.EnvironmentVariables = lib.mkIf config.home-config.status-bar (
+      lib.mkMerge [
+        {
+          SKETCHYBAR_CONFIG = "${pkgs.writeText "sketchybar-config.lua" (
+            ''
+              bd_display_groups = {
+                ["Dual External"]       = { icon = "􀨧" },
+                ["Built-in + External"] = { icon = "􂤓" },
+                ["Built-in"]            = { icon = "􁈸" }
+              }
 
-                  local system_menu_host
-                  if tonumber(os_version[1]) >= 27 then 
-                  	system_menu_host = "com.apple.MenuBarAgent"
-                  else 
-                  	system_menu_host = "com.apple.controlcenter"
-                  end
+              local system_menu_host
+              if tonumber(os_version[1]) >= 27 then 
+              	system_menu_host = "com.apple.MenuBarAgent"
+              else 
+              	system_menu_host = "com.apple.controlcenter"
+              end
 
-                  controls = {
-                    -- { icon = "􀉣", app = system_menu_host, id = "com.apple.menuextra.bluetooth" },
-                    { icon = "􀆺", app = system_menu_host, id = "com.apple.menuextra.focusmode" },
-                  }
+              controls = {
+                -- { icon = "􀉣", app = system_menu_host, id = "com.apple.menuextra.bluetooth" },
+                { icon = "􀆺", app = system_menu_host, id = "com.apple.menuextra.focusmode" },
+              }
 
 
-                  git_key = "${global-config.sops.secrets.github-token.path}"
-                ''
-                # [THEME DEPENDENT]
-                + lib.optionalString theme.enable ''
-                  theme = "${safe_theme_name}"
-                  theme_file = "${pkgs.writeText "sketchybar-${theme.name}.lua" sketchybar-theme}"
-                ''
-              )}";
-            }
-          ]
-        );
+              git_key = "${global-config.sops.secrets.github-token.path}"
+            ''
+            # [THEME DEPENDENT]
+            + lib.optionalString theme.enable ''
+              theme = "${safe_theme_name}"
+              theme_file = "${pkgs.writeText "sketchybar-${theme.name}.lua" sketchybar-theme}"
+            ''
+          )}";
+        }
+      ]
+    );
   };
 }

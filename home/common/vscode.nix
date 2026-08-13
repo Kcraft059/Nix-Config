@@ -131,6 +131,6 @@ rec {
       (
         lib.hm.dag.entryAfter [
           "writeBoundary"
-        ] ''ln -sfn "${pkgs.writeText "clang-format" clangd-config}" "$HOME/Developper/.clang-format"''
+        ] ''ln -sfn "${pkgs.writeText "clang-format" clangd-config}" "$HOME/Projects/.clang-format"''
       );
 }
