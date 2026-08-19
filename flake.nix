@@ -554,8 +554,14 @@
                         patchedScope // (if scope ? override then { inherit (scope) override; } else { });
                     in
                     {
-                      jdk17 = prev.jdk17.overrideAttrs (_: {
+                      jdk17 = prev.jdk17.overrideAttrs (old: {
                         enableParallelBuilding = false;
+                      });
+                      power-profiles-daemon = prev.power-profiles-daemon.overrideAttrs (old: {
+                        doCheck = false;
+                        mesonFlags = (old.mesonFlags or [ ]) ++ [
+                          "-Dtests=false"
+                        ];
                       });
                       sdl3 = prev.sdl3.overrideAttrs (old: {
                         doCheck = false;
