@@ -21,9 +21,10 @@
         viu # image viewer
         sops # Secret management
         bear # generate compile_comand
-			]
+      ]
       ++ lib.optionals config.home-config.gui [
         audacity
+        signal-desktop
       ];
   };
 }
