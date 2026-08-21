@@ -46,7 +46,6 @@
           "knockknock"
           "hex-fiend"
           "deskflow"
-          "appcleaner"
           "whisky"
           "the-unarchiver"
           "balenaetcher"
@@ -55,6 +54,7 @@
           "sf-symbols"
           "macusb"
           "disk-inventory-x"
+          "vorssaint"
           #"picoscope"
 
           # Media
@@ -77,6 +77,7 @@
         ]
         ++ lib.optionals config.homebrew-pkgs.brews [
           "betterdisplaycli"
+          "mole"
         ]
         ++ lib.optionals config.homebrew-pkgs.mas [
           "mas"
