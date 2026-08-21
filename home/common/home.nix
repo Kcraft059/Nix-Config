@@ -24,7 +24,6 @@
       ]
       ++ lib.optionals config.home-config.gui [
         audacity
-        signal-desktop
       ];
   };
 }

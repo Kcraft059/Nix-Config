@@ -30,6 +30,7 @@
         raycast-beta
         libresprite-app
         prismlauncher
+        signal-desktop
       ]
       ++ [
         (pkgs.writeShellScriptBin "os-switch" ''

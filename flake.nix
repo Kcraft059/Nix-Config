@@ -520,56 +520,20 @@
 
                 ## Patches
                 nixpkgs.overlays = [
-                  (
-                    final: prev:
-                    let
-                      patchedQtbase = prev.qt6.qtbase.overrideAttrs (
-                        oldAttrs:
-                        if oldAttrs.version == "6.11.0" then
-                          {
-                            patches = (oldAttrs.patches or [ ]) ++ [
-                              # https://codereview.qt-project.org/c/qt/qtbase/+/726211/1
-                              (prev.fetchpatch {
-                                name = "qtbase-gerrit-726211.patch";
-                                url = "https://codereview.qt-project.org/changes/qt%2Fqtbase~726211/revisions/1/patch?download&raw";
-                                hash = "sha256-xRYPWuFZGf7JZmYBiGoSaN/3v3c7+GxtHIYFtaekP70=";
-                              })
-                            ];
-                          }
-                        else
-                          builtins.trace "qt6 patch is not applied anymore" oldAttrs
-                      );
-
-                      overrideQtScope =
-                        scope:
-                        let
-                          patchedScope = scope.overrideScope (
-                            qfinal: qprev: {
-                              qtbase = patchedQtbase;
-                            }
-                          );
-                        in
-                        # preserve original .override functions
-                        # required by python-packages.nix and other deep framework evaluators
-                        patchedScope // (if scope ? override then { inherit (scope) override; } else { });
-                    in
-                    {
-                      jdk17 = prev.jdk17.overrideAttrs (old: {
-                        enableParallelBuilding = false;
-                      });
-                      power-profiles-daemon = prev.power-profiles-daemon.overrideAttrs (old: {
-                        doCheck = false;
-                        mesonFlags = (old.mesonFlags or [ ]) ++ [
-                          "-Dtests=false"
-                        ];
-                      });
-                      sdl3 = prev.sdl3.overrideAttrs (old: {
-                        doCheck = false;
-                      });
-                      qt6 = overrideQtScope prev.qt6;
-                      qt6Packages = overrideQtScope prev.qt6Packages;
-                    }
-                  )
+                  (final: prev: {
+                    jdk17 = prev.jdk17.overrideAttrs (old: {
+                      enableParallelBuilding = false;
+                    });
+                    power-profiles-daemon = prev.power-profiles-daemon.overrideAttrs (old: {
+                      doCheck = false;
+                      mesonFlags = (old.mesonFlags or [ ]) ++ [
+                        "-Dtests=false"
+                      ];
+                    });
+                    sdl3 = prev.sdl3.overrideAttrs (old: {
+                      doCheck = false;
+                    });
+                  })
                 ];
               }
             ];
