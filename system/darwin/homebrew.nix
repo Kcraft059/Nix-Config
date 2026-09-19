@@ -16,13 +16,16 @@
     # Pre-activation patches
     system.activationScripts.homebrew.text = lib.mkBefore (
       ''
-        echo -e "Running Patches for Homebrew bundle..." >&2
+                echo -e "Running Patches for Homebrew bundle..." >&2
+        	export HOMEBREW_NO_REQUIRE_TAP_TRUST=1
       ''
-      + (lib.concatStringsSep "\n" (
-        map (
-          tap: "su - ${config.nix-homebrew.user} -c '/opt/homebrew/bin/brew trust ${tap.name} > /dev/null';"
-        ) config.homebrew.taps
-      ))
+      /*
+        + (lib.concatStringsSep "\n" (
+          map (
+            tap: "su - ${config.nix-homebrew.user} -c '/opt/homebrew/bin/brew trust ${tap.name} > /dev/null';"
+          ) config.homebrew.taps
+        ))
+      */
       + lib.optionalString (builtins.any (c: c.name == "macfuse") config.homebrew.casks) ''
         echo -e "Patching macFuse dependency..." >&2
         touch /usr/local/include/fuse.h
@@ -53,7 +56,8 @@
           "protonvpn"
           "sf-symbols"
           "macusb"
-          "disk-inventory-x"
+          # "disk-inventory-x"
+          "radix"
           "vorssaint"
           #"picoscope"
 
@@ -61,6 +65,7 @@
           "vlc"
           "kid3"
           "gimp"
+          "libreoffice"
 
           # Other
           "claude"
@@ -95,16 +100,10 @@
         wBlock = 6746388723;
       };
 
-      taps = [
-        "homebrew/homebrew-cask"
-        "homebrew/homebrew-core"
-        "homebrew/homebrew-bundle"
-        "gromgit/homebrew-fuse"
-        "waydabber/homebrew-betterdisplay"
-        "Sirakugir-App/homebrew-sirakugir"
-        "deskflow/homebrew-tap"
-        "keith/formulae"
-      ];
+      taps = lib.map (name: {
+        inherit name;
+        trusted = true;
+      }) (builtins.attrNames config.nix-homebrew.taps);
 
       onActivation.autoUpdate = true;
       onActivation.upgrade = true;

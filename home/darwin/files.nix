@@ -16,6 +16,7 @@ let
     "Movies"
     "Nix-Config"
     "Pictures"
+    "Music"
   ];
 
   linkedDirs = {

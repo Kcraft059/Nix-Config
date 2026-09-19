@@ -259,9 +259,9 @@ in
           "/System/Applications/Music.app"
           # (lib.mkIf (builtins.elem pkgs.audacity config.home-manager.users.camille.home.packages) "${pkgs.audacity}/Applications/Audacity.app")
           (ifPathExists "/Applications/VLC.app")
-          (lib.mkIf external-drive.enable "${external-drive.path}/Applications/Microsoft Word.app")
-          (lib.mkIf external-drive.enable "${external-drive.path}/Applications/Microsoft PowerPoint.app")
-          (lib.mkIf external-drive.enable "${external-drive.path}/Applications/Microsoft Excel.app")
+          (lib.mkIf external-drive.enable "${external-drive.path}/Applications/Word.app")
+          (lib.mkIf external-drive.enable "${external-drive.path}/Applications/PowerPoint.app")
+          (lib.mkIf external-drive.enable "${external-drive.path}/Applications/Excel.app")
           "/System/Applications/Notes.app"
           (ifPathExists "/Applications/PDFgear.app")
         ];

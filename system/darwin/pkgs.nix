@@ -11,6 +11,7 @@
     ++ lib.optionals config.system-pkgs.additionnals [
       pkgs.nixos-rebuild
       pkgs.smc-fuzzer
+      pkgs.palera1n
       (pkgs.writeShellScriptBin "mount_sftp" ''
         [[ -z "$1" ]] && exit 1
         ${pkgs.sshfs}/bin/sshfs $1:/ /Volumes/$1 \

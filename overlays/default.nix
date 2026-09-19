@@ -7,6 +7,7 @@ self: super: {
   rift = super.callPackage ./rift.nix { inherit inputs; };
   libresprite-app = super.callPackage ./libresprite-app.nix { };
   wacom-tablet-driver = super.callPackage ./wacom-tablet-driver.nix { };
+  palera1n = super.callPackage ./palera1n.nix { };
 
   yabai-patch = import ./yabai.nix { inherit super; };
 }

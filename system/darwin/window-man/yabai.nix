@@ -47,7 +47,7 @@ in
         window_opacity_duration = 0.15;
         window_animation_duration = 0.22;
 
-        menubar_opacity = 0.75;
+        menubar_opacity = 0.0;
         external_bar = "all:${toString barHeight}:0"; # Only add if sketchybar
         top_padding = global-padding;
         bottom_padding = global-padding;

@@ -25,6 +25,7 @@
         pkgs.sshfs
         pkgs.ntfs3g
         pkgs.ext4fuse
+        pkgs.dislocker
         pkgs.ffmpeg
       ]
       ++ lib.optionals config.system-pkgs.gui [
@@ -34,6 +35,7 @@
     fonts.packages =
       lib.optionals config.system-pkgs.core [
         pkgs.nerd-fonts.jetbrains-mono
+        pkgs.sketchybar-app-font
       ]
       ++ lib.optionals config.system-pkgs.additionnals [
         pkgs.monocraft
