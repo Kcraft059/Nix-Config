@@ -16,10 +16,11 @@ let
     "Movies"
     "Nix-Config"
     "Pictures"
-    "Music"
+    # "Music"
   ];
 
   linkedDirs = {
+    "Music/Perso" = "camille/Music";
     "Library/Containers/com.isaacmarovitz.Whisky" = "camille/Apps-Data/Whisky";
     "Library/Application Support/PrismLauncher/instances" = "camille/Apps-Data/Prism/instances";
     "Library/Application Support/PrismLauncher/accounts.json" = "camille/Apps-Data/Prism/accounts.json";
